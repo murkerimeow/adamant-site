@@ -1,0 +1,75 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3000
+- Network:       http://10.8.1.1:3000
+✓ Ready in 224ms
+[23:57:53] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[00:05:17] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 9
+    err: {
+      "type": "Error",
+      "message": "Telegram sendMessage failed (401): {\"ok\":false,\"error_code\":401,\"description\":\"Unauthorized\"}",
+      "stack":
+          Error: Telegram sendMessage failed (401): {"ok":false,"error_code":401,"description":"Unauthorized"}
+              at f (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125235)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async g.hooks.afterChange (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125622)
+              at async aa (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:132:43301)
+              at async dq (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:69709)
+              at async i9 (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:23468)
+              at async C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:31884
+              at async rB.do (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:20926)
+              at async rB.handle (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:25709)
+              at async A (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:36600)
+    }
+[00:05:48] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 10
+    err: {
+      "type": "Error",
+      "message": "Telegram sendMessage failed (401): {\"ok\":false,\"error_code\":401,\"description\":\"Unauthorized\"}",
+      "stack":
+          Error: Telegram sendMessage failed (401): {"ok":false,"error_code":401,"description":"Unauthorized"}
+              at f (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125235)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async g.hooks.afterChange (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125622)
+              at async aa (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:132:43301)
+              at async dq (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:69709)
+              at async i9 (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:23468)
+              at async C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:31884
+              at async rB.do (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:20926)
+              at async rB.handle (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:25709)
+              at async A (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:36600)
+    }
+[00:06:45] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 11
+    err: {
+      "type": "Error",
+      "message": "Telegram sendMessage failed (401): {\"ok\":false,\"error_code\":401,\"description\":\"Unauthorized\"}",
+      "stack":
+          Error: Telegram sendMessage failed (401): {"ok":false,"error_code":401,"description":"Unauthorized"}
+              at f (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125235)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async g.hooks.afterChange (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125622)
+              at async aa (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:132:43301)
+              at async dq (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:69709)
+              at async i9 (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:23468)
+              at async C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:31884
+              at async rB.do (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:20926)
+              at async rB.handle (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:25709)
+              at async A (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:36600)
+    }
+[00:08:10] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 12
+    err: {
+      "type": "TypeError",
+      "message": "fetch failed: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)",
+      "stack":
+          TypeError: fetch failed
+          caused by: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+              at onConnectTimeout (node:internal/deps/undici/undici:1981:23)
+              at Immediate._onImmediate (node:internal/deps/undici/undici:1947:35)
+              at process.processImmediate (node:internal/timers:504:21)
+    }

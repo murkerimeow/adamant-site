@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Карточка товара | Адамант</title>
+    <link rel="icon" type="image/png" href="лого.PNG">
+    <link rel="shortcut icon" type="image/png" href="лого.PNG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page inner-page product-page" aria-label="Карточка товара Адамант">
+      <header class="header">
+        <a class="brand" href="index.html" aria-label="Адамант">
+          <img class="brand__mark" src="лого.PNG" alt="">
+          <span class="brand__name">АДАМАНТ</span>
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link" href="index.html">Главная</a>
+          <a class="nav__link" href="services.html">Услуги</a>
+          <a class="nav__link" href="portfolio.html">Порфолио</a>
+          <a class="nav__link nav__link--active" href="catalog.html">Каталог</a>
+          <a class="nav__link" href="blog.html">Блог</a>
+          <a class="nav__link" href="contacts.html">Контакты</a>
+          <a class="nav__link" href="about.html">О нас</a>
+        </nav>
+
+        <a class="phone" href="tel:+79111970457">+7 (911) 197-04-57</a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <section class="product-detail" aria-labelledby="product-title" data-product-page>
+        <a class="product-detail__back" href="catalog.html">← Назад к каталогу</a>
+
+        <div class="product-detail__layout">
+          <div class="product-detail__content">
+            <h1 id="product-title" data-product-title>Современный дом</h1>
+            <p data-product-description>Спроектируем и построим современный загородный дом в Санкт-Петербурге и Ленинградской области под ключ и в срок. <span>Начните с бесплатного расчета сметы за 1 день.</span></p>
+            <button class="product-detail__button js-open-estimate" type="button">Заказать расчет</button>
+            <div class="product-detail__tags" aria-label="Категории" data-product-tags>
+              <span>Современный</span>
+              <span>Загородный дом</span>
+              <span>Под ключ</span>
+              <span>Скидки</span>
+            </div>
+          </div>
+
+          <div class="product-detail__media" aria-hidden="true">
+            <img src="Picture.PNG" alt="">
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>

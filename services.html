@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Услуги | Адамант</title>
+    <link rel="icon" type="image/png" href="лого.PNG">
+    <link rel="shortcut icon" type="image/png" href="лого.PNG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="services-page">
+    <main class="page inner-page" aria-label="Услуги Адамант">
+      <header class="header">
+        <a class="brand" href="index.html" aria-label="Адамант">
+          <img class="brand__mark" src="лого.PNG" alt="">
+          <span class="brand__name">АДАМАНТ</span>
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link" href="index.html">Главная</a>
+          <a class="nav__link nav__link--active" href="services.html">Услуги</a>
+          <a class="nav__link" href="portfolio.html">Порфолио</a>
+          <a class="nav__link" href="catalog.html">Каталог</a>
+          <a class="nav__link" href="blog.html">Блог</a>
+          <a class="nav__link" href="contacts.html">Контакты</a>
+          <a class="nav__link" href="about.html">О нас</a>
+        </nav>
+
+        <a class="phone" href="tel:+79111970457">+7 (911) 197-04-57</a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <section class="section section--services" aria-labelledby="services-title">
+        <div class="section__intro">
+          <h1 id="services-title">Наши услуги</h1>
+          <p>Мы предлагаем весь комплекс услуг по строительству современных<br>и комфортных частных домов под ключ</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card service-card--image" data-card-link="catalog-item.html?item=timber&source=services" tabindex="0"><img class="service-card__image" src="дом из бруса.png" alt=""><div><h2>Дом из бруса</h2><p>Строительство теплых деревянных домов для постоянного проживания и отдыха</p><div class="service-card__tags"><span>Дерево</span><span>Под ключ</span></div></div><a href="catalog-item.html?item=timber&source=services">Подробнее <span aria-hidden="true">→</span></a></article>
+          <article class="service-card service-card--image" data-card-link="catalog-item.html?item=gasbeton&source=services" tabindex="0"><img class="service-card__image" src="дом из газобетона.png" alt=""><div><h2>Дом из газобетона</h2><p>Надежные каменные дома с продуманной планировкой, инженерией и отделкой</p><div class="service-card__tags"><span>Газобетон</span><span>Теплый контур</span></div></div><a href="catalog-item.html?item=gasbeton&source=services">Подробнее <span aria-hidden="true">→</span></a></article>
+          <article class="service-card service-card--image" data-card-link="catalog-item.html?item=frame&source=services" tabindex="0"><img class="service-card__image" src="каркасный дом.png" alt=""><div><h2>Каркасный дом</h2><p>Энергоэффективные каркасные дома с быстрыми сроками строительства</p><div class="service-card__tags"><span>Каркас</span><span>Быстро</span></div></div><a href="catalog-item.html?item=frame&source=services">Подробнее <span aria-hidden="true">→</span></a></article>
+          <article class="service-card service-card--image" data-card-link="catalog-item.html?item=commercial&source=services" tabindex="0"><img class="service-card__image" src="отделка коммерческих помещений.png" alt=""><div><h2>Отделка коммерческого помещения</h2><p>Комплексная отделка офисов, торговых и рабочих пространств под задачу бизнеса</p><div class="service-card__tags"><span>Офисы</span><span>Бизнес</span></div></div><a href="catalog-item.html?item=commercial&source=services">Подробнее <span aria-hidden="true">→</span></a></article>
+          <article class="service-card service-card--image" data-card-link="catalog-item.html?item=renovation&source=services" tabindex="0"><img class="service-card__image" src="ремонт квартир.png" alt=""><div><h2>Ремонт квартир</h2><p>Ремонт квартир с контролем сроков, материалов и качества выполнения работ</p><div class="service-card__tags"><span>Квартира</span><span>Контроль</span></div></div><a href="catalog-item.html?item=renovation&source=services">Подробнее <span aria-hidden="true">→</span></a></article>
+        </div>
+      </section>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>

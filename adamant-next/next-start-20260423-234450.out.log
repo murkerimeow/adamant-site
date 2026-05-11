@@ -1,0 +1,43 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3000
+- Network:       http://10.8.1.1:3000
+✓ Ready in 255ms
+[23:44:51] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[23:45:09] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 2
+    err: {
+      "type": "Error",
+      "message": "Telegram sendMessage failed (400): {\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: chat not found\"}",
+      "stack":
+          Error: Telegram sendMessage failed (400): {"ok":false,"error_code":400,"description":"Bad Request: chat not found"}
+              at f (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125235)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async g.hooks.afterChange (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125622)
+              at async aa (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:132:43301)
+              at async dq (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:69709)
+              at async i9 (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:23468)
+              at async C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:31884
+              at async rB.do (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:20926)
+              at async rB.handle (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:25709)
+              at async A (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:36600)
+    }
+[23:47:34] [31mERROR[39m: [36mTelegram notification failed[39m
+    [35mcollection[39m: "requests"
+    [35mrequestId[39m: 3
+    err: {
+      "type": "Error",
+      "message": "Telegram sendMessage failed (400): {\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: chat not found\"}",
+      "stack":
+          Error: Telegram sendMessage failed (400): {"ok":false,"error_code":400,"description":"Bad Request: chat not found"}
+              at f (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125235)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async g.hooks.afterChange (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:125622)
+              at async aa (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:132:43301)
+              at async dq (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0m~j9mh._.js:324:69709)
+              at async i9 (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:23468)
+              at async C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:31884
+              at async rB.do (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:20926)
+              at async rB.handle (C:\Users\ASUS\Desktop\Адамант\adamant-next\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:25709)
+              at async A (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\_13bdt4v._.js:321:36600)
+    }

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>О нас | Адамант</title>
+    <link rel="icon" type="image/png" href="лого.PNG">
+    <link rel="shortcut icon" type="image/png" href="лого.PNG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page inner-page" aria-label="О компании Адамант">
+      <header class="header">
+        <a class="brand" href="index.html" aria-label="Адамант"><img class="brand__mark" src="лого.PNG" alt=""><span class="brand__name">АДАМАНТ</span></a>
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link" href="index.html">Главная</a><a class="nav__link" href="services.html">Услуги</a><a class="nav__link" href="portfolio.html">Порфолио</a><a class="nav__link" href="catalog.html">Каталог</a><a class="nav__link" href="blog.html">Блог</a><a class="nav__link" href="contacts.html">Контакты</a><a class="nav__link nav__link--active" href="about.html">О нас</a>
+        </nav>
+        <a class="phone" href="tel:+79111970457">+7 (911) 197-04-57</a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </header>
+      <section class="section about-section" aria-labelledby="about-title">
+        <div class="about-hero">
+          <div class="section__intro about-copy">
+            <span class="about-kicker">О компании</span>
+            <h1 id="about-title">Строим загородные дома с контролем сроков, бюджета и качества</h1>
+            <p>«Адамант Строй» проектирует и строит современные частные дома под ключ в Санкт-Петербурге и Ленинградской области.</p>
+            <p>Мы ведем клиента от первой консультации и расчета сметы до сдачи готового дома: фиксируем состав работ, подбираем материалы и контролируем ключевые этапы строительства.</p>
+          </div>
+
+          <figure class="about-media" aria-label="Строительство современного дома">
+            <img src="строительство.png" alt="">
+            <figcaption>
+              <strong>15 лет</strong>
+              <span>практического опыта в строительстве и отделке</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="about-principles" aria-label="Принципы работы">
+          <article>
+            <span>01</span>
+            <h2>Прозрачная смета</h2>
+            <p>Фиксируем состав работ и материалов до старта, чтобы бюджет был понятен заранее.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h2>Единая команда</h2>
+            <p>Проектировщики, инженеры и строители работают в общей логике проекта.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h2>Контроль качества</h2>
+            <p>Проверяем ключевые этапы строительства и документируем ход работ.</p>
+          </article>
+        </div>
+
+        <div class="faq" aria-label="Частые вопросы">
+          <div class="faq__heading">
+            <span>Вопросы</span>
+            <h2>FAQ</h2>
+            <p>Коротко о том, что обычно важно до начала проекта.</p>
+          </div>
+
+          <div class="faq__list">
+            <details class="faq-item" open>
+              <summary>Сколько времени занимает расчет сметы?</summary>
+              <p>Предварительный расчет готовим за 1 день после уточнения задачи, участка, площади и выбранной технологии строительства.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Вы строите только дома под ключ?</summary>
+              <p>Нет. Помимо строительства домов под ключ, мы выполняем ремонт квартир и отделку коммерческих помещений.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Можно ли прийти со своим проектом?</summary>
+              <p>Да. Мы можем оценить готовый проект, проверить решения и подготовить смету по вашим чертежам.</p>
+            </details>
+            <details class="faq-item">
+              <summary>В каких районах вы работаете?</summary>
+              <p>Работаем в Санкт-Петербурге и Ленинградской области. Конкретные условия выезда обсуждаем на консультации.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>

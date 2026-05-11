@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Каталог | Адамант</title>
+    <link rel="icon" type="image/png" href="лого.PNG">
+    <link rel="shortcut icon" type="image/png" href="лого.PNG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page inner-page" aria-label="Каталог Адамант">
+      <header class="header">
+        <a class="brand" href="index.html" aria-label="Адамант"><img class="brand__mark" src="лого.PNG" alt=""><span class="brand__name">АДАМАНТ</span></a>
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link" href="index.html">Главная</a>
+          <a class="nav__link" href="services.html">Услуги</a>
+          <a class="nav__link" href="portfolio.html">Порфолио</a>
+          <a class="nav__link nav__link--active" href="catalog.html">Каталог</a>
+          <a class="nav__link" href="blog.html">Блог</a>
+          <a class="nav__link" href="contacts.html">Контакты</a>
+          <a class="nav__link" href="about.html">О нас</a>
+        </nav>
+        <a class="phone" href="tel:+79111970457">+7 (911) 197-04-57</a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <section class="section section--projects" aria-labelledby="catalog-title">
+        <div class="section__intro section__intro--projects">
+          <h1 id="catalog-title">Каталог</h1>
+          <p>Проектируем и строим современные загородные дома в Санкт-Петербурге и Ленинградской области под ключ и в срок. <span>Начните с бесплатного расчета сметы за 1 день.</span></p>
+        </div>
+        <div class="project-tabs" aria-label="Фильтр проектов"><button class="project-tabs__button project-tabs__button--active" type="button" data-filter="all" aria-pressed="true">Все</button><button class="project-tabs__button" type="button" data-filter="modern" aria-pressed="false">Современные</button><button class="project-tabs__button" type="button" data-filter="classic" aria-pressed="false">Классические</button></div>
+        <div class="projects-grid">
+          <a class="project-card" href="catalog-item.html?item=modern&source=catalog" data-category="modern" aria-label="Проект Современный дом"><img class="project-card__image" src="строительство.png" alt=""><span class="project-card__content"><strong>Современный дом</strong><span>Проект с панорамным остеклением, четкой архитектурой и продуманной планировкой</span><span class="project-card__tags"><em>Современный</em><em>Под ключ</em></span><span class="project-card__button">Подробнее →</span></span></a>
+          <a class="project-card" href="catalog-item.html?item=terrace&source=catalog" data-category="classic" aria-label="Проект Дом с террасой"><img class="project-card__image" src="дом из бруса.png" alt=""><span class="project-card__content"><strong>Дом с террасой</strong><span>Загородный дом с открытой зоной отдыха и теплым семейным контуром</span><span class="project-card__tags"><em>Терраса</em><em>Отдых</em></span><span class="project-card__button">Подробнее →</span></span></a>
+          <a class="project-card" href="catalog-item.html?item=onefloor&source=catalog" data-category="modern" aria-label="Проект Одноэтажный дом"><img class="project-card__image" src="дом из газобетона.png" alt=""><span class="project-card__content"><strong>Одноэтажный дом</strong><span>Комфортная одноуровневая планировка с инженерией и точной сметой</span><span class="project-card__tags"><em>1 этаж</em><em>Семейный</em></span><span class="project-card__button">Подробнее →</span></span></a>
+          <a class="project-card" href="catalog-item.html?item=classic&source=catalog" data-category="classic" aria-label="Проект Классический дом"><img class="project-card__image" src="каркасный дом.png" alt=""><span class="project-card__content"><strong>Классический дом</strong><span>Сдержанная архитектура для постоянного проживания за городом</span><span class="project-card__tags"><em>Классика</em><em>Теплый контур</em></span><span class="project-card__button">Подробнее →</span></span></a>
+        </div>
+      </section>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>

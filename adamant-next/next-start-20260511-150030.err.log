@@ -1,0 +1,81 @@
+⨯ Error: Failed query: select count(*) from "vacancies" where "vacancies"."_status" = ?
+params: published
+    at bh.queryWithCache (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:22321)
+    at async bh.values (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:28113)
+    at async bh.all (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:27061)
+    at async Object.d [as countDistinct] (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:271:465)
+    at async k (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:262:2488)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32476)
+    at async w (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:45212)
+    at async i (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0fhy5f3._.js:1:2525) {
+  query: 'select count(*) from "vacancies" where "vacancies"."_status" = ?',
+  params: [ 'published' ],
+  digest: '469350003',
+  [cause]: Error [LibsqlError]: SQLITE_ERROR: no such table: vacancies
+      at <unknown> (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:28246)
+      at bh.queryWithCache (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:22302)
+      ... 3 lines matching cause stack trace ...
+      at ar.execute (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:7470)
+      at ar.then (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:720) {
+    code: 'SQLITE_ERROR',
+    rawCode: 1,
+    [cause]: SqliteError: no such table: vacancies
+        at <unknown> (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:28246)
+        at bh.queryWithCache (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:22302)
+        at bh.values (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:28124)
+        at bh.all (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:27072)
+        at ar.all (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:7369)
+        at ar.execute (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:323:7470) {
+      code: 'SQLITE_ERROR',
+      rawCode: 1
+    }
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Failed to sync Telegram replies [TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 149.154.166.110:443, 2001:67c:4e8:f004::9:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}

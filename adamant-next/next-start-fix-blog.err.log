@@ -1,0 +1,16 @@
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames
+⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\pages\500.html'
+    at ignore-listed frames
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames
+⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\pages\500.html'
+    at ignore-listed frames
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames
+⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/" does not exist. This is a bug in Next.js.
+    at ignore-listed frames

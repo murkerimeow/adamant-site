@@ -1,0 +1,5 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3000
+- Network:       http://10.8.1.1:3000
+✓ Ready in 137ms
+[18:33:29] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m

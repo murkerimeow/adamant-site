@@ -1,0 +1,110 @@
+import type { CollectionConfig } from "payload";
+
+import { authenticated } from "../access/authenticated.ts";
+import { anyone } from "../access/public.ts";
+import { slugField } from "../fields/slug.ts";
+
+export const Portfolio: CollectionConfig = {
+  slug: "portfolio",
+  admin: {
+    defaultColumns: ["title", "category", "order", "_status"],
+    group: "Контент",
+    useAsTitle: "title",
+  },
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: anyone,
+    update: authenticated,
+  },
+  defaultSort: "order",
+  fields: [
+    {
+      name: "title",
+      type: "text",
+      label: "Название проекта",
+      required: true,
+    },
+    slugField(),
+    {
+      name: "category",
+      type: "select",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: "modern",
+      label: "Категория",
+      options: [
+        { label: "Современные", value: "modern" },
+        { label: "Классические", value: "classic" },
+      ],
+      required: true,
+    },
+    {
+      name: "order",
+      type: "number",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: 0,
+      label: "Порядок",
+      required: true,
+    },
+    {
+      name: "location",
+      type: "text",
+      admin: {
+        position: "sidebar",
+      },
+      label: "Локация",
+    },
+    {
+      name: "projectArea",
+      type: "number",
+      admin: {
+        position: "sidebar",
+      },
+      label: "Площадь, м²",
+    },
+    {
+      name: "previewImage",
+      type: "upload",
+      admin: {
+        position: "sidebar",
+      },
+      label: "Изображение карточки",
+      relationTo: "media",
+    },
+    {
+      name: "summary",
+      type: "textarea",
+      label: "Краткое описание",
+      required: true,
+    },
+    {
+      name: "description",
+      type: "textarea",
+      label: "Описание проекта",
+    },
+    {
+      name: "tags",
+      type: "array",
+      label: "Теги",
+      fields: [
+        {
+          name: "label",
+          type: "text",
+          label: "Текст тега",
+          required: true,
+        },
+      ],
+    },
+  ],
+  labels: {
+    plural: "Портфолио",
+    singular: "Проект",
+  },
+  versions: {
+    drafts: true,
+  },
+};

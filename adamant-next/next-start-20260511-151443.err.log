@@ -1,0 +1,252 @@
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async i (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__03~5uo2._.js:1:3442) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1732051720',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: _status
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async w (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:45234)
+    at async i (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0fhy5f3._.js:1:2525) {
+  data: [ { path: '_status' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1619526697',
+  [cause]: [ { path: '_status' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async h (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0_0ewo8._.js:1:15063) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '2290266400',
+  [cause]: [ { path: 'published' } ]
+}
+⨯ d: The following path cannot be queried: published
+    at o (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:13:58421)
+    at async at (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0su5vmg._.js:133:32390)
+    at async q (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\_0d_rg-d._.js:8:44035)
+    at async j (C:\Users\ASUS\Desktop\Адамант\adamant-next\.next\server\chunks\ssr\[root-of-the-server]__0cik~ag._.js:1:5219) {
+  data: [ { path: 'published' } ],
+  isOperational: true,
+  isPublic: true,
+  status: 400,
+  digest: '1388115628',
+  [cause]: [ { path: 'published' } ]
+}
