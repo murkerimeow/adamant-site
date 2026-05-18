@@ -625,6 +625,33 @@
 
   chatClose?.addEventListener("click", closeChat);
 
+  chatTextarea?.addEventListener("keydown", (event) => {
+    if (
+      event.key !== "Enter" ||
+      event.shiftKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      event.metaKey ||
+      event.isComposing
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (typeof chatForm?.requestSubmit === "function") {
+      chatForm.requestSubmit();
+      return;
+    }
+
+    chatForm?.dispatchEvent(
+      new Event("submit", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+  });
+
   chatForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
