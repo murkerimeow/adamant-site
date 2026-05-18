@@ -831,6 +831,17 @@ export interface BlogPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  /**
+   * До 3 ссылок на публичные Instagram Reels/Post. Если ссылка не заполнена, на сайте останется обычная карточка.
+   */
+  instagramVideos?:
+    | {
+        label: string;
+        title: string;
+        instagramUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -968,6 +979,14 @@ export interface BlogPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  instagramVideos?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        instagramUrl?: T;
+        id?: T;
+      };
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

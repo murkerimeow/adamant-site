@@ -6,6 +6,7 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import Script from "next/script";
 
 export const dynamic = "force-dynamic";
 
@@ -31,12 +32,42 @@ const reviewVideos = [
   },
 ];
 
+function getInstagramPermalink(url?: string | null) {
+  const value = url?.trim();
+  if (!value) return null;
+
+  try {
+    const parsed = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    const hostname = parsed.hostname.replace(/^www\./, "");
+
+    if (hostname !== "instagram.com") {
+      return null;
+    }
+
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
 export default async function BlogPage() {
   const [siteSettings, blogPage, posts] = await Promise.all([
     getSiteSettings(),
     getBlogPage(),
     getPosts(),
   ]);
+
+  const videos = reviewVideos.map((fallback, index) => {
+    const cmsVideo = blogPage.instagramVideos?.[index];
+
+    return {
+      ...fallback,
+      instagramUrl: getInstagramPermalink(cmsVideo?.instagramUrl),
+      label: cmsVideo?.label || fallback.label,
+      title: cmsVideo?.title || fallback.title,
+    };
+  });
+  const hasInstagramVideos = videos.some((video) => video.instagramUrl);
 
   const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
     day: "2-digit",
@@ -59,12 +90,37 @@ export default async function BlogPage() {
           </div>
 
           <div className="blog-reviews__videos" aria-label="Видеоотзывы клиентов">
-            {reviewVideos.map((video) => (
-              <article className="review-video-card" key={video.label}>
-                <img src={video.image} alt={video.title} />
-                <button className="review-video-card__play" type="button" aria-label={`Смотреть видео: ${video.label}`}>
-                  <span aria-hidden="true" />
-                </button>
+            {videos.map((video, index) => (
+              <article
+                className={`review-video-card${
+                  video.instagramUrl ? " review-video-card--instagram" : ""
+                }`}
+                key={`${index}-${video.label}`}
+              >
+                {video.instagramUrl ? (
+                  <div className="review-video-card__embed">
+                    <blockquote
+                      className="instagram-media"
+                      data-instgrm-permalink={video.instagramUrl}
+                      data-instgrm-version="14"
+                    >
+                      <a href={video.instagramUrl} target="_blank" rel="noreferrer">
+                        Смотреть в Instagram: {video.label}
+                      </a>
+                    </blockquote>
+                  </div>
+                ) : (
+                  <>
+                    <img src={video.image} alt={video.title} />
+                    <button
+                      className="review-video-card__play"
+                      type="button"
+                      aria-label={`Смотреть видео: ${video.label}`}
+                    >
+                      <span aria-hidden="true" />
+                    </button>
+                  </>
+                )}
                 <div className="review-video-card__caption">
                   <span>видео</span>
                   <strong>{video.label}</strong>
@@ -73,6 +129,10 @@ export default async function BlogPage() {
             ))}
           </div>
         </div>
+
+        {hasInstagramVideos ? (
+          <Script async src="https://www.instagram.com/embed.js" strategy="afterInteractive" />
+        ) : null}
 
         <div className="blog-articles" id="blog-articles">
           <div className="blog-articles__intro">

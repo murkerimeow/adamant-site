@@ -17,6 +17,17 @@ export type PageIntroGlobal = {
   title: string;
 };
 
+export type BlogPageGlobal = PageIntroGlobal & {
+  instagramVideos?:
+    | {
+        id?: string | null;
+        instagramUrl?: string | null;
+        label: string;
+        title: string;
+      }[]
+    | null;
+};
+
 export type AboutPageGlobal = PageIntroGlobal & {
   faqItems?:
     | {
@@ -281,7 +292,7 @@ export async function getBlogPage() {
     depth: 1,
     draft: false,
     overrideAccess: true,
-  }) as Promise<PageIntroGlobal>;
+  }) as Promise<BlogPageGlobal>;
 }
 
 export async function getServices() {

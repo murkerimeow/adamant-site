@@ -3603,6 +3603,47 @@ a {
   transform: scale(1.035);
 }
 
+.review-video-card--instagram {
+  background: #ffffff;
+}
+
+.review-video-card__embed {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.review-video-card__embed .instagram-media {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.review-video-card__embed iframe {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+}
+
+.review-video-card__embed a {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #101010;
+  font-weight: 700;
+  padding: 24px;
+  text-align: center;
+}
+
 .review-video-card__play {
   position: absolute;
   left: 50%;
