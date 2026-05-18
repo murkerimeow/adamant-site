@@ -51,6 +51,16 @@ function escapeTelegramHtml(value: string) {
     .replace(/>/g, "&gt;");
 }
 
+function buildTelegramField(label: string, value?: string | null) {
+  const normalizedValue = typeof value === "string" ? value.trim() : "";
+
+  if (!normalizedValue) {
+    return "";
+  }
+
+  return `<b>${label}:</b> ${escapeTelegramHtml(normalizedValue)}`;
+}
+
 async function sendTelegramMessage(
   text: string,
   options: TelegramMessageOptions = {},
@@ -107,25 +117,37 @@ async function sendTelegramMessage(
 }
 
 function buildRequestMessage(doc: RequestDoc) {
-  const lines = [
-    "Новая заявка с сайта",
-    "",
-    `Тип: ${requestTypeLabels[doc.requestType] ?? doc.requestType}`,
-    doc.name ? `Имя: ${doc.name}` : "",
-    `Телефон: ${doc.phone}`,
-    doc.service ? `Услуга: ${doc.service}` : "",
-    doc.email ? `Email: ${doc.email}` : "",
-    doc.message ? `Сообщение: ${doc.message}` : "",
-    doc.sourcePage ? `Страница: ${doc.sourcePage}` : "",
-    doc.createdAt ? `Время: ${formatCreatedAt(doc.createdAt)}` : "",
+  const meta = [
+    requestTypeLabels[doc.requestType] ?? doc.requestType,
+    doc.sourcePage ? `страница: ${doc.sourcePage}` : "",
+    doc.createdAt ? formatCreatedAt(doc.createdAt) : "",
   ].filter(Boolean);
 
-  return lines.join("\n");
+  const contactLines = [
+    buildTelegramField("Имя", doc.name),
+    buildTelegramField("Телефон", doc.phone),
+    buildTelegramField("Email", doc.email),
+  ].filter(Boolean);
+
+  const serviceLines = [
+    buildTelegramField("Услуга", doc.service),
+    doc.message ? "<b>Сообщение:</b>" : "",
+    doc.message ? `<blockquote>${escapeTelegramHtml(doc.message.trim())}</blockquote>` : "",
+  ].filter(Boolean);
+
+  const sections = [
+    ["<b>💻 Новая заявка с сайта</b>"],
+    contactLines,
+    serviceLines,
+    meta.length ? [`<i>${escapeTelegramHtml(meta.join(" · "))}</i>`] : [],
+  ].filter((section) => section.length);
+
+  return sections.map((section) => section.join("\n")).join("\n\n");
 }
 
 export async function sendTelegramRequestNotification(doc: RequestDoc) {
   const message = buildRequestMessage(doc);
-  await sendTelegramMessage(message);
+  await sendTelegramMessage(message, { parseMode: "HTML" });
 }
 
 export async function sendTelegramChatNotification(input: {
