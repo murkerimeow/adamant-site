@@ -1015,7 +1015,7 @@
         }
 
         event.preventDefault();
-        targetScrollLeft = clampScroll(targetScrollLeft + horizontalDelta * 0.9);
+        targetScrollLeft = clampScroll(slider.scrollLeft + horizontalDelta * 0.9);
         scheduleAnimation();
       },
       { passive: false }
@@ -1054,6 +1054,57 @@
     window.addEventListener("resize", updateArrowState);
     updateArrowState();
   });
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const button = target.closest("[data-slider-prev], [data-slider-next]");
+      if (!button || button.hasAttribute("disabled")) return;
+
+      const sliderRoot = button.closest("[data-home-services-carousel]");
+      const slider = sliderRoot?.querySelector(".js-wheel-slider");
+      if (!slider) return;
+
+      const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
+      if (maxScroll <= 2) return;
+
+      const firstCard = slider.querySelector(".home-card");
+      const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
+      const step = firstCard
+        ? firstCard.getBoundingClientRect().width + gap
+        : Math.max(260, slider.clientWidth * 0.78);
+      const direction = button.matches("[data-slider-prev]") ? -1 : 1;
+      const nextScrollLeft = Math.min(
+        Math.max(slider.scrollLeft + step * direction, 0),
+        maxScroll
+      );
+      const prevButton = sliderRoot.querySelector("[data-slider-prev]");
+      const nextButton = sliderRoot.querySelector("[data-slider-next]");
+      const updateButtons = () => {
+        if (prevButton) prevButton.disabled = slider.scrollLeft <= 2;
+        if (nextButton) nextButton.disabled = slider.scrollLeft >= maxScroll - 2;
+      };
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof slider.scrollTo === "function") {
+        try {
+          slider.scrollTo({ left: nextScrollLeft, behavior: "smooth" });
+        } catch (error) {
+          slider.scrollLeft = nextScrollLeft;
+        }
+      } else {
+        slider.scrollLeft = nextScrollLeft;
+      }
+
+      window.setTimeout(updateButtons, 280);
+    },
+    true
+  );
 
   const modals = Array.from(document.querySelectorAll(".modal"));
   let activeModal = null;
