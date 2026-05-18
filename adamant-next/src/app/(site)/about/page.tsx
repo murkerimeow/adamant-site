@@ -56,7 +56,7 @@ const aboutSocials = [
   {
     key: "tiktok",
     label: "TikTok",
-    href: "https://www.tiktok.com/",
+    href: "https://www.tiktok.com/@adamantushka",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path

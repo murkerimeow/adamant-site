@@ -1,4 +1,4 @@
-export type SocialKey = "telegram" | "vk" | "max" | "tiktok" | "youtube";
+export type SocialKey = "telegram" | "vk" | "max" | "instagram" | "tiktok" | "youtube";
 
 export const socialLinks: Array<{
   key: SocialKey;
@@ -12,7 +12,16 @@ export const socialLinks: Array<{
     label: "MAX",
     href: "https://max.ru/join/5IZHwoGqh8laOBvd3atPM0OKvMjmQSwytpyKBs1cQ8c",
   },
-  { key: "tiktok", label: "TikTok", href: "https://www.tiktok.com/" },
+  {
+    key: "instagram",
+    label: "Instagram @adamantushka",
+    href: "https://www.instagram.com/adamantushka/",
+  },
+  {
+    key: "tiktok",
+    label: "TikTok @adamantushka",
+    href: "https://www.tiktok.com/@adamantushka",
+  },
   { key: "youtube", label: "YouTube", href: "https://www.youtube.com/" },
 ];
 
@@ -52,6 +61,17 @@ export function SocialIcon({ name }: { name: SocialKey }) {
             d="M50.76 0c27.53 0 49.12 22.34 49.12 49.89S77.61 99.23 51.02 99.23c-9.43 0-14.01-1.33-21.37-6.54-.5-.36-1.2-.26-1.63.19-5.66 6.04-20.17 10.28-20.83 2.03C7.19 80.53 0 71.18 0 49.61 0 21.3 23.22 0 50.76 0m.77 24.55c-13.07-.68-23.26 8.39-25.51 22.58-1.86 11.75 1.44 26.07 4.26 26.8 1.2.3 4.08-1.9 6.18-3.88.4-.37.99-.44 1.45-.15 3.27 2 6.97 3.5 11.05 3.71 13.42.7 25.3-9.8 26-23.21.71-13.42-10.01-25.14-23.43-25.85"
             clipRule="evenodd"
           />
+        </svg>
+      );
+    case "instagram":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect width="22" height="22" x="1" y="1" fill="#E4405F" rx="6.4" />
+          <path
+            fill="#ffffff"
+            d="M12 6.54A5.46 5.46 0 1 0 12 17.46 5.46 5.46 0 0 0 12 6.54Zm0 8.97a3.51 3.51 0 1 1 0-7.02 3.51 3.51 0 0 1 0 7.02Z"
+          />
+          <circle cx="17.68" cy="6.32" r="1.28" fill="#ffffff" />
         </svg>
       );
     case "tiktok":
