@@ -1187,15 +1187,19 @@ a {
 
 .home-services-carousel {
   position: relative;
+  padding-top: clamp(62px, 4.4vw, 82px);
+  --home-services-arrow-size: clamp(52px, 3.438vw, 66px);
+  --home-services-arrow-gap: clamp(10px, 0.833vw, 16px);
+  --home-services-arrow-offset: clamp(8px, 1.042vw, 20px);
 }
 
 .home-services-carousel__arrow {
   position: absolute;
-  top: 50%;
+  top: clamp(8px, 1.042vw, 18px);
   z-index: 5;
   display: inline-flex;
-  width: clamp(52px, 3.438vw, 66px);
-  height: clamp(52px, 3.438vw, 66px);
+  width: var(--home-services-arrow-size);
+  height: var(--home-services-arrow-size);
   align-items: center;
   justify-content: center;
   border: 0;
@@ -1209,7 +1213,7 @@ a {
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
   color: #101010;
   cursor: pointer;
-  transform: translateY(-50%);
+  transform: none;
   transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
@@ -1222,18 +1226,21 @@ a {
 }
 
 .home-services-carousel__arrow--prev {
-  left: clamp(8px, 1.042vw, 20px);
+  right: calc(
+    var(--home-services-arrow-offset) + var(--home-services-arrow-size) +
+      var(--home-services-arrow-gap)
+  );
 }
 
 .home-services-carousel__arrow--next {
-  right: clamp(8px, 1.042vw, 20px);
+  right: var(--home-services-arrow-offset);
 }
 
 .home-services-carousel__arrow:hover {
   box-shadow:
     0 24px 58px rgba(0, 0, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.78);
-  transform: translateY(-50%) scale(1.04);
+  transform: scale(1.04);
 }
 
 .home-services-carousel__arrow:disabled {
