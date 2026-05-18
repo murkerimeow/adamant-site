@@ -968,6 +968,40 @@
       animationFrame = window.requestAnimationFrame(animateSlider);
     };
 
+    const scheduleAnimation = () => {
+      if (animationFrame) return;
+
+      if (typeof window.requestAnimationFrame === "function") {
+        animationFrame = window.requestAnimationFrame(animateSlider);
+        return;
+      }
+
+      slider.scrollLeft = targetScrollLeft;
+    };
+
+    const scrollSliderToTarget = () => {
+      if (
+        animationFrame &&
+        typeof window.cancelAnimationFrame === "function"
+      ) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+
+      animationFrame = 0;
+
+      if (typeof slider.scrollTo === "function") {
+        try {
+          slider.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
+          return;
+        } catch (error) {
+          slider.scrollLeft = targetScrollLeft;
+          return;
+        }
+      }
+
+      slider.scrollLeft = targetScrollLeft;
+    };
+
     slider.addEventListener(
       "wheel",
       (event) => {
@@ -982,10 +1016,7 @@
 
         event.preventDefault();
         targetScrollLeft = clampScroll(targetScrollLeft + horizontalDelta * 0.9);
-
-        if (!animationFrame) {
-          animationFrame = window.requestAnimationFrame(animateSlider);
-        }
+        scheduleAnimation();
       },
       { passive: false }
     );
@@ -1012,10 +1043,7 @@
 
     const moveByStep = (direction) => {
       targetScrollLeft = clampScroll(slider.scrollLeft + getSlideStep() * direction);
-
-      if (!animationFrame) {
-        animationFrame = window.requestAnimationFrame(animateSlider);
-      }
+      scrollSliderToTarget();
 
       window.setTimeout(updateArrowState, 260);
     };
