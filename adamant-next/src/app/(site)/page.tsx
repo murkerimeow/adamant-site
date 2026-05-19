@@ -160,27 +160,27 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="stats" aria-label="Показатели компании">
-              {stats.map((stat, index) => (
-                <div className="stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
-                  <span className="stat__icon" aria-hidden="true">
-                    <img src={statIconPaths[index] ?? statIconPaths[0]} alt="" />
-                  </span>
-                  <div>
-                    <strong data-count-up data-count-up-target={stat.value}>
-                      {getCountStartValue(stat.value)}
-                    </strong>
-                    <span>{stat.label}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
             <div className="visual-panel hero-visual" aria-hidden="true">
               <img className="visual-panel__image visual-panel__image--base" src="/main1.jpg" alt="" />
               <img className="visual-panel__image visual-panel__image--lit" src="/main2.jpg" alt="" />
             </div>
           </section>
+
+          <div className="stats" aria-label="Показатели компании">
+            {stats.map((stat, index) => (
+              <div className="stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
+                <span className="stat__icon" aria-hidden="true">
+                  <img src={statIconPaths[index] ?? statIconPaths[0]} alt="" />
+                </span>
+                <div>
+                  <strong data-count-up data-count-up-target={stat.value}>
+                    {getCountStartValue(stat.value)}
+                  </strong>
+                  <span>{stat.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
 
           {false ? (
             <>
