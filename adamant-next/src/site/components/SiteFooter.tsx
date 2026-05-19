@@ -1,5 +1,6 @@
 import { getCatalogItems, getServices, getSiteSettings } from "@/site/cms";
 import { SocialIcon, socialLinks } from "@/site/socials";
+import Link from "next/link";
 
 const footerNavItems = [
   { href: "/", label: "Главная" },
@@ -41,9 +42,9 @@ export async function SiteFooter() {
 
       <div className="home-footer__main">
         <div className="home-footer__brand">
-          <a className="home-footer__logo" href="/" aria-label="Адамант">
+          <Link className="home-footer__logo" href="/" aria-label="Адамант">
             <img src="/logo-new.PNG" alt="Адамант" />
-          </a>
+          </Link>
           <p>
             Строим современные загородные дома под ключ в Санкт-Петербурге
             и Ленинградской области с прозрачной сметой и контролем сроков.

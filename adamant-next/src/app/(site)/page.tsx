@@ -142,6 +142,7 @@ export default async function HomePage() {
 
           <section className="hero" id="home" aria-labelledby="hero-title">
             <div className="hero__content">
+              <span className="hero__kicker">Строим с заботой о вашем будущем</span>
               <h1 id="hero-title">{homePage.heroTitle}</h1>
               <p>
                 {description.lead}
@@ -175,12 +176,9 @@ export default async function HomePage() {
               ))}
             </div>
 
-            <div className="visual-panel" aria-hidden="true">
-              <img className="visual-panel__image" src="/фон.jpg" alt="" />
-            </div>
-            <div className="house-stage" aria-hidden="true">
-              <img className="house house--dark" src="/Picture 2.PNG" alt="" />
-              <img className="house house--light" src="/Picture.PNG" alt="" />
+            <div className="visual-panel hero-visual" aria-hidden="true">
+              <img className="visual-panel__image visual-panel__image--base" src="/main1.jpg" alt="" />
+              <img className="visual-panel__image visual-panel__image--lit" src="/main2.jpg" alt="" />
             </div>
           </section>
 
@@ -347,16 +345,16 @@ export default async function HomePage() {
           <section className="home-section home-services" aria-labelledby="home-services-title">
             <div className="home-section__head">
               <div>
-                <span className="section__kicker">Услуги</span>
-                <h2 id="home-services-title">Строительство и отделка под ключ</h2>
+                <span className="section__kicker">Наши проекты</span>
+                <h2 id="home-services-title">Современные дома для комфортной жизни</h2>
               </div>
               <div className="home-section__aside">
                 <p>
-                Основные направления работ, которые можно редактировать в админке:
-                от частных домов до комплексной отделки помещений.
+                Подбираем технологию, проект и состав работ под участок, бюджет
+                и реальный сценарий жизни за городом.
                 </p>
                 <a className="home-section__link" href="/services">
-                  Все услуги <span aria-hidden="true">→</span>
+                  Смотреть все проекты <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>
@@ -421,33 +419,32 @@ export default async function HomePage() {
           <section className="home-section home-selector" aria-labelledby="home-selector-title">
             <div className="home-selector__layout">
               <div className="home-selector__copy">
-                <span className="section__kicker">Подбор решения</span>
-                <h2 id="home-selector-title">Сначала сценарий жизни, потом проект дома</h2>
+                <span className="section__kicker">Почему выбирают нас</span>
+                <h2 id="home-selector-title">Надежность, качество и прозрачность на каждом этапе</h2>
                 <p>
-                  Мы не предлагаем один шаблон всем подряд. Сначала разбираем, как вы будете
-                  пользоваться домом: жить постоянно, приезжать на выходные, сдавать объект
-                  или развивать пространство под бизнес.
+                  Фиксируем смету без скрытых платежей, показываем ход работ,
+                  соблюдаем сроки по договору и даем гарантию на конструктив.
                 </p>
                 <button className="home-section__link home-section__link--button js-open-estimate" type="button">
-                  Подобрать формат <span aria-hidden="true">→</span>
+                  Узнать больше о нас <span aria-hidden="true">→</span>
                 </button>
               </div>
 
               <div className="home-selector__panel" aria-label="Сценарии проекта">
                 <article>
                   <span>01</span>
-                  <h3>Для постоянного проживания</h3>
-                  <p>Теплый контур, инженерия, планировка под семью и круглогодичную эксплуатацию.</p>
+                  <h3>Фиксированная смета</h3>
+                  <p>Согласовываем объем работ и стоимость до старта строительства.</p>
                 </article>
                 <article>
                   <span>02</span>
-                  <h3>Для отдыха за городом</h3>
-                  <p>Компактный дом, терраса, быстрые сроки и понятный бюджет без лишней площади.</p>
+                  <h3>Поэтапный контроль</h3>
+                  <p>Показываем прогресс и качество работ на каждом важном этапе.</p>
                 </article>
                 <article>
                   <span>03</span>
-                  <h3>Для коммерческого объекта</h3>
-                  <p>Продуманная отделка, износостойкие материалы и пространство под рабочие процессы.</p>
+                  <h3>Гарантия на работы</h3>
+                  <p>Остаемся на связи после сдачи дома и закрываем гарантийные вопросы.</p>
                 </article>
               </div>
 
@@ -510,8 +507,8 @@ export default async function HomePage() {
           <section className="home-section home-process" aria-labelledby="home-process-title" data-stagger-reveal>
             <div className="home-section__head home-section__head--narrow">
               <div>
-                <span className="section__kicker">Этапы</span>
-                <h2 id="home-process-title">Как проходит работа</h2>
+                <span className="section__kicker">Этапы работ</span>
+                <h2 id="home-process-title">Прозрачный процесс от идеи до вашего дома</h2>
               </div>
               <div className="home-section__aside">
                 <p>

@@ -832,6 +832,36 @@
     closeMobileNav();
   });
 
+  const heroVisual = document.querySelector(".hero-visual");
+  if (heroVisual) {
+    const hero = heroVisual.closest(".hero");
+    let heroVisualFrame = 0;
+
+    const isHeroAtTop = () => {
+      if (!hero) return window.scrollY < 160;
+
+      const rect = hero.getBoundingClientRect();
+      return rect.top > -Math.min(180, window.innerHeight * 0.22);
+    };
+
+    const updateHeroVisual = () => {
+      heroVisual.classList.toggle("is-light-on", isHeroAtTop());
+    };
+
+    const requestHeroVisualUpdate = () => {
+      if (heroVisualFrame) return;
+
+      heroVisualFrame = window.requestAnimationFrame(() => {
+        heroVisualFrame = 0;
+        updateHeroVisual();
+      });
+    };
+
+    updateHeroVisual();
+    window.addEventListener("scroll", requestHeroVisualUpdate, { passive: true });
+    window.addEventListener("resize", requestHeroVisualUpdate);
+  }
+
   const houseStage = document.querySelector(".house-stage");
   if (houseStage) {
     const setHouseLight = (isOn) => {
