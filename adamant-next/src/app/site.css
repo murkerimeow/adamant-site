@@ -6618,17 +6618,19 @@ body.home-page {
 }
 
 .home-page .phone {
-  right: clamp(14px, 1.823vw, 35px);
+  right: clamp(24px, 2.083vw, 40px);
   top: 50%;
   width: auto;
-  min-width: clamp(150px, 10.938vw, 210px);
-  height: clamp(42px, 2.813vw, 54px);
+  min-width: clamp(142px, 10.208vw, 196px);
+  height: clamp(38px, 2.5vw, 48px);
   padding: 0 clamp(15px, 1.146vw, 22px);
   border-radius: 999px;
   background: linear-gradient(135deg, var(--blue), #5b95ff);
   box-shadow: 0 16px 34px rgba(47, 115, 255, 0.28);
   color: #ffffff;
   font-size: clamp(12px, 0.833vw, 16px);
+  opacity: 1;
+  animation: none;
   transform: translateY(-50%);
 }
 
