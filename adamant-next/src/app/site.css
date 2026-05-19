@@ -6564,9 +6564,9 @@ body.home-page {
 }
 
 .home-page .header {
-  position: absolute;
+  position: fixed;
   left: 50%;
-  top: clamp(10px, 1.042vw, 20px);
+  top: clamp(6px, 0.625vw, 12px);
   z-index: 40;
   width: min(1780px, calc(100vw - clamp(24px, 3.125vw, 60px)));
   height: clamp(62px, 4.271vw, 82px);
@@ -6642,7 +6642,7 @@ body.home-page {
   width: min(1780px, calc(100vw - clamp(24px, 3.125vw, 60px)));
   min-height: 0;
   height: clamp(430px, 34vw, 620px);
-  margin: clamp(92px, 7.292vw, 140px) auto 0;
+  margin: clamp(78px, 5.833vw, 112px) auto 0;
   border-radius: clamp(28px, 2.188vw, 42px);
   background: #dfeeff;
   box-shadow: 0 28px 80px rgba(31, 62, 114, 0.16);
@@ -7115,10 +7115,10 @@ body.home-page {
   }
 
   .home-page .header {
-    position: absolute;
+    position: fixed;
     left: 10px;
     right: 10px;
-    top: 10px;
+    top: 8px;
     width: auto;
     height: 58px;
     border-radius: 18px;
@@ -7192,7 +7192,7 @@ body.home-page {
     width: calc(100% - 20px);
     min-height: 0;
     height: clamp(520px, 142vw, 610px);
-    margin: 78px auto 0;
+    margin: 76px auto 0;
     border-radius: 24px;
     padding: 0;
   }
