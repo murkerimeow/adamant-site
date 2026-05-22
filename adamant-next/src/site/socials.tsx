@@ -66,12 +66,43 @@ export function SocialIcon({ name }: { name: SocialKey }) {
     case "instagram":
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <rect width="22" height="22" x="1" y="1" fill="#E4405F" rx="6.4" />
+          <defs>
+            <radialGradient
+              id="instagram-social-gradient"
+              cx="30%"
+              cy="107%"
+              r="135%"
+              gradientUnits="objectBoundingBox"
+            >
+              <stop offset="0" stopColor="#FDF497" />
+              <stop offset="0.08" stopColor="#FDF497" />
+              <stop offset="0.38" stopColor="#FD5949" />
+              <stop offset="0.62" stopColor="#D6249F" />
+              <stop offset="1" stopColor="#285AEB" />
+            </radialGradient>
+            <radialGradient
+              id="instagram-social-highlight"
+              cx="18%"
+              cy="15%"
+              r="78%"
+              gradientUnits="objectBoundingBox"
+            >
+              <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.58" />
+              <stop offset="0.42" stopColor="#FFFFFF" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="24" height="24" fill="url(#instagram-social-gradient)" rx="6" />
+          <rect width="24" height="24" fill="url(#instagram-social-highlight)" rx="6" />
           <path
             fill="#ffffff"
-            d="M12 6.54A5.46 5.46 0 1 0 12 17.46 5.46 5.46 0 0 0 12 6.54Zm0 8.97a3.51 3.51 0 1 1 0-7.02 3.51 3.51 0 0 1 0 7.02Z"
+            fillRule="evenodd"
+            d="M8.1 3.5h7.8a4.6 4.6 0 0 1 4.6 4.6v7.8a4.6 4.6 0 0 1-4.6 4.6H8.1a4.6 4.6 0 0 1-4.6-4.6V8.1a4.6 4.6 0 0 1 4.6-4.6Zm0 1.75A2.85 2.85 0 0 0 5.25 8.1v7.8a2.85 2.85 0 0 0 2.85 2.85h7.8a2.85 2.85 0 0 0 2.85-2.85V8.1a2.85 2.85 0 0 0-2.85-2.85H8.1ZM12 8.3a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4Zm0 1.75a1.95 1.95 0 1 1 0 3.9 1.95 1.95 0 0 1 0-3.9Z"
+            clipRule="evenodd"
           />
-          <circle cx="17.68" cy="6.32" r="1.28" fill="#ffffff" />
+          <path
+            fill="#ffffff"
+            d="M16.96 7.82a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z"
+          />
         </svg>
       );
     case "tiktok":
