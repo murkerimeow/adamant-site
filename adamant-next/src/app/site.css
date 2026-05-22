@@ -7797,16 +7797,16 @@ body.home-page {
 
   .home-page .hero__content {
     position: absolute;
-    left: 50%;
+    left: clamp(18px, 5vw, 24px);
     top: clamp(32px, 9vw, 52px);
     z-index: 3;
     display: flex;
-    width: min(calc(100% - 28px), 350px);
+    width: min(calc(100% - 36px), 350px);
     flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    text-align: center;
-    transform: translateX(-50%);
+    align-items: flex-start;
+    margin: 0;
+    text-align: left;
+    transform: none;
   }
 
   .hero__kicker {
@@ -7830,7 +7830,7 @@ body.home-page {
   }
 
   .home-page .hero__actions {
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     width: 100%;
     margin-top: 18px;
@@ -8007,7 +8007,7 @@ body.home-page {
 
   .home-page .hero__actions {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .home-page .projects-link {
