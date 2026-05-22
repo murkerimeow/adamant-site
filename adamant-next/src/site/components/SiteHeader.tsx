@@ -15,7 +15,7 @@ type SiteHeaderProps = {
 const navItems = [
   { href: "/", key: "home", label: "Главная" },
   { href: "/services", key: "services", label: "Услуги" },
-  { href: "/portfolio", key: "portfolio", label: "Порфолио" },
+  { href: "/portfolio", key: "portfolio", label: "Портфолио" },
   { href: "/catalog", key: "catalog", label: "Каталог" },
   { href: "/blog", key: "blog", label: "Блог" },
   { href: "/contacts", key: "contacts", label: "Контакты" },
