@@ -503,8 +503,7 @@ a {
   justify-content: center;
   border: 0;
   border-radius: 50%;
-  background:
-    linear-gradient(145deg, rgba(16, 16, 16, 0.84), rgba(16, 16, 16, 0.58));
+  background: linear-gradient(145deg, #2f73ff, #5b95ff);
   color: #ffffff;
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
@@ -518,8 +517,7 @@ a {
 
 .site-chat-button:hover,
 .site-chat-button--active {
-  background:
-    linear-gradient(145deg, rgba(16, 16, 16, 0.92), rgba(16, 16, 16, 0.68));
+  background: linear-gradient(145deg, #185be8, #2f73ff);
   box-shadow:
     0 22px 56px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.26);
