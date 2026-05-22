@@ -1,33 +1,100 @@
 (() => {
   const modalMarkup = `
     <div class="modal" id="estimate-modal" role="dialog" aria-modal="true" aria-labelledby="estimate-modal-title" hidden>
-      <div class="modal__dialog">
+      <div class="modal__dialog modal__dialog--lead">
         <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
-        <h2 id="estimate-modal-title">Оставить заявку</h2>
-        <form class="modal-form" data-form-kind="estimate">
-          <label class="modal-field">
-            <span>Имя</span>
-            <input type="text" name="name" autocomplete="name" required>
-          </label>
-          <label class="modal-field">
-            <span>Номер телефона</span>
-            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (000) 000-00-00" required>
-          </label>
-          <label class="modal-field">
-            <span>Услуга</span>
-            <input type="text" name="service" autocomplete="off" placeholder="Например, дом из бруса" required>
-          </label>
-          <label class="modal-field">
-            <span>Email</span>
-            <input type="email" name="email" autocomplete="email" required>
-          </label>
-          <label class="modal-field">
-            <span>Сообщение</span>
-            <textarea name="message" rows="4" required></textarea>
-          </label>
-          <button class="modal-submit" type="submit">Отправить заявку</button>
-          <p class="modal-form__status" aria-live="polite"></p>
-        </form>
+        <div class="modal-lead" data-modal-state="form">
+          <section class="modal-lead__content">
+            <span class="modal-lead__icon" aria-hidden="true">
+              <img src="/new-icons/phone.png" alt="">
+            </span>
+            <h2 id="estimate-modal-title">Заказать<br>обратный звонок</h2>
+            <p class="modal-lead__text">Оставьте номер телефона — мы перезвоним вам, ответим на вопросы и поможем с выбором решения.</p>
+            <form class="modal-form modal-form--lead" data-form-kind="estimate">
+              <input type="hidden" name="service" autocomplete="off">
+              <label class="modal-field">
+                <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
+              </label>
+              <label class="modal-field">
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
+              </label>
+              <label class="modal-field">
+                <select name="callTime" aria-label="Удобное время звонка">
+                  <option value="">Удобное время звонка</option>
+                  <option value="В течение 10 минут">В течение 10 минут</option>
+                  <option value="Сегодня">Сегодня</option>
+                  <option value="Завтра">Завтра</option>
+                  <option value="В рабочее время">В рабочее время</option>
+                </select>
+              </label>
+              <label class="modal-field">
+                <textarea name="message" rows="4" placeholder="Комментарий (необязательно)" aria-label="Комментарий"></textarea>
+              </label>
+              <label class="modal-consent">
+                <input type="checkbox" name="privacy" checked>
+                <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
+              </label>
+              <button class="modal-submit" type="submit">Жду звонка</button>
+              <p class="modal-form__status" aria-live="polite"></p>
+            </form>
+          </section>
+          <aside class="modal-lead__visual" aria-hidden="true">
+            <img src="/request-house.jpg" alt="">
+            <div class="modal-lead__benefits">
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
+                <div>
+                  <strong>Перезвоним в течение 10 минут</strong>
+                  <p>Наш специалист свяжется с вами быстро и ответит на все вопросы</p>
+                </div>
+              </div>
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
+                <div>
+                  <strong>Бесплатная консультация</strong>
+                  <p>Проконсультируем по проектам, материалам и срокам строительства</p>
+                </div>
+              </div>
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--calc"></span>
+                <div>
+                  <strong>Поможем рассчитать стоимость проекта</strong>
+                  <p>Подготовим точный расчет под ваш проект</p>
+                </div>
+              </div>
+              <span class="modal-lead__secure">Ваши данные в безопасности</span>
+            </div>
+          </aside>
+        </div>
+
+        <section class="modal-result modal-result--success" data-modal-state="success" hidden>
+          <div class="modal-result__mark" aria-hidden="true"></div>
+          <h2>Заявка отправлена!</h2>
+          <p>Спасибо! Мы получили вашу заявку и свяжемся с вами в ближайшее время.</p>
+          <div class="modal-result__card">
+            <span class="modal-result__card-icon modal-result__card-icon--phone"></span>
+            <div>
+              <strong>Что дальше?</strong>
+              <p>Наш менеджер свяжется с вами в течение 15 минут в рабочее время (9:00 — 20:00).</p>
+            </div>
+          </div>
+          <button class="modal-submit" type="button" data-modal-close>Вернуться на сайт</button>
+        </section>
+
+        <section class="modal-result modal-result--error" data-modal-state="error" hidden>
+          <div class="modal-result__mark" aria-hidden="true"></div>
+          <h2>Не удалось отправить заявку</h2>
+          <p>Что-то пошло не так. Попробуйте отправить заявку еще раз или свяжитесь с нами другим способом.</p>
+          <div class="modal-result__card">
+            <span class="modal-result__card-icon modal-result__card-icon--signal"></span>
+            <div>
+              <strong>Что можно сделать?</strong>
+              <p>Проверьте соединение или попробуйте снова через пару минут.</p>
+            </div>
+          </div>
+          <button class="modal-submit" type="button" data-modal-retry>Попробовать снова</button>
+          <a class="modal-submit modal-submit--secondary" href="tel:+79111970457">Позвонить нам</a>
+        </section>
       </div>
     </div>
 
@@ -38,7 +105,7 @@
         <form class="modal-form" data-form-kind="callback">
           <label class="modal-field">
             <span>Имя</span>
-            <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" required>
+            <input type="text" name="name" autocomplete="name" placeholder="Ваше имя">
           </label>
           <label class="modal-field">
             <span>Номер телефона</span>
@@ -214,6 +281,47 @@
 
     element.textContent = text;
     element.style.color = isError ? "#b42318" : "";
+  };
+
+  const setModalState = (modal, state = "form") => {
+    if (!modal) return;
+
+    modal.dataset.modalState = state;
+    modal.querySelectorAll("[data-modal-state]").forEach((element) => {
+      element.hidden = element.dataset.modalState !== state;
+    });
+  };
+
+  const resetModal = (modal) => {
+    if (!modal) return;
+
+    const form = modal.querySelector(".modal-form");
+    if (form) form.reset();
+
+    const status = modal.querySelector(".modal-form__status");
+    if (status) {
+      status.textContent = "";
+      status.style.color = "";
+    }
+
+    setModalState(modal, "form");
+  };
+
+  const focusModalForm = (modal) => {
+    const firstInput = modal?.querySelector("input:not([type=\"hidden\"]), textarea, select");
+    if (firstInput) firstInput.focus();
+  };
+
+  const buildRequestMessageValue = (formData) => {
+    const callTime = readFieldValue(formData, "callTime");
+    const message = readFieldValue(formData, "message");
+
+    return [
+      callTime ? `Удобное время звонка: ${callTime}` : "",
+      message,
+    ]
+      .filter(Boolean)
+      .join("\n");
   };
 
   const submitRequest = async (payload) => {
@@ -1154,20 +1262,19 @@
 
     previousFocus = document.activeElement;
     activeModal = modal;
+    resetModal(modal);
     modal.hidden = false;
     document.body.classList.add("is-modal-open");
 
     requestAnimationFrame(() => {
       modal.classList.add("modal--open");
-      const firstInput =
-        modal.querySelector("input, textarea") || modal.querySelector("button");
-      if (firstInput) firstInput.focus();
+      focusModalForm(modal);
     });
   };
 
   const openEstimateModal = (trigger) => {
-    setEstimateService(getEstimateServiceFromTrigger(trigger));
     openModal("estimate-modal");
+    setEstimateService(getEstimateServiceFromTrigger(trigger));
   };
 
   const closeModal = () => {
@@ -1179,6 +1286,8 @@
 
     const status = activeModal.querySelector(".modal-form__status");
     if (status) status.textContent = "";
+
+    resetModal(activeModal);
 
     if (previousFocus && typeof previousFocus.focus === "function") {
       previousFocus.focus();
@@ -1200,6 +1309,15 @@
     if (phoneTrigger) {
       event.preventDefault();
       openEstimateModal(phoneTrigger);
+      return;
+    }
+
+    const retryTrigger = event.target.closest("[data-modal-retry]");
+    if (retryTrigger) {
+      event.preventDefault();
+      const modal = retryTrigger.closest(".modal");
+      setModalState(modal, "form");
+      requestAnimationFrame(() => focusModalForm(modal));
       return;
     }
 
@@ -1282,6 +1400,7 @@
       const submitButton = form.querySelector('[type="submit"]');
       const formData = new FormData(form);
       const requestType = form.dataset.formKind === "callback" ? "callback" : "estimate";
+      const usesResultState = modal.id === "estimate-modal";
 
       if (submitButton) submitButton.disabled = true;
       setStatusMessage(status, "Отправляем...");
@@ -1293,23 +1412,31 @@
           phone: readFieldValue(formData, "phone"),
           email: readFieldValue(formData, "email"),
           service: readFieldValue(formData, "service"),
-          message: readFieldValue(formData, "message"),
+          message: buildRequestMessageValue(formData),
           sourcePage: window.location.pathname,
         });
 
         form.reset();
-        setStatusMessage(
-          status,
-          requestType === "callback"
-            ? "Заявка на звонок отправлена."
-            : "Заявка отправлена."
-        );
+        if (usesResultState) {
+          setModalState(modal, "success");
+        } else {
+          setStatusMessage(
+            status,
+            requestType === "callback"
+              ? "Заявка на звонок отправлена."
+              : "Заявка отправлена."
+          );
+        }
       } catch {
-        setStatusMessage(
-          status,
-          "Не удалось отправить заявку. Попробуйте еще раз.",
-          true
-        );
+        if (usesResultState) {
+          setModalState(modal, "error");
+        } else {
+          setStatusMessage(
+            status,
+            "Не удалось отправить заявку. Попробуйте еще раз.",
+            true
+          );
+        }
       } finally {
         if (submitButton) submitButton.disabled = false;
       }
