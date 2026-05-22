@@ -222,8 +222,8 @@ export default async function HomePage() {
             </div>
 
             <div className="visual-panel hero-visual" aria-hidden="true">
-              <img className="visual-panel__image visual-panel__image--base" src="/home-main-new.png" alt="" />
-              <img className="visual-panel__image visual-panel__image--lit" src="/home-main-new.png" alt="" />
+              <img className="visual-panel__image visual-panel__image--base" src="/home-main-new.webp" alt="" />
+              <img className="visual-panel__image visual-panel__image--lit" src="/home-main-new.webp" alt="" />
             </div>
           </section>
 
