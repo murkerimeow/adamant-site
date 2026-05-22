@@ -227,21 +227,28 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <div className="stats" aria-label="Показатели компании">
-            {stats.map((stat, index) => (
-              <div className="stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
-                <span className="stat__icon" aria-hidden="true">
-                  <img src={statIconPaths[index] ?? statIconPaths[0]} alt="" />
-                </span>
-                <div>
+          <section className="home-about-stats" aria-labelledby="home-about-stats-title">
+            <div className="home-about-stats__copy">
+              <h2 id="home-about-stats-title">О нас</h2>
+              <p>
+                Проектируем и строим современные загородные дома в Санкт-Петербурге
+                и Ленинградской области. Берем на себя путь от идеи и сметы до
+                строительства под ключ, чтобы заказчик заранее видел сроки, бюджет
+                и понятный результат.
+              </p>
+            </div>
+
+            <div className="home-about-stats__grid" aria-label="Показатели компании">
+              {stats.slice(0, 4).map((stat) => (
+                <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
                   <strong data-count-up data-count-up-target={stat.value}>
                     {getCountStartValue(stat.value)}
                   </strong>
                   <span>{stat.label}</span>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
 
           {false ? (
             <>

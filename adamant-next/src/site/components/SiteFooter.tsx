@@ -26,20 +26,6 @@ export async function SiteFooter() {
 
   return (
     <footer className="home-footer" aria-label="Подвал сайта">
-      <div className="home-footer__cta">
-        <div>
-          <span>Начать проект</span>
-          <h2>Рассчитаем дом под ваш участок и бюджет</h2>
-          <p>
-            Оставьте заявку, и мы уточним задачу, подберем технологию строительства
-            и подготовим понятный первый расчет.
-          </p>
-        </div>
-        <button className="home-footer__cta-button js-open-estimate" type="button">
-          Получить расчет
-        </button>
-      </div>
-
       <div className="home-footer__main">
         <div className="home-footer__brand">
           <Link className="home-footer__logo" href="/" aria-label="Адамант">
