@@ -7349,8 +7349,8 @@ body.home-page {
   height: 23px;
   border-radius: 999px;
   background:
-    linear-gradient(135deg, #2f73ff, #68a1ff);
-  box-shadow: 0 10px 22px rgba(47, 115, 255, 0.22);
+    linear-gradient(135deg, #20b86a, #55d98c);
+  box-shadow: 0 10px 22px rgba(32, 184, 106, 0.24);
 }
 
 .home-trust__list li::after {
