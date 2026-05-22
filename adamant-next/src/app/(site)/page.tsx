@@ -36,22 +36,77 @@ const servicePrices: Record<string, string> = {
 
 const processSteps = [
   {
-    title: "Заявка и консультация",
-    text: "Фиксируем задачу, пожелания по дому, участку, срокам и бюджету.",
+    title: "Консультация и расчет",
+    text: "Обсуждаем вводные и рассчитываем предварительную стоимость проекта.",
   },
   {
-    title: "Проект и смета",
-    text: "Подбираем технологию, материалы и готовим прозрачный расчет работ.",
+    title: "Проектирование",
+    text: "Разрабатываем индивидуальный проект и согласовываем все детали.",
   },
   {
     title: "Строительство",
-    text: "Ведем объект по этапам, контролируем качество и показываем ход работ.",
+    text: "Выполняем строительные работы под контролем качества на каждом этапе.",
   },
   {
-    title: "Сдача дома",
-    text: "Передаем готовый объект, документы и рекомендации по эксплуатации.",
+    title: "Сдача и гарантия",
+    text: "Сдаем готовый дом в срок и предоставляем гарантию на все работы.",
   },
 ];
+
+const projectCardMeta = [
+  {
+    specs: ["120 м²", "4 комнаты"],
+    price: "от 6 200 000 ₽",
+  },
+  {
+    specs: ["150 м²", "5 комнат"],
+    price: "от 7 800 000 ₽",
+  },
+  {
+    specs: ["100 м²", "3 комнаты"],
+    price: "от 5 400 000 ₽",
+  },
+] as const;
+
+const trustItems = [
+  "Фиксированная смета без скрытых платежей",
+  "Поэтапный контроль качества работ",
+  "Гарантия на все виды работ",
+  "Соблюдение сроков по договору",
+] as const;
+
+const proofColumns = [
+  {
+    title: "Преимущества",
+    items: ["Собственное управление специалистами", "Современные технологии и материалы", "Строгое соблюдение сроков", "Прозрачное ценообразование"],
+  },
+  {
+    title: "Гарантии",
+    items: ["Гарантия до 5 лет на все работы", "Официальный договор", "Фиксированная стоимость", "Сервисное обслуживание"],
+  },
+  {
+    title: "Контроль качества",
+    items: ["Технический надзор на всех этапах", "Используем только сертифицированные материалы", "Многоступенчатый контроль качества"],
+  },
+] as const;
+
+const reviewCards = [
+  {
+    name: "Алексей и Мария",
+    place: "Всеволожск",
+    text: "Спасибо команде Адамант Строй за наш новый дом. Все сделали в срок, качество на высоте. Рекомендуем!",
+  },
+  {
+    name: "Дмитрий Сергеев",
+    place: "Сестрорецк",
+    text: "Профессиональный подход, прозрачная смета и отличная работа. Дом получился именно таким, как мы мечтали.",
+  },
+  {
+    name: "Екатерина Л.",
+    place: "Пушкин",
+    text: "Очень довольны сотрудничеством. Всегда на связи, все вопросы решались быстро. Отличная команда!",
+  },
+] as const;
 
 type StatIconType = (typeof statIconTypes)[number];
 
@@ -130,7 +185,13 @@ export default async function HomePage() {
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const featuredServices = services.slice(0, 3);
-  const featuredProjects = portfolioItems.slice(0, 4);
+  const cycleServices = services.slice(0, 4);
+  const featuredProjects = portfolioItems.slice(0, 3);
+  const portfolioStripItems = portfolioItems.slice(0, 6);
+  const trustImageUrl =
+    getMediaUrl(portfolioStripItems[0]?.previewImage, "card") ||
+    getMediaUrl(portfolioStripItems[0]?.previewImage) ||
+    "/фон.jpg";
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
 
   return (
@@ -342,181 +403,87 @@ export default async function HomePage() {
 
           {true ? (
             <>
-          <section className="home-section home-services" aria-labelledby="home-services-title">
-            <div className="home-section__head">
+          <section className="home-section home-project-preview" aria-labelledby="home-project-preview-title">
+            <div className="home-section__head home-section__head--compact">
               <div>
                 <span className="section__kicker">Наши проекты</span>
-                <h2 id="home-services-title">Современные дома для комфортной жизни</h2>
+                <h2 id="home-project-preview-title">Современные дома для комфортной жизни</h2>
               </div>
-              <div className="home-section__aside">
-                <p>
-                Подбираем технологию, проект и состав работ под участок, бюджет
-                и реальный сценарий жизни за городом.
-                </p>
-                <a className="home-section__link" href="/services">
+              <div className="home-project-preview__actions" aria-label="Навигация по проектам">
+                <a className="home-section__link" href="/portfolio">
                   Смотреть все проекты <span aria-hidden="true">→</span>
                 </a>
+                <span className="home-project-preview__arrow" aria-hidden="true">‹</span>
+                <span className="home-project-preview__arrow home-project-preview__arrow--active" aria-hidden="true">›</span>
               </div>
             </div>
 
-            <div className="home-services-carousel" data-home-services-carousel>
-              <button
-                className="home-services-carousel__arrow home-services-carousel__arrow--prev"
-                type="button"
-                aria-label="Предыдущие услуги"
-                data-slider-prev
-              >
-                <span aria-hidden="true">‹</span>
-              </button>
-              <div
-                className="home-card-grid home-card-grid--services home-services-slider js-wheel-slider"
-                aria-label="Слайдер услуг"
-                tabIndex={0}
-              >
-                {services.map((service) => {
-                  const catalogItem = catalogByTitle.get(service.title);
-                  const href = catalogItem
-                    ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
-                    : "/services";
-                  const imageUrl =
-                    getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage);
-
-                  return (
-                    <article
-                      key={service.id}
-                      className="home-card"
-                      data-card-link={href}
-                      tabIndex={0}
-                    >
-                      {imageUrl ? (
-                        <img src={imageUrl} alt={getMediaAlt(service.previewImage, service.title)} />
-                      ) : null}
-                      <div className="home-card__shade" />
-                      <div className="home-card__content">
-                        <h3>{service.title}</h3>
-                        <p>{service.shortDescription}</p>
-                        <span>{servicePrices[service.title] || "Цена по запросу"}</span>
-                      </div>
-                      <a href={href}>
-                        Подробнее <span aria-hidden="true">→</span>
-                      </a>
-                    </article>
-                  );
-                })}
-              </div>
-              <button
-                className="home-services-carousel__arrow home-services-carousel__arrow--next"
-                type="button"
-                aria-label="Следующие услуги"
-                data-slider-next
-              >
-                <span aria-hidden="true">›</span>
-              </button>
-            </div>
-
-          </section>
-
-          <section className="home-section home-selector" aria-labelledby="home-selector-title">
-            <div className="home-selector__layout">
-              <div className="home-selector__copy">
-                <span className="section__kicker">Почему выбирают нас</span>
-                <h2 id="home-selector-title">Надежность, качество и прозрачность на каждом этапе</h2>
-                <p>
-                  Фиксируем смету без скрытых платежей, показываем ход работ,
-                  соблюдаем сроки по договору и даем гарантию на конструктив.
-                </p>
-                <button className="home-section__link home-section__link--button js-open-estimate" type="button">
-                  Узнать больше о нас <span aria-hidden="true">→</span>
-                </button>
-              </div>
-
-              <div className="home-selector__panel" aria-label="Сценарии проекта">
-                <article>
-                  <span>01</span>
-                  <h3>Фиксированная смета</h3>
-                  <p>Согласовываем объем работ и стоимость до старта строительства.</p>
-                </article>
-                <article>
-                  <span>02</span>
-                  <h3>Поэтапный контроль</h3>
-                  <p>Показываем прогресс и качество работ на каждом важном этапе.</p>
-                </article>
-                <article>
-                  <span>03</span>
-                  <h3>Гарантия на работы</h3>
-                  <p>Остаемся на связи после сдачи дома и закрываем гарантийные вопросы.</p>
-                </article>
-              </div>
-
-              <div className="home-selector__image" aria-hidden="true">
-                <img src="/фон.jpg" alt="" />
-              </div>
-            </div>
-          </section>
-
-          <section className="home-section home-projects" aria-labelledby="home-projects-title">
-            <div className="home-section__head">
-              <div>
-                <span className="section__kicker">Проекты</span>
-                <h2 id="home-projects-title">Готовые решения и реализованные дома</h2>
-              </div>
-              <div className="home-section__aside">
-                <p>
-                Показываем примеры домов, планировок и направлений, чтобы посетитель быстрее
-                понимал формат работ и переходил к заявке.
-                </p>
-                <a className="home-section__link" href="/portfolio">
-                  Портфолио <span aria-hidden="true">→</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="home-card-grid home-card-grid--projects">
-              {featuredProjects.map((project) => {
+            <div className="home-project-preview__grid">
+              {featuredProjects.map((project, index) => {
                 const catalogItem = catalogByTitle.get(project.title);
                 const href = catalogItem
                   ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
                   : "/portfolio";
                 const imageUrl =
                   getMediaUrl(project.previewImage, "card") || getMediaUrl(project.previewImage);
+                const meta = projectCardMeta[index] ?? projectCardMeta[0];
 
                 return (
                   <article
                     key={project.id}
-                    className="home-card home-card--project"
+                    className="home-project-card"
                     data-card-link={href}
                     tabIndex={0}
                   >
-                    {imageUrl ? (
-                      <img src={imageUrl} alt={getMediaAlt(project.previewImage, project.title)} />
-                    ) : null}
-                    <div className="home-card__shade" />
-                    <div className="home-card__content">
+                    <a className="home-project-card__media" href={href} aria-label={`Смотреть проект ${project.title}`}>
+                      {imageUrl ? (
+                        <img src={imageUrl} alt={getMediaAlt(project.previewImage, project.title)} />
+                      ) : null}
+                      <span className="home-project-card__badges">
+                        {meta.specs.map((spec) => (
+                          <span key={spec}>{spec}</span>
+                        ))}
+                      </span>
+                    </a>
+                    <div className="home-project-card__body">
                       <h3>{project.title}</h3>
                       <p>{project.summary}</p>
+                      <strong>{meta.price}</strong>
                     </div>
-                    <a href={href}>
-                      Смотреть проект <span aria-hidden="true">→</span>
-                    </a>
                   </article>
                 );
               })}
             </div>
           </section>
 
+          <section className="home-section home-trust" aria-labelledby="home-trust-title">
+            <div className="home-trust__copy">
+              <span className="section__kicker">Почему выбирают нас</span>
+              <h2 id="home-trust-title">Надежность, качество и прозрачность на каждом этапе</h2>
+              <ul className="home-trust__list">
+                {trustItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <button className="home-section__link home-section__link--button js-open-estimate" type="button">
+                Узнать больше о нас
+              </button>
+            </div>
+
+            <div className="home-trust__media" aria-hidden="true">
+              <img src={trustImageUrl} alt="" />
+              <div className="home-trust__badge">
+                <strong>Гарантия до 5 лет</strong>
+                <span>На все виды работ и конструктив</span>
+              </div>
+            </div>
+          </section>
+
           <section className="home-section home-process" aria-labelledby="home-process-title" data-stagger-reveal>
-            <div className="home-section__head home-section__head--narrow">
+            <div className="home-section__head home-section__head--compact">
               <div>
                 <span className="section__kicker">Этапы работ</span>
                 <h2 id="home-process-title">Прозрачный процесс от идеи до вашего дома</h2>
-              </div>
-              <div className="home-section__aside">
-                <p>
-                Короткий сценарий сотрудничества помогает закрыть базовые вопросы еще до звонка.
-                </p>
-                <button className="home-section__link home-section__link--button js-open-estimate" type="button">
-                  Обсудить проект <span aria-hidden="true">→</span>
-                </button>
               </div>
             </div>
 
@@ -531,21 +498,130 @@ export default async function HomePage() {
             </div>
           </section>
 
+          <section className="home-section home-cycle" aria-labelledby="home-cycle-title">
+            <div className="home-section__head home-section__head--compact">
+              <div>
+                <span className="section__kicker">Наши услуги</span>
+                <h2 id="home-cycle-title">Полный цикл строительства</h2>
+              </div>
+            </div>
+
+            <div className="home-cycle__grid">
+              {cycleServices.map((service, index) => {
+                const catalogItem = catalogByTitle.get(service.title);
+                const href = catalogItem
+                  ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
+                  : "/services";
+                const imageUrl =
+                  getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage);
+
+                return (
+                  <article
+                    key={service.id}
+                    className="home-cycle-card"
+                    data-card-link={href}
+                    tabIndex={0}
+                  >
+                    <a className="home-cycle-card__media" href={href} aria-label={`Подробнее об услуге ${service.title}`}>
+                      {imageUrl ? (
+                        <img src={imageUrl} alt={getMediaAlt(service.previewImage, service.title)} />
+                      ) : null}
+                    </a>
+                    <div className="home-cycle-card__body">
+                      <span className="home-cycle-card__icon" aria-hidden="true">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h3>{service.title}</h3>
+                      <p>{service.shortDescription}</p>
+                      <a href={href}>Подробнее <span aria-hidden="true">→</span></a>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="home-proof-strip">
+              {proofColumns.map((column) => (
+                <article key={column.title} className="home-proof-strip__item">
+                  <span className="home-proof-strip__icon" aria-hidden="true" />
+                  <div>
+                    <h3>{column.title}</h3>
+                    <ul>
+                      {column.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="home-section home-portfolio-showcase" aria-labelledby="home-portfolio-title">
+            <div className="home-section__head home-section__head--compact">
+              <div>
+                <span className="section__kicker">Портфолио</span>
+                <h2 id="home-portfolio-title">Реализованные проекты</h2>
+              </div>
+              <a className="home-section__link" href="/portfolio">
+                Смотреть все проекты <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <div className="home-portfolio-strip">
+              {portfolioStripItems.map((project) => {
+                const catalogItem = catalogByTitle.get(project.title);
+                const href = catalogItem
+                  ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
+                  : "/portfolio";
+                const imageUrl =
+                  getMediaUrl(project.previewImage, "thumb") ||
+                  getMediaUrl(project.previewImage, "card") ||
+                  getMediaUrl(project.previewImage);
+
+                return (
+                  <a key={project.id} className="home-portfolio-thumb" href={href}>
+                    {imageUrl ? (
+                      <img src={imageUrl} alt={getMediaAlt(project.previewImage, project.title)} />
+                    ) : null}
+                    <span>{project.title}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="home-section home-reviews" aria-labelledby="home-reviews-title">
+            <div className="home-section__head home-section__head--compact">
+              <div>
+                <span className="section__kicker">Отзывы клиентов</span>
+                <h2 id="home-reviews-title">Нам доверяют</h2>
+              </div>
+            </div>
+
+            <div className="home-reviews__grid">
+              {reviewCards.map((review) => (
+                <article className="home-review-card" key={review.name}>
+                  <div className="home-review-card__person">
+                    <span aria-hidden="true">{review.name.slice(0, 1)}</span>
+                    <div>
+                      <strong>{review.name}</strong>
+                      <small>{review.place}</small>
+                    </div>
+                  </div>
+                  <p>{review.text}</p>
+                  <div className="home-review-card__stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           {faqItems.length ? (
             <section className="home-section home-faq" aria-labelledby="home-faq-title">
-              <div className="home-section__head">
+              <div className="home-section__head home-section__head--compact">
                 <div>
-                  <span className="section__kicker">FAQ</span>
-                  <h2 id="home-faq-title">Частые вопросы перед строительством</h2>
-                </div>
-                <div className="home-section__aside">
-                  <p>
-                  Ответы берутся из раздела «О нас», поэтому их можно менять через админку
-                  без правки кода.
-                  </p>
-                  <a className="home-section__link" href="/about">
-                    О компании <span aria-hidden="true">→</span>
-                  </a>
+                  <span className="section__kicker">Ответы на частые вопросы</span>
+                  <h2 id="home-faq-title">FAQ</h2>
                 </div>
               </div>
 
