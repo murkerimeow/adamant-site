@@ -5577,15 +5577,18 @@ a {
     position: absolute;
     right: 61px;
     top: 50%;
-    width: 122px;
-    height: 34px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
     margin-left: 0;
-    gap: 3px;
-    border-radius: 8px;
-    font-size: clamp(8px, 2.2vw, 9.5px);
+    gap: 0;
+    border-radius: 50%;
+    font-size: 0;
     font-weight: 800;
     opacity: 1;
     animation: none;
+    color: transparent;
+    padding: 0;
     transform: translateY(-50%);
   }
 
@@ -5594,8 +5597,8 @@ a {
   }
 
   .phone::before {
-    width: 9px;
-    height: 9px;
+    width: 16px;
+    height: 16px;
   }
 
   .mobile-menu-toggle {
@@ -7691,10 +7694,11 @@ body.home-page {
 
   .home-page .phone {
     right: 54px;
-    min-width: 116px;
+    width: 34px;
+    min-width: 34px;
     height: 34px;
-    padding: 0 10px;
-    font-size: clamp(8px, 2.25vw, 9.5px);
+    padding: 0;
+    font-size: 0;
   }
 
   .home-page .mobile-menu-toggle {
@@ -7975,8 +7979,8 @@ body.home-page {
     width: auto;
     max-width: calc(100vw - 20px);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 112px 34px;
-    gap: 6px;
+    grid-template-columns: minmax(0, 1fr) 34px 34px;
+    gap: 8px;
     align-items: center;
     padding: 0 10px;
   }
@@ -7998,12 +8002,12 @@ body.home-page {
 
   .home-page .phone {
     justify-self: end;
-    width: 112px;
+    width: 34px;
     height: 32px;
-    min-width: 0;
-    padding: 0 6px;
+    min-width: 34px;
+    padding: 0;
     overflow: hidden;
-    font-size: 6.8px;
+    font-size: 0;
     white-space: nowrap;
   }
 
@@ -8107,8 +8111,8 @@ body.home-page {
 
 #estimate-modal .modal__dialog--lead {
   width: min(1006px, calc(100vw - 48px));
-  height: clamp(640px, 78svh, 720px);
-  max-height: calc(100svh - 48px);
+  height: clamp(700px, 84svh, 790px);
+  max-height: calc(100svh - 40px);
   overflow: hidden;
   border: 0;
   border-radius: 28px;
@@ -8158,7 +8162,7 @@ body.home-page {
   min-width: 0;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(26px, 2.6vw, 34px) clamp(38px, 3.4vw, 50px);
+  padding: clamp(36px, 3.2vw, 52px) clamp(38px, 3.4vw, 50px) clamp(44px, 3.75vw, 64px);
 }
 
 .modal-lead__icon {
@@ -8309,7 +8313,7 @@ body.home-page {
   height: 100%;
   min-height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: 68% center;
 }
 
 .modal-lead__visual::after {
@@ -8325,7 +8329,7 @@ body.home-page {
   position: absolute;
   left: 30px;
   right: 30px;
-  bottom: 30px;
+  bottom: 44px;
   z-index: 2;
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.94);
