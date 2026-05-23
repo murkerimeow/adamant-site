@@ -326,7 +326,9 @@ a {
   width: min(430px, calc(100vw - 48px));
 }
 
-:is(#estimate-modal, #callback-modal) .modal__dialog {
+#estimate-modal .modal__dialog,
+#callback-modal .modal__dialog,
+#message-modal .modal__dialog {
   width: min(500px, calc(100vw - 48px));
   padding: clamp(22px, 1.667vw, 32px);
   border-radius: 26px;
@@ -372,7 +374,9 @@ a {
   letter-spacing: 0;
 }
 
-:is(#estimate-modal, #callback-modal) .modal__dialog h2 {
+#estimate-modal .modal__dialog h2,
+#callback-modal .modal__dialog h2,
+#message-modal .modal__dialog h2 {
   font-size: clamp(27px, 1.823vw, 35px);
 }
 
@@ -382,7 +386,9 @@ a {
   margin-top: clamp(24px, 1.875vw, 36px);
 }
 
-:is(#estimate-modal, #callback-modal) .modal-form {
+#estimate-modal .modal-form,
+#callback-modal .modal-form,
+#message-modal .modal-form {
   gap: 10px;
   margin-top: clamp(16px, 1.25vw, 24px);
 }
@@ -396,7 +402,9 @@ a {
   font-weight: 500;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field {
+#estimate-modal .modal-field,
+#callback-modal .modal-field,
+#message-modal .modal-field {
   gap: 6px;
   font-size: 14px;
 }
@@ -427,8 +435,12 @@ a {
   opacity: 1;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field input,
-:is(#estimate-modal, #callback-modal) .modal-field textarea {
+#estimate-modal .modal-field input,
+#callback-modal .modal-field input,
+#message-modal .modal-field input,
+#estimate-modal .modal-field textarea,
+#callback-modal .modal-field textarea,
+#message-modal .modal-field textarea {
   border-radius: 14px;
   font-size: 15px;
   padding: 11px 13px;
@@ -439,7 +451,9 @@ a {
   resize: vertical;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field textarea {
+#estimate-modal .modal-field textarea,
+#callback-modal .modal-field textarea,
+#message-modal .modal-field textarea {
   min-height: 76px;
 }
 
@@ -470,7 +484,9 @@ a {
   transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-submit {
+#estimate-modal .modal-submit,
+#callback-modal .modal-submit,
+#message-modal .modal-submit {
   height: 48px;
   border-radius: 999px;
   font-size: 16px;
@@ -6477,7 +6493,9 @@ button,
 .button,
 .phone,
 .modal-submit,
-:is(#estimate-modal, #callback-modal) .modal-submit,
+#estimate-modal .modal-submit,
+#callback-modal .modal-submit,
+#message-modal .modal-submit,
 .contact-form button,
 .home-footer__button,
 .home-card > a,
@@ -8328,13 +8346,17 @@ body.home-page {
 }
 
 /* Request modal redesign */
-:is(#estimate-modal, #callback-modal) {
+#estimate-modal,
+#callback-modal,
+#message-modal {
   background: rgba(21, 31, 46, 0.62);
   -webkit-backdrop-filter: blur(8px) saturate(0.92);
   backdrop-filter: blur(8px) saturate(0.92);
 }
 
-:is(#estimate-modal, #callback-modal) .modal__dialog--lead {
+#estimate-modal .modal__dialog--lead,
+#callback-modal .modal__dialog--lead,
+#message-modal .modal__dialog--lead {
   width: min(1006px, calc(100vw - 48px));
   height: clamp(700px, 84svh, 790px);
   max-height: calc(100svh - 40px);
@@ -8348,12 +8370,18 @@ body.home-page {
   backdrop-filter: none;
 }
 
-:is(#estimate-modal, #callback-modal)[data-modal-state="success"] .modal__dialog--lead,
-:is(#estimate-modal, #callback-modal)[data-modal-state="error"] .modal__dialog--lead {
+#estimate-modal[data-modal-state="success"] .modal__dialog--lead,
+#callback-modal[data-modal-state="success"] .modal__dialog--lead,
+#message-modal[data-modal-state="success"] .modal__dialog--lead,
+#estimate-modal[data-modal-state="error"] .modal__dialog--lead,
+#callback-modal[data-modal-state="error"] .modal__dialog--lead,
+#message-modal[data-modal-state="error"] .modal__dialog--lead {
   width: min(680px, calc(100vw - 48px));
 }
 
-:is(#estimate-modal, #callback-modal) .modal__close {
+#estimate-modal .modal__close,
+#callback-modal .modal__close,
+#message-modal .modal__close {
   right: 24px;
   top: 24px;
   z-index: 6;
@@ -8366,7 +8394,9 @@ body.home-page {
   box-shadow: 0 12px 28px rgba(16, 31, 54, 0.12);
 }
 
-:is(#estimate-modal, #callback-modal) .modal__close:hover {
+#estimate-modal .modal__close:hover,
+#callback-modal .modal__close:hover,
+#message-modal .modal__close:hover {
   background: #ffffff;
   transform: rotate(90deg);
 }
@@ -8408,7 +8438,9 @@ body.home-page {
   filter: none;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-lead h2 {
+#estimate-modal .modal-lead h2,
+#callback-modal .modal-lead h2,
+#message-modal .modal-lead h2 {
   max-width: 420px;
   padding: 0;
   color: #101624;
@@ -8426,24 +8458,36 @@ body.home-page {
   font-weight: 500;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-form--lead {
+#estimate-modal .modal-form--lead,
+#callback-modal .modal-form--lead,
+#message-modal .modal-form--lead {
   gap: 12px;
   margin-top: 18px;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-form__row {
+#estimate-modal .modal-form__row,
+#callback-modal .modal-form__row,
+#message-modal .modal-form__row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field {
+#estimate-modal .modal-field,
+#callback-modal .modal-field,
+#message-modal .modal-field {
   gap: 0;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field input,
-:is(#estimate-modal, #callback-modal) .modal-field textarea,
-:is(#estimate-modal, #callback-modal) .modal-field select {
+#estimate-modal .modal-field input,
+#callback-modal .modal-field input,
+#message-modal .modal-field input,
+#estimate-modal .modal-field textarea,
+#callback-modal .modal-field textarea,
+#message-modal .modal-field textarea,
+#estimate-modal .modal-field select,
+#callback-modal .modal-field select,
+#message-modal .modal-field select {
   width: 100%;
   min-height: 48px;
   border: 1px solid #e6ebf2;
@@ -8460,13 +8504,17 @@ body.home-page {
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field textarea {
+#estimate-modal .modal-field textarea,
+#callback-modal .modal-field textarea,
+#message-modal .modal-field textarea {
   min-height: 120px;
   padding-top: 13px;
   resize: vertical;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field select {
+#estimate-modal .modal-field select,
+#callback-modal .modal-field select,
+#message-modal .modal-field select {
   appearance: none;
   background:
     linear-gradient(45deg, transparent 50%, #526078 50%) right 21px center / 7px 7px no-repeat,
@@ -8476,14 +8524,24 @@ body.home-page {
   cursor: pointer;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field input::placeholder,
-:is(#estimate-modal, #callback-modal) .modal-field textarea::placeholder {
+#estimate-modal .modal-field input::placeholder,
+#callback-modal .modal-field input::placeholder,
+#message-modal .modal-field input::placeholder,
+#estimate-modal .modal-field textarea::placeholder,
+#callback-modal .modal-field textarea::placeholder,
+#message-modal .modal-field textarea::placeholder {
   color: #667085;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-field input:focus,
-:is(#estimate-modal, #callback-modal) .modal-field textarea:focus,
-:is(#estimate-modal, #callback-modal) .modal-field select:focus {
+#estimate-modal .modal-field input:focus,
+#callback-modal .modal-field input:focus,
+#message-modal .modal-field input:focus,
+#estimate-modal .modal-field textarea:focus,
+#callback-modal .modal-field textarea:focus,
+#message-modal .modal-field textarea:focus,
+#estimate-modal .modal-field select:focus,
+#callback-modal .modal-field select:focus,
+#message-modal .modal-field select:focus {
   border-color: #2f73ff;
   box-shadow: 0 0 0 4px rgba(47, 115, 255, 0.12);
 }
@@ -8567,7 +8625,9 @@ body.home-page {
   white-space: nowrap;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-submit {
+#estimate-modal .modal-submit,
+#callback-modal .modal-submit,
+#message-modal .modal-submit {
   min-height: 50px;
   height: 50px;
   border-radius: 16px;
@@ -8577,12 +8637,16 @@ body.home-page {
   font-weight: 700;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-submit:hover {
+#estimate-modal .modal-submit:hover,
+#callback-modal .modal-submit:hover,
+#message-modal .modal-submit:hover {
   background: linear-gradient(135deg, #185be8, #2f73ff);
   box-shadow: 0 20px 40px rgba(47, 115, 255, 0.32);
 }
 
-:is(#estimate-modal, #callback-modal) .modal-form__status {
+#estimate-modal .modal-form__status,
+#callback-modal .modal-form__status,
+#message-modal .modal-form__status {
   min-height: 0;
   font-size: 14px;
 }
@@ -8777,7 +8841,9 @@ body.home-page {
   transform: rotate(-45deg);
 }
 
-:is(#estimate-modal, #callback-modal) .modal-result h2 {
+#estimate-modal .modal-result h2,
+#callback-modal .modal-result h2,
+#message-modal .modal-result h2 {
   padding: 0;
   color: #101624;
   font-size: clamp(34px, 3vw, 46px);
@@ -8818,12 +8884,16 @@ body.home-page {
   background: #fff0f2;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-result .modal-submit {
+#estimate-modal .modal-result .modal-submit,
+#callback-modal .modal-result .modal-submit,
+#message-modal .modal-result .modal-submit {
   max-width: 520px;
   text-decoration: none;
 }
 
-:is(#estimate-modal, #callback-modal) .modal-result .modal-submit--secondary {
+#estimate-modal .modal-result .modal-submit--secondary,
+#callback-modal .modal-result .modal-submit--secondary,
+#message-modal .modal-result .modal-submit--secondary {
   margin-top: 12px;
   border: 1px solid #2f73ff;
   background: #ffffff;
@@ -8832,21 +8902,31 @@ body.home-page {
 }
 
 @media (max-width: 767px) {
-  :is(#estimate-modal, #callback-modal) {
+  #estimate-modal,
+  #callback-modal,
+  #message-modal {
     align-items: center;
     padding: 12px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal__dialog--lead,
-  :is(#estimate-modal, #callback-modal)[data-modal-state="success"] .modal__dialog--lead,
-  :is(#estimate-modal, #callback-modal)[data-modal-state="error"] .modal__dialog--lead {
+  #estimate-modal .modal__dialog--lead,
+  #callback-modal .modal__dialog--lead,
+  #message-modal .modal__dialog--lead,
+  #estimate-modal[data-modal-state="success"] .modal__dialog--lead,
+  #callback-modal[data-modal-state="success"] .modal__dialog--lead,
+  #message-modal[data-modal-state="success"] .modal__dialog--lead,
+  #estimate-modal[data-modal-state="error"] .modal__dialog--lead,
+  #callback-modal[data-modal-state="error"] .modal__dialog--lead,
+  #message-modal[data-modal-state="error"] .modal__dialog--lead {
     width: 100%;
     max-height: calc(100svh - 24px);
     overflow-y: auto;
     border-radius: 24px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal__close {
+  #estimate-modal .modal__close,
+  #callback-modal .modal__close,
+  #message-modal .modal__close {
     right: 14px;
     top: 14px;
     width: 38px;
@@ -8873,7 +8953,9 @@ body.home-page {
     margin-bottom: 20px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-lead h2 {
+  #estimate-modal .modal-lead h2,
+  #callback-modal .modal-lead h2,
+  #message-modal .modal-lead h2 {
     font-size: clamp(30px, 9vw, 38px);
   }
 
@@ -8882,24 +8964,36 @@ body.home-page {
     font-size: 15px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-form--lead {
+  #estimate-modal .modal-form--lead,
+  #callback-modal .modal-form--lead,
+  #message-modal .modal-form--lead {
     gap: 12px;
     margin-top: 22px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-form__row {
+  #estimate-modal .modal-form__row,
+  #callback-modal .modal-form__row,
+  #message-modal .modal-form__row {
     grid-template-columns: 1fr;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-field input,
-  :is(#estimate-modal, #callback-modal) .modal-field textarea,
-  :is(#estimate-modal, #callback-modal) .modal-field select {
+  #estimate-modal .modal-field input,
+  #callback-modal .modal-field input,
+  #message-modal .modal-field input,
+  #estimate-modal .modal-field textarea,
+  #callback-modal .modal-field textarea,
+  #message-modal .modal-field textarea,
+  #estimate-modal .modal-field select,
+  #callback-modal .modal-field select,
+  #message-modal .modal-field select {
     min-height: 52px;
     border-radius: 12px;
     font-size: 15px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-field textarea {
+  #estimate-modal .modal-field textarea,
+  #callback-modal .modal-field textarea,
+  #message-modal .modal-field textarea {
     min-height: 92px;
   }
 
@@ -8912,7 +9006,9 @@ body.home-page {
     width: 100%;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-submit {
+  #estimate-modal .modal-submit,
+  #callback-modal .modal-submit,
+  #message-modal .modal-submit {
     min-height: 54px;
     height: 54px;
     font-size: 16px;
@@ -8945,7 +9041,9 @@ body.home-page {
     height: 8px;
   }
 
-  :is(#estimate-modal, #callback-modal) .modal-result h2 {
+  #estimate-modal .modal-result h2,
+  #callback-modal .modal-result h2,
+  #message-modal .modal-result h2 {
     font-size: clamp(28px, 8vw, 34px);
   }
 

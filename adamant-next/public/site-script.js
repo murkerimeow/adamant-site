@@ -196,31 +196,96 @@
     </div>
 
     <div class="modal" id="message-modal" role="dialog" aria-modal="true" aria-labelledby="message-modal-title" hidden>
-      <div class="modal__dialog modal__dialog--small">
+      <div class="modal__dialog modal__dialog--lead">
         <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
-        <h2 id="message-modal-title">Написать нам</h2>
-        <p class="modal__text">Оставьте почту и сообщение — мы ответим и подскажем по проекту.</p>
-        <form class="modal-form" data-form-kind="message">
-          <input type="hidden" name="service" value="Сообщение из футера" autocomplete="off">
-          <label class="modal-field">
-            <span>Имя</span>
-            <input type="text" name="name" autocomplete="name" placeholder="Ваше имя">
-          </label>
-          <label class="modal-field">
-            <span>Телефон</span>
-            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (000) 000-00-00">
-          </label>
-          <label class="modal-field">
-            <span>Email *</span>
-            <input type="email" name="email" autocomplete="email" placeholder="mail@example.com" required>
-          </label>
-          <label class="modal-field">
-            <span>Сообщение *</span>
-            <textarea name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
-          </label>
-          <button class="modal-submit" type="submit">Отправить сообщение</button>
-          <p class="modal-form__status" aria-live="polite"></p>
-        </form>
+        <div class="modal-lead" data-modal-state="form">
+          <section class="modal-lead__content">
+            <span class="modal-lead__icon" aria-hidden="true">
+              <img src="/new-icons/chat.png" alt="">
+            </span>
+            <h2 id="message-modal-title">Написать нам</h2>
+            <p class="modal-lead__text">Оставьте почту и сообщение — мы ответим и подскажем по проекту.</p>
+            <form class="modal-form modal-form--lead" data-form-kind="message">
+              <input type="hidden" name="service" value="Сообщение из футера" autocomplete="off">
+              <div class="modal-form__row">
+                <label class="modal-field">
+                  <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
+                </label>
+                <label class="modal-field">
+                  <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон" aria-label="Телефон">
+                </label>
+              </div>
+              <label class="modal-field">
+                <input type="email" name="email" autocomplete="email" placeholder="E-mail *" aria-label="E-mail" required>
+              </label>
+              <label class="modal-field">
+                <textarea name="message" rows="5" placeholder="Ваше сообщение *" aria-label="Сообщение" required></textarea>
+              </label>
+              <label class="modal-consent">
+                <input type="checkbox" name="privacy" checked>
+                <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
+              </label>
+              <button class="modal-submit" type="submit">Отправить сообщение</button>
+              <p class="modal-form__status" aria-live="polite"></p>
+            </form>
+          </section>
+          <aside class="modal-lead__visual" aria-hidden="true">
+            <img src="/request-house.jpg" alt="">
+            <div class="modal-lead__benefits">
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
+                <div>
+                  <strong>Ответим на ваши вопросы</strong>
+                  <p>Разберем задачу и подскажем следующий шаг</p>
+                </div>
+              </div>
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--calc"></span>
+                <div>
+                  <strong>Подготовим рекомендации</strong>
+                  <p>Сориентируем по проекту, срокам и материалам</p>
+                </div>
+              </div>
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
+                <div>
+                  <strong>Свяжемся в ближайшее время</strong>
+                  <p>Ответим на указанную почту или телефон</p>
+                </div>
+              </div>
+              <span class="modal-lead__secure">Ваши данные защищены и не передаются третьим лицам</span>
+            </div>
+          </aside>
+        </div>
+
+        <section class="modal-result modal-result--success" data-modal-state="success" hidden>
+          <div class="modal-result__mark" aria-hidden="true"></div>
+          <h2>Сообщение отправлено!</h2>
+          <p>Спасибо! Мы получили ваше сообщение и ответим в ближайшее время.</p>
+          <div class="modal-result__card">
+            <span class="modal-result__card-icon modal-result__card-icon--phone"></span>
+            <div>
+              <strong>Что дальше?</strong>
+              <p>Менеджер посмотрит обращение и свяжется с вами по указанным контактам.</p>
+            </div>
+          </div>
+          <button class="modal-submit" type="button" data-modal-close>Вернуться на сайт</button>
+        </section>
+
+        <section class="modal-result modal-result--error" data-modal-state="error" hidden>
+          <div class="modal-result__mark" aria-hidden="true"></div>
+          <h2>Не удалось отправить сообщение</h2>
+          <p>Что-то пошло не так. Попробуйте отправить сообщение еще раз или свяжитесь с нами другим способом.</p>
+          <div class="modal-result__card">
+            <span class="modal-result__card-icon modal-result__card-icon--signal"></span>
+            <div>
+              <strong>Что можно сделать?</strong>
+              <p>Проверьте соединение или попробуйте снова через пару минут.</p>
+            </div>
+          </div>
+          <button class="modal-submit" type="button" data-modal-retry>Попробовать снова</button>
+          <a class="modal-submit modal-submit--secondary" href="tel:+79111970457">Позвонить нам</a>
+        </section>
       </div>
     </div>
 
@@ -1599,7 +1664,8 @@
       const formKind = form.dataset.formKind;
       const requestType =
         formKind === "callback" ? "callback" : formKind === "message" ? "message" : "estimate";
-      const usesResultState = modal.id === "estimate-modal" || modal.id === "callback-modal";
+      const usesResultState =
+        modal.id === "estimate-modal" || modal.id === "callback-modal" || modal.id === "message-modal";
       const photoFiles = requestType === "estimate" ? getRequestPhotoFiles(formData) : [];
       const photoError = requestType === "estimate" ? validateRequestPhotoFiles(photoFiles) : "";
 
