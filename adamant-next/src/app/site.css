@@ -231,6 +231,10 @@ a {
   transform: translateY(-1px);
 }
 
+.nav__mobile-contact {
+  display: none;
+}
+
 .phone {
   position: absolute;
   right: var(--edge);
@@ -6143,7 +6147,7 @@ a {
     width: 190px;
     height: 52px;
     margin-top: 20px;
-    border-radius: 12px;
+    border-radius: 0;
     font-size: 17px;
   }
 
@@ -8847,9 +8851,11 @@ body.home-page {
     display: grid;
     width: auto;
     max-width: calc(100vw - 20px);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: calc(100svh - 96px);
+    grid-template-columns: 1fr;
     align-content: start;
-    gap: 8px;
+    gap: 0;
+    overflow-y: auto;
     border: 1px solid rgba(215, 226, 244, 0.94);
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.96);
@@ -8886,20 +8892,26 @@ body.home-page {
   .home-page .nav__link {
     display: flex;
     min-width: 0;
-    min-height: 44px;
+    min-height: 42px;
     align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(219, 229, 245, 0.92);
-    border-radius: 14px;
-    background: #f7faff;
+    justify-content: space-between;
+    gap: 10px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     box-shadow: none;
     color: #2d3b55;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
     line-height: 1.1;
-    padding: 0 10px;
-    text-align: center;
+    padding: 0 12px;
+    text-align: left;
     white-space: nowrap;
+  }
+
+  .nav__link + .nav__link,
+  .home-page .nav__link + .home-page .nav__link {
+    border-top: 1px solid rgba(219, 229, 245, 0.82);
   }
 
   .nav__badge,
@@ -8911,6 +8923,7 @@ body.home-page {
 
   .nav__link:hover,
   .home-page .nav__link:hover {
+    border-radius: 12px;
     background: #eef5ff;
     color: #142033;
     transform: none;
@@ -8919,9 +8932,10 @@ body.home-page {
   .nav__link--active,
   .home-page .nav__link--active {
     border-color: transparent;
-    background: linear-gradient(135deg, #2f73ff, #5b95ff);
-    box-shadow: 0 12px 24px rgba(47, 115, 255, 0.22);
-    color: #ffffff;
+    border-radius: 12px;
+    background: #edf5ff;
+    box-shadow: none;
+    color: #2f73ff;
   }
 
   .nav__link--active::after,
@@ -8939,6 +8953,64 @@ body.home-page {
   .mobile-nav-open .mobile-menu-toggle span,
   body.mobile-nav-open .mobile-menu-toggle span {
     background: #ffffff;
+  }
+
+  .nav__mobile-contact {
+    display: grid;
+    gap: 12px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(219, 229, 245, 0.92);
+    padding: 14px 2px 0;
+  }
+
+  .nav__mobile-phone {
+    display: inline-flex;
+    width: 100%;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2f73ff, #5b95ff);
+    box-shadow: 0 14px 28px rgba(47, 115, 255, 0.22);
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .nav__mobile-phone::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url("/new-icons/phone.png") center / contain no-repeat;
+    filter: brightness(0) invert(1);
+  }
+
+  .nav__mobile-socials {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+  }
+
+  .nav__mobile-social {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(219, 229, 245, 0.92);
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 8px 18px rgba(31, 62, 114, 0.08);
+  }
+
+  .nav__mobile-social svg {
+    display: block;
+    width: 19px;
+    height: 19px;
   }
 
   body.mobile-nav-open .site-chat-button,

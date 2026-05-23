@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { SocialIcon, socialLinks } from "@/site/socials";
 
 type SiteHeaderProps = {
   active?:
@@ -47,6 +48,27 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
             ) : null}
           </a>
         ))}
+
+        <div className="nav__mobile-contact" aria-label="Контакты">
+          <button className="nav__mobile-phone js-open-estimate" type="button">
+            {phone}
+          </button>
+          <div className="nav__mobile-socials" aria-label="Соцсети">
+            {socialLinks.map((social) => (
+              <a
+                key={social.key}
+                className={`nav__mobile-social nav__mobile-social--${social.key}`}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={social.label}
+                title={social.label}
+              >
+                <SocialIcon name={social.key} />
+              </a>
+            ))}
+          </div>
+        </div>
       </nav>
 
       <button className="phone" type="button" aria-label={`Оставить заявку по номеру ${phone}`}>
