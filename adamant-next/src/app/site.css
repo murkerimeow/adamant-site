@@ -8537,26 +8537,6 @@ body.home-page {
   min-height: 84px;
 }
 
-#estimate-modal .modal-file {
-  gap: 10px;
-  border-radius: 12px;
-  padding: 8px 10px;
-}
-
-#estimate-modal .modal-file__button {
-  min-height: 30px;
-}
-
-#estimate-modal .modal-consent {
-  font-size: 13px;
-  line-height: 1.28;
-}
-
-#estimate-modal .modal-submit {
-  min-height: 48px;
-  height: 48px;
-}
-
 #estimate-modal .modal-field select,
 #callback-modal .modal-field select,
 #message-modal .modal-field select {
@@ -8694,6 +8674,26 @@ body.home-page {
 #message-modal .modal-form__status {
   min-height: 0;
   font-size: 14px;
+}
+
+#estimate-modal .modal-file {
+  gap: 10px;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+#estimate-modal .modal-file__button {
+  min-height: 30px;
+}
+
+#estimate-modal .modal-consent {
+  font-size: 13px;
+  line-height: 1.28;
+}
+
+#estimate-modal .modal-submit {
+  min-height: 48px;
+  height: 48px;
 }
 
 .modal-lead__visual {
