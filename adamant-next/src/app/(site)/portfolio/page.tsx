@@ -25,7 +25,7 @@ export default async function PortfolioPage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
 
   return (
-    <main className="page inner-page" aria-label="Портфолио Адамант">
+    <main className="page inner-page portfolio-page" aria-label="Портфолио Адамант">
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
       <section className="section section--projects" aria-labelledby="portfolio-title">

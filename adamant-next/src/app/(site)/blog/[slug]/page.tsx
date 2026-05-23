@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage);
 
   return (
-    <main className="page inner-page" aria-label={`Пост блога ${post.title}`}>
+    <main className="page inner-page blog-post-page" aria-label={`Пост блога ${post.title}`}>
       <SiteHeader active="blog" phone={siteSettings.phonePrimary} />
 
       <section className="section about-section" aria-labelledby="post-title">

@@ -23,7 +23,7 @@ export default async function CatalogPage() {
   const items = catalogItems.filter((item) => item.showInCatalog);
 
   return (
-    <main className="page inner-page" aria-label="Каталог Адамант">
+    <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
       <SiteHeader active="catalog" phone={siteSettings.phonePrimary} />
 
       <section className="section section--projects" aria-labelledby="catalog-title">

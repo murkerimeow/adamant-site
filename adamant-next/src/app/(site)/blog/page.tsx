@@ -76,7 +76,7 @@ export default async function BlogPage() {
   });
 
   return (
-    <main className="page inner-page" aria-label="Блог Адамант">
+    <main className="page inner-page blog-page" aria-label="Блог Адамант">
       <SiteHeader active="blog" phone={siteSettings.phonePrimary} />
 
       <section className="section section--blog blog-reviews-section" aria-labelledby="blog-title">

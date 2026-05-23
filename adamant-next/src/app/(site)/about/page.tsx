@@ -97,7 +97,7 @@ export default async function AboutPage() {
   const experienceStat = homePage.stats?.[3];
 
   return (
-    <main className="page inner-page" aria-label="О компании Адамант">
+    <main className="page inner-page about-page" aria-label="О компании Адамант">
       <SiteHeader active="about" phone={siteSettings.phonePrimary} />
 
       <section className="section about-section" aria-labelledby="about-title">

@@ -1,4 +1,3 @@
-import { BodyClassName } from "@/site/BodyClassName";
 import {
   getCatalogItems,
   getMediaAlt,
@@ -34,54 +33,51 @@ export default async function ServicesPage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
 
   return (
-    <>
-      <BodyClassName className="services-page" />
-      <main className="page inner-page" aria-label="Услуги Адамант">
-        <SiteHeader active="services" phone={siteSettings.phonePrimary} />
+    <main className="page inner-page services-page" aria-label="Услуги Адамант">
+      <SiteHeader active="services" phone={siteSettings.phonePrimary} />
 
-        <section className="section section--services" aria-labelledby="services-title">
-          <div className="section__intro section__intro--page">
-            <span className="section__kicker">{servicesPage.eyebrow}</span>
-            <h1 id="services-title">{servicesPage.title}</h1>
-            <p>{servicesPage.subtitle}</p>
-          </div>
+      <section className="section section--services" aria-labelledby="services-title">
+        <div className="section__intro section__intro--page">
+          <span className="section__kicker">{servicesPage.eyebrow}</span>
+          <h1 id="services-title">{servicesPage.title}</h1>
+          <p>{servicesPage.subtitle}</p>
+        </div>
 
-          <div className="services-grid">
-            {services.map((service) => {
-              const catalogItem = catalogByTitle.get(service.title);
-              const href = catalogItem
-                ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
-                : "/catalog";
+        <div className="services-grid">
+          {services.map((service) => {
+            const catalogItem = catalogByTitle.get(service.title);
+            const href = catalogItem
+              ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
+              : "/catalog";
 
-              return (
-                <article
-                  key={service.id}
-                  className="blog-card service-card-blog"
-                  data-card-link={href}
-                  tabIndex={0}
-                >
-                  <div className="blog-card__media">
-                    <img
-                      src={getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage)}
-                      alt={getMediaAlt(service.previewImage, service.title)}
-                    />
+            return (
+              <article
+                key={service.id}
+                className="blog-card service-card-blog"
+                data-card-link={href}
+                tabIndex={0}
+              >
+                <div className="blog-card__media">
+                  <img
+                    src={getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage)}
+                    alt={getMediaAlt(service.previewImage, service.title)}
+                  />
+                </div>
+                <div className="blog-card__body">
+                  <h2>{service.title}</h2>
+                  <p>{service.shortDescription}</p>
+                  <div className="service-card-blog__price">
+                    <span>{servicePrices[service.title] || "Цена по запросу"}</span>
                   </div>
-                  <div className="blog-card__body">
-                    <h2>{service.title}</h2>
-                    <p>{service.shortDescription}</p>
-                    <div className="service-card-blog__price">
-                      <span>{servicePrices[service.title] || "Цена по запросу"}</span>
-                    </div>
-                  </div>
-                  <a href={href}>
-                    Подробнее <span aria-hidden="true">→</span>
-                  </a>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-      </main>
-    </>
+                </div>
+                <a href={href}>
+                  Подробнее <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </main>
   );
 }

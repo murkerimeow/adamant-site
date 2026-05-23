@@ -9020,3 +9020,757 @@ body.home-page {
     transform: translateY(10px) scale(0.96);
   }
 }
+
+/* Unified page system */
+.home-page,
+.page.inner-page {
+  --site-bg: #f6f9ff;
+  --ink: #142033;
+  --muted: #61718a;
+  --blue: #2f73ff;
+  --blue-dark: #185be8;
+  --blue-soft: #edf5ff;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(47, 115, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
+  color: var(--ink);
+}
+
+.home-page .viewport,
+.home-page .page,
+.page.inner-page,
+.page.services-page {
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
+}
+
+.site-footer-slot {
+  background: #f6f9ff;
+}
+
+@media (min-width: 768px) {
+  .page.inner-page .header {
+    position: fixed;
+    left: 50%;
+    top: clamp(6px, 0.625vw, 12px);
+    z-index: 40;
+    width: min(1780px, calc(100vw - clamp(24px, 3.125vw, 60px)));
+    height: clamp(62px, 4.271vw, 82px);
+    border: 1px solid rgba(215, 226, 244, 0.92);
+    border-radius: clamp(18px, 1.354vw, 26px);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 20px 60px rgba(31, 62, 114, 0.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    backdrop-filter: blur(18px) saturate(1.12);
+    transform: translateX(-50%);
+  }
+
+  .page.inner-page .brand {
+    left: clamp(20px, 2.604vw, 50px);
+    top: 50%;
+    height: clamp(38px, 2.917vw, 56px);
+    transform: translateY(-50%);
+  }
+
+  .page.inner-page .brand__mark {
+    height: clamp(38px, 2.917vw, 56px);
+    max-width: clamp(170px, 12.5vw, 240px);
+  }
+
+  .page.inner-page .nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    gap: clamp(16px, 1.25vw, 24px);
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    color: #27344b;
+    font-size: clamp(12px, 0.781vw, 15px);
+    font-weight: 700;
+    transform: translate(-50%, -50%);
+  }
+
+  .page.inner-page .nav__link {
+    color: rgba(39, 52, 75, 0.68);
+  }
+
+  .page.inner-page .nav__link:hover,
+  .page.inner-page .nav__link--active {
+    color: #142033;
+  }
+
+  .page.inner-page .phone {
+    right: clamp(24px, 2.083vw, 40px);
+    top: 50%;
+    width: auto;
+    min-width: clamp(142px, 10.208vw, 196px);
+    height: clamp(38px, 2.5vw, 48px);
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--blue), #5b95ff);
+    box-shadow: none;
+    color: #ffffff;
+    font-size: clamp(12px, 0.833vw, 16px);
+    opacity: 1;
+    animation: none;
+    padding: 0 clamp(15px, 1.146vw, 22px);
+    transform: translateY(-50%);
+  }
+
+  .page.inner-page .phone:hover {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    box-shadow: none;
+    transform: translateY(calc(-50% - 2px));
+  }
+}
+
+.page.inner-page .section,
+.page.inner-page .product-detail {
+  width: min(1680px, calc(100vw - clamp(24px, 3.75vw, 72px)));
+  min-height: 0;
+  margin: clamp(92px, 6.771vw, 130px) auto 0;
+  border: 1px solid rgba(219, 229, 245, 0.9);
+  border-radius: clamp(26px, 2.083vw, 40px);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 70px rgba(31, 62, 114, 0.08);
+  padding: clamp(46px, 4.167vw, 80px) clamp(30px, 3.333vw, 64px);
+}
+
+.page.inner-page .section--services,
+.page.inner-page .section--projects,
+.page.inner-page .section--blog,
+.page.inner-page .contacts-section,
+.page.inner-page .mortgage-section,
+.page.inner-page .vacancies-section,
+.page.inner-page .about-section {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.page.inner-page .section__kicker,
+.page.inner-page .about-kicker {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #edf4ff;
+  color: var(--blue);
+  font-size: clamp(11px, 0.677vw, 13px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0 12px;
+}
+
+.page.inner-page .section__intro--page h1,
+.page.inner-page .about-copy h1,
+.page.inner-page .product-detail__content h1 {
+  max-width: 980px;
+  margin-top: clamp(14px, 1.042vw, 20px);
+  color: #142033;
+  font-size: clamp(34px, 2.917vw, 56px);
+  line-height: 1.04;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.page.inner-page .section__intro--page p,
+.page.inner-page .about-copy p,
+.page.inner-page .product-detail__content p {
+  max-width: 820px;
+  margin-top: clamp(16px, 1.25vw, 24px);
+  color: #61718a;
+  font-size: clamp(15px, 0.99vw, 19px);
+  line-height: 1.52;
+  font-weight: 600;
+}
+
+.page.inner-page .services-grid,
+.page.inner-page .projects-grid,
+.page.inner-page .blog-grid,
+.page.inner-page .vacancies-grid {
+  gap: clamp(18px, 1.563vw, 30px);
+  margin-top: clamp(30px, 2.5vw, 48px);
+}
+
+.page.inner-page .blog-card,
+.page.inner-page .vacancy-card,
+.page.inner-page .vacancies-empty,
+.page.inner-page .contact-form,
+.page.inner-page .contacts-map,
+.page.inner-page .about-principles article,
+.page.inner-page .faq,
+.page.inner-page .faq-item,
+.page.inner-page .mortgage-panel__lead,
+.page.inner-page .mortgage-step {
+  border: 1px solid rgba(219, 229, 245, 0.92);
+  border-radius: clamp(18px, 1.354vw, 26px);
+  background: #ffffff;
+  box-shadow: 0 16px 38px rgba(31, 62, 114, 0.08);
+}
+
+.page.inner-page .blog-card {
+  min-height: 0;
+  overflow: hidden;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.page.inner-page .blog-card:hover {
+  box-shadow: 0 22px 48px rgba(31, 62, 114, 0.14);
+  transform: translateY(-3px);
+}
+
+.page.inner-page .blog-card__media {
+  aspect-ratio: 1.68;
+  margin: 8px 8px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e9f0fb;
+}
+
+.page.inner-page .blog-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.page.inner-page .blog-card:hover .blog-card__media img {
+  transform: scale(1.035);
+}
+
+.page.inner-page .blog-card__body {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px 0;
+}
+
+.page.inner-page .blog-card__body h2 {
+  margin: 0;
+  color: #142033;
+  font-size: clamp(17px, 1.146vw, 22px);
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.page.inner-page .blog-card__body p,
+.page.inner-page .blog-card__meta {
+  color: #61718a;
+  font-weight: 600;
+}
+
+.page.inner-page .blog-card__body p {
+  margin: 0;
+  font-size: clamp(13px, 0.833vw, 16px);
+  line-height: 1.45;
+}
+
+.page.inner-page .blog-card > a {
+  display: inline-flex;
+  width: auto;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  gap: 7px;
+  margin: 18px 20px 20px;
+  border-radius: 999px;
+  background: #edf5ff;
+  color: var(--blue);
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 0 18px;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.page.inner-page .blog-card > a:hover {
+  background: var(--blue);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.page.inner-page .service-card-blog__price {
+  margin-top: 4px;
+}
+
+.page.inner-page .service-card-blog__price span,
+.page.inner-page .project-card-blog__tags span,
+.page.inner-page .vacancy-card__meta span,
+.page.inner-page .vacancy-card__salary {
+  display: inline-flex;
+  width: max-content;
+  min-height: 30px;
+  align-items: center;
+  border-radius: 999px;
+  background: #edf5ff;
+  color: var(--blue);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 0 12px;
+}
+
+.page.inner-page .project-card-blog__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.page.inner-page .project-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(24px, 1.875vw, 36px);
+}
+
+.page.inner-page .project-tabs__button {
+  min-height: 42px;
+  border: 1px solid rgba(47, 115, 255, 0.18);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(47, 115, 255, 0.08);
+  color: #61718a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 0 18px;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.page.inner-page .project-tabs__button--active,
+.page.inner-page .project-tabs__button:hover {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.page.inner-page .blog-reviews {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(24px, 3.125vw, 60px);
+  align-items: stretch;
+  min-height: 0;
+}
+
+.page.inner-page .blog-reviews__copy {
+  justify-content: center;
+}
+
+.page.inner-page .blog-reviews__headline h1 {
+  max-width: 560px;
+  color: #142033;
+  font-size: clamp(34px, 2.917vw, 56px);
+  line-height: 1.04;
+  font-weight: 900;
+}
+
+.page.inner-page .blog-reviews__headline p {
+  color: #61718a;
+  font-weight: 600;
+}
+
+.page.inner-page .review-video-card {
+  min-height: clamp(360px, 28vw, 540px);
+  border: 1px solid rgba(219, 229, 245, 0.92);
+  border-radius: clamp(18px, 1.354vw, 26px);
+  box-shadow: 0 16px 38px rgba(31, 62, 114, 0.1);
+}
+
+.page.inner-page .blog-articles {
+  margin-top: clamp(42px, 3.125vw, 60px);
+}
+
+.page.inner-page .blog-articles__intro h2 {
+  color: #142033;
+  font-weight: 900;
+}
+
+.page.inner-page .about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+  gap: clamp(28px, 4.167vw, 80px);
+  align-items: center;
+}
+
+.page.inner-page .about-media {
+  position: relative;
+  min-height: clamp(360px, 28vw, 540px);
+  overflow: hidden;
+  border: 1px solid rgba(219, 229, 245, 0.92);
+  border-radius: clamp(24px, 1.875vw, 36px);
+  background: #e9f0fb;
+  box-shadow: 0 20px 52px rgba(31, 62, 114, 0.12);
+}
+
+.page.inner-page .about-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page.inner-page .about-media figcaption {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  max-width: 210px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 34px rgba(31, 62, 114, 0.14);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  padding: 18px;
+}
+
+.page.inner-page .about-media figcaption strong {
+  color: #142033;
+}
+
+.page.inner-page .about-socials {
+  margin-top: 24px;
+}
+
+.page.inner-page .about-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 1.458vw, 28px);
+  margin-top: clamp(34px, 3.125vw, 60px);
+}
+
+.page.inner-page .about-principles article {
+  padding: clamp(22px, 1.875vw, 36px);
+}
+
+.page.inner-page .about-principles article span {
+  color: rgba(47, 115, 255, 0.18);
+  font-size: clamp(48px, 4.167vw, 80px);
+  font-weight: 900;
+}
+
+.page.inner-page .about-principles article h2,
+.page.inner-page .faq__heading h2,
+.page.inner-page .contact-form h2,
+.page.inner-page .vacancy-card h2,
+.page.inner-page .vacancies-empty h2,
+.page.inner-page .mortgage-panel__lead h2,
+.page.inner-page .mortgage-step h2 {
+  color: #142033;
+  font-weight: 900;
+}
+
+.page.inner-page .about-principles article p,
+.page.inner-page .faq__heading p,
+.page.inner-page .faq-item p,
+.page.inner-page .vacancy-card p,
+.page.inner-page .vacancies-empty p,
+.page.inner-page .mortgage-panel__lead p,
+.page.inner-page .mortgage-step p {
+  color: #61718a;
+  font-weight: 600;
+}
+
+.page.inner-page .faq {
+  margin-top: clamp(28px, 2.604vw, 50px);
+  padding: clamp(24px, 2.5vw, 48px);
+}
+
+.page.inner-page .faq-item {
+  box-shadow: 0 10px 24px rgba(31, 62, 114, 0.06);
+}
+
+.page.inner-page .faq-item summary {
+  color: #142033;
+  font-weight: 900;
+}
+
+.page.inner-page .contacts-section {
+  display: block;
+  height: auto;
+  overflow: visible;
+}
+
+.page.inner-page .contacts-content {
+  grid-template-columns: minmax(360px, 0.78fr) minmax(520px, 1.22fr);
+  gap: clamp(18px, 1.875vw, 36px);
+  margin-top: clamp(30px, 2.5vw, 48px);
+}
+
+.page.inner-page .contact-form {
+  padding: clamp(24px, 2.083vw, 40px);
+}
+
+.page.inner-page .requisites-list {
+  gap: 0;
+}
+
+.page.inner-page .requisites-list div {
+  grid-template-columns: 128px minmax(0, 1fr);
+  border-color: rgba(219, 229, 245, 0.9);
+  padding: 14px 0;
+}
+
+.page.inner-page .requisites-list dt {
+  color: #7a889e;
+  font-weight: 800;
+}
+
+.page.inner-page .requisites-list dd {
+  color: #142033;
+}
+
+.page.inner-page .contacts-map {
+  min-height: clamp(440px, 35vw, 680px);
+  overflow: hidden;
+}
+
+.page.inner-page .product-detail {
+  min-height: 0;
+}
+
+.page.inner-page .product-detail__back {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  border-radius: 999px;
+  background: #edf5ff;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 900;
+  padding: 0 16px;
+}
+
+.page.inner-page .product-detail__layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.7fr) minmax(520px, 1.3fr);
+  gap: clamp(28px, 3.125vw, 60px);
+  align-items: stretch;
+  margin-top: clamp(24px, 2.5vw, 48px);
+}
+
+.page.inner-page .product-detail__content {
+  display: grid;
+  align-content: center;
+}
+
+.page.inner-page .product-detail__button,
+.page.inner-page .vacancy-card__button,
+.page.inner-page .mortgage-panel__lead .button {
+  display: inline-flex;
+  width: max-content;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), #5b95ff);
+  box-shadow: 0 16px 34px rgba(47, 115, 255, 0.22);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 0 24px;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.page.inner-page .product-detail__button:hover,
+.page.inner-page .vacancy-card__button:hover,
+.page.inner-page .mortgage-panel__lead .button:hover {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  box-shadow: 0 20px 40px rgba(47, 115, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+.page.inner-page .product-detail__price span {
+  color: #142033;
+}
+
+.page.inner-page .product-detail__media,
+.page.inner-page .product-gallery__shell,
+.page.inner-page .product-gallery__viewport {
+  border-radius: clamp(22px, 1.667vw, 32px);
+}
+
+.page.inner-page .mortgage-section {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.page.inner-page .mortgage-panel {
+  margin-top: clamp(30px, 2.5vw, 48px);
+}
+
+.page.inner-page .mortgage-panel__lead,
+.page.inner-page .mortgage-step {
+  box-shadow: 0 14px 36px rgba(31, 62, 114, 0.08);
+}
+
+.page.inner-page .mortgage-step > span {
+  background: #edf5ff;
+  color: var(--blue);
+}
+
+.page.inner-page .vacancy-card,
+.page.inner-page .vacancies-empty {
+  padding: clamp(24px, 2.083vw, 40px);
+}
+
+.page.inner-page .blog-post__card {
+  margin-top: clamp(30px, 2.5vw, 48px);
+}
+
+.page.inner-page .blog-post__paragraph {
+  color: #2f3d55;
+  font-size: clamp(16px, 1.042vw, 20px);
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+@media (max-width: 1180px) {
+  .page.inner-page .services-grid,
+  .page.inner-page .projects-grid,
+  .page.inner-page .blog-grid,
+  .page.inner-page .blog-reviews,
+  .page.inner-page .about-hero,
+  .page.inner-page .contacts-content,
+  .page.inner-page .product-detail__layout,
+  .page.inner-page .mortgage-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .page.inner-page .blog-reviews__videos {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page,
+  .page.inner-page {
+    min-width: 0;
+  }
+
+  .page.inner-page .header {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: 8px;
+    z-index: 40;
+    display: grid;
+    width: auto;
+    max-width: calc(100vw - 20px);
+    height: 58px;
+    grid-template-columns: minmax(0, 1fr) 34px 34px;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid rgba(215, 226, 244, 0.92);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 20px 60px rgba(31, 62, 114, 0.12);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    backdrop-filter: blur(18px) saturate(1.12);
+    padding: 0 10px;
+  }
+
+  .page.inner-page .brand,
+  .page.inner-page .phone,
+  .page.inner-page .mobile-menu-toggle {
+    position: static;
+    transform: none;
+  }
+
+  .page.inner-page .brand {
+    max-width: none;
+  }
+
+  .page.inner-page .brand__mark {
+    width: clamp(110px, 31vw, 124px);
+    height: auto;
+    max-height: 39px;
+  }
+
+  .page.inner-page .phone {
+    justify-self: end;
+    width: 34px;
+    min-width: 34px;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--blue), #5b95ff);
+    color: transparent;
+    font-size: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .page.inner-page .mobile-menu-toggle {
+    display: inline-flex;
+    justify-self: end;
+    width: 34px;
+    height: 34px;
+    border-color: rgba(47, 115, 255, 0.14);
+    background: #ffffff;
+  }
+
+  .page.inner-page .section,
+  .page.inner-page .product-detail {
+    width: calc(100% - 20px);
+    margin-top: 76px;
+    border-radius: 24px;
+    padding: 34px 18px;
+  }
+
+  .page.inner-page .section__intro--page h1,
+  .page.inner-page .about-copy h1,
+  .page.inner-page .product-detail__content h1,
+  .page.inner-page .blog-reviews__headline h1 {
+    font-size: clamp(27px, 8vw, 36px);
+  }
+
+  .page.inner-page .services-grid,
+  .page.inner-page .projects-grid,
+  .page.inner-page .blog-grid,
+  .page.inner-page .vacancies-grid,
+  .page.inner-page .about-principles,
+  .page.inner-page .blog-reviews__videos {
+    grid-template-columns: 1fr;
+  }
+
+  .page.inner-page .blog-card__media {
+    aspect-ratio: 1.45;
+  }
+
+  .page.inner-page .review-video-card {
+    min-height: 420px;
+  }
+
+  .page.inner-page .about-media,
+  .page.inner-page .contacts-map {
+    min-height: 260px;
+  }
+
+  .page.inner-page .about-media figcaption {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: none;
+  }
+
+  .page.inner-page .requisites-list div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .page.inner-page .product-detail__button,
+  .page.inner-page .vacancy-card__button,
+  .page.inner-page .mortgage-panel__lead .button {
+    width: 100%;
+  }
+}

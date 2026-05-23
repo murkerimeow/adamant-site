@@ -1,4 +1,3 @@
-import { BodyClassName } from "@/site/BodyClassName";
 import {
   getAboutPage,
   getCatalogItems,
@@ -195,8 +194,7 @@ export default async function HomePage() {
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
 
   return (
-    <>
-      <BodyClassName className="home-page" />
+    <div className="home-page">
       <div className="viewport">
         <main className="page" aria-label="Главная страница Адамант">
           <SiteHeader active="home" phone={siteSettings.phonePrimary} />
@@ -651,6 +649,6 @@ export default async function HomePage() {
 
         </main>
       </div>
-    </>
+    </div>
   );
 }
