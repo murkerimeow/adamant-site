@@ -193,6 +193,9 @@ a {
 
 .nav__link {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: rgba(16, 16, 16, 0.72);
   white-space: nowrap;
   transition: color 180ms ease, transform 180ms ease;
@@ -210,6 +213,22 @@ a {
 
 .nav__link--active::after {
   display: none;
+}
+
+.nav__badge {
+  display: inline-flex;
+  min-height: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #2f73ff;
+  color: #ffffff;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  padding: 0 6px;
+  transform: translateY(-1px);
 }
 
 .phone {
@@ -7093,6 +7112,115 @@ body.home-page {
   background: linear-gradient(135deg, #f4f9ff 0%, #edf5ff 100%);
 }
 
+.mortgage-section {
+  background:
+    linear-gradient(135deg, rgba(244, 249, 255, 0.98), rgba(255, 255, 255, 0.96));
+}
+
+.mortgage-heading {
+  max-width: 980px;
+}
+
+.mortgage-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(420px, 1fr);
+  gap: clamp(22px, 2.917vw, 56px);
+  align-items: stretch;
+  margin-top: clamp(34px, 3.333vw, 64px);
+}
+
+.mortgage-panel__lead {
+  display: grid;
+  align-content: center;
+  border: 1px solid rgba(219, 229, 245, 0.9);
+  border-radius: clamp(24px, 1.667vw, 32px);
+  background: #ffffff;
+  box-shadow: 0 18px 48px rgba(31, 62, 114, 0.08);
+  padding: clamp(30px, 3.125vw, 60px);
+}
+
+.mortgage-panel__lead > span {
+  display: inline-flex;
+  width: max-content;
+  min-height: 28px;
+  align-items: center;
+  border-radius: 999px;
+  background: #2f73ff;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 0 13px;
+}
+
+.mortgage-panel__lead h2 {
+  margin: 18px 0 0;
+  color: #142033;
+  font-size: clamp(28px, 2.188vw, 42px);
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.mortgage-panel__lead p {
+  margin: 18px 0 0;
+  color: #61718a;
+  font-size: clamp(15px, 0.99vw, 19px);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.mortgage-panel__lead .button {
+  width: max-content;
+  min-width: 190px;
+  margin-top: 28px;
+}
+
+.mortgage-steps {
+  display: grid;
+  gap: clamp(14px, 1.042vw, 20px);
+}
+
+.mortgage-step {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: clamp(16px, 1.25vw, 24px);
+  align-items: start;
+  border: 1px solid rgba(219, 229, 245, 0.92);
+  border-radius: clamp(20px, 1.458vw, 28px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 36px rgba(31, 62, 114, 0.06);
+  padding: clamp(22px, 1.875vw, 36px);
+}
+
+.mortgage-step > span {
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #edf5ff;
+  color: #2f73ff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.mortgage-step h2 {
+  margin: 0;
+  color: #142033;
+  font-size: clamp(18px, 1.25vw, 24px);
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.mortgage-step p {
+  margin: 10px 0 0;
+  color: #61718a;
+  font-size: clamp(14px, 0.885vw, 17px);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
 .home-page .home-section__head--compact {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
@@ -8102,6 +8230,40 @@ body.home-page {
   }
 }
 
+@media (max-width: 767px) {
+  .mortgage-panel {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .mortgage-panel__lead,
+  .mortgage-step {
+    border-radius: 22px;
+    padding: 22px;
+  }
+
+  .mortgage-panel__lead h2 {
+    font-size: clamp(24px, 7.5vw, 31px);
+  }
+
+  .mortgage-panel__lead .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mortgage-step {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .mortgage-step > span {
+    width: 42px;
+    height: 42px;
+    font-size: 13px;
+  }
+}
+
 /* Request modal redesign */
 #estimate-modal {
   background: rgba(21, 31, 46, 0.62);
@@ -8738,6 +8900,13 @@ body.home-page {
     padding: 0 10px;
     text-align: center;
     white-space: nowrap;
+  }
+
+  .nav__badge,
+  .home-page .nav__badge {
+    min-height: 15px;
+    font-size: 8px;
+    padding: 0 5px;
   }
 
   .nav__link:hover,

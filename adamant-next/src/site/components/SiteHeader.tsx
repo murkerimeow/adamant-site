@@ -7,6 +7,7 @@ type SiteHeaderProps = {
     | "catalog"
     | "contacts"
     | "home"
+    | "mortgage"
     | "portfolio"
     | "services";
   phone: string;
@@ -15,6 +16,7 @@ type SiteHeaderProps = {
 const navItems = [
   { href: "/", key: "home", label: "Главная" },
   { href: "/services", key: "services", label: "Услуги" },
+  { href: "/mortgage", key: "mortgage", label: "Ипотека", badge: "NEW" },
   { href: "/portfolio", key: "portfolio", label: "Портфолио" },
   { href: "/catalog", key: "catalog", label: "Каталог" },
   { href: "/blog", key: "blog", label: "Блог" },
@@ -36,7 +38,13 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
             className={`nav__link${item.key === active ? " nav__link--active" : ""}`}
             href={item.href}
           >
-            {item.label}
+            <span className="nav__label">{item.label}</span>
+            {"badge" in item ? (
+              <>
+                {" "}
+                <span className="nav__badge">{item.badge}</span>
+              </>
+            ) : null}
           </a>
         ))}
       </nav>
