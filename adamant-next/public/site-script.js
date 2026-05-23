@@ -1164,7 +1164,7 @@
     const nextButton = sliderRoot?.querySelector("[data-slider-next]");
 
     const getSlideStep = () => {
-      const firstCard = slider.querySelector(".home-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card");
       if (!firstCard) return Math.max(260, slider.clientWidth * 0.78);
 
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
@@ -1209,7 +1209,7 @@
       const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
       if (maxScroll <= 2) return;
 
-      const firstCard = slider.querySelector(".home-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card");
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
       const step = firstCard
         ? firstCard.getBoundingClientRect().width + gap

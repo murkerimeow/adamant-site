@@ -185,7 +185,8 @@ export default async function HomePage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const featuredServices = services.slice(0, 3);
   const cycleServices = services.slice(0, 4);
-  const featuredProjects = portfolioItems.slice(0, 3);
+  const featuredShowreelProjects = portfolioItems.slice(0, 3);
+  const featuredProjects = catalogItems.filter((item) => item.showInCatalog).slice(0, 8);
   const portfolioStripItems = portfolioItems.slice(0, 6);
   const trustImageUrl =
     getMediaUrl(portfolioStripItems[0]?.previewImage, "card") ||
@@ -321,7 +322,7 @@ export default async function HomePage() {
             </div>
 
             <div className="home-showreel__grid">
-              {featuredProjects.map((project, index) => {
+              {featuredShowreelProjects.map((project, index) => {
                 const catalogItem = catalogByTitle.get(project.title);
                 const href = catalogItem
                   ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
@@ -408,27 +409,42 @@ export default async function HomePage() {
 
           {true ? (
             <>
-          <section className="home-section home-project-preview" aria-labelledby="home-project-preview-title">
+          <section
+            className="home-section home-project-preview"
+            aria-labelledby="home-project-preview-title"
+            data-home-services-carousel
+          >
             <div className="home-section__head home-section__head--compact">
               <div>
                 <span className="section__kicker">Наши проекты</span>
                 <h2 id="home-project-preview-title">Современные дома для комфортной жизни</h2>
               </div>
               <div className="home-project-preview__actions" aria-label="Навигация по проектам">
-                <a className="home-section__link" href="/portfolio">
+                <a className="home-section__link" href="/catalog">
                   Смотреть все проекты <span aria-hidden="true">→</span>
                 </a>
-                <span className="home-project-preview__arrow" aria-hidden="true">‹</span>
-                <span className="home-project-preview__arrow home-project-preview__arrow--active" aria-hidden="true">›</span>
+                <button
+                  className="home-project-preview__arrow"
+                  type="button"
+                  aria-label="Предыдущие проекты"
+                  data-slider-prev
+                >
+                  ‹
+                </button>
+                <button
+                  className="home-project-preview__arrow home-project-preview__arrow--active"
+                  type="button"
+                  aria-label="Следующие проекты"
+                  data-slider-next
+                >
+                  ›
+                </button>
               </div>
             </div>
 
-            <div className="home-project-preview__grid">
+            <div className="home-project-preview__grid js-wheel-slider">
               {featuredProjects.map((project, index) => {
-                const catalogItem = catalogByTitle.get(project.title);
-                const href = catalogItem
-                  ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
-                  : "/portfolio";
+                const href = `/catalog-item?item=${encodeURIComponent(project.itemKey)}&source=catalog`;
                 const imageUrl =
                   getMediaUrl(project.previewImage, "card") || getMediaUrl(project.previewImage);
                 const meta = projectCardMeta[index] ?? projectCardMeta[0];
@@ -452,7 +468,7 @@ export default async function HomePage() {
                     </a>
                     <div className="home-project-card__body">
                       <h3>{project.title}</h3>
-                      <p>{project.summary}</p>
+                      <p>{project.cardSummary || project.description}</p>
                       <strong>{meta.price}</strong>
                     </div>
                   </article>

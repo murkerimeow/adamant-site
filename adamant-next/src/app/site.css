@@ -7260,17 +7260,32 @@ body.home-page {
   height: 42px;
   align-items: center;
   justify-content: center;
+  border: 0;
   border-radius: 999px;
   background: #edf4ff;
   color: #647188;
+  cursor: pointer;
+  font: inherit;
   font-size: 26px;
   line-height: 1;
   font-weight: 800;
+  padding: 0 0 3px;
+  transition: background 180ms ease, color 180ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
+.home-project-preview__arrow:not(:disabled),
 .home-project-preview__arrow--active {
   background: #17233a;
   color: #ffffff;
+}
+
+.home-project-preview__arrow:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+
+.home-project-preview__arrow:disabled {
+  cursor: default;
+  opacity: 0.48;
 }
 
 .home-project-preview__grid,
@@ -7281,7 +7296,22 @@ body.home-page {
 }
 
 .home-project-preview__grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  grid-template-columns: none;
+  gap: clamp(18px, 1.563vw, 30px);
+  margin-right: calc(clamp(28px, 3.333vw, 64px) * -1);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding-right: clamp(28px, 3.333vw, 64px);
+  padding-bottom: 6px;
+  scroll-behavior: smooth;
+  scroll-padding-left: 1px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.home-project-preview__grid::-webkit-scrollbar {
+  display: none;
 }
 
 .home-project-card,
@@ -7297,8 +7327,10 @@ body.home-page {
 
 .home-project-card {
   display: grid;
+  flex: 0 0 calc((100% - 60px) / 3);
   gap: 14px;
   padding-bottom: 18px;
+  scroll-snap-align: start;
   transition: box-shadow 180ms ease, transform 180ms ease;
 }
 
@@ -8172,10 +8204,23 @@ body.home-page {
   }
 
   .home-project-preview__actions .home-section__link {
-    order: 3;
     width: 100%;
     justify-content: flex-start;
     padding: 0;
+  }
+
+  .home-project-preview__arrow {
+    display: none;
+  }
+
+  .home-project-preview__grid {
+    display: flex;
+    margin-right: -18px;
+    padding-right: 18px;
+  }
+
+  .home-project-card {
+    flex-basis: min(82vw, 320px);
   }
 
   .home-project-preview__grid,
