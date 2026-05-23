@@ -71,7 +71,7 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
         </div>
       </nav>
 
-      <button className="phone" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
+      <button className="phone js-open-callback" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
         {phone}
       </button>
       <button
