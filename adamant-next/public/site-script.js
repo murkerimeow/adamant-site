@@ -11,14 +11,12 @@
             <h2 id="estimate-modal-title">Оставьте заявку</h2>
             <p class="modal-lead__text">Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы.</p>
             <form class="modal-form modal-form--lead" data-form-kind="estimate">
-              <div class="modal-form__row">
-                <label class="modal-field">
-                  <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
-                </label>
-                <label class="modal-field">
-                  <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
-                </label>
-              </div>
+              <label class="modal-field">
+                <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
+              </label>
+              <label class="modal-field">
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
+              </label>
               <label class="modal-field">
                 <input type="text" name="service" placeholder="Услуга" aria-label="Услуга">
               </label>
@@ -195,14 +193,6 @@
             <p class="modal-lead__text">Оставьте почту и сообщение — мы ответим и подскажем по проекту.</p>
             <form class="modal-form modal-form--lead" data-form-kind="message">
               <input type="hidden" name="service" value="Сообщение из футера" autocomplete="off">
-              <div class="modal-form__row">
-                <label class="modal-field">
-                  <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
-                </label>
-                <label class="modal-field">
-                  <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон" aria-label="Телефон">
-                </label>
-              </div>
               <label class="modal-field">
                 <input type="email" name="email" autocomplete="email" placeholder="E-mail *" aria-label="E-mail" required>
               </label>
