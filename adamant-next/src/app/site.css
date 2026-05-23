@@ -8512,6 +8512,51 @@ body.home-page {
   resize: vertical;
 }
 
+#estimate-modal .modal-lead__content {
+  padding-top: clamp(28px, 2.5vw, 42px);
+  padding-bottom: clamp(30px, 2.8vw, 48px);
+}
+
+#estimate-modal .modal-lead__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+}
+
+#estimate-modal .modal-form--lead {
+  gap: 9px;
+  margin-top: 14px;
+}
+
+#estimate-modal .modal-field input {
+  min-height: 44px;
+}
+
+#estimate-modal .modal-field textarea {
+  height: 84px;
+  min-height: 84px;
+}
+
+#estimate-modal .modal-file {
+  gap: 10px;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+#estimate-modal .modal-file__button {
+  min-height: 30px;
+}
+
+#estimate-modal .modal-consent {
+  font-size: 13px;
+  line-height: 1.28;
+}
+
+#estimate-modal .modal-submit {
+  min-height: 48px;
+  height: 48px;
+}
+
 #estimate-modal .modal-field select,
 #callback-modal .modal-field select,
 #message-modal .modal-field select {
