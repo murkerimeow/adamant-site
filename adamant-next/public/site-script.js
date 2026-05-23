@@ -6,35 +6,35 @@
         <div class="modal-lead" data-modal-state="form">
           <section class="modal-lead__content">
             <span class="modal-lead__icon" aria-hidden="true">
-              <img src="/new-icons/phone.png" alt="">
+              <img src="/new-icons/estimate-day.png" alt="">
             </span>
-            <h2 id="estimate-modal-title">Заказать<br>обратный звонок</h2>
-            <p class="modal-lead__text">Оставьте номер телефона — мы перезвоним вам, ответим на вопросы и поможем с выбором решения.</p>
+            <h2 id="estimate-modal-title">Оставьте заявку</h2>
+            <p class="modal-lead__text">Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы.</p>
             <form class="modal-form modal-form--lead" data-form-kind="estimate">
-              <input type="hidden" name="service" autocomplete="off">
+              <div class="modal-form__row">
+                <label class="modal-field">
+                  <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
+                </label>
+                <label class="modal-field">
+                  <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
+                </label>
+              </div>
               <label class="modal-field">
-                <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя">
+                <input type="text" name="service" placeholder="Услуга" aria-label="Услуга">
               </label>
               <label class="modal-field">
-                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
+                <textarea name="message" rows="5" placeholder="Расскажите о вашем проекте" aria-label="Сообщение"></textarea>
               </label>
-              <label class="modal-field">
-                <select name="callTime" aria-label="Удобное время звонка">
-                  <option value="">Удобное время звонка</option>
-                  <option value="В течение 10 минут">В течение 10 минут</option>
-                  <option value="Сегодня">Сегодня</option>
-                  <option value="Завтра">Завтра</option>
-                  <option value="В рабочее время">В рабочее время</option>
-                </select>
-              </label>
-              <label class="modal-field">
-                <textarea name="message" rows="4" placeholder="Комментарий (необязательно)" aria-label="Комментарий"></textarea>
+              <label class="modal-file">
+                <input type="file" name="photos" accept="image/*" multiple>
+                <span class="modal-file__button">Прикрепить фото</span>
+                <span class="modal-file__summary" data-file-summary>Можно прикрепить до 5 фото</span>
               </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" checked>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
               </label>
-              <button class="modal-submit" type="submit">Жду звонка</button>
+              <button class="modal-submit" type="submit">Отправить заявку</button>
               <p class="modal-form__status" aria-live="polite"></p>
             </form>
           </section>
@@ -42,27 +42,27 @@
             <img src="/request-house.jpg" alt="">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
-                <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
-                <div>
-                  <strong>Перезвоним в течение 10 минут</strong>
-                  <p>Наш специалист свяжется с вами быстро и ответит на все вопросы</p>
-                </div>
-              </div>
-              <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
                 <div>
                   <strong>Бесплатная консультация</strong>
-                  <p>Проконсультируем по проектам, материалам и срокам строительства</p>
+                  <p>Ответим на все ваши вопросы</p>
                 </div>
               </div>
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--calc"></span>
                 <div>
-                  <strong>Поможем рассчитать стоимость проекта</strong>
-                  <p>Подготовим точный расчет под ваш проект</p>
+                  <strong>Точный расчёт сметы</strong>
+                  <p>Подготовим смету под ваш проект</p>
                 </div>
               </div>
-              <span class="modal-lead__secure">Ваши данные в безопасности</span>
+              <div class="modal-benefit">
+                <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
+                <div>
+                  <strong>Быстрый ответ</strong>
+                  <p>Свяжемся с вами в течение 15 минут</p>
+                </div>
+              </div>
+              <span class="modal-lead__secure">Ваши данные защищены и не передаются третьим лицам</span>
             </div>
           </aside>
         </div>
@@ -327,6 +327,8 @@
     const form = modal.querySelector(".modal-form");
     if (form) form.reset();
 
+    modal.querySelectorAll('input[type="file"]').forEach(updateFileSummary);
+
     const status = modal.querySelector(".modal-form__status");
     if (status) {
       status.textContent = "";
@@ -342,18 +344,76 @@
   };
 
   const buildRequestMessageValue = (formData) => {
-    const callTime = readFieldValue(formData, "callTime");
-    const message = readFieldValue(formData, "message");
-
-    return [
-      callTime ? `Удобное время звонка: ${callTime}` : "",
-      message,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    return readFieldValue(formData, "message");
   };
 
+  const getRequestPhotoFiles = (formData) =>
+    formData
+      .getAll("photos")
+      .filter((file) => file instanceof File && file.size > 0);
+
+  const validateRequestPhotoFiles = (files) => {
+    if (files.length > 5) {
+      return "Можно прикрепить не больше 5 фото.";
+    }
+
+    const oversizedFile = files.find((file) => file.size > 8 * 1024 * 1024);
+    if (oversizedFile) {
+      return `Фото ${oversizedFile.name} больше 8 МБ.`;
+    }
+
+    const wrongTypeFile = files.find((file) => !file.type.startsWith("image/"));
+    if (wrongTypeFile) {
+      return `Файл ${wrongTypeFile.name} не похож на изображение.`;
+    }
+
+    return "";
+  };
+
+  const getFileSummaryText = (files) => {
+    if (!files.length) return "Можно прикрепить до 5 фото";
+    if (files.length === 1) return files[0].name;
+    return `Выбрано фото: ${files.length}`;
+  };
+
+  const updateFileSummary = (input) => {
+    const summary = input.closest(".modal-file")?.querySelector("[data-file-summary]");
+    if (!summary) return;
+
+    summary.textContent = getFileSummaryText(Array.from(input.files ?? []));
+  };
+
+  document.addEventListener("change", (event) => {
+    const input = event.target.closest?.('input[type="file"][name="photos"]');
+    if (input) updateFileSummary(input);
+  });
+
   const submitRequest = async (payload) => {
+    if (payload.requestType === "estimate") {
+      const formPayload = new FormData();
+      const photos = Array.isArray(payload.photos) ? payload.photos : [];
+
+      Object.entries(payload).forEach(([key, value]) => {
+        if (key === "photos") return;
+        formPayload.append(key, typeof value === "string" ? value : "");
+      });
+
+      photos.forEach((file) => {
+        formPayload.append("photos", file);
+      });
+
+      const response = await fetch("/api/request-with-photos", {
+        method: "POST",
+        body: formPayload,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      return response.json();
+    }
+
     const response = await fetch("/api/requests", {
       method: "POST",
       headers: {
@@ -1306,6 +1366,10 @@
     setEstimateService(getEstimateServiceFromTrigger(trigger));
   };
 
+  const openCallbackModal = () => {
+    openModal("callback-modal");
+  };
+
   const openMessageModal = () => {
     openModal("message-modal");
   };
@@ -1338,6 +1402,13 @@
       return;
     }
 
+    const callbackTrigger = event.target.closest(".js-open-callback");
+    if (callbackTrigger) {
+      event.preventDefault();
+      openCallbackModal();
+      return;
+    }
+
     const estimateTrigger = event.target.closest(".js-open-estimate");
     if (estimateTrigger) {
       event.preventDefault();
@@ -1348,7 +1419,7 @@
     const phoneTrigger = event.target.closest(".phone");
     if (phoneTrigger) {
       event.preventDefault();
-      openEstimateModal(phoneTrigger);
+      openCallbackModal();
       return;
     }
 
@@ -1443,6 +1514,13 @@
       const requestType =
         formKind === "callback" ? "callback" : formKind === "message" ? "message" : "estimate";
       const usesResultState = modal.id === "estimate-modal";
+      const photoFiles = requestType === "estimate" ? getRequestPhotoFiles(formData) : [];
+      const photoError = requestType === "estimate" ? validateRequestPhotoFiles(photoFiles) : "";
+
+      if (photoError) {
+        setStatusMessage(status, photoError, true);
+        return;
+      }
 
       if (submitButton) submitButton.disabled = true;
       setStatusMessage(status, "Отправляем...");
@@ -1456,6 +1534,7 @@
           service: readFieldValue(formData, "service"),
           message: buildRequestMessageValue(formData),
           sourcePage: window.location.pathname,
+          photos: photoFiles,
         });
 
         form.reset();

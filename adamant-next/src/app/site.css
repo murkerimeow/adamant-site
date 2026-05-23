@@ -8427,8 +8427,14 @@ body.home-page {
 }
 
 #estimate-modal .modal-form--lead {
-  gap: 8px;
+  gap: 12px;
   margin-top: 18px;
+}
+
+#estimate-modal .modal-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 #estimate-modal .modal-field {
@@ -8455,7 +8461,7 @@ body.home-page {
 }
 
 #estimate-modal .modal-field textarea {
-  min-height: 74px;
+  min-height: 120px;
   padding-top: 13px;
   resize: vertical;
 }
@@ -8502,6 +8508,63 @@ body.home-page {
 .modal-consent__link {
   color: #2f73ff;
   font-weight: 700;
+}
+
+.modal-file {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  border: 1px dashed #c8d6ec;
+  border-radius: 14px;
+  background: #f7fbff;
+  padding: 10px 12px;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.modal-file:hover {
+  border-color: #2f73ff;
+  background: #f0f7ff;
+}
+
+.modal-file:focus-within {
+  border-color: #2f73ff;
+  box-shadow: 0 0 0 4px rgba(47, 115, 255, 0.12);
+}
+
+.modal-file input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.modal-file__button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 0 14px;
+  color: #2f73ff;
+  box-shadow: 0 8px 18px rgba(17, 32, 56, 0.05);
+  font-weight: 800;
+}
+
+.modal-file__summary {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #estimate-modal .modal-submit {
@@ -8596,16 +8659,19 @@ body.home-page {
 }
 
 .modal-benefit__icon--clock::before {
-  background-image: url("/new-icons/estimate-day.png");
+  background-image: url("/new-icons/phone.png");
 }
 
-.modal-benefit__icon--consult::before,
+.modal-benefit__icon--consult::before {
+  background-image: url("/new-icons/experience.png");
+}
+
 .modal-result__card-icon--phone::before {
   background-image: url("/new-icons/phone.png");
 }
 
 .modal-benefit__icon--calc::before {
-  background-image: url("/new-icons/homes.png");
+  background-image: url("/new-icons/estimate-day.png");
 }
 
 .modal-result__card-icon--signal::before {
@@ -8821,6 +8887,10 @@ body.home-page {
     margin-top: 22px;
   }
 
+  #estimate-modal .modal-form__row {
+    grid-template-columns: 1fr;
+  }
+
   #estimate-modal .modal-field input,
   #estimate-modal .modal-field textarea,
   #estimate-modal .modal-field select {
@@ -8831,6 +8901,15 @@ body.home-page {
 
   #estimate-modal .modal-field textarea {
     min-height: 92px;
+  }
+
+  .modal-file {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .modal-file__button {
+    width: 100%;
   }
 
   #estimate-modal .modal-submit {

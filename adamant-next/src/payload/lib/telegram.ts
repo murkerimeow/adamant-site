@@ -5,6 +5,12 @@ export type TelegramSendResult = {
   messageId: number;
 };
 
+export type TelegramPhotoAttachment = {
+  bytes: Uint8Array;
+  filename: string;
+  mimeType: string;
+};
+
 type TelegramMessageOptions = {
   parseMode?: "HTML";
 };
@@ -117,6 +123,85 @@ async function sendTelegramMessage(
   return results;
 }
 
+async function sendTelegramPhotos(
+  doc: RequestDoc,
+  attachments: TelegramPhotoAttachment[],
+): Promise<TelegramSendResult[]> {
+  const { token, chatIds } = getTelegramConfig();
+
+  if (!token || !chatIds.length || !attachments.length) {
+    return [];
+  }
+
+  const captionLines = [
+    "<b>📎 Фото к заявке с сайта</b>",
+    buildTelegramField("Имя", doc.name),
+    buildTelegramField("Телефон", doc.phone),
+    buildTelegramField("Услуга", doc.service),
+  ].filter(Boolean);
+
+  const caption = captionLines.join("\n");
+
+  const results = await Promise.all(
+    chatIds.map(async (chatId) => {
+      const body = new FormData();
+      const media = attachments.map((attachment, index) => {
+        const fieldName = `photo_${index}`;
+        const copy = attachment.bytes.slice();
+        body.append(
+          fieldName,
+          new Blob([copy.buffer as ArrayBuffer], { type: attachment.mimeType }),
+          attachment.filename,
+        );
+
+        return {
+          type: "photo",
+          media: `attach://${fieldName}`,
+          ...(index === 0 && caption
+            ? {
+                caption,
+                parse_mode: "HTML",
+              }
+            : {}),
+        };
+      });
+
+      body.append("chat_id", chatId);
+      body.append("media", JSON.stringify(media));
+
+      const response = await fetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`chat ${chatId}: ${response.status} ${errorText}`);
+      }
+
+      const payload = (await response.json()) as {
+        ok?: boolean;
+        result?: {
+          message_id?: number;
+        }[];
+      };
+
+      if (!payload.ok || !Array.isArray(payload.result)) {
+        throw new Error(`chat ${chatId}: Telegram returned an invalid media response`);
+      }
+
+      return payload.result
+        .filter((message) => typeof message.message_id === "number")
+        .map((message) => ({
+          chatId,
+          messageId: message.message_id as number,
+        }));
+    }),
+  );
+
+  return results.flat();
+}
+
 function buildRequestMessage(doc: RequestDoc) {
   const meta = [
     requestTypeLabels[doc.requestType] ?? doc.requestType,
@@ -149,6 +234,13 @@ function buildRequestMessage(doc: RequestDoc) {
 export async function sendTelegramRequestNotification(doc: RequestDoc) {
   const message = buildRequestMessage(doc);
   await sendTelegramMessage(message, { parseMode: "HTML" });
+}
+
+export async function sendTelegramRequestPhotos(
+  doc: RequestDoc,
+  attachments: TelegramPhotoAttachment[],
+) {
+  await sendTelegramPhotos(doc, attachments);
 }
 
 export async function sendTelegramChatNotification(input: {

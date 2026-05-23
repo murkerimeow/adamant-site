@@ -50,7 +50,7 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
         ))}
 
         <div className="nav__mobile-contact" aria-label="Контакты">
-          <button className="nav__mobile-phone js-open-estimate" type="button">
+          <button className="nav__mobile-phone js-open-callback" type="button">
             {phone}
           </button>
           <div className="nav__mobile-socials" aria-label="Соцсети">
@@ -71,7 +71,7 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
         </div>
       </nav>
 
-      <button className="phone" type="button" aria-label={`Оставить заявку по номеру ${phone}`}>
+      <button className="phone" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
         {phone}
       </button>
       <button

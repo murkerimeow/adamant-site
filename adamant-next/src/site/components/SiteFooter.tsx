@@ -71,7 +71,7 @@ export async function SiteFooter() {
 
         <div className="home-footer__column home-footer__contacts">
           <h2>Контакты</h2>
-          <button className="home-footer__contact-link js-open-estimate" type="button">
+          <button className="home-footer__contact-link js-open-callback" type="button">
             {siteSettings.phonePrimary}
           </button>
           {siteSettings.email ? (
