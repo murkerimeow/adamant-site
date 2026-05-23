@@ -2442,43 +2442,36 @@ a {
 .home-footer__socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   margin-top: 14px;
 }
 
 .home-footer__socials a {
   display: inline-flex;
   width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
+  min-height: 38px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(219, 229, 245, 0.9);
-  border-radius: 999px;
-  background: #ffffff;
+  border-radius: 0;
+  background: transparent;
   color: inherit;
   padding: 0;
-  box-shadow: 0 8px 18px rgba(31, 62, 114, 0.08);
   transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .home-footer__socials svg {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 34px;
+  height: 34px;
 }
 
 .home-footer__social-link--tiktok svg {
-  width: 23px;
-  height: 23px;
+  width: 30px;
+  height: 30px;
 }
 
 .home-footer__socials a:hover {
-  border-color: rgba(47, 115, 255, 0.38);
-  box-shadow: 0 12px 24px rgba(47, 115, 255, 0.15);
   transform: translateY(-2px);
 }
 

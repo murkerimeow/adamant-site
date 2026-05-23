@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 export type SocialKey = "telegram" | "vk" | "max" | "instagram" | "tiktok" | "youtube";
 
 export const socialLinks: Array<{
@@ -26,6 +28,8 @@ export const socialLinks: Array<{
 ];
 
 export function SocialIcon({ name }: { name: SocialKey }) {
+  const iconId = useId().replace(/:/g, "");
+
   switch (name) {
     case "telegram":
       return (
@@ -46,17 +50,19 @@ export function SocialIcon({ name }: { name: SocialKey }) {
         </svg>
       );
     case "max":
+      const maxGradientId = `max-social-gradient-${iconId}`;
+
       return (
         <svg viewBox="0 0 100 100" aria-hidden="true">
           <defs>
-            <linearGradient id="max-social-gradient" x1="12" y1="8" x2="88" y2="92" gradientUnits="userSpaceOnUse">
+            <linearGradient id={maxGradientId} x1="12" y1="8" x2="88" y2="92" gradientUnits="userSpaceOnUse">
               <stop stopColor="#6877FF" />
               <stop offset="0.55" stopColor="#4AA3FF" />
               <stop offset="1" stopColor="#69F0D0" />
             </linearGradient>
           </defs>
           <path
-            fill="url(#max-social-gradient)"
+            fill={`url(#${maxGradientId})`}
             fillRule="evenodd"
             d="M50.76 0c27.53 0 49.12 22.34 49.12 49.89S77.61 99.23 51.02 99.23c-9.43 0-14.01-1.33-21.37-6.54-.5-.36-1.2-.26-1.63.19-5.66 6.04-20.17 10.28-20.83 2.03C7.19 80.53 0 71.18 0 49.61 0 21.3 23.22 0 50.76 0m.77 24.55c-13.07-.68-23.26 8.39-25.51 22.58-1.86 11.75 1.44 26.07 4.26 26.8 1.2.3 4.08-1.9 6.18-3.88.4-.37.99-.44 1.45-.15 3.27 2 6.97 3.5 11.05 3.71 13.42.7 25.3-9.8 26-23.21.71-13.42-10.01-25.14-23.43-25.85"
             clipRule="evenodd"
@@ -64,11 +70,14 @@ export function SocialIcon({ name }: { name: SocialKey }) {
         </svg>
       );
     case "instagram":
+      const instagramGradientId = `instagram-social-gradient-${iconId}`;
+      const instagramHighlightId = `instagram-social-highlight-${iconId}`;
+
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <defs>
             <radialGradient
-              id="instagram-social-gradient"
+              id={instagramGradientId}
               cx="30%"
               cy="107%"
               r="135%"
@@ -81,7 +90,7 @@ export function SocialIcon({ name }: { name: SocialKey }) {
               <stop offset="1" stopColor="#285AEB" />
             </radialGradient>
             <radialGradient
-              id="instagram-social-highlight"
+              id={instagramHighlightId}
               cx="18%"
               cy="15%"
               r="78%"
@@ -91,8 +100,8 @@ export function SocialIcon({ name }: { name: SocialKey }) {
               <stop offset="0.42" stopColor="#FFFFFF" stopOpacity="0" />
             </radialGradient>
           </defs>
-          <rect width="24" height="24" fill="url(#instagram-social-gradient)" rx="6" />
-          <rect width="24" height="24" fill="url(#instagram-social-highlight)" rx="6" />
+          <rect width="24" height="24" fill={`url(#${instagramGradientId})`} rx="6" />
+          <rect width="24" height="24" fill={`url(#${instagramHighlightId})`} rx="6" />
           <path
             fill="#ffffff"
             fillRule="evenodd"
