@@ -115,18 +115,6 @@
               <label class="modal-field">
                 <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
               </label>
-              <label class="modal-field">
-                <select name="callTime" aria-label="Удобное время звонка">
-                  <option value="">Удобное время звонка</option>
-                  <option value="В течение 10 минут">В течение 10 минут</option>
-                  <option value="Сегодня">Сегодня</option>
-                  <option value="Завтра">Завтра</option>
-                  <option value="В рабочее время">В рабочее время</option>
-                </select>
-              </label>
-              <label class="modal-field">
-                <textarea name="message" rows="4" placeholder="Комментарий (необязательно)" aria-label="Комментарий"></textarea>
-              </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" checked>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>

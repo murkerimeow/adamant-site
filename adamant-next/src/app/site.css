@@ -8668,6 +8668,10 @@ body.home-page {
   object-position: 68% center;
 }
 
+#callback-modal .modal-lead__visual > img {
+  object-position: 84% center;
+}
+
 .modal-lead__visual::after {
   content: "";
   position: absolute;
