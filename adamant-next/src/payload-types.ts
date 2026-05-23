@@ -344,9 +344,9 @@ export interface Vacancy {
  */
 export interface Request {
   id: number;
-  requestType: 'estimate' | 'callback';
+  requestType: 'estimate' | 'callback' | 'message';
   name?: string | null;
-  phone: string;
+  phone?: string | null;
   email?: string | null;
   service?: string | null;
   message?: string | null;

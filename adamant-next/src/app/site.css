@@ -480,6 +480,20 @@ a {
   background: #181818;
 }
 
+#message-modal .modal__text {
+  margin-top: 12px;
+}
+
+#message-modal .modal-submit {
+  background: linear-gradient(135deg, #2f73ff, #0b6dff);
+  box-shadow: 0 16px 34px rgba(47, 115, 255, 0.24);
+}
+
+#message-modal .modal-submit:hover {
+  background: linear-gradient(135deg, #185be8, #2f73ff);
+  box-shadow: 0 20px 40px rgba(47, 115, 255, 0.3);
+}
+
 .modal-form__status {
   min-height: 20px;
   margin: 0;

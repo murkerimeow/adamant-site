@@ -49,6 +49,7 @@ export const Requests: CollectionConfig = {
       options: [
         { label: "Оставить заявку", value: "estimate" },
         { label: "Обратный звонок", value: "callback" },
+        { label: "Написать нам", value: "message" },
       ],
       required: true,
     },
@@ -61,7 +62,6 @@ export const Requests: CollectionConfig = {
       name: "phone",
       type: "text",
       label: "Телефон",
-      required: true,
     },
     {
       name: "email",

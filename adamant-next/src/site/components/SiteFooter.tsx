@@ -35,8 +35,8 @@ export async function SiteFooter() {
             Строим современные загородные дома под ключ в Санкт-Петербурге
             и Ленинградской области с прозрачной сметой и контролем сроков.
           </p>
-          <button className="home-footer__button js-open-estimate" type="button">
-            Оставить заявку
+          <button className="home-footer__button js-open-message" type="button">
+            Написать нам
           </button>
         </div>
 

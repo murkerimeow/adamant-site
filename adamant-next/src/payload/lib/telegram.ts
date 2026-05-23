@@ -12,6 +12,7 @@ type TelegramMessageOptions = {
 const requestTypeLabels: Record<NonNullable<RequestDoc["requestType"]>, string> = {
   callback: "Обратный звонок",
   estimate: "Оставить заявку",
+  message: "Написать нам",
 };
 
 function formatCreatedAt(value?: string | null) {

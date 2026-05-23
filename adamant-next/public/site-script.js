@@ -117,6 +117,35 @@
       </div>
     </div>
 
+    <div class="modal" id="message-modal" role="dialog" aria-modal="true" aria-labelledby="message-modal-title" hidden>
+      <div class="modal__dialog modal__dialog--small">
+        <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
+        <h2 id="message-modal-title">Написать нам</h2>
+        <p class="modal__text">Оставьте почту и сообщение — мы ответим и подскажем по проекту.</p>
+        <form class="modal-form" data-form-kind="message">
+          <input type="hidden" name="service" value="Сообщение из футера" autocomplete="off">
+          <label class="modal-field">
+            <span>Имя</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Ваше имя">
+          </label>
+          <label class="modal-field">
+            <span>Телефон</span>
+            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (000) 000-00-00">
+          </label>
+          <label class="modal-field">
+            <span>Email *</span>
+            <input type="email" name="email" autocomplete="email" placeholder="mail@example.com" required>
+          </label>
+          <label class="modal-field">
+            <span>Сообщение *</span>
+            <textarea name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
+          </label>
+          <button class="modal-submit" type="submit">Отправить сообщение</button>
+          <p class="modal-form__status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
     <button class="site-chat-button" type="button" aria-label="Открыть чат" data-chat-toggle>
       <span class="site-chat-button__icon" aria-hidden="true">
         <img src="/new-icons/chat.png" alt="">
@@ -1277,6 +1306,10 @@
     setEstimateService(getEstimateServiceFromTrigger(trigger));
   };
 
+  const openMessageModal = () => {
+    openModal("message-modal");
+  };
+
   const closeModal = () => {
     if (!activeModal) return;
 
@@ -1298,6 +1331,13 @@
   };
 
   document.addEventListener("click", (event) => {
+    const messageTrigger = event.target.closest(".js-open-message");
+    if (messageTrigger) {
+      event.preventDefault();
+      openMessageModal();
+      return;
+    }
+
     const estimateTrigger = event.target.closest(".js-open-estimate");
     if (estimateTrigger) {
       event.preventDefault();
@@ -1399,7 +1439,9 @@
       const status = form.querySelector(".modal-form__status");
       const submitButton = form.querySelector('[type="submit"]');
       const formData = new FormData(form);
-      const requestType = form.dataset.formKind === "callback" ? "callback" : "estimate";
+      const formKind = form.dataset.formKind;
+      const requestType =
+        formKind === "callback" ? "callback" : formKind === "message" ? "message" : "estimate";
       const usesResultState = modal.id === "estimate-modal";
 
       if (submitButton) submitButton.disabled = true;
@@ -1424,6 +1466,8 @@
             status,
             requestType === "callback"
               ? "Заявка на звонок отправлена."
+              : requestType === "message"
+                ? "Сообщение отправлено."
               : "Заявка отправлена."
           );
         }
