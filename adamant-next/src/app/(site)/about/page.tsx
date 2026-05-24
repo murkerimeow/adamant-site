@@ -1,92 +1,116 @@
 import { getAboutPage, getHomePage, getSiteSettings, splitParagraphs } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { SocialIcon, socialLinks } from "@/site/socials";
 import { createPageMetadata } from "@/site/seo";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = createPageMetadata({
   title: "О компании Адамант Строй | Строительство загородных домов под ключ",
-  description: "Адамант Строй проектирует и строит современные загородные дома под ключ с понятной сметой и гарантией на работы.",
+  description:
+    "Адамант Строй проектирует и строит современные загородные дома под ключ с понятной сметой и гарантией на работы.",
   path: "/about",
 });
 
-const aboutSocials = [
-  {
-    key: "telegram",
-    label: "Telegram",
-    href: "https://t.me/adamant_stroy",
-    icon: (
+function AboutIcon({ type }: { type: "care" | "eco" | "home" | "people" | "shield" | "target" }) {
+  const commonProps = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    strokeWidth: 1.9,
+  };
+
+  if (type === "people") {
+    return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="#ffffff"
-          d="M20.54 4.44 3.9 10.86c-1.14.46-1.13 1.1-.2 1.39l4.27 1.33 1.65 5.08c.2.56.1.79.69.79.46 0 .66-.21.92-.47l2.07-2.01 4.31 3.18c.79.43 1.36.21 1.56-.73l2.84-13.4c.29-1.15-.44-1.67-1.47-1.2Z"
-        />
-        <path
-          fill="#dff1ff"
-          d="m9.59 13.28 8.6-5.42c.43-.26.82-.12.5.17l-7.36 6.65-.29 3.09c-.04.43-.23.43-.48.22l-1.88-4.71c-.09-.22.01-.33.91 0Z"
-          opacity="0.55"
-        />
+        <circle cx="9" cy="8.5" r="2.6" {...commonProps} />
+        <circle cx="16" cy="9.5" r="2.1" {...commonProps} />
+        <path d="M4.5 19a4.7 4.7 0 0 1 9 0" {...commonProps} />
+        <path d="M13.5 18.8a3.7 3.7 0 0 1 6 0" {...commonProps} />
       </svg>
-    ),
+    );
+  }
+
+  if (type === "shield") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.8 18.5 6v5.3c0 4.1-2.6 7.6-6.5 8.9-3.9-1.3-6.5-4.8-6.5-8.9V6L12 3.8Z" {...commonProps} />
+        <path d="m9.2 12 1.8 1.8 3.9-4" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "care") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 19.5s-7-4.2-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.3c0 5-7 9.2-7 9.2Z" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "eco") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 18c8 .2 13.2-4.5 14-13-8.2.2-13.5 5-14 13Z" {...commonProps} />
+        <path d="M5 18c2.9-4.5 6.7-7.4 11.3-9" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "target") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="7.5" {...commonProps} />
+        <circle cx="12" cy="12" r="3.4" {...commonProps} />
+        <path d="M15 9 20 4" {...commonProps} />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4.5 11.2 12 5l7.5 6.2" {...commonProps} />
+      <path d="M6.6 10.2v8.3h10.8v-8.3" {...commonProps} />
+      <path d="M10 18.5v-4.8h4v4.8" {...commonProps} />
+    </svg>
+  );
+}
+
+const approachItems = [
+  {
+    icon: "target",
+    title: "Качество",
+    text: "Используем проверенные материалы и современные технологии строительства.",
   },
   {
-    key: "vk",
-    label: "ВКонтакте",
-    href: "https://vk.ru/adamant_stroyrem",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="#ffffff"
-          d="M5.3 7.68c.16 4.9 2.72 7.85 7.14 8.5h.29v-2.8c1.57.16 2.75 1.29 3.22 2.8h2.28c-.61-2.28-2.2-3.54-3.19-4.02.98-.58 2.39-2 2.71-4.48h-2.08c-.42 2-1.71 3.42-2.74 3.58V7.68h-2.08v6.26c-1.04-.26-2.37-1.82-2.43-6.26H5.3Z"
-        />
-      </svg>
-    ),
+    icon: "people",
+    title: "Честность",
+    text: "Прозрачные сметы, понятные договоры и открытая коммуникация.",
   },
   {
-    key: "max",
-    label: "MAX",
-    href: "https://max.ru/join/5IZHwoGqh8laOBvd3atPM0OKvMjmQSwytpyKBs1cQ8c",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="#ffffff"
-          d="M4.8 17.5V6.5h2.2L12 12.05l5-5.55h2.2v11H17v-7.22L12 15.82 7 10.28v7.22Z"
-        />
-      </svg>
-    ),
+    icon: "shield",
+    title: "Надежность",
+    text: "Соблюдаем сроки и даем гарантию на все виды работ.",
   },
   {
-    key: "tiktok",
-    label: "TikTok",
-    href: "https://www.tiktok.com/@adamantushka",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="#25F4EE"
-          d="M10.27 9.86v1.86a4.12 4.12 0 0 0-1.33-.22A4.18 4.18 0 0 0 4.76 15.68a4.18 4.18 0 0 0 4.18 4.18 4.18 4.18 0 0 0 4.18-4.18V8.86c1.1.82 2.43 1.27 3.84 1.3V7.17a3.92 3.92 0 0 1-1.08-.16 3.95 3.95 0 0 1-2.76-2.81h-2.85v11.48a1.33 1.33 0 1 1-1.33-1.33c.47 0 .88.12 1.33.31V9.86Z"
-        />
-        <path
-          fill="#FE2C55"
-          d="M11.1 9.15v1.78c-.37-.1-.77-.16-1.18-.16a4.18 4.18 0 0 0-4.18 4.18 4.16 4.16 0 0 0 1.18 2.91 4.18 4.18 0 0 1-2.16-3.67 4.18 4.18 0 0 1 4.18-4.18c.43 0 .82.07 1.18.2V5.53h2.84c.19.95.75 1.81 1.53 2.44a4 4 0 0 0 2.15.88v2.12a6.96 6.96 0 0 1-3.68-1.16v5.87a4.18 4.18 0 0 1-4.18 4.18c-.8 0-1.55-.22-2.16-.6a4.2 4.2 0 0 0 6.34-3.58V9.81a7.05 7.05 0 0 0 3.68 1.04V7.86c-.45 0-.88-.08-1.3-.23a4.04 4.04 0 0 1-2.38-2.1h-1.86V9.15Z"
-        />
-        <path
-          fill="#ffffff"
-          d="M12.47 4.2c.2 1.08.84 2.04 1.75 2.71a4 4 0 0 0 2.38.8v2.12a6.92 6.92 0 0 1-3.47-.94v4.78a4.18 4.18 0 1 1-4.18-4.17c.46 0 .9.08 1.32.22v2.18a1.8 1.8 0 0 0-1.32-.57 1.84 1.84 0 1 0 1.84 1.84V4.2h1.68Z"
-        />
-      </svg>
-    ),
+    icon: "care",
+    title: "Забота о клиентах",
+    text: "Сопровождаем на всех этапах от идеи до сдачи дома.",
   },
   {
-    key: "youtube",
-    label: "YouTube",
-    href: "https://www.youtube.com/",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="#ffffff" d="M10.25 15.42 16.06 12l-5.81-3.42v6.84Z" />
-      </svg>
-    ),
+    icon: "eco",
+    title: "Экологичность",
+    text: "Строим энергоэффективные дома с заботой о природе и здоровье.",
   },
+] as const;
+
+const team = [
+  ["Александр Петров", "Основатель, генеральный директор", "Отвечает за стратегию и развитие компании."],
+  ["Михаил Иванов", "Технический директор", "Контролирует качество работ и внедряет новые технологии."],
+  ["Екатерина Смирнова", "Руководитель проектов", "Координирует проекты на всех этапах."],
+  ["Дмитрий Кузнецов", "Руководитель строительных работ", "Отвечает за соблюдение сроков и качества."],
+  ["Ольга Белова", "Менеджер по работе с клиентами", "Помогает подобрать оптимальное решение."],
 ] as const;
 
 export default async function AboutPage() {
@@ -97,83 +121,135 @@ export default async function AboutPage() {
   ]);
 
   const paragraphs = splitParagraphs(aboutPage.intro);
-  const experienceStat = homePage.stats?.[3];
+  const stats = [
+    { icon: "home" as const, value: "12+", label: "лет на рынке" },
+    { icon: "home" as const, value: homePage.stats?.[0]?.value || "820+", label: "построенных домов" },
+    { icon: "people" as const, value: "450+", label: "довольных семей" },
+    { icon: "shield" as const, value: "5 лет", label: "гарантии на работы" },
+    { icon: "people" as const, value: "Работаем", label: "по всему СЗФО" },
+  ];
 
   return (
-    <main className="page inner-page about-page" aria-label="О компании Адамант">
+    <main className="page inner-page about-page about-page--fresh" aria-label="О компании Адамант">
       <SiteHeader active="about" phone={siteSettings.phonePrimary} />
 
-      <section className="section about-section" aria-labelledby="about-title">
-        <div className="about-hero">
-          <div className="section__intro about-copy">
-            <span className="about-kicker">{aboutPage.eyebrow}</span>
-            <h1 id="about-title">{aboutPage.title}</h1>
-            {aboutPage.subtitle ? <p>{aboutPage.subtitle}</p> : null}
-            {paragraphs.map((paragraph, index) => (
-              <p key={`${index}-${paragraph.slice(0, 20)}`}>{paragraph}</p>
-            ))}
-
-            <div className="about-socials" aria-label="Наши соцсети">
-              <span className="about-socials__title">Наши соцсети</span>
-              <div className="about-socials__list">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.key}
-                    className={`about-socials__item about-socials__item--${social.key}`}
-                    href={social.href}
-                    aria-label={social.label}
-                    title={social.label}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <SocialIcon name={social.key} />
-                  </a>
-                ))}
-              </div>
-            </div>
+      <section className="section about-redesign" aria-labelledby="about-title">
+        <div className="about-redesign__hero">
+          <img src="/home-main-new.webp" alt="" />
+          <div className="about-redesign__hero-content">
+            <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
+              <Link href="/">Главная</Link>
+              <span aria-hidden="true">/</span>
+              <span>О нас</span>
+            </nav>
+            <h1 id="about-title">О нас</h1>
+            <p>
+              Строим современные и надежные дома для комфортной жизни.
+              Подходим к каждому проекту как к собственному — с вниманием к
+              деталям и заботой о будущем наших клиентов.
+            </p>
+            <button className="js-open-estimate" type="button">
+              Получить консультацию
+            </button>
           </div>
-
-          <figure className="about-media" aria-label="Строительство современного дома">
-            <img src="/строительство.png" alt="" />
-            {experienceStat ? (
-              <figcaption>
-                <strong>{experienceStat.value}</strong>
-                <span>{experienceStat.label}</span>
-              </figcaption>
-            ) : null}
-          </figure>
         </div>
 
-        <div className="about-principles" aria-label="Принципы работы">
-          {aboutPage.principles?.map((principle, index) => (
-            <article key={principle.id ?? `${principle.title}-${index}`}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h2>{principle.title}</h2>
-              <p>{principle.text}</p>
+        <div className="about-redesign__stats" aria-label="Показатели">
+          {stats.map((stat) => (
+            <article key={`${stat.value}-${stat.label}`}>
+              <span>
+                <AboutIcon type={stat.icon} />
+              </span>
+              <strong>{stat.value}</strong>
+              <small>{stat.label}</small>
             </article>
           ))}
         </div>
 
-        <div className="faq" aria-label="Частые вопросы">
-          <div className="faq__heading">
-            <span>Вопросы</span>
-            <h2>FAQ</h2>
-            <p>Коротко о том, что обычно важно до начала проекта.</p>
+        <section className="about-redesign__story" aria-labelledby="about-story-title">
+          <div>
+            <h2 id="about-story-title">Наша история</h2>
+            {paragraphs.length ? (
+              paragraphs.slice(0, 3).map((paragraph, index) => (
+                <p key={`${index}-${paragraph.slice(0, 20)}`}>{paragraph}</p>
+              ))
+            ) : (
+              <>
+                <p>
+                  Компания «Адамант Строй» выросла из команды единомышленников,
+                  которые хотели изменить подход к строительству частных домов.
+                </p>
+                <p>
+                  Мы строим не просто дома, а пространства для жизни, в которых
+                  каждая деталь продумана заранее.
+                </p>
+              </>
+            )}
+            <a href="/contacts">
+              Подробнее о компании <span aria-hidden="true">→</span>
+            </a>
           </div>
+          <img src="/дом из бруса.png" alt="" />
+        </section>
 
-          <div className="faq__list">
-            {aboutPage.faqItems?.map((item, index) => (
-              <details
-                className="faq-item"
-                key={item.id ?? `${item.question}-${index}`}
-                open={index === 0}
-              >
-                <summary>{item.question}</summary>
-                <p>{item.answer}</p>
-              </details>
+        <section className="about-redesign__approach" aria-labelledby="about-approach-title">
+          <h2 id="about-approach-title">Наш подход</h2>
+          <div>
+            {approachItems.map((item) => (
+              <article key={item.title}>
+                <span>
+                  <AboutIcon type={item.icon} />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
+
+        <section className="about-redesign__team" aria-labelledby="about-team-title">
+          <div className="about-redesign__section-head">
+            <h2 id="about-team-title">Наша команда</h2>
+            <a href="/vacancies">
+              Все специалисты <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div>
+            {team.map(([name, role, text]) => (
+              <article key={name}>
+                <div className="about-redesign__avatar" aria-hidden="true">
+                  <span>{name.split(" ").map((part) => part[0]).join("")}</span>
+                </div>
+                <h3>{name}</h3>
+                <strong>{role}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="about-redesign__cta" aria-label="Связаться с нами">
+          <div>
+            <h2>Ваш дом — наша работа</h2>
+            <p>Мы строим дома, в которых хочется жить. Давайте создадим ваш дом мечты вместе.</p>
+            <div>
+              <button className="js-open-estimate" type="button">Связаться с нами</button>
+              <a href="/portfolio">Смотреть портфолио <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div className="about-redesign__cta-stats">
+            {stats.slice(1, 4).map((stat) => (
+              <article key={`cta-${stat.value}`}>
+                <span>
+                  <AboutIcon type={stat.icon} />
+                </span>
+                <strong>{stat.value}</strong>
+                <small>{stat.label}</small>
+              </article>
+            ))}
+          </div>
+          <img src="/request-house.jpg" alt="" />
+        </section>
       </section>
     </main>
   );
