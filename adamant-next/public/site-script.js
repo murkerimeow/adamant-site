@@ -199,6 +199,11 @@
               <label class="modal-field">
                 <textarea name="message" rows="5" placeholder="Ваше сообщение *" aria-label="Сообщение" required></textarea>
               </label>
+              <label class="modal-file">
+                <input type="file" name="photos" accept="image/*" multiple>
+                <span class="modal-file__button">Прикрепить фото</span>
+                <span class="modal-file__summary" data-file-summary>Можно прикрепить до 5 фото</span>
+              </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" checked>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
@@ -518,9 +523,10 @@
   });
 
   const submitRequest = async (payload) => {
-    if (payload.requestType === "estimate") {
+    const photos = Array.isArray(payload.photos) ? payload.photos : [];
+
+    if (payload.requestType === "estimate" || photos.length) {
       const formPayload = new FormData();
-      const photos = Array.isArray(payload.photos) ? payload.photos : [];
 
       Object.entries(payload).forEach(([key, value]) => {
         if (key === "photos") return;
@@ -1564,8 +1570,8 @@
         formKind === "callback" ? "callback" : formKind === "message" ? "message" : "estimate";
       const usesResultState =
         modal.id === "estimate-modal" || modal.id === "callback-modal" || modal.id === "message-modal";
-      const photoFiles = requestType === "estimate" ? getRequestPhotoFiles(formData) : [];
-      const photoError = requestType === "estimate" ? validateRequestPhotoFiles(photoFiles) : "";
+      const photoFiles = getRequestPhotoFiles(formData);
+      const photoError = photoFiles.length ? validateRequestPhotoFiles(photoFiles) : "";
 
       if (photoError) {
         setStatusMessage(status, photoError, true);

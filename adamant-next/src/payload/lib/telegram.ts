@@ -68,6 +68,13 @@ function buildTelegramField(label: string, value?: string | null) {
   return `<b>${label}:</b> ${escapeTelegramHtml(normalizedValue)}`;
 }
 
+function truncateTelegramValue(value?: string | null, maxLength = 520) {
+  const normalizedValue = typeof value === "string" ? value.trim() : "";
+  return normalizedValue.length > maxLength
+    ? `${normalizedValue.slice(0, maxLength - 1)}…`
+    : normalizedValue;
+}
+
 async function sendTelegramMessage(
   text: string,
   options: TelegramMessageOptions = {},
@@ -135,9 +142,12 @@ async function sendTelegramPhotos(
 
   const captionLines = [
     "<b>📎 Фото к заявке с сайта</b>",
+    buildTelegramField("Тип", requestTypeLabels[doc.requestType] ?? doc.requestType),
     buildTelegramField("Имя", doc.name),
     buildTelegramField("Телефон", doc.phone),
+    buildTelegramField("Email", doc.email),
     buildTelegramField("Услуга", doc.service),
+    buildTelegramField("Сообщение", truncateTelegramValue(doc.message)),
   ].filter(Boolean);
 
   const caption = captionLines.join("\n");

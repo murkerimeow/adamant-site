@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 
 const MAX_PHOTOS = 5;
 const MAX_PHOTO_SIZE = 8 * 1024 * 1024;
+const requestTypes = ["estimate", "callback", "message"] as const;
+
+type RequestType = (typeof requestTypes)[number];
 
 export const runtime = "nodejs";
 
@@ -17,6 +20,11 @@ function isUploadFile(value: FormDataEntryValue): value is File {
   return value instanceof File && value.size > 0;
 }
 
+function readRequestType(formData: FormData): RequestType {
+  const value = readString(formData, "requestType");
+  return requestTypes.includes(value as RequestType) ? (value as RequestType) : "estimate";
+}
+
 function sanitizeFilename(value: string) {
   return value.replace(/[^\wа-яёА-ЯЁ.\- ]+/g, "_").slice(0, 120) || "photo.jpg";
 }
@@ -24,10 +32,20 @@ function sanitizeFilename(value: string) {
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
+    const requestType = readRequestType(formData);
+    const email = readString(formData, "email");
+    const message = readString(formData, "message");
     const phone = readString(formData, "phone");
 
-    if (!phone) {
+    if ((requestType === "estimate" || requestType === "callback") && !phone) {
       return NextResponse.json({ error: "Телефон обязателен" }, { status: 400 });
+    }
+
+    if (requestType === "message" && (!email || !message)) {
+      return NextResponse.json(
+        { error: "Email и сообщение обязательны" },
+        { status: 400 },
+      );
     }
 
     const photoFiles = formData.getAll("photos").filter(isUploadFile);
@@ -56,15 +74,14 @@ export async function POST(request: Request) {
     }
 
     const payload = await getPayload({ config });
-    const message = readString(formData, "message");
     const photoNote = photoFiles.length ? `Прикреплено фото: ${photoFiles.length}` : "";
     const doc = await payload.create({
       collection: "requests",
       data: {
-        requestType: "estimate",
+        requestType,
         name: readString(formData, "name"),
         phone,
-        email: readString(formData, "email"),
+        email,
         service: readString(formData, "service"),
         message: [message, photoNote].filter(Boolean).join("\n"),
         sourcePage: readString(formData, "sourcePage"),

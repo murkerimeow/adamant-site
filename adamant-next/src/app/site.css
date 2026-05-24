@@ -5817,21 +5817,19 @@ button,
 
 /* Home redesign: blue-white landing layout */
 body.home-page {
-  --site-bg: #f6f9ff;
+  --site-bg: #ffffff;
   --ink: #142033;
   --muted: #61718a;
   --blue: #2f73ff;
   --blue-dark: #185be8;
   --blue-soft: #edf5ff;
   --panel: #e7f1ff;
-  background: #f6f9ff;
+  background: #ffffff;
 }
 
 .home-page .viewport,
 .home-page .page {
-  background:
-    radial-gradient(circle at 16% 8%, rgba(47, 115, 255, 0.08), transparent 28%),
-    linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
+  background: #ffffff;
 }
 
 .home-page .header {
@@ -7168,7 +7166,7 @@ body.home-page {
 
 @media (max-width: 767px) {
   body.home-page {
-    background: #f6f9ff;
+    background: #ffffff;
   }
 
   .home-page .header {
@@ -7981,13 +7979,15 @@ body.home-page {
   font-size: 14px;
 }
 
-#estimate-modal .modal-file {
+#estimate-modal .modal-file,
+#message-modal .modal-file {
   gap: 10px;
   border-radius: 12px;
   padding: 8px 10px;
 }
 
-#estimate-modal .modal-file__button {
+#estimate-modal .modal-file__button,
+#message-modal .modal-file__button {
   min-height: 30px;
 }
 
@@ -8612,7 +8612,17 @@ body.home-page {
 }
 
 /* Unified page system */
-.home-page,
+.home-page {
+  --site-bg: #ffffff;
+  --ink: #142033;
+  --muted: #61718a;
+  --blue: #2f73ff;
+  --blue-dark: #185be8;
+  --blue-soft: #edf5ff;
+  background: #ffffff;
+  color: var(--ink);
+}
+
 .page.inner-page {
   --site-bg: #f6f9ff;
   --ink: #142033;
