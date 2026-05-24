@@ -1243,6 +1243,55 @@
     });
   });
 
+  document.querySelectorAll("[data-listing-filters]").forEach((filters) => {
+    const filterKey = filters.dataset.listingFilters;
+    const section = filters.closest(".section") || document;
+    const scope =
+      section.querySelector(`[data-filter-scope="${filterKey}"]`) ||
+      section.querySelector("[data-filter-scope]");
+    const cards = Array.from(scope?.querySelectorAll(".listing-card") || []);
+    const emptyState =
+      section.querySelector(`[data-listing-empty="${filterKey}"]`) ||
+      section.querySelector("[data-listing-empty]");
+
+    if (!scope || !cards.length) return;
+
+    const applyListingFilters = () => {
+      const query = (
+        filters.querySelector("[data-listing-search]")?.value || ""
+      )
+        .trim()
+        .toLowerCase();
+      const controls = Array.from(filters.querySelectorAll("[data-listing-filter]"));
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const matchesControls = controls.every((control) => {
+          const key = control.dataset.listingFilter;
+          const value = control.value;
+
+          if (!key || !value || value === "all") return true;
+
+          return (card.dataset[key] || "") === value;
+        });
+        const matchesSearch = !query || (card.dataset.search || "").includes(query);
+        const isVisible = matchesControls && matchesSearch;
+
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (emptyState) {
+        emptyState.hidden = visibleCount > 0;
+      }
+    };
+
+    filters.addEventListener("input", applyListingFilters);
+    filters.addEventListener("change", applyListingFilters);
+    filters.addEventListener("submit", (event) => event.preventDefault());
+    applyListingFilters();
+  });
+
   document.querySelectorAll(".js-wheel-slider").forEach((slider) => {
     let animationFrame = 0;
     let targetScrollLeft = slider.scrollLeft;

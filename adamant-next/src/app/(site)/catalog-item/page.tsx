@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
@@ -257,9 +258,9 @@ export default async function CatalogItemPage({
         data-cms-product="true"
       >
         <nav className="product-breadcrumbs" aria-label="Хлебные крошки">
-          <a href="/">Главная</a>
+          <Link href="/">Главная</Link>
           <span aria-hidden="true">/</span>
-          <a href={backTarget.href}>{backTarget.label}</a>
+          <Link href={backTarget.href}>{backTarget.label}</Link>
           <span aria-hidden="true">/</span>
           <span>{item.title}</span>
         </nav>
