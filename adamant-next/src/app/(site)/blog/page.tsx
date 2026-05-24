@@ -7,12 +7,15 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import Script from "next/script";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Блог Адамант Строй | Отзывы и статьи о строительстве домов",
-};
+  description: "Статьи, видео и разборы по строительству загородных домов, проектированию, материалам и выбору подрядчика.",
+  path: "/blog",
+});
 
 const reviewVideos = [
   {

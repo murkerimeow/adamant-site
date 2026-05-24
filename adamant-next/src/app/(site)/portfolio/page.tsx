@@ -7,12 +7,15 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Портфолио Адамант Строй | Реализованные проекты домов",
-};
+  description: "Реализованные проекты домов и строительных работ Адамант Строй в Санкт-Петербурге и Ленинградской области.",
+  path: "/portfolio",
+});
 
 export default async function PortfolioPage() {
   const [siteSettings, portfolioPage, portfolioItems, catalogItems] = await Promise.all([

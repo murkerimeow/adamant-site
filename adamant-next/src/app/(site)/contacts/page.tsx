@@ -5,12 +5,15 @@ import {
   getWorkingHoursParts,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Контакты Адамант Строй | Санкт-Петербург",
-};
+  description: "Контакты строительной компании Адамант Строй: телефон, адрес офиса, режим работы и реквизиты.",
+  path: "/contacts",
+});
 
 export default async function ContactsPage() {
   const [siteSettings, contactsPage] = await Promise.all([

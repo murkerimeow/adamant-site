@@ -1,11 +1,14 @@
 import { getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Ипотека | Адамант Строй",
-};
+export const metadata = createPageMetadata({
+  title: "Ипотека на строительство дома | Адамант Строй",
+  description: "Помогаем подобрать ипотечную программу и подготовить смету для строительства загородного дома под ключ.",
+  path: "/mortgage",
+});
 
 const mortgageSteps = [
   {

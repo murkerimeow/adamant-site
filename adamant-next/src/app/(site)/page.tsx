@@ -10,12 +10,15 @@ import {
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Адамант",
-};
+export const metadata = createPageMetadata({
+  title: "Адамант Строй | Строительство домов под ключ в Санкт-Петербурге",
+  description: "Проектируем и строим загородные дома под ключ в Санкт-Петербурге и Ленинградской области с прозрачной сметой и контролем сроков.",
+  path: "/",
+});
 
 const statIconTypes = ["house", "clock", "clients", "award"] as const;
 const statIconPaths = [

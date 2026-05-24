@@ -1,12 +1,15 @@
 import { getAboutPage, getHomePage, getSiteSettings, splitParagraphs } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { SocialIcon, socialLinks } from "@/site/socials";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "О компании Адамант Строй | Строительство загородных домов под ключ",
-};
+  description: "Адамант Строй проектирует и строит современные загородные дома под ключ с понятной сметой и гарантией на работы.",
+  path: "/about",
+});
 
 const aboutSocials = [
   {

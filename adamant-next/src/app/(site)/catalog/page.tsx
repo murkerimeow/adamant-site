@@ -6,12 +6,15 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Каталог проектов домов | Адамант Строй",
-};
+  description: "Каталог проектов загородных домов для строительства под ключ: современные, классические и индивидуальные решения.",
+  path: "/catalog",
+});
 
 export default async function CatalogPage() {
   const [siteSettings, catalogPage, catalogItems] = await Promise.all([

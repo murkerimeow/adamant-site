@@ -7,12 +7,15 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Услуги Адамант Строй | Строительство домов, ремонт и отделка",
-};
+  description: "Строительство домов из бруса, газобетона и каркаса, отделка коммерческих помещений и ремонт квартир под ключ.",
+  path: "/services",
+});
 
 const servicePrices: Record<string, string> = {
   "Дом из бруса": "от 5 000 000 ₽",

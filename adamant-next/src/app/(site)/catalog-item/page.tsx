@@ -3,12 +3,15 @@ import { notFound } from "next/navigation";
 import { getCatalogItem, getMediaAlt, getMediaUrl, getSiteSettings } from "@/site/cms";
 import { ProductGallery } from "@/site/components/ProductGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Карточка товара | Адамант",
-};
+export const metadata = createPageMetadata({
+  title: "Карточка проекта | Адамант Строй",
+  description: "Описание проекта дома, галерея, стоимость и заявка на расчет строительства под ключ.",
+  path: "/catalog-item",
+});
 
 type CatalogItemPageProps = {
   searchParams: Promise<{

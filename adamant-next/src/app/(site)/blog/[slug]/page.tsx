@@ -11,6 +11,7 @@ import {
   splitParagraphs,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -26,9 +27,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
-  return {
-    title: post ? `${post.title} | Адамант` : "Блог | Адамант",
-  };
+  return createPageMetadata({
+    title: post ? `${post.title} | Адамант Строй` : "Блог | Адамант Строй",
+    description:
+      post?.excerpt ||
+      "Статьи и разборы Адамант Строй о строительстве загородных домов.",
+    path: post ? `/blog/${post.slug}` : "/blog",
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

@@ -1,11 +1,14 @@
 import { getSiteSettings, getVacancies, type VacancyDoc } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Вакансии Адамант Строй | Работа в строительной компании",
-};
+  description: "Актуальные вакансии строительной компании Адамант Строй в Санкт-Петербурге и Ленинградской области.",
+  path: "/vacancies",
+});
 
 function VacancyList({
   items,
