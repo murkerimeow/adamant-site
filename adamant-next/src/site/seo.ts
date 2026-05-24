@@ -25,6 +25,17 @@ export function createPageMetadata({
     alternates: {
       canonical,
     },
+    robots: {
+      follow: true,
+      googleBot: {
+        follow: true,
+        index: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+      index: true,
+    },
     openGraph: {
       title,
       description,

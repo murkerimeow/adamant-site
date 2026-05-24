@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
@@ -15,12 +16,6 @@ import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "Карточка проекта | Адамант Строй",
-  description: "Описание проекта дома, галерея, стоимость и заявка на расчет строительства под ключ.",
-  path: "/catalog-item",
-});
-
 type CatalogItemPageProps = {
   searchParams: Promise<{
     item?: string;
@@ -28,6 +23,14 @@ type CatalogItemPageProps = {
     source?: string;
   }>;
 };
+
+function getCatalogItemCanonical(item: { itemKey?: string | null; slug?: string | null }) {
+  if (item.itemKey) {
+    return `/catalog-item?item=${encodeURIComponent(item.itemKey)}`;
+  }
+
+  return `/catalog-item?slug=${encodeURIComponent(item.slug || "")}`;
+}
 
 type DetailIcon =
   | "area"
@@ -143,6 +146,34 @@ function findTag(tags: string[], pattern: RegExp, fallback: string) {
 function getParagraphs(text: string) {
   const paragraphs = splitParagraphs(text);
   return paragraphs.length ? paragraphs : [text];
+}
+
+export async function generateMetadata({
+  searchParams,
+}: CatalogItemPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const item = await getCatalogItem({
+    itemKey: params.item,
+    slug: params.slug,
+  });
+
+  if (!item) {
+    return createPageMetadata({
+      title: "Проект дома | Адамант Строй",
+      description:
+        "Проекты загородных домов для строительства под ключ в Санкт-Петербурге и Ленинградской области.",
+      path: "/catalog",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${item.title} | Адамант Строй`,
+    description:
+      item.cardSummary ||
+      item.description ||
+      "Описание проекта дома, галерея, стоимость и заявка на расчет строительства под ключ.",
+    path: getCatalogItemCanonical(item),
+  });
 }
 
 export default async function CatalogItemPage({
