@@ -29,7 +29,7 @@
                 <span class="modal-file__summary" data-file-summary>Можно прикрепить до 5 фото</span>
               </label>
               <label class="modal-consent">
-                <input type="checkbox" name="privacy" checked>
+                <input type="checkbox" name="privacy" required>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
               </label>
               <button class="modal-submit" type="submit">Отправить заявку</button>
@@ -114,7 +114,7 @@
                 <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Телефон *" aria-label="Телефон" required>
               </label>
               <label class="modal-consent">
-                <input type="checkbox" name="privacy" checked>
+                <input type="checkbox" name="privacy" required>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
               </label>
               <button class="modal-submit" type="submit">Жду звонка</button>
@@ -205,7 +205,7 @@
                 <span class="modal-file__summary" data-file-summary>Можно прикрепить до 5 фото</span>
               </label>
               <label class="modal-consent">
-                <input type="checkbox" name="privacy" checked>
+                <input type="checkbox" name="privacy" required>
                 <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
               </label>
               <button class="modal-submit" type="submit">Отправить сообщение</button>
@@ -447,11 +447,33 @@
     });
   };
 
+  const getPrivacyInput = (form) =>
+    form?.querySelector('input[type="checkbox"][name="privacy"]');
+
+  const getSubmitButton = (form) => form?.querySelector('[type="submit"]');
+
+  const updateConsentSubmitState = (form) => {
+    const privacyInput = getPrivacyInput(form);
+    const submitButton = getSubmitButton(form);
+
+    if (!privacyInput || !submitButton || submitButton.dataset.submitting === "true") {
+      return;
+    }
+
+    submitButton.disabled = !privacyInput.checked;
+  };
+
+  const hasPrivacyConsent = (form) => {
+    const privacyInput = getPrivacyInput(form);
+    return !privacyInput || privacyInput.checked;
+  };
+
   const resetModal = (modal) => {
     if (!modal) return;
 
     const form = modal.querySelector(".modal-form");
     if (form) form.reset();
+    updateConsentSubmitState(form);
 
     modal.querySelectorAll('input[type="file"]').forEach(updateFileSummary);
 
@@ -520,6 +542,9 @@
   document.addEventListener("change", (event) => {
     const input = event.target.closest?.('input[type="file"][name="photos"]');
     if (input) updateFileSummary(input);
+
+    const privacyInput = event.target.closest?.('input[type="checkbox"][name="privacy"]');
+    if (privacyInput) updateConsentSubmitState(privacyInput.form);
   });
 
   const submitRequest = async (payload) => {
@@ -1559,6 +1584,8 @@
     const form = modal.querySelector(".modal-form");
     if (!form) return;
 
+    updateConsentSubmitState(form);
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -1573,12 +1600,21 @@
       const photoFiles = getRequestPhotoFiles(formData);
       const photoError = photoFiles.length ? validateRequestPhotoFiles(photoFiles) : "";
 
+      if (!hasPrivacyConsent(form)) {
+        setStatusMessage(status, "Подтвердите согласие на обработку персональных данных.", true);
+        updateConsentSubmitState(form);
+        return;
+      }
+
       if (photoError) {
         setStatusMessage(status, photoError, true);
         return;
       }
 
-      if (submitButton) submitButton.disabled = true;
+      if (submitButton) {
+        submitButton.dataset.submitting = "true";
+        submitButton.disabled = true;
+      }
       setStatusMessage(status, "Отправляем...");
 
       try {
@@ -1594,6 +1630,7 @@
         });
 
         form.reset();
+        updateConsentSubmitState(form);
         if (usesResultState) {
           setModalState(modal, "success");
         } else {
@@ -1617,12 +1654,17 @@
           );
         }
       } finally {
-        if (submitButton) submitButton.disabled = false;
+        if (submitButton) {
+          delete submitButton.dataset.submitting;
+        }
+        updateConsentSubmitState(form);
       }
     });
   });
 
   document.querySelectorAll(".contact-form").forEach((form) => {
+    updateConsentSubmitState(form);
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -1637,7 +1679,16 @@
       const submitButton = form.querySelector('[type="submit"]');
       const formData = new FormData(form);
 
-      if (submitButton) submitButton.disabled = true;
+      if (!hasPrivacyConsent(form)) {
+        setStatusMessage(status, "Подтвердите согласие на обработку персональных данных.", true);
+        updateConsentSubmitState(form);
+        return;
+      }
+
+      if (submitButton) {
+        submitButton.dataset.submitting = "true";
+        submitButton.disabled = true;
+      }
       setStatusMessage(status, "Отправляем...");
 
       try {
@@ -1652,6 +1703,7 @@
         });
 
         form.reset();
+        updateConsentSubmitState(form);
         setStatusMessage(status, "Сообщение отправлено.");
       } catch {
         setStatusMessage(
@@ -1660,7 +1712,10 @@
           true
         );
       } finally {
-        if (submitButton) submitButton.disabled = false;
+        if (submitButton) {
+          delete submitButton.dataset.submitting;
+        }
+        updateConsentSubmitState(form);
       }
     });
   });

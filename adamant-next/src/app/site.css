@@ -7972,6 +7972,17 @@ body.home-page {
   box-shadow: 0 20px 40px rgba(47, 115, 255, 0.32);
 }
 
+#estimate-modal .modal-submit:disabled,
+#callback-modal .modal-submit:disabled,
+#message-modal .modal-submit:disabled,
+.contact-form button:disabled,
+.product-consult-form button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 #estimate-modal .modal-form__status,
 #callback-modal .modal-form__status,
 #message-modal .modal-form__status {

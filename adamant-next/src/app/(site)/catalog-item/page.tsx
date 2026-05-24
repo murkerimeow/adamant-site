@@ -423,7 +423,7 @@ export default async function CatalogItemPage({
             <input name="phone" type="tel" placeholder="Телефон" required />
             <button type="submit">Получить консультацию</button>
             <label>
-              <input name="privacy" type="checkbox" defaultChecked required />
+              <input name="privacy" type="checkbox" required />
               <span>Я согласен на обработку персональных данных</span>
             </label>
           </form>
