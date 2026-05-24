@@ -67,6 +67,12 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
   };
 
   const showControls = images.length > 1;
+  const previewIndexes = images
+    .map((_, index) => index)
+    .filter((index) => index !== activeIndex)
+    .slice(0, 3);
+  const visiblePreviewIndexes = previewIndexes.length ? previewIndexes : [activeIndex];
+  const hiddenCount = Math.max(0, images.length - 4);
 
   return (
     <div
@@ -98,7 +104,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
             <button
               className="product-gallery__nav product-gallery__nav--prev"
               type="button"
-              aria-label="Previous image"
+              aria-label="Предыдущее фото"
               onClick={() =>
                 scrollToIndex(
                   activeIndex === 0 ? images.length - 1 : activeIndex - 1,
@@ -110,7 +116,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
             <button
               className="product-gallery__nav product-gallery__nav--next"
               type="button"
-              aria-label="Next image"
+              aria-label="Следующее фото"
               onClick={() =>
                 scrollToIndex(
                   activeIndex === images.length - 1 ? 0 : activeIndex + 1,
@@ -121,41 +127,35 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
             </button>
           </>
         ) : null}
+
+        <span className="product-gallery__counter">
+          {activeIndex + 1}/{images.length}
+        </span>
       </div>
 
-      {showControls ? (
-        <div
-          className="product-gallery__thumbs"
-          role="tablist"
-          aria-label={`${title} thumbnails`}
-        >
-          {images.map((image, index) => (
+      <div className="product-gallery__side" aria-label={`${title} thumbnails`}>
+        {visiblePreviewIndexes.map((index, slot) => {
+          const image = images[index];
+
+          return (
             <button
-              key={`${image.thumbSrc ?? image.src}-thumb-${index}`}
-              className="product-gallery__thumb"
-              data-active={activeIndex === index ? "true" : "false"}
+              key={`${image.thumbSrc ?? image.src}-preview-${index}`}
+              className={`product-gallery__preview product-gallery__preview--${slot + 1}`}
               type="button"
-              role="tab"
-              aria-selected={activeIndex === index}
-              aria-label={`Image ${index + 1}`}
+              aria-label={`Открыть фото ${index + 1}`}
               onClick={() => scrollToIndex(index)}
             >
               <img src={image.thumbSrc ?? image.src} alt="" aria-hidden="true" />
+              {slot === visiblePreviewIndexes.length - 1 && hiddenCount > 0 ? (
+                <span>
+                  <strong>+{hiddenCount}</strong>
+                  фотогалерея
+                </span>
+              ) : null}
             </button>
-          ))}
-        </div>
-      ) : null}
-
-      {showControls ? (
-        <div className="product-gallery__dots" aria-hidden="true">
-          {images.map((image, index) => (
-            <span
-              key={`${image.src}-dot-${index}`}
-              data-active={activeIndex === index ? "true" : "false"}
-            />
-          ))}
-        </div>
-      ) : null}
+          );
+        })}
+      </div>
     </div>
   );
 }
