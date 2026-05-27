@@ -1,4 +1,4 @@
-import { getAboutPage, getHomePage, getSiteSettings, splitParagraphs } from "@/site/cms";
+import { getAboutPage, getSiteSettings, splitParagraphs } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
@@ -114,16 +114,15 @@ const team = [
 ] as const;
 
 export default async function AboutPage() {
-  const [siteSettings, aboutPage, homePage] = await Promise.all([
+  const [siteSettings, aboutPage] = await Promise.all([
     getSiteSettings(),
     getAboutPage(),
-    getHomePage(),
   ]);
 
   const paragraphs = splitParagraphs(aboutPage.intro);
   const stats = [
     { icon: "home" as const, value: "12+", label: "лет на рынке" },
-    { icon: "home" as const, value: homePage.stats?.[0]?.value || "820+", label: "построенных домов" },
+    { icon: "home" as const, value: "500+", label: "построенных домов" },
     { icon: "people" as const, value: "450+", label: "довольных семей" },
     { icon: "shield" as const, value: "5 лет", label: "гарантии на работы" },
     { icon: "people" as const, value: "Работаем", label: "по всему СЗФО" },

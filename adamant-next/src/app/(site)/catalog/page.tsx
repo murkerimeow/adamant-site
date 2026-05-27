@@ -6,6 +6,7 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -197,7 +198,7 @@ export default async function CatalogPage() {
 
         <div className="listing-grid listing-grid--catalog" data-filter-scope="catalog">
           {items.map((item) => {
-            const href = `/catalog-item?item=${encodeURIComponent(item.itemKey)}&source=catalog`;
+            const href = getCatalogItemPath(item);
             const meta = catalogCardMeta[item.itemKey] ?? fallbackCatalogMeta;
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description;

@@ -11,7 +11,7 @@ import {
   splitParagraphs,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, isIndexableLongFormText } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +32,7 @@ export async function generateMetadata({
     description:
       post?.excerpt ||
       "Статьи и разборы Адамант Строй о строительстве загородных домов.",
+    index: post ? isIndexableLongFormText(post.content) : false,
     path: post ? `/blog/${post.slug}` : "/blog",
   });
 }

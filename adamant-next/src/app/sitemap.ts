@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
 import { getCatalogItems, getPosts } from "@/site/cms";
-import { SITE_URL } from "@/site/seo";
+import { getCatalogItemPath } from "@/site/routes";
+import { isIndexableLongFormText, SITE_URL } from "@/site/seo";
 
 const staticPaths = [
   "/",
@@ -38,18 +39,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const catalogEntries = catalogItems.map((item) => ({
-    url: `${SITE_URL}/catalog-item?item=${encodeURIComponent(item.itemKey)}`,
+    url: `${SITE_URL}${getCatalogItemPath(item)}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: item.showInCatalog ? 0.7 : 0.6,
   }));
 
-  const postEntries = posts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: getLastModified(post.updatedAt || post.publishedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.65,
-  }));
+  const postEntries = posts
+    .filter((post) => isIndexableLongFormText(post.content))
+    .map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: getLastModified(post.updatedAt || post.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    }));
 
   return [...staticEntries, ...catalogEntries, ...postEntries];
 }

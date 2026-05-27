@@ -10,7 +10,9 @@ import {
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -69,6 +71,19 @@ const projectCardMeta = [
     price: "от 5 400 000 ₽",
   },
 ] as const;
+
+type HomeStat = {
+  id: string;
+  label: string;
+  value: string;
+};
+
+const defaultHomeStats: HomeStat[] = [
+  { id: "built-homes", value: "500+", label: "Построенных домов" },
+  { id: "estimate-day", value: "1 день", label: "На расчет сметы" },
+  { id: "happy-families", value: "450+", label: "Довольных семей" },
+  { id: "market-years", value: "12+ лет", label: "На рынке" },
+];
 
 const trustItems = [
   "Фиксированная смета без скрытых платежей",
@@ -160,19 +175,6 @@ function StatIcon({ type }: { type: StatIconType }) {
   );
 }
 
-function getCountStartValue(value: string) {
-  const match = value.trim().match(/^(\D*?)(\d[\d\s]*)(.*)$/);
-
-  if (!match) {
-    return value;
-  }
-
-  const suffix = match[3].trimStart();
-  const spacer = suffix && !suffix.startsWith("+") ? " " : "";
-
-  return `${match[1]}0${spacer}${suffix}`;
-}
-
 export default async function HomePage() {
   const [siteSettings, homePage, services, portfolioItems, catalogItems, aboutPage] = await Promise.all([
     getSiteSettings(),
@@ -183,7 +185,7 @@ export default async function HomePage() {
     getAboutPage(),
   ]);
 
-  const stats = homePage.stats ?? [];
+  const stats = defaultHomeStats;
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const featuredServices = services.slice(0, 3);
@@ -217,9 +219,9 @@ export default async function HomePage() {
                 <a className="button js-open-estimate" href="/contacts">
                   Оставить заявку
                 </a>
-                <a className="projects-link" href="/catalog">
+                <Link className="projects-link" href="/catalog">
                   Смотреть проекты <span aria-hidden="true">→</span>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -243,9 +245,7 @@ export default async function HomePage() {
             <div className="home-about-stats__grid" aria-label="Показатели компании">
               {stats.slice(0, 4).map((stat) => (
                 <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
-                  <strong data-count-up data-count-up-target={stat.value}>
-                    {getCountStartValue(stat.value)}
-                  </strong>
+                  <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
                 </div>
               ))}
@@ -263,9 +263,9 @@ export default async function HomePage() {
                 <h2 id="home-project-preview-title">Современные дома для комфортной жизни</h2>
               </div>
               <div className="home-project-preview__actions" aria-label="Навигация по проектам">
-                <a className="home-section__link" href="/catalog">
+                <Link className="home-section__link" href="/catalog">
                   Смотреть все проекты <span aria-hidden="true">→</span>
-                </a>
+                </Link>
                 <button
                   className="home-project-preview__arrow"
                   type="button"
@@ -287,7 +287,7 @@ export default async function HomePage() {
 
             <div className="home-project-preview__grid js-wheel-slider">
               {featuredProjects.map((project, index) => {
-                const href = `/catalog-item?item=${encodeURIComponent(project.itemKey)}&source=catalog`;
+                const href = getCatalogItemPath(project);
                 const imageUrl =
                   getMediaUrl(project.previewImage, "card") || getMediaUrl(project.previewImage);
                 const meta = projectCardMeta[index] ?? projectCardMeta[0];
@@ -373,9 +373,7 @@ export default async function HomePage() {
             <div className="home-cycle__grid">
               {cycleServices.map((service, index) => {
                 const catalogItem = catalogByTitle.get(service.title);
-                const href = catalogItem
-                  ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
-                  : "/services";
+                const href = catalogItem ? getCatalogItemPath(catalogItem) : "/services";
                 const imageUrl =
                   getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage);
 
@@ -435,9 +433,7 @@ export default async function HomePage() {
             <div className="home-portfolio-strip">
               {portfolioStripItems.map((project) => {
                 const catalogItem = catalogByTitle.get(project.title);
-                const href = catalogItem
-                  ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
-                  : "/portfolio";
+                const href = catalogItem ? getCatalogItemPath(catalogItem) : "/portfolio";
                 const imageUrl =
                   getMediaUrl(project.previewImage, "thumb") ||
                   getMediaUrl(project.previewImage, "card") ||

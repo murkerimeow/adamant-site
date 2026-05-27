@@ -7,6 +7,7 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -153,9 +154,7 @@ export default async function ServicesPage() {
         <div className="listing-grid listing-grid--services" data-filter-scope="services">
           {services.map((service) => {
             const catalogItem = catalogByTitle.get(service.title);
-            const href = catalogItem
-              ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
-              : "/catalog";
+            const href = catalogItem ? getCatalogItemPath(catalogItem) : "/catalog";
             const meta = serviceCardMeta[service.title] ?? fallbackServiceMeta;
             const tagLabels = service.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
 

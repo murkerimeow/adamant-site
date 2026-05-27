@@ -12,6 +12,7 @@ import {
 } from "@/site/cms";
 import { ProductGallery } from "@/site/components/ProductGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -25,11 +26,7 @@ type CatalogItemPageProps = {
 };
 
 function getCatalogItemCanonical(item: { itemKey?: string | null; slug?: string | null }) {
-  if (item.itemKey) {
-    return `/catalog-item?item=${encodeURIComponent(item.itemKey)}`;
-  }
-
-  return `/catalog-item?slug=${encodeURIComponent(item.slug || "")}`;
+  return getCatalogItemPath(item);
 }
 
 type DetailIcon =
@@ -420,7 +417,7 @@ export default async function CatalogItemPage({
             <h2 id="product-related-title">Похожие проекты</h2>
             <div className="product-related">
               {relatedCards.slice(0, 3).map((related, index) => {
-                const href = `/catalog-item?item=${encodeURIComponent(related.itemKey)}&source=catalog`;
+                const href = getCatalogItemPath(related);
                 const relatedTags = related.tags?.slice(0, 3).map((tag) => tag.label).join(" · ");
                 const relatedImage =
                   getMediaUrl(related.previewImage, "card") ||

@@ -1,4 +1,5 @@
 import { getCatalogItems, getServices, getSiteSettings } from "@/site/cms";
+import { getCatalogItemPath } from "@/site/routes";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
 
@@ -56,9 +57,7 @@ export async function SiteFooter() {
           <div className="home-footer__links">
             {footerServices.map((service) => {
               const catalogItem = catalogByTitle.get(service.title);
-              const href = catalogItem
-                ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=services`
-                : "/services";
+              const href = catalogItem ? getCatalogItemPath(catalogItem) : "/services";
 
               return (
                 <a key={service.id} href={href}>

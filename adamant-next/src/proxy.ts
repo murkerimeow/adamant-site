@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { getLegacyCatalogItemPath } from "@/site/routes";
+
 const legacyRedirects = new Map([
   ["/home", "/"],
   ["/home.html", "/"],
@@ -60,41 +62,81 @@ function goneResponse() {
   );
 }
 
+function permanentRedirect(request: NextRequest, pathname: string) {
+  const url = request.nextUrl.clone();
+  url.hostname = "adamant-stroy.com";
+  url.port = "";
+  url.pathname = pathname;
+  url.protocol = "https:";
+  url.search = "";
+
+  return NextResponse.redirect(url, 301);
+}
+
 export function proxy(request: NextRequest) {
   const { nextUrl } = request;
   const pathname = nextUrl.pathname.toLowerCase();
+  const normalizedPathname =
+    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const hostname =
+    request.headers.get("host")?.split(":")[0].toLowerCase() ||
+    nextUrl.hostname.toLowerCase();
 
   if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
+    if (hostname === "www.adamant-stroy.com") {
+      const url = nextUrl.clone();
+      url.hostname = "adamant-stroy.com";
+      url.port = "";
+      url.protocol = "https:";
+
+      return NextResponse.redirect(url, 301);
+    }
+
     return NextResponse.next();
   }
 
-  if (legacyRedirects.has(pathname)) {
-    const url = nextUrl.clone();
-    url.pathname = legacyRedirects.get(pathname) || "/";
-    url.search = "";
-
-    return NextResponse.redirect(url, 308);
+  if (legacyRedirects.has(normalizedPathname)) {
+    return permanentRedirect(
+      request,
+      legacyRedirects.get(normalizedPathname) || "/",
+    );
   }
 
-  if (legacySitemapRedirects.has(pathname)) {
-    const url = nextUrl.clone();
-    url.pathname = "/sitemap.xml";
-    url.search = "";
+  if (normalizedPathname === "/catalog-item") {
+    const slug = nextUrl.searchParams.get("slug");
+    const itemPath = getLegacyCatalogItemPath(nextUrl.searchParams.get("item"));
 
-    return NextResponse.redirect(url, 308);
+    return permanentRedirect(
+      request,
+      slug ? `/catalog/${encodeURIComponent(slug)}` : itemPath || "/catalog",
+    );
+  }
+
+  if (legacySitemapRedirects.has(normalizedPathname)) {
+    return permanentRedirect(request, "/sitemap.xml");
+  }
+
+  if (pathname !== normalizedPathname) {
+    return permanentRedirect(request, normalizedPathname);
   }
 
   if (
-    pathname === "/" &&
+    normalizedPathname === "/" &&
     legacyQueryParams.some((param) => nextUrl.searchParams.has(param))
   ) {
-    const url = nextUrl.clone();
-    url.search = "";
-
-    return NextResponse.redirect(url, 308);
+    return permanentRedirect(request, "/");
   }
 
-  if (isLegacyGonePath(pathname)) {
+  if (hostname === "www.adamant-stroy.com") {
+    const url = nextUrl.clone();
+    url.hostname = "adamant-stroy.com";
+    url.port = "";
+    url.protocol = "https:";
+
+    return NextResponse.redirect(url, 301);
+  }
+
+  if (isLegacyGonePath(normalizedPathname)) {
     return goneResponse();
   }
 

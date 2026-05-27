@@ -9,12 +9,14 @@ export const DEFAULT_OG_IMAGE = "/home-main-new.webp";
 type PageMetadataInput = {
   title: string;
   description?: string;
+  index?: boolean;
   path?: string;
 };
 
 export function createPageMetadata({
   title,
   description = DEFAULT_DESCRIPTION,
+  index = true,
   path = "/",
 }: PageMetadataInput): Metadata {
   const canonical = path.startsWith("http") ? path : `${SITE_URL}${path}`;
@@ -29,12 +31,12 @@ export function createPageMetadata({
       follow: true,
       googleBot: {
         follow: true,
-        index: true,
+        index,
         "max-image-preview": "large",
         "max-snippet": -1,
         "max-video-preview": -1,
       },
-      index: true,
+      index,
     },
     openGraph: {
       title,
@@ -59,4 +61,8 @@ export function createPageMetadata({
       images: [DEFAULT_OG_IMAGE],
     },
   };
+}
+
+export function isIndexableLongFormText(text?: string | null) {
+  return (text || "").replace(/\s+/g, " ").trim().length >= 900;
 }

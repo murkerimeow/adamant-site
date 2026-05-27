@@ -7,6 +7,7 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -41,9 +42,7 @@ export default async function PortfolioPage() {
         <div className="projects-grid">
           {portfolioItems.map((item) => {
             const catalogItem = catalogByTitle.get(item.title);
-            const href = catalogItem
-              ? `/catalog-item?item=${encodeURIComponent(catalogItem.itemKey)}&source=portfolio`
-              : "/catalog";
+            const href = catalogItem ? getCatalogItemPath(catalogItem) : "/catalog";
             const visibleTags = item.tags?.slice(0, 2) || [];
 
             return (
