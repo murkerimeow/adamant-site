@@ -12429,3 +12429,15 @@ body.home-page {
     height: 180px;
   }
 }
+
+/* Keep the outer canvas white on every inner page, like the home page. */
+body:has(.page.inner-page),
+.page.inner-page {
+  --site-bg: #ffffff;
+  background: #ffffff;
+}
+
+.page.inner-page + .site-footer-slot,
+.site-footer-slot {
+  background: #ffffff;
+}
