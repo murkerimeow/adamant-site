@@ -281,7 +281,7 @@
     <section class="site-chat" data-site-chat hidden>
       <div class="site-chat__header">
         <span class="site-chat__avatar" aria-hidden="true">
-          <span>А</span>
+          <img src="/favicon-32x32.png" alt="" decoding="async">
         </span>
         <div class="site-chat__heading">
           <strong>Чат с Адамант Строй</strong>
@@ -1139,7 +1139,7 @@
       markChatSeen();
       setChatStatus(
         payload.deliveredToTelegram
-          ? "Сообщение отправлено."
+          ? ""
           : "Сообщение сохранено, но Telegram пока недоступен.",
         !payload.deliveredToTelegram
       );
@@ -1345,13 +1345,66 @@
 
     if (!scope || !cards.length) return;
 
+    const formatRangePrice = (value) => {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return "";
+      const millions = parsed / 1000000;
+      const label = Number.isInteger(millions)
+        ? String(millions)
+        : millions.toFixed(1).replace(".", ",");
+
+      return `${label} млн ₽`;
+    };
+
+    const updateListingRanges = () => {
+      filters.querySelectorAll("[data-listing-range]").forEach((range) => {
+        const minInput = range.querySelector("[data-listing-range-min]");
+        const maxInput = range.querySelector("[data-listing-range-max]");
+        const output = range.querySelector("[data-range-output]");
+
+        if (!minInput || !maxInput) return;
+
+        const minLimit = Number(minInput.min);
+        const maxLimit = Number(minInput.max);
+        let minValue = Number(minInput.value);
+        let maxValue = Number(maxInput.value);
+
+        if (minValue > maxValue) {
+          if (document.activeElement === minInput) {
+            maxValue = minValue;
+            maxInput.value = String(maxValue);
+          } else {
+            minValue = maxValue;
+            minInput.value = String(minValue);
+          }
+        }
+
+        const rangeSize = Math.max(1, maxLimit - minLimit);
+        const from = ((minValue - minLimit) / rangeSize) * 100;
+        const to = ((maxValue - minLimit) / rangeSize) * 100;
+
+        range.style.setProperty("--range-from", `${Math.max(0, Math.min(100, from))}%`);
+        range.style.setProperty("--range-to", `${Math.max(0, Math.min(100, to))}%`);
+
+        if (output) {
+          output.textContent = `${formatRangePrice(minValue)} - ${formatRangePrice(maxValue)}`;
+        }
+      });
+    };
+
     const applyListingFilters = () => {
+      updateListingRanges();
+
       const query = (
         filters.querySelector("[data-listing-search]")?.value || ""
       )
         .trim()
         .toLowerCase();
       const controls = Array.from(filters.querySelectorAll("[data-listing-filter]"));
+      const priceMinControl = filters.querySelector("[data-listing-range-min='price']");
+      const priceMaxControl = filters.querySelector("[data-listing-range-max='price']");
+      const priceMin = Number(priceMinControl?.value || priceMinControl?.min || 0);
+      const priceMax = Number(priceMaxControl?.value || priceMaxControl?.max || Number.MAX_SAFE_INTEGER);
       let visibleCount = 0;
 
       cards.forEach((card) => {
@@ -1363,8 +1416,13 @@
 
           return (card.dataset[key] || "") === value;
         });
+        const cardPrice = Number(card.dataset.price || 0);
+        const matchesPrice =
+          !Number.isFinite(cardPrice) ||
+          !cardPrice ||
+          (cardPrice >= priceMin && cardPrice <= priceMax);
         const matchesSearch = !query || (card.dataset.search || "").includes(query);
-        const isVisible = matchesControls && matchesSearch;
+        const isVisible = matchesControls && matchesPrice && matchesSearch;
 
         card.hidden = !isVisible;
         if (isVisible) visibleCount += 1;

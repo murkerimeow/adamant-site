@@ -7,11 +7,24 @@ export const dynamic = "force-dynamic";
 export const metadata = createPageMetadata({
   title: "Ипотека на строительство дома | Адамант Строй",
   description:
-    "Помогаем подобрать ипотечную программу и подготовить смету для строительства загородного дома под ключ.",
+    "Помогаем подобрать ипотечную программу, подготовить документы и пройти согласование для строительства загородного дома под ключ.",
   path: "/mortgage",
 });
 
-function MortgageIcon({ type }: { type: "bank" | "clock" | "doc" | "hardhat" | "home" | "people" | "search" | "shield" }) {
+type MortgageIconType =
+  | "bank"
+  | "clock"
+  | "doc"
+  | "hardhat"
+  | "home"
+  | "people"
+  | "pin"
+  | "question"
+  | "search"
+  | "send"
+  | "shield";
+
+function MortgageIcon({ type }: { type: MortgageIconType }) {
   const commonProps = {
     fill: "none",
     stroke: "currentColor",
@@ -19,48 +32,6 @@ function MortgageIcon({ type }: { type: "bank" | "clock" | "doc" | "hardhat" | "
     strokeLinejoin: "round" as const,
     strokeWidth: 1.9,
   };
-
-  if (type === "people") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="9" cy="8.5" r="2.6" {...commonProps} />
-        <circle cx="16" cy="9.5" r="2.1" {...commonProps} />
-        <path d="M4.5 19a4.7 4.7 0 0 1 9 0" {...commonProps} />
-        <path d="M13.5 18.8a3.7 3.7 0 0 1 6 0" {...commonProps} />
-      </svg>
-    );
-  }
-
-  if (type === "hardhat") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4.5 15.5h15" {...commonProps} />
-        <path d="M6.5 15.5v-2a5.5 5.5 0 0 1 11 0v2" {...commonProps} />
-        <path d="M10 8.2v7.3" {...commonProps} />
-        <path d="M14 8.2v7.3" {...commonProps} />
-      </svg>
-    );
-  }
-
-  if (type === "search") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="10.5" cy="10.5" r="5.5" {...commonProps} />
-        <path d="m15 15 4.5 4.5" {...commonProps} />
-      </svg>
-    );
-  }
-
-  if (type === "doc") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 4.5h7l3 3v12H7z" {...commonProps} />
-        <path d="M14 4.5v3h3" {...commonProps} />
-        <path d="M9.5 11h5" {...commonProps} />
-        <path d="M9.5 14h5" {...commonProps} />
-      </svg>
-    );
-  }
 
   if (type === "bank") {
     return (
@@ -84,6 +55,76 @@ function MortgageIcon({ type }: { type: "bank" | "clock" | "doc" | "hardhat" | "
     );
   }
 
+  if (type === "doc") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 4.5h7l3 3v12H7z" {...commonProps} />
+        <path d="M14 4.5v3h3" {...commonProps} />
+        <path d="M9.5 11h5" {...commonProps} />
+        <path d="M9.5 14h5" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "hardhat") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4.5 15.5h15" {...commonProps} />
+        <path d="M6.5 15.5v-2a5.5 5.5 0 0 1 11 0v2" {...commonProps} />
+        <path d="M10 8.2v7.3" {...commonProps} />
+        <path d="M14 8.2v7.3" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "people") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="9" cy="8.5" r="2.6" {...commonProps} />
+        <circle cx="16" cy="9.5" r="2.1" {...commonProps} />
+        <path d="M4.5 19a4.7 4.7 0 0 1 9 0" {...commonProps} />
+        <path d="M13.5 18.8a3.7 3.7 0 0 1 6 0" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "pin") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11Z" {...commonProps} />
+        <circle cx="12" cy="10" r="2.2" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "question") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8" {...commonProps} />
+        <path d="M9.7 9.4a2.5 2.5 0 0 1 4.7 1.2c0 1.9-2.4 2.2-2.4 4" {...commonProps} />
+        <path d="M12 17.5h.01" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "search") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10.5" cy="10.5" r="5.5" {...commonProps} />
+        <path d="m15 15 4.5 4.5" {...commonProps} />
+      </svg>
+    );
+  }
+
+  if (type === "send") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 12 20 4l-5 16-3-7-8-1Z" {...commonProps} />
+        <path d="m12 13 8-9" {...commonProps} />
+      </svg>
+    );
+  }
+
   if (type === "shield") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -101,26 +142,73 @@ function MortgageIcon({ type }: { type: "bank" | "clock" | "doc" | "hardhat" | "
   );
 }
 
-const heroBadges = [
-  ["shield", "Банки-партнеры", "Только надежные банки"],
-  ["doc", "Сопровождение", "Поддержка на всех этапах"],
-  ["clock", "Быстрое оформление", "Минимум времени и документов"],
-] as const;
+function BankLogo({ bank }: { bank: "sber" | "tbank" | "vtb" }) {
+  if (bank === "sber") {
+    return (
+      <span className="mortgage-bank-logo mortgage-bank-logo--sber" aria-hidden="true">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="19" fill="#20A038" />
+          <path d="M12 19.8 20.1 28 34 13.8" fill="none" stroke="#fff" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M10.8 27.4a16 16 0 0 0 22.4 0" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
+        </svg>
+        <strong>СБЕРБАНК</strong>
+      </span>
+    );
+  }
 
-const formats = [
-  ["home", "Ипотека на строительство", "Финансирование строительства вашего дома с нуля"],
-  ["people", "Семейная ипотека", "Специальные условия для семей с детьми"],
-  ["hardhat", "Ипотека с подрядчиком", "Удобное оформление с аккредитованным подрядчиком"],
-  ["search", "Подбор программы", "Поможем подобрать оптимальную программу под ваши цели"],
-] as const;
+  if (bank === "tbank") {
+    return (
+      <span className="mortgage-bank-logo mortgage-bank-logo--tbank" aria-hidden="true">
+        <svg viewBox="0 0 44 44">
+          <path d="M8 8h28v12c0 9-5.5 15.2-14 18-8.5-2.8-14-9-14-18V8Z" fill="#FFD429" />
+          <path d="M14 15h16M22 15v15M17 30h10" fill="none" stroke="#111827" strokeWidth="3.4" strokeLinecap="round" />
+        </svg>
+        <strong>Т-БАНК</strong>
+      </span>
+    );
+  }
 
-const steps = [
-  ["doc", "Оставляете заявку", "Заполните форму на сайте или свяжитесь с нами"],
-  ["people", "Консультация", "Специалист подберет оптимальную программу"],
-  ["doc", "Сбор документов", "Поможем подготовить необходимые документы"],
-  ["bank", "Одобрение банком", "Банк рассматривает заявку и принимает решение"],
-  ["home", "Строите дом мечты", "Получаете финансирование и начинаете строительство"],
-] as const;
+  return (
+    <span className="mortgage-bank-logo mortgage-bank-logo--vtb" aria-hidden="true">
+      <svg viewBox="0 0 52 34">
+        <path d="M2 8h22l-3 5H0l2-5Z" fill="#1D5FBF" />
+        <path d="M5 16h22l-3 5H3l2-5Z" fill="#16A3E8" />
+        <path d="M8 24h22l-3 5H6l2-5Z" fill="#6CC8FF" />
+      </svg>
+      <strong>ВТБ</strong>
+    </span>
+  );
+}
+
+const heroBadges: Array<[MortgageIconType, string, string]> = [
+  ["bank", "1 заявка", "несколько банков"],
+  ["shield", "Подбор программы", "под вашу ситуацию"],
+  ["people", "Сопровождение", "до одобрения"],
+];
+
+const serviceCards: Array<[MortgageIconType, string, string]> = [
+  ["search", "Подбираем ипотечную программу", "Анализируем вашу ситуацию и подбираем оптимальный вариант из программ банков-партнеров."],
+  ["doc", "Готовим документы по строительству", "Собираем и проверяем все необходимые документы для подачи в банк."],
+  ["home", "Согласовываем подрядчика и смету", "Помогаем подготовить смету и договор, соответствующие требованиям банка."],
+  ["people", "Ведем до решения банка", "Сопровождаем на всех этапах: от подачи заявки до получения одобрения."],
+];
+
+const fitCards: Array<[MortgageIconType, string]> = [
+  ["home", "Хотите построить дом с нуля"],
+  ["pin", "У вас есть участок или планируете его купить"],
+  ["people", "Подходите под условия семейной ипотеки"],
+  ["hardhat", "Планируете строиться через надежного подрядчика"],
+  ["question", "Не знаете, какой банк выбрать и с чего начать"],
+];
+
+const processSteps: Array<[MortgageIconType, string, string]> = [
+  ["doc", "Вы оставляете заявку", "Заполняете короткую форму на сайте или связываетесь с нами удобным способом."],
+  ["people", "Мы уточняем вашу ситуацию", "Проводим консультацию и собираем исходные данные."],
+  ["bank", "Подбираем банки и программы", "Сравниваем условия и предлагаем лучшие варианты."],
+  ["doc", "Готовим и проверяем документы", "Собираем пакет документов по требованиям банка и проверяем их."],
+  ["send", "Отправляем заявку в банк", "Подаем документы и сопровождаем рассмотрение заявки."],
+  ["home", "Получаем одобрение и начинаем строительство", "После одобрения запускаем строительство вашего дома."],
+];
 
 export default async function MortgagePage() {
   const siteSettings = await getSiteSettings();
@@ -129,10 +217,10 @@ export default async function MortgagePage() {
     <main className="page inner-page mortgage-page mortgage-page--fresh" aria-label="Ипотека Адамант">
       <SiteHeader active="mortgage" phone={siteSettings.phonePrimary} />
 
-      <section className="section mortgage-redesign" aria-labelledby="mortgage-title">
+      <section className="section mortgage-redesign mortgage-redesign--compact" aria-labelledby="mortgage-title">
         <section className="mortgage-redesign__hero">
           <img
-            src="/home-main-new.webp"
+            src="/mortgage-banner.png"
             alt=""
             loading="eager"
             decoding="async"
@@ -141,18 +229,14 @@ export default async function MortgagePage() {
           <div className="mortgage-redesign__hero-content">
             <span>Строим дома вашей мечты — с поддержкой надежных банков</span>
             <h1 id="mortgage-title">
-              Ипотека на <strong>строительство дома</strong>
+              Постройте дом <strong>в ипотеку</strong>
             </h1>
             <p>
-              Помогаем получить ипотеку на строительство загородного дома быстро,
-              просто и без лишних хлопот.
+              Поможем подобрать банк, подготовить документы и пройти согласование для строительства дома под ключ.
             </p>
             <div>
               <button className="js-open-estimate" type="button">
-                Оставить заявку <span aria-hidden="true">→</span>
-              </button>
-              <button className="mortgage-redesign__secondary js-open-callback" type="button">
-                Получить консультацию
+                Получить консультацию <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
@@ -171,19 +255,10 @@ export default async function MortgagePage() {
           </div>
         </section>
 
-        <section className="mortgage-redesign__banks" aria-labelledby="mortgage-banks-title">
-          <h2 id="mortgage-banks-title">Банки-партнеры</h2>
+        <section className="mortgage-redesign__section mortgage-redesign__services" aria-labelledby="mortgage-services-title">
+          <h2 id="mortgage-services-title">Что мы делаем для вас</h2>
           <div>
-            <article className="mortgage-redesign__bank mortgage-redesign__bank--sber">СБЕРБАНК</article>
-            <article className="mortgage-redesign__bank mortgage-redesign__bank--tbank">Т-БАНК</article>
-            <article className="mortgage-redesign__bank mortgage-redesign__bank--vtb">ВТБ</article>
-          </div>
-        </section>
-
-        <section className="mortgage-redesign__formats" aria-labelledby="mortgage-formats-title">
-          <h2 id="mortgage-formats-title">Доступные форматы ипотеки</h2>
-          <div>
-            {formats.map(([icon, title, text]) => (
+            {serviceCards.map(([icon, title, text]) => (
               <article key={title}>
                 <span>
                   <MortgageIcon type={icon} />
@@ -195,10 +270,40 @@ export default async function MortgagePage() {
           </div>
         </section>
 
-        <section className="mortgage-redesign__process" aria-labelledby="mortgage-process-title">
+        <section className="mortgage-redesign__section mortgage-redesign__banks" aria-labelledby="mortgage-banks-title">
+          <h2 id="mortgage-banks-title">Работаем с ипотечными программами крупных банков</h2>
+          <div>
+            <article className="mortgage-redesign__bank mortgage-redesign__bank--sber">
+              <BankLogo bank="sber" />
+            </article>
+            <article className="mortgage-redesign__bank mortgage-redesign__bank--tbank">
+              <BankLogo bank="tbank" />
+            </article>
+            <article className="mortgage-redesign__bank mortgage-redesign__bank--vtb">
+              <BankLogo bank="vtb" />
+            </article>
+          </div>
+          <p>Сотрудничаем и с другими банками. Подберем лучший вариант именно для вас.</p>
+        </section>
+
+        <section className="mortgage-redesign__section mortgage-redesign__fit" aria-labelledby="mortgage-fit-title">
+          <h2 id="mortgage-fit-title">Ипотека подходит, если вы:</h2>
+          <div>
+            {fitCards.map(([icon, title]) => (
+              <article key={title}>
+                <span>
+                  <MortgageIcon type={icon} />
+                </span>
+                <h3>{title}</h3>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mortgage-redesign__section mortgage-redesign__process" aria-labelledby="mortgage-process-title">
           <h2 id="mortgage-process-title">Как проходит оформление ипотеки</h2>
           <div>
-            {steps.map(([icon, title, text], index) => (
+            {processSteps.map(([icon, title, text], index) => (
               <article key={title}>
                 <span>
                   <MortgageIcon type={icon} />
@@ -214,21 +319,28 @@ export default async function MortgagePage() {
         <section className="mortgage-redesign__consult" aria-labelledby="mortgage-consult-title">
           <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
           <form className="contact-form mortgage-redesign__form" aria-label="Заявка на ипотеку">
-            <h2 id="mortgage-consult-title">Получите бесплатную консультацию</h2>
-            <p>Подберем оптимальную программу ипотеки и ответим на все ваши вопросы.</p>
-            <div>
-              <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
-              <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+            <div className="mortgage-redesign__form-main">
+              <h2 id="mortgage-consult-title">Узнайте, какая ипотека подойдет для вашего дома</h2>
+              <p>Оставьте контакты — подскажем, с чего начать и какие документы понадобятся.</p>
+              <div>
+                <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+                <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+              </div>
+              <textarea name="message" rows={3} placeholder="Комментарий (необязательно)" aria-label="Комментарий" />
+              <input type="hidden" name="service" value="Ипотека на строительство" />
+              <label>
+                <input type="checkbox" name="privacy" required />
+                <span>Я соглашаюсь на обработку персональных данных</span>
+              </label>
+              <button type="submit">
+                Получить консультацию <span aria-hidden="true">→</span>
+              </button>
             </div>
-            <textarea name="message" rows={3} placeholder="Комментарий" aria-label="Комментарий" />
-            <input type="hidden" name="service" value="Ипотека на строительство" />
-            <label>
-              <input type="checkbox" name="privacy" required />
-              <span>Я соглашаюсь на обработку персональных данных</span>
-            </label>
-            <button type="submit">
-              Оставить заявку <span aria-hidden="true">→</span>
-            </button>
+            <aside aria-label="Преимущества консультации">
+              <p><span>✓</span> Консультация бесплатная</p>
+              <p><span>✓</span> Разберем вашу ситуацию и подберем варианты</p>
+              <p><span>✓</span> Ответим на все ваши вопросы</p>
+            </aside>
           </form>
         </section>
       </section>

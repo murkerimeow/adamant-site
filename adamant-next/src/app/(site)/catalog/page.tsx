@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import {
   getCatalogItems,
   getCatalogPage,
@@ -99,6 +101,13 @@ function getBudgetGroup(price: number) {
   return "under10";
 }
 
+function formatCompactPrice(value: number) {
+  const millions = value / 1000000;
+  const label = Number.isInteger(millions) ? String(millions) : millions.toFixed(1).replace(".", ",");
+
+  return `${label} млн ₽`;
+}
+
 function getFloorsGroup(floors: string) {
   const value = getNumber(floors);
 
@@ -127,6 +136,9 @@ export default async function CatalogPage() {
   ]);
 
   const items = catalogItems.filter((item) => item.showInCatalog);
+  const prices = items.map((item) => (catalogCardMeta[item.itemKey] ?? fallbackCatalogMeta).price);
+  const minCatalogPrice = prices.length ? Math.min(...prices) : fallbackCatalogMeta.price;
+  const maxCatalogPrice = prices.length ? Math.max(...prices) : fallbackCatalogMeta.price;
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
@@ -174,15 +186,47 @@ export default async function CatalogPage() {
             </select>
           </label>
 
-          <label className="listing-filters__field">
+          <div className="listing-filters__field listing-filters__field--price">
             <span>Стоимость</span>
-            <select name="budget" data-listing-filter="budget" aria-label="Стоимость">
-              <option value="all">Стоимость</option>
-              <option value="under10">до 10 млн ₽</option>
-              <option value="10-15">10-15 млн ₽</option>
-              <option value="15plus">от 15 млн ₽</option>
-            </select>
-          </label>
+            <div
+              className="listing-range"
+              data-listing-range="price"
+              style={
+                {
+                  "--range-from": "0%",
+                  "--range-to": "100%",
+                } as CSSProperties
+              }
+            >
+              <div className="listing-range__head">
+                <strong>Стоимость</strong>
+                <em data-range-output>
+                  {formatCompactPrice(minCatalogPrice)} - {formatCompactPrice(maxCatalogPrice)}
+                </em>
+              </div>
+              <div className="listing-range__track" aria-hidden="true" />
+              <input
+                type="range"
+                name="priceMin"
+                min={minCatalogPrice}
+                max={maxCatalogPrice}
+                step={100000}
+                defaultValue={minCatalogPrice}
+                data-listing-range-min="price"
+                aria-label="Минимальная стоимость"
+              />
+              <input
+                type="range"
+                name="priceMax"
+                min={minCatalogPrice}
+                max={maxCatalogPrice}
+                step={100000}
+                defaultValue={maxCatalogPrice}
+                data-listing-range-max="price"
+                aria-label="Максимальная стоимость"
+              />
+            </div>
+          </div>
 
           <label className="listing-filters__field listing-filters__field--search">
             <span>Поиск</span>
@@ -210,6 +254,7 @@ export default async function CatalogPage() {
                 data-card-link={href}
                 data-area={getAreaGroup(meta.area)}
                 data-budget={getBudgetGroup(meta.price)}
+                data-price={meta.price}
                 data-floors={getFloorsGroup(meta.floors)}
                 data-rooms={getRoomsGroup(meta.rooms)}
                 data-search={getSearchText([item.title, description, tagLabels])}
@@ -229,11 +274,6 @@ export default async function CatalogPage() {
                       <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
                     </svg>
                     Хит проект
-                  </span>
-                  <span className="listing-card__favorite" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z" />
-                    </svg>
                   </span>
                   <span className="listing-card__photos">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
