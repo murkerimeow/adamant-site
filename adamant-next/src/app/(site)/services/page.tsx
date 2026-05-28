@@ -153,36 +153,42 @@ const heroBadges = [
 
 const serviceCards = [
   {
+    icon: "home",
     title: "Строительство домов",
     description: "Строим загородные дома под ключ из надёжных материалов и в срок.",
     href: "/catalog",
     image: "/request-house.jpg",
   },
   {
+    icon: "plan",
     title: "Проектирование",
     description: "Индивидуальные и типовые проекты домов с учётом ваших пожеланий.",
     href: "/contacts",
     image: "/Picture.PNG",
   },
   {
+    icon: "shield",
     title: "Ипотека на строительство",
     description: "Подберём выгодные условия и поможем оформить ипотеку.",
     href: "/mortgage",
     image: "/home-main-new.webp",
   },
   {
+    icon: "wrench",
     title: "Ремонт и отделка",
     description: "Выполняем внутреннюю и наружную отделку любой сложности.",
     href: "/catalog/remont-kvartir-card",
     image: "/ремонт квартир.png",
   },
   {
+    icon: "box",
     title: "Инженерные системы",
     description: "Проектируем и монтируем все необходимые инженерные сети.",
     href: "/contacts",
     image: "/строительство.png",
   },
   {
+    icon: "doc",
     title: "Каталог проектов",
     description: "Готовые проекты домов на любой вкус и бюджет.",
     href: "/catalog",
@@ -253,8 +259,12 @@ export default async function ServicesPage() {
           </div>
         </section>
 
-        <section className="services-redesign__section" aria-labelledby="services-main-title">
-          <h2 id="services-main-title">Основные услуги</h2>
+        <section className="services-redesign__section services-redesign__section--cards" aria-labelledby="services-main-title">
+          <div className="services-redesign__section-head">
+            <span>Наши возможности</span>
+            <h2 id="services-main-title">Основные услуги</h2>
+            <p>Комплексные решения для строительства и обустройства загородных домов под ключ.</p>
+          </div>
           <div className="services-redesign__cards">
             {serviceCards.map((card) => (
               <article className="services-redesign__service-card" key={card.title} data-card-link={card.href} tabIndex={0}>
@@ -262,6 +272,9 @@ export default async function ServicesPage() {
                   <img src={card.image} alt="" loading="lazy" decoding="async" />
                 </Link>
                 <div>
+                  <span className="services-redesign__service-icon">
+                    <ServicesIcon type={card.icon} />
+                  </span>
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
                   <Link className="services-redesign__link" href={card.href}>
@@ -290,22 +303,6 @@ export default async function ServicesPage() {
           </div>
         </section>
 
-        <section className="services-redesign__section" aria-labelledby="services-process-title">
-          <h2 id="services-process-title">Как мы работаем</h2>
-          <div className="services-redesign__process">
-            {steps.map(([icon, title, text], index) => (
-              <article key={title}>
-                <span className="services-redesign__process-icon">
-                  <ServicesIcon type={icon} />
-                </span>
-                <strong>{index + 1}</strong>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section className="services-redesign__consult" aria-labelledby="services-consult-title">
           <img src="/home-main-new.webp" alt="" loading="lazy" decoding="async" />
           <form className="contact-form services-redesign__form" aria-label="Обсудить проект">
@@ -326,6 +323,22 @@ export default async function ServicesPage() {
             </button>
             <p className="contact-form__status" aria-live="polite" />
           </form>
+        </section>
+
+        <section className="services-redesign__section" aria-labelledby="services-process-title">
+          <h2 id="services-process-title">Как мы работаем</h2>
+          <div className="services-redesign__process">
+            {steps.map(([icon, title, text], index) => (
+              <article key={title}>
+                <span className="services-redesign__process-icon">
+                  <ServicesIcon type={icon} />
+                </span>
+                <strong>{index + 1}</strong>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
       </section>
     </main>

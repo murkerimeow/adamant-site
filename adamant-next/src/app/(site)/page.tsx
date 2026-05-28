@@ -57,20 +57,68 @@ const processSteps = [
   },
 ];
 
-const projectCardMeta = [
-  {
-    specs: ["120 м²", "4 комнаты"],
-    price: "от 6 200 000 ₽",
+type HomeProjectCardMeta = {
+  area: string;
+  floors: string;
+  price: number;
+  rooms: string;
+};
+
+const projectCardMeta: Record<string, HomeProjectCardMeta> = {
+  classic: {
+    area: "175 м²",
+    floors: "2 этажа",
+    price: 16500000,
+    rooms: "4 комнаты",
   },
-  {
-    specs: ["150 м²", "5 комнат"],
-    price: "от 7 800 000 ₽",
+  frame: {
+    area: "98 м²",
+    floors: "1 этаж",
+    price: 8900000,
+    rooms: "2 комнаты",
   },
-  {
-    specs: ["100 м²", "3 комнаты"],
-    price: "от 5 400 000 ₽",
+  gasbeton: {
+    area: "150 м²",
+    floors: "2 этажа",
+    price: 15900000,
+    rooms: "4 комнаты",
   },
-] as const;
+  modern: {
+    area: "216 м²",
+    floors: "2 этажа",
+    price: 18100000,
+    rooms: "5 комнат",
+  },
+  onefloor: {
+    area: "100 м²",
+    floors: "1 этаж",
+    price: 5400000,
+    rooms: "3 комнаты",
+  },
+  terrace: {
+    area: "150 м²",
+    floors: "2 этажа",
+    price: 15900000,
+    rooms: "4 комнаты",
+  },
+  timber: {
+    area: "129 м²",
+    floors: "1 этаж",
+    price: 11800000,
+    rooms: "3 комнаты",
+  },
+};
+
+const fallbackProjectCardMeta: HomeProjectCardMeta = {
+  area: "120 м²",
+  floors: "1 этаж",
+  price: 8900000,
+  rooms: "3 комнаты",
+};
+
+function formatProjectPrice(value: number) {
+  return new Intl.NumberFormat("ru-RU").format(value);
+}
 
 type HomeStat = {
   id: string;
@@ -246,20 +294,46 @@ export default async function HomePage() {
 
           <section className="home-about-stats" aria-labelledby="home-about-stats-title">
             <div className="home-about-stats__copy">
+              <span className="home-about-stats__eyebrow">
+                <StatIcon type="house" />
+                О компании
+              </span>
               <h2 id="home-about-stats-title">О нас</h2>
+              <span className="home-about-stats__line" aria-hidden="true" />
               <p>
                 Проектируем и строим современные загородные дома в Санкт-Петербурге
-                и Ленинградской области. Берем на себя путь от идеи и сметы до
-                строительства под ключ, чтобы заказчик заранее видел сроки, бюджет
-                и понятный результат.
+                и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
+                сметы до строительства под ключ.
               </p>
+              <p>
+                Вы заранее знаете сроки, бюджет и каким будет ваш дом. Никаких сюрпризов —
+                только понятный результат.
+              </p>
+              <div className="home-about-stats__cta">
+                <Link href="/about">
+                  Подробнее о нас <span aria-hidden="true">→</span>
+                </Link>
+                <div>
+                  <span aria-hidden="true">
+                    <StatIcon type="award" />
+                  </span>
+                  <p>
+                    <strong>Работаем по договору</strong>
+                    <br />с фиксированными сроками и ценой
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="home-about-stats__grid" aria-label="Показатели компании">
-              {stats.slice(0, 4).map((stat) => (
+              {stats.slice(0, 4).map((stat, index) => (
                 <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
+                  <span className="home-about-stat__icon" aria-hidden="true">
+                    <StatIcon type={statIconTypes[index] ?? "house"} />
+                  </span>
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
+                  <i aria-hidden="true" />
                 </div>
               ))}
             </div>
@@ -299,38 +373,99 @@ export default async function HomePage() {
             </div>
 
             <div className="home-project-preview__grid js-wheel-slider">
-              {featuredProjects.map((project, index) => {
+              {featuredProjects.map((project) => {
                 const href = getCatalogItemPath(project);
                 const imageUrl =
                   getMediaUrl(project.previewImage, "card") || getMediaUrl(project.previewImage);
-                const meta = projectCardMeta[index] ?? projectCardMeta[0];
+                const meta = projectCardMeta[project.itemKey] ?? fallbackProjectCardMeta;
+                const description = project.cardSummary || project.description;
 
                 return (
                   <article
                     key={project.id}
-                    className="home-project-card"
+                    className="home-project-card listing-card"
                     data-card-link={href}
                     tabIndex={0}
                   >
-                    <a className="home-project-card__media" href={href} aria-label={`Смотреть проект ${project.title}`}>
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={getMediaAlt(project.previewImage, project.title)}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : null}
-                      <span className="home-project-card__badges">
-                        {meta.specs.map((spec) => (
-                          <span key={spec}>{spec}</span>
-                        ))}
+                    <div className="listing-card__media">
+                      <a className="listing-card__media-link" href={href} aria-label={`Смотреть проект ${project.title}`}>
+                        {imageUrl ? (
+                          <img
+                            src={imageUrl}
+                            alt={getMediaAlt(project.previewImage, project.title)}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null}
+                      </a>
+                      <span className="listing-card__badge">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
+                        </svg>
+                        Хит проект
                       </span>
-                    </a>
-                    <div className="home-project-card__body">
-                      <h3>{project.title}</h3>
-                      <p>{project.cardSummary || project.description}</p>
-                      <strong>{meta.price}</strong>
+                      <span className="listing-card__photos">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
+                          <circle cx="12" cy="13" r="3.2" />
+                        </svg>
+                        1/12
+                      </span>
+                    </div>
+                    <div className="listing-card__body">
+                      <h2>{project.title}</h2>
+                      <p className="listing-card__description">{description}</p>
+                      <ul className="listing-card__specs" aria-label="Характеристики проекта">
+                        <li className="listing-card__spec listing-card__spec--area">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="M5 5h14v14H5V5Z" />
+                              <path d="M5 10h4M15 5v4M19 14h-4M9 19v-4" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.area}</strong>
+                            <small>Площадь</small>
+                          </span>
+                        </li>
+                        <li className="listing-card__spec listing-card__spec--floors">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="m12 3 8 4-8 4-8-4 8-4Z" />
+                              <path d="m20 12-8 4-8-4" />
+                              <path d="m20 17-8 4-8-4" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.floors}</strong>
+                            <small>Этажность</small>
+                          </span>
+                        </li>
+                        <li className="listing-card__spec listing-card__spec--rooms">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="M4 11V6h5a3 3 0 0 1 3 3v2" />
+                              <path d="M12 11V7h5a3 3 0 0 1 3 3v1" />
+                              <path d="M4 11h16v7" />
+                              <path d="M4 18v-7" />
+                              <path d="M4 16h16" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.rooms}</strong>
+                            <small>Комнаты</small>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="listing-card__footer">
+                      <strong>
+                        <span>от</span>
+                        {formatProjectPrice(meta.price)} ₽
+                      </strong>
+                      <a className="listing-card__button" href={href} aria-label={`Подробнее: ${project.title}`}>
+                        Подробнее
+                      </a>
                     </div>
                   </article>
                 );
@@ -424,7 +559,9 @@ export default async function HomePage() {
                 );
               })}
             </div>
+          </section>
 
+          <section className="home-section home-proof-section" aria-label="Преимущества, гарантии и контроль качества">
             <div className="home-proof-strip">
               {proofColumns.map((column) => (
                 <article key={column.title} className="home-proof-strip__item">

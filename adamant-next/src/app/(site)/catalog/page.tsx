@@ -147,7 +147,7 @@ export default async function CatalogPage() {
       <section className="section section--projects" aria-labelledby="catalog-title">
         <div className="section__intro section__intro--page section__intro--projects">
           <span className="section__kicker">{catalogPage.eyebrow}</span>
-          <h1 id="catalog-title">{catalogPage.title}</h1>
+          <h1 id="catalog-title">Проекты загородных домов</h1>
           <p>{catalogPage.subtitle}</p>
         </div>
 
@@ -156,34 +156,15 @@ export default async function CatalogPage() {
           data-listing-filters="catalog"
           aria-label="Фильтры каталога"
         >
-          <label className="listing-filters__field">
-            <span>Площадь</span>
-            <select name="area" data-listing-filter="area" aria-label="Площадь">
-              <option value="all">Площадь</option>
-              <option value="under120">до 120 м²</option>
-              <option value="120-160">120-160 м²</option>
-              <option value="160plus">от 160 м²</option>
-            </select>
-          </label>
-
-          <label className="listing-filters__field">
-            <span>Этажность</span>
-            <select name="floors" data-listing-filter="floors" aria-label="Этажность">
-              <option value="all">Этажность</option>
-              <option value="one">1 этаж</option>
-              <option value="two">2 этажа</option>
-              <option value="threeplus">3+ этажа</option>
-            </select>
-          </label>
-
-          <label className="listing-filters__field">
-            <span>Комнат</span>
-            <select name="rooms" data-listing-filter="rooms" aria-label="Комнат">
-              <option value="all">Комнат</option>
-              <option value="upto3">до 3 комнат</option>
-              <option value="four">4 комнаты</option>
-              <option value="fiveplus">5+ комнат</option>
-            </select>
+          <label className="listing-filters__field listing-filters__field--search">
+            <span>Поиск</span>
+            <input
+              type="search"
+              name="search"
+              placeholder="Поиск по проектам..."
+              data-listing-search="true"
+              aria-label="Поиск по проектам"
+            />
           </label>
 
           <div className="listing-filters__field listing-filters__field--price">
@@ -228,15 +209,34 @@ export default async function CatalogPage() {
             </div>
           </div>
 
-          <label className="listing-filters__field listing-filters__field--search">
-            <span>Поиск</span>
-            <input
-              type="search"
-              name="search"
-              placeholder="Поиск по проектам..."
-              data-listing-search="true"
-              aria-label="Поиск по проектам"
-            />
+          <label className="listing-filters__field">
+            <span>Площадь</span>
+            <select name="area" data-listing-filter="area" aria-label="Площадь">
+              <option value="all">Площадь</option>
+              <option value="under120">до 120 м²</option>
+              <option value="120-160">120-160 м²</option>
+              <option value="160plus">от 160 м²</option>
+            </select>
+          </label>
+
+          <label className="listing-filters__field">
+            <span>Этажность</span>
+            <select name="floors" data-listing-filter="floors" aria-label="Этажность">
+              <option value="all">Этажность</option>
+              <option value="one">1 этаж</option>
+              <option value="two">2 этажа</option>
+              <option value="threeplus">3+ этажа</option>
+            </select>
+          </label>
+
+          <label className="listing-filters__field">
+            <span>Комнат</span>
+            <select name="rooms" data-listing-filter="rooms" aria-label="Комнат">
+              <option value="all">Комнат</option>
+              <option value="upto3">до 3 комнат</option>
+              <option value="four">4 комнаты</option>
+              <option value="fiveplus">5+ комнат</option>
+            </select>
           </label>
         </form>
 
@@ -338,7 +338,6 @@ export default async function CatalogPage() {
                   </strong>
                   <a className="listing-card__button" href={href} aria-label={`Подробнее: ${item.title}`}>
                     Подробнее
-                    <span aria-hidden="true">→</span>
                   </a>
                 </div>
               </article>

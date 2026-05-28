@@ -14,6 +14,8 @@ const footerNavItems = [
   { href: "/vacancies", label: "Вакансии" },
 ];
 
+const footerEmail = "stroy.178@inbox.ru";
+
 export async function SiteFooter() {
   const [siteSettings, services, catalogItems] = await Promise.all([
     getSiteSettings(),
@@ -73,11 +75,9 @@ export async function SiteFooter() {
           <button className="home-footer__contact-link js-open-callback" type="button">
             {siteSettings.phonePrimary}
           </button>
-          {siteSettings.email ? (
-            <a className="home-footer__contact-link" href={`mailto:${siteSettings.email}`}>
-              {siteSettings.email}
-            </a>
-          ) : null}
+          <a className="home-footer__contact-link" href={`mailto:${footerEmail}`}>
+            {footerEmail}
+          </a>
           {siteSettings.address ? <span>{siteSettings.address}</span> : null}
           {siteSettings.workingHours ? <span>{siteSettings.workingHours}</span> : null}
 

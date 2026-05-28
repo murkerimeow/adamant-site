@@ -139,6 +139,21 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         </span>
       </div>
 
+      {showControls ? (
+        <div className="product-gallery__bars" aria-label="Переключение фото">
+          {images.map((image, index) => (
+            <button
+              key={`${image.src}-bar-${index}`}
+              className="product-gallery__bar"
+              type="button"
+              aria-label={`Открыть фото ${index + 1}`}
+              aria-current={activeIndex === index ? "true" : undefined}
+              onClick={() => scrollToIndex(index)}
+            />
+          ))}
+        </div>
+      ) : null}
+
       <div className="product-gallery__side" aria-label={`${title} thumbnails`}>
         {visiblePreviewIndexes.map((index, slot) => {
           const image = images[index];

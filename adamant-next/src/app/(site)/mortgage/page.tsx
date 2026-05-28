@@ -143,40 +143,30 @@ function MortgageIcon({ type }: { type: MortgageIconType }) {
 }
 
 function BankLogo({ bank }: { bank: "sber" | "tbank" | "vtb" }) {
-  if (bank === "sber") {
-    return (
-      <span className="mortgage-bank-logo mortgage-bank-logo--sber" aria-hidden="true">
-        <svg viewBox="0 0 44 44">
-          <circle cx="22" cy="22" r="19" fill="#20A038" />
-          <path d="M12 19.8 20.1 28 34 13.8" fill="none" stroke="#fff" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M10.8 27.4a16 16 0 0 0 22.4 0" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
-        </svg>
-        <strong>СБЕРБАНК</strong>
-      </span>
-    );
-  }
-
-  if (bank === "tbank") {
-    return (
-      <span className="mortgage-bank-logo mortgage-bank-logo--tbank" aria-hidden="true">
-        <svg viewBox="0 0 44 44">
-          <path d="M8 8h28v12c0 9-5.5 15.2-14 18-8.5-2.8-14-9-14-18V8Z" fill="#FFD429" />
-          <path d="M14 15h16M22 15v15M17 30h10" fill="none" stroke="#111827" strokeWidth="3.4" strokeLinecap="round" />
-        </svg>
-        <strong>Т-БАНК</strong>
-      </span>
-    );
-  }
+  const logos = {
+    sber: {
+      alt: "Сбербанк",
+      src: "/bank-sber.svg",
+    },
+    tbank: {
+      alt: "Т-Банк",
+      src: "/bank-tbank.svg",
+    },
+    vtb: {
+      alt: "ВТБ",
+      src: "/bank-vtb.svg",
+    },
+  } as const;
+  const logo = logos[bank];
 
   return (
-    <span className="mortgage-bank-logo mortgage-bank-logo--vtb" aria-hidden="true">
-      <svg viewBox="0 0 52 34">
-        <path d="M2 8h22l-3 5H0l2-5Z" fill="#1D5FBF" />
-        <path d="M5 16h22l-3 5H3l2-5Z" fill="#16A3E8" />
-        <path d="M8 24h22l-3 5H6l2-5Z" fill="#6CC8FF" />
-      </svg>
-      <strong>ВТБ</strong>
-    </span>
+    <img
+      className={`mortgage-bank-logo mortgage-bank-logo--${bank}`}
+      src={logo.src}
+      alt={logo.alt}
+      loading="lazy"
+      decoding="async"
+    />
   );
 }
 

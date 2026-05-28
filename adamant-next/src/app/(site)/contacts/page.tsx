@@ -18,6 +18,9 @@ export const metadata = createPageMetadata({
   path: "/contacts",
 });
 
+const contactEmail = "stroy.178@inbox.ru";
+const contactPhone = "+7 (911) 197-04-57";
+
 function ContactIcon({ type }: { type: "mail" | "map" | "message" | "phone" }) {
   const commonProps = {
     fill: "none",
@@ -69,9 +72,6 @@ export default async function ContactsPage() {
   ]);
 
   const workingHours = getWorkingHoursParts(siteSettings.workingHours);
-  const phones = [siteSettings.phonePrimary, siteSettings.phoneSecondary]
-    .filter(Boolean)
-    .filter((value, index, list) => list.indexOf(value) === index) as string[];
   const requisites = contactsPage.companyDetails;
 
   return (
@@ -100,11 +100,7 @@ export default async function ContactsPage() {
                 </span>
                 <div>
                   <h2>Телефон</h2>
-                  {phones.map((phone) => (
-                    <a key={phone} href={getPhoneHref(phone)}>
-                      {phone}
-                    </a>
-                  ))}
+                  <a href={getPhoneHref(contactPhone)}>{contactPhone}</a>
                   <small>{workingHours.join(", ") || "Ежедневно с 9:00 до 20:00"}</small>
                 </div>
               </article>
@@ -115,7 +111,7 @@ export default async function ContactsPage() {
                 </span>
                 <div>
                   <h2>E-mail</h2>
-                  {siteSettings.email ? <a href={`mailto:${siteSettings.email}`}>{siteSettings.email}</a> : null}
+                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
                   <small>Ответим в течение 15 минут</small>
                 </div>
               </article>
@@ -158,7 +154,7 @@ export default async function ContactsPage() {
           </div>
 
           <form className="contact-form contact-redesign__form" aria-label="Форма заявки">
-            <h2>Оставьте заявку</h2>
+            <h2>Напишите нам</h2>
             <p>Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы.</p>
 
             <div className="contact-redesign__form-row">

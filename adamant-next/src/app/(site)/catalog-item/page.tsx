@@ -274,6 +274,18 @@ export default async function CatalogItemPage({
   const relatedCards = relatedItems.length
     ? relatedItems
     : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 3);
+  const specs = [
+    { icon: "area" as const, label: "Площадь", value: area },
+    { icon: "floors" as const, label: "Этажность", value: floors },
+    { icon: "rooms" as const, label: "Комнаты", value: rooms },
+    { icon: "bath" as const, label: "Санузлы", value: bathrooms },
+    { icon: "clock" as const, label: "Срок строительства", value: "7 месяцев" },
+    { icon: "location" as const, label: "Локация", value: "Лен. область" },
+  ];
+  const heroSummary =
+    item.cardSummary ||
+    descriptionParagraphs[0] ||
+    "Современный проект загородного дома под ключ.";
 
   return (
     <main className="page inner-page product-page product-page--catalog" aria-label="Карточка проекта Адамант">
@@ -293,42 +305,55 @@ export default async function CatalogItemPage({
           <span>{item.title}</span>
         </nav>
 
-        <ProductGallery images={galleryImages} title={item.title} />
+        <div className="product-hero-card">
+          <ProductGallery images={galleryImages} title={item.title} />
 
-        <div className="product-headline">
-          <div>
+          <aside className="product-hero-info">
+            <span className="product-hero-info__eyebrow">Проект загородного дома</span>
             <h1 id="product-title" data-product-title>
               {item.title}
             </h1>
-            <p className="product-headline__location">
+            <p className="product-hero-info__location">
               <DetailIconSvg type="location" />
               Ленинградская область
             </p>
-          </div>
+            <p className="product-hero-info__summary">{heroSummary}</p>
 
-          <div className="product-headline__actions">
-            <a className="product-headline__back" href={backTarget.href}>
-              Вернуться к списку проектов
-            </a>
+            <div className="product-hero-info__price">
+              <span>Стоимость строительства</span>
+              <strong>{productPrice}</strong>
+            </div>
+
+            <div className="product-hero-info__specs" aria-label="Главные характеристики">
+              {specs.slice(0, 4).map((spec) => (
+                <article key={`hero-${spec.label}`}>
+                  <span>
+                    <DetailIconSvg type={spec.icon} />
+                  </span>
+                  <div>
+                    <small>{spec.label}</small>
+                    <strong>{spec.value}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+
             <button
-              className="product-headline__button js-open-estimate"
+              className="product-hero-info__button js-open-estimate"
               type="button"
               data-estimate-service={item.title}
             >
-              Получить консультацию
+              Оставить заявку
             </button>
-          </div>
+
+            <a className="product-hero-info__back" href={backTarget.href}>
+              Вернуться к списку проектов
+            </a>
+          </aside>
         </div>
 
         <div className="product-specs" aria-label="Характеристики проекта">
-          {[
-            { icon: "area" as const, label: "Площадь", value: area },
-            { icon: "floors" as const, label: "Этажность", value: floors },
-            { icon: "rooms" as const, label: "Комнаты", value: rooms },
-            { icon: "bath" as const, label: "Санузлы", value: bathrooms },
-            { icon: "clock" as const, label: "Срок строительства", value: "7 месяцев" },
-            { icon: "location" as const, label: "Локация", value: "Лен. область" },
-          ].map((spec) => (
+          {specs.map((spec) => (
             <article className="product-spec-card" key={spec.label}>
               <span className="product-spec-card__icon">
                 <DetailIconSvg type={spec.icon} />
