@@ -30,7 +30,7 @@ export async function SiteFooter() {
       <div className="home-footer__main">
         <div className="home-footer__brand">
           <Link className="home-footer__logo" href="/" aria-label="Адамант">
-            <img src="/logo-new.PNG" alt="Адамант" />
+            <img src="/logo-new.PNG" alt="Адамант" loading="lazy" decoding="async" />
           </Link>
           <p>
             Строим современные загородные дома под ключ в Санкт-Петербурге

@@ -76,7 +76,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {coverImage ? (
             <figure className="about-media" aria-label={post.title}>
-              <img src={coverImage} alt={getMediaAlt(post.coverImage, post.title)} />
+              <img
+                src={coverImage}
+                alt={getMediaAlt(post.coverImage, post.title)}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
             </figure>
           ) : null}
         </div>

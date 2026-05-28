@@ -57,6 +57,8 @@ export default async function PortfolioPage() {
                   <img
                     src={getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage)}
                     alt={getMediaAlt(item.previewImage, item.title)}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="blog-card__body">

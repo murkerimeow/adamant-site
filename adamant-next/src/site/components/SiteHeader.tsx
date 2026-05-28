@@ -29,7 +29,13 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
   return (
     <header className="header">
       <a className="brand" href="/" aria-label="Адамант">
-        <img className="brand__mark" src="/logo-new.PNG" alt="Адамант" />
+        <img
+          className="brand__mark"
+          src="/logo-new.PNG"
+          alt="Адамант"
+          loading="eager"
+          decoding="async"
+        />
       </a>
 
       <nav className="nav" aria-label="Основная навигация">

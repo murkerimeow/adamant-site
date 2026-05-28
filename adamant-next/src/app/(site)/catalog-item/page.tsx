@@ -380,7 +380,7 @@ export default async function CatalogItemPage({
           <div className="product-photo-strip">
             {additionalImages.map((image, index) => (
               <figure key={`${image.src}-additional-${index}`}>
-                <img src={image.src} alt={image.alt} />
+                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
@@ -396,7 +396,7 @@ export default async function CatalogItemPage({
                   <p>{plan.meta}</p>
                 </div>
                 {plan.image ? (
-                  <img src={plan.image} alt="" aria-hidden="true" />
+                  <img src={plan.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
                 ) : (
                   <div className={`product-plan-card__drawing product-plan-card__drawing--${index + 1}`} aria-hidden="true">
                     <span />
@@ -427,7 +427,12 @@ export default async function CatalogItemPage({
 
                 return (
                   <article className="product-related-card" data-card-link={href} tabIndex={0} key={related.id}>
-                    <img src={relatedImage} alt={getMediaAlt(related.previewImage, related.title)} />
+                    <img
+                      src={relatedImage}
+                      alt={getMediaAlt(related.previewImage, related.title)}
+                      loading="lazy"
+                      decoding="async"
+                    />
                     <div>
                       <h3>{related.title}</h3>
                       <p>{relatedTags || "Современный проект под ключ"}</p>
@@ -456,7 +461,13 @@ export default async function CatalogItemPage({
               <span>Я согласен на обработку персональных данных</span>
             </label>
           </form>
-          <img src={galleryImages[0]?.src || "/home-main-new.webp"} alt="" aria-hidden="true" />
+          <img
+            src={galleryImages[0]?.src || "/home-main-new.webp"}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
         </section>
       </section>
     </main>

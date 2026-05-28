@@ -204,7 +204,7 @@ export default async function ContactsPage() {
                 Получить консультацию <span aria-hidden="true">→</span>
               </button>
             </div>
-            <img src="/request-house.jpg" alt="" />
+            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
           </section>
 
           <aside className="contact-redesign__aside">

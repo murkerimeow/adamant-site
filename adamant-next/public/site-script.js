@@ -6,7 +6,7 @@
         <div class="modal-lead" data-modal-state="form">
           <section class="modal-lead__content">
             <span class="modal-lead__icon" aria-hidden="true">
-              <img src="/new-icons/estimate-day.png" alt="">
+              <img src="/new-icons/estimate-day.png" alt="" loading="lazy" decoding="async">
             </span>
             <h2 id="estimate-modal-title">Оставьте заявку</h2>
             <p class="modal-lead__text">Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы.</p>
@@ -37,7 +37,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="">
+            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
@@ -102,7 +102,7 @@
         <div class="modal-lead" data-modal-state="form">
           <section class="modal-lead__content">
             <span class="modal-lead__icon" aria-hidden="true">
-              <img src="/new-icons/phone.png" alt="">
+              <img src="/new-icons/phone.png" alt="" loading="lazy" decoding="async">
             </span>
             <h2 id="callback-modal-title">Заказать<br>обратный звонок</h2>
             <p class="modal-lead__text">Оставьте номер телефона — мы перезвоним вам, ответим на вопросы и поможем с выбором решения.</p>
@@ -122,7 +122,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="">
+            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
@@ -187,7 +187,7 @@
         <div class="modal-lead" data-modal-state="form">
           <section class="modal-lead__content">
             <span class="modal-lead__icon" aria-hidden="true">
-              <img src="/new-icons/chat.png" alt="">
+              <img src="/new-icons/chat.png" alt="" loading="lazy" decoding="async">
             </span>
             <h2 id="message-modal-title">Написать нам</h2>
             <p class="modal-lead__text">Оставьте почту и сообщение — мы ответим и подскажем по проекту.</p>
@@ -213,7 +213,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="">
+            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
@@ -274,7 +274,7 @@
 
     <button class="site-chat-button" type="button" aria-label="Открыть чат" data-chat-toggle>
       <span class="site-chat-button__icon" aria-hidden="true">
-        <img src="/new-icons/chat.png" alt="">
+        <img src="/new-icons/chat.png" alt="" decoding="async">
       </span>
       <span class="site-chat-button__badge" data-chat-badge hidden>0</span>
     </button>

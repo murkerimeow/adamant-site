@@ -214,7 +214,14 @@ export default async function ServicesPage() {
 
       <section className="services-redesign" aria-labelledby="services-title">
         <section className="services-redesign__hero">
-          <img className="services-redesign__hero-image" src="/request-house.jpg" alt="" />
+          <img
+            className="services-redesign__hero-image"
+            src="/request-house.jpg"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="services-redesign__hero-content">
             <h1 id="services-title">Услуги</h1>
             <p>
@@ -252,7 +259,7 @@ export default async function ServicesPage() {
             {serviceCards.map((card) => (
               <article className="services-redesign__service-card" key={card.title} data-card-link={card.href} tabIndex={0}>
                 <Link className="services-redesign__service-media" href={card.href} aria-label={card.title}>
-                  <img src={card.image} alt="" />
+                  <img src={card.image} alt="" loading="lazy" decoding="async" />
                 </Link>
                 <div>
                   <h3>{card.title}</h3>
@@ -300,7 +307,7 @@ export default async function ServicesPage() {
         </section>
 
         <section className="services-redesign__consult" aria-labelledby="services-consult-title">
-          <img src="/home-main-new.webp" alt="" />
+          <img src="/home-main-new.webp" alt="" loading="lazy" decoding="async" />
           <form className="contact-form services-redesign__form" aria-label="Обсудить проект">
             <h2 id="services-consult-title">Обсудим ваш проект</h2>
             <p>Оставьте заявку — мы свяжемся с вами и ответим на все вопросы.</p>

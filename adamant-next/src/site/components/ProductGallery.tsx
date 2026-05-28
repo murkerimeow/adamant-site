@@ -93,7 +93,13 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
                 className="product-gallery__slide"
                 data-gallery-slide={index}
               >
-                <img src={image.src} alt={image.alt} />
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
               </figure>
             ))}
           </div>
@@ -145,7 +151,13 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
               aria-label={`Открыть фото ${index + 1}`}
               onClick={() => scrollToIndex(index)}
             >
-              <img src={image.thumbSrc ?? image.src} alt="" aria-hidden="true" />
+              <img
+                src={image.thumbSrc ?? image.src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
               {slot === visiblePreviewIndexes.length - 1 && hiddenCount > 0 ? (
                 <span>
                   <strong>+{hiddenCount}</strong>

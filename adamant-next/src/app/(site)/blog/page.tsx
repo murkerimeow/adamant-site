@@ -114,7 +114,7 @@ export default async function BlogPage() {
                   </div>
                 ) : (
                   <>
-                    <img src={video.image} alt={video.title} />
+                    <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
                     <button
                       className="review-video-card__play"
                       type="button"
@@ -151,6 +151,8 @@ export default async function BlogPage() {
                     <img
                       src={getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage)}
                       alt={getMediaAlt(post.coverImage, post.title)}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ) : null}

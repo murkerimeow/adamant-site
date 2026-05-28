@@ -219,6 +219,8 @@ export default async function CatalogPage() {
                   <img
                     src={getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage)}
                     alt={getMediaAlt(item.previewImage, item.title)}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </a>
 

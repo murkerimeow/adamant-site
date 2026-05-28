@@ -226,8 +226,21 @@ export default async function HomePage() {
             </div>
 
             <div className="visual-panel hero-visual" aria-hidden="true">
-              <img className="visual-panel__image visual-panel__image--base" src="/home-main-new.webp" alt="" />
-              <img className="visual-panel__image visual-panel__image--lit" src="/home-main-new.webp" alt="" />
+              <img
+                className="visual-panel__image visual-panel__image--base"
+                src="/home-main-new.webp"
+                alt=""
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
+              <img
+                className="visual-panel__image visual-panel__image--lit"
+                src="/home-main-new.webp"
+                alt=""
+                loading="eager"
+                decoding="async"
+              />
             </div>
           </section>
 
@@ -301,7 +314,12 @@ export default async function HomePage() {
                   >
                     <a className="home-project-card__media" href={href} aria-label={`Смотреть проект ${project.title}`}>
                       {imageUrl ? (
-                        <img src={imageUrl} alt={getMediaAlt(project.previewImage, project.title)} />
+                        <img
+                          src={imageUrl}
+                          alt={getMediaAlt(project.previewImage, project.title)}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       ) : null}
                       <span className="home-project-card__badges">
                         {meta.specs.map((spec) => (
@@ -335,7 +353,7 @@ export default async function HomePage() {
             </div>
 
             <div className="home-trust__media" aria-hidden="true">
-              <img src={trustImageUrl} alt="" />
+              <img src={trustImageUrl} alt="" loading="lazy" decoding="async" />
               <div className="home-trust__badge">
                 <strong>Гарантия до 5 лет</strong>
                 <span>На все виды работ и конструктив</span>
@@ -386,7 +404,12 @@ export default async function HomePage() {
                   >
                     <a className="home-cycle-card__media" href={href} aria-label={`Подробнее об услуге ${service.title}`}>
                       {imageUrl ? (
-                        <img src={imageUrl} alt={getMediaAlt(service.previewImage, service.title)} />
+                        <img
+                          src={imageUrl}
+                          alt={getMediaAlt(service.previewImage, service.title)}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       ) : null}
                     </a>
                     <div className="home-cycle-card__body">
@@ -442,7 +465,12 @@ export default async function HomePage() {
                 return (
                   <a key={project.id} className="home-portfolio-thumb" href={href}>
                     {imageUrl ? (
-                      <img src={imageUrl} alt={getMediaAlt(project.previewImage, project.title)} />
+                      <img
+                        src={imageUrl}
+                        alt={getMediaAlt(project.previewImage, project.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
                     ) : null}
                     <span>{project.title}</span>
                   </a>

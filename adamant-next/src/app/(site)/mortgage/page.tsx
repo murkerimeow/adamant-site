@@ -131,7 +131,13 @@ export default async function MortgagePage() {
 
       <section className="section mortgage-redesign" aria-labelledby="mortgage-title">
         <section className="mortgage-redesign__hero">
-          <img src="/home-main-new.webp" alt="" />
+          <img
+            src="/home-main-new.webp"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="mortgage-redesign__hero-content">
             <span>Строим дома вашей мечты — с поддержкой надежных банков</span>
             <h1 id="mortgage-title">
@@ -206,7 +212,7 @@ export default async function MortgagePage() {
         </section>
 
         <section className="mortgage-redesign__consult" aria-labelledby="mortgage-consult-title">
-          <img src="/request-house.jpg" alt="" />
+          <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
           <form className="contact-form mortgage-redesign__form" aria-label="Заявка на ипотеку">
             <h2 id="mortgage-consult-title">Получите бесплатную консультацию</h2>
             <p>Подберем оптимальную программу ипотеки и ответим на все ваши вопросы.</p>

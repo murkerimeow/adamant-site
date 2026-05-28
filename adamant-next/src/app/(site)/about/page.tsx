@@ -134,7 +134,13 @@ export default async function AboutPage() {
 
       <section className="section about-redesign" aria-labelledby="about-title">
         <div className="about-redesign__hero">
-          <img src="/home-main-new.webp" alt="" />
+          <img
+            src="/home-main-new.webp"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="about-redesign__hero-content">
             <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
               <Link href="/">Главная</Link>
@@ -188,7 +194,7 @@ export default async function AboutPage() {
               Подробнее о компании <span aria-hidden="true">→</span>
             </a>
           </div>
-          <img src="/дом из бруса.png" alt="" />
+          <img src="/дом из бруса.png" alt="" loading="lazy" decoding="async" />
         </section>
 
         <section className="about-redesign__approach" aria-labelledby="about-approach-title">
@@ -247,7 +253,7 @@ export default async function AboutPage() {
               </article>
             ))}
           </div>
-          <img src="/request-house.jpg" alt="" />
+          <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
         </section>
       </section>
     </main>
