@@ -59,7 +59,7 @@ export async function SiteFooter() {
           <div className="home-footer__links">
             {footerServices.map((service) => {
               const catalogItem = catalogByTitle.get(service.title);
-              const href = catalogItem ? getCatalogItemPath(catalogItem) : "/services";
+              const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
 
               return (
                 <a key={service.id} href={href}>

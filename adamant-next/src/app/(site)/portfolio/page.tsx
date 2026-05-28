@@ -26,6 +26,7 @@ export default async function PortfolioPage() {
     getCatalogItems(),
   ]);
 
+  const catalogById = new Map(catalogItems.map((item) => [item.id, item]));
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
 
   return (
@@ -41,7 +42,13 @@ export default async function PortfolioPage() {
 
         <div className="projects-grid">
           {portfolioItems.map((item) => {
-            const catalogItem = catalogByTitle.get(item.title);
+            const relatedCatalog =
+              item.catalogItem && typeof item.catalogItem === "object"
+                ? item.catalogItem
+                : typeof item.catalogItem === "number"
+                  ? catalogById.get(item.catalogItem)
+                  : null;
+            const catalogItem = relatedCatalog ?? catalogByTitle.get(item.title);
             const href = catalogItem ? getCatalogItemPath(catalogItem) : "/catalog";
             const visibleTags = item.tags?.slice(0, 2) || [];
 

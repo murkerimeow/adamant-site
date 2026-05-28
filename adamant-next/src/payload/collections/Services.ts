@@ -7,7 +7,7 @@ import { slugField } from "../fields/slug.ts";
 export const Services: CollectionConfig = {
   slug: "services",
   admin: {
-    defaultColumns: ["title", "order", "featured", "_status"],
+    defaultColumns: ["title", "order", "showOnServicesPage", "featured", "_status"],
     group: "Контент",
     useAsTitle: "title",
   },
@@ -44,6 +44,47 @@ export const Services: CollectionConfig = {
       },
       defaultValue: false,
       label: "Показывать в приоритете",
+    },
+    {
+      name: "showOnServicesPage",
+      type: "checkbox",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: true,
+      label: "Показывать на странице услуг",
+    },
+    {
+      name: "icon",
+      type: "select",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: "home",
+      label: "Иконка карточки",
+      options: [
+        { label: "Дом", value: "home" },
+        { label: "Куб", value: "box" },
+        { label: "Календарь", value: "calendar" },
+        { label: "Чат", value: "chat" },
+        { label: "Документ", value: "doc" },
+        { label: "Каска", value: "hardhat" },
+        { label: "Идея", value: "light" },
+        { label: "План", value: "plan" },
+        { label: "Щит", value: "shield" },
+        { label: "Команда", value: "team" },
+        { label: "Инструмент", value: "wrench" },
+      ],
+      required: true,
+    },
+    {
+      name: "href",
+      type: "text",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: "/contacts",
+      label: "Ссылка карточки",
     },
     {
       name: "previewImage",

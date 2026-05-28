@@ -239,6 +239,9 @@ export interface Service {
   slug: string;
   order: number;
   featured?: boolean | null;
+  showOnServicesPage?: boolean | null;
+  icon: 'home' | 'box' | 'calendar' | 'chat' | 'doc' | 'hardhat' | 'light' | 'plan' | 'shield' | 'team' | 'wrench';
+  href?: string | null;
   previewImage?: (number | null) | Media;
   shortDescription: string;
   description?: string | null;
@@ -260,6 +263,10 @@ export interface Portfolio {
   id: number;
   title: string;
   slug: string;
+  /**
+   * Свяжите карточку портфолио с проектом каталога, чтобы кнопка вела на правильную страницу.
+   */
+  catalogItem?: (number | null) | Catalog;
   category: 'modern' | 'classic';
   order: number;
   location?: string | null;
@@ -287,6 +294,7 @@ export interface Catalog {
   slug: string;
   itemKey: string;
   showInCatalog?: boolean | null;
+  isHit?: boolean | null;
   catalogCategory: 'modern' | 'classic' | 'other';
   order: number;
   previewImage?: (number | null) | Media;
@@ -546,6 +554,9 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   order?: T;
   featured?: T;
+  showOnServicesPage?: T;
+  icon?: T;
+  href?: T;
   previewImage?: T;
   shortDescription?: T;
   description?: T;
@@ -566,6 +577,7 @@ export interface ServicesSelect<T extends boolean = true> {
 export interface PortfolioSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  catalogItem?: T;
   category?: T;
   order?: T;
   location?: T;
@@ -592,6 +604,7 @@ export interface CatalogSelect<T extends boolean = true> {
   slug?: T;
   itemKey?: T;
   showInCatalog?: T;
+  isHit?: T;
   catalogCategory?: T;
   order?: T;
   previewImage?: T;

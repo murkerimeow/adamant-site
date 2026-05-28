@@ -235,6 +235,7 @@ export default async function HomePage() {
 
   const stats = defaultHomeStats;
   const description = splitHighlight(homePage.heroDescription);
+  const catalogById = new Map(catalogItems.map((item) => [item.id, item]));
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const featuredServices = services.slice(0, 3);
   const cycleServices = services.slice(0, 4);
@@ -398,12 +399,14 @@ export default async function HomePage() {
                           />
                         ) : null}
                       </a>
-                      <span className="listing-card__badge">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
-                        </svg>
-                        Хит проект
-                      </span>
+                      {project.isHit ? (
+                        <span className="listing-card__badge">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
+                          </svg>
+                          Хит проект
+                        </span>
+                      ) : null}
                       <span className="listing-card__photos">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                           <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
@@ -526,7 +529,7 @@ export default async function HomePage() {
             <div className="home-cycle__grid">
               {cycleServices.map((service, index) => {
                 const catalogItem = catalogByTitle.get(service.title);
-                const href = catalogItem ? getCatalogItemPath(catalogItem) : "/services";
+                const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
                 const imageUrl =
                   getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage);
 
@@ -592,7 +595,13 @@ export default async function HomePage() {
 
             <div className="home-portfolio-strip">
               {portfolioStripItems.map((project) => {
-                const catalogItem = catalogByTitle.get(project.title);
+                const relatedCatalog =
+                  project.catalogItem && typeof project.catalogItem === "object"
+                    ? project.catalogItem
+                    : typeof project.catalogItem === "number"
+                      ? catalogById.get(project.catalogItem)
+                      : null;
+                const catalogItem = relatedCatalog ?? catalogByTitle.get(project.title);
                 const href = catalogItem ? getCatalogItemPath(catalogItem) : "/portfolio";
                 const imageUrl =
                   getMediaUrl(project.previewImage, "thumb") ||

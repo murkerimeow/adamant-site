@@ -7,7 +7,7 @@ import { slugField } from "../fields/slug.ts";
 export const Portfolio: CollectionConfig = {
   slug: "portfolio",
   admin: {
-    defaultColumns: ["title", "category", "order", "_status"],
+    defaultColumns: ["title", "catalogItem", "category", "order", "_status"],
     group: "Контент",
     useAsTitle: "title",
   },
@@ -26,6 +26,17 @@ export const Portfolio: CollectionConfig = {
       required: true,
     },
     slugField(),
+    {
+      name: "catalogItem",
+      type: "relationship",
+      admin: {
+        description:
+          "Свяжите карточку портфолио с проектом каталога, чтобы кнопка вела на правильную страницу.",
+        position: "sidebar",
+      },
+      label: "Связанная карточка каталога",
+      relationTo: "catalog",
+    },
     {
       name: "category",
       type: "select",

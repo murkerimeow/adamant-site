@@ -11,6 +11,7 @@ export const Catalog: CollectionConfig = {
       "title",
       "itemKey",
       "showInCatalog",
+      "isHit",
       "catalogCategory",
       "order",
       "_status",
@@ -52,6 +53,15 @@ export const Catalog: CollectionConfig = {
       },
       defaultValue: false,
       label: "Показывать в каталоге",
+    },
+    {
+      name: "isHit",
+      type: "checkbox",
+      admin: {
+        position: "sidebar",
+      },
+      defaultValue: false,
+      label: "Плашка \"Хит\"",
     },
     {
       name: "catalogCategory",

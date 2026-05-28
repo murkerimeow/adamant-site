@@ -269,12 +269,14 @@ export default async function CatalogPage() {
                       decoding="async"
                     />
                   </a>
-                  <span className="listing-card__badge">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
-                    </svg>
-                    Хит проект
-                  </span>
+                  {item.isHit ? (
+                    <span className="listing-card__badge">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
+                      </svg>
+                      Хит проект
+                    </span>
+                  ) : null}
                   <span className="listing-card__photos">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />

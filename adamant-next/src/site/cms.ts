@@ -63,6 +63,7 @@ export type CatalogItemDoc = {
   slug: string;
   itemKey: string;
   showInCatalog?: boolean | null;
+  isHit?: boolean | null;
   catalogCategory: "classic" | "modern" | "other";
   order: number;
   previewImage?: number | Media | null;
@@ -71,6 +72,16 @@ export type CatalogItemDoc = {
   description: string;
   tags?: { id?: string | null; label: string }[] | null;
   _status?: "draft" | "published" | null;
+};
+
+export type ServiceCardDoc = Service & {
+  href?: string | null;
+  icon?: string | null;
+  showOnServicesPage?: boolean | null;
+};
+
+export type PortfolioItemDoc = Portfolio & {
+  catalogItem?: number | CatalogItemDoc | null;
 };
 
 export type VacancyDoc = {
@@ -308,7 +319,7 @@ export async function getServices() {
     where: publishedWhere,
   });
 
-  return result.docs as Service[];
+  return result.docs as ServiceCardDoc[];
 }
 
 export async function getPortfolioItems() {
@@ -324,7 +335,7 @@ export async function getPortfolioItems() {
     where: publishedWhere,
   });
 
-  return result.docs as Portfolio[];
+  return result.docs as PortfolioItemDoc[];
 }
 
 export async function getPosts() {

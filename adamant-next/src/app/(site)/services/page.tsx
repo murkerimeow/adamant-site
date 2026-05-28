@@ -1,4 +1,4 @@
-import { getSiteSettings } from "@/site/cms";
+import { getMediaAlt, getMediaUrl, getServices, getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
@@ -24,6 +24,26 @@ type ServicesIconType =
   | "shield"
   | "team"
   | "wrench";
+
+const serviceIconTypes = [
+  "box",
+  "calendar",
+  "chat",
+  "doc",
+  "hardhat",
+  "home",
+  "light",
+  "plan",
+  "shield",
+  "team",
+  "wrench",
+] as const satisfies readonly ServicesIconType[];
+
+function getServiceIcon(icon?: string | null): ServicesIconType {
+  return serviceIconTypes.includes(icon as ServicesIconType)
+    ? (icon as ServicesIconType)
+    : "home";
+}
 
 function ServicesIcon({ type }: { type: ServicesIconType }) {
   const commonProps = {
@@ -151,13 +171,23 @@ const heroBadges = [
   ["shield", "Ипотека и сопровождение", "Помогаем с ипотекой и ведём сделку до конца"],
 ] as const;
 
-const serviceCards = [
+type ServiceCardView = {
+  description: string;
+  href: string;
+  icon: ServicesIconType;
+  image: string;
+  imageAlt: string;
+  title: string;
+};
+
+const fallbackServiceCards: ServiceCardView[] = [
   {
     icon: "home",
     title: "Строительство домов",
     description: "Строим загородные дома под ключ из надёжных материалов и в срок.",
     href: "/catalog",
     image: "/request-house.jpg",
+    imageAlt: "",
   },
   {
     icon: "plan",
@@ -165,6 +195,7 @@ const serviceCards = [
     description: "Индивидуальные и типовые проекты домов с учётом ваших пожеланий.",
     href: "/contacts",
     image: "/Picture.PNG",
+    imageAlt: "",
   },
   {
     icon: "shield",
@@ -172,6 +203,7 @@ const serviceCards = [
     description: "Подберём выгодные условия и поможем оформить ипотеку.",
     href: "/mortgage",
     image: "/home-main-new.webp",
+    imageAlt: "",
   },
   {
     icon: "wrench",
@@ -179,6 +211,7 @@ const serviceCards = [
     description: "Выполняем внутреннюю и наружную отделку любой сложности.",
     href: "/catalog/remont-kvartir-card",
     image: "/ремонт квартир.png",
+    imageAlt: "",
   },
   {
     icon: "box",
@@ -186,6 +219,7 @@ const serviceCards = [
     description: "Проектируем и монтируем все необходимые инженерные сети.",
     href: "/contacts",
     image: "/строительство.png",
+    imageAlt: "",
   },
   {
     icon: "doc",
@@ -193,6 +227,7 @@ const serviceCards = [
     description: "Готовые проекты домов на любой вкус и бюджет.",
     href: "/catalog",
     image: "/main2.jpg",
+    imageAlt: "",
   },
 ] as const;
 
@@ -212,7 +247,24 @@ const steps = [
 ] as const;
 
 export default async function ServicesPage() {
-  const siteSettings = await getSiteSettings();
+  const [siteSettings, payloadServices] = await Promise.all([
+    getSiteSettings(),
+    getServices(),
+  ]);
+  const cmsServiceCards = payloadServices
+    .filter((service) => service.showOnServicesPage !== false)
+    .map<ServiceCardView>((service) => ({
+      description: service.shortDescription,
+      href: service.href || "/contacts",
+      icon: getServiceIcon(service.icon),
+      image:
+        getMediaUrl(service.previewImage, "card") ||
+        getMediaUrl(service.previewImage) ||
+        "/request-house.jpg",
+      imageAlt: getMediaAlt(service.previewImage, service.title),
+      title: service.title,
+    }));
+  const serviceCards = cmsServiceCards.length ? cmsServiceCards : fallbackServiceCards;
 
   return (
     <main className="page inner-page services-page services-page--redesign" aria-label="Услуги Адамант">
@@ -269,7 +321,7 @@ export default async function ServicesPage() {
             {serviceCards.map((card) => (
               <article className="services-redesign__service-card" key={card.title} data-card-link={card.href} tabIndex={0}>
                 <Link className="services-redesign__service-media" href={card.href} aria-label={card.title}>
-                  <img src={card.image} alt="" loading="lazy" decoding="async" />
+                  <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
                 </Link>
                 <div>
                   <span className="services-redesign__service-icon">
