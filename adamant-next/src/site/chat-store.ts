@@ -2,6 +2,12 @@ import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+export type SiteChatAttachment = {
+  type: "photo";
+  name: string;
+  size?: number;
+};
+
 export type SiteChatMessage = {
   id: string;
   sessionId: string;
@@ -9,6 +15,7 @@ export type SiteChatMessage = {
   text: string;
   createdAt: string;
   page?: string;
+  attachments?: SiteChatAttachment[];
 };
 
 type ChatStore = {

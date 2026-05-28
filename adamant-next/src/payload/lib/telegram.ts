@@ -253,6 +253,89 @@ export async function sendTelegramRequestPhotos(
   await sendTelegramPhotos(doc, attachments);
 }
 
+export async function sendTelegramChatPhotos(input: {
+  sessionId: string;
+  text?: string;
+  page?: string;
+  attachments: TelegramPhotoAttachment[];
+}): Promise<TelegramSendResult[]> {
+  const { token, chatIds } = getTelegramConfig();
+
+  if (!token || !chatIds.length || !input.attachments.length) {
+    return [];
+  }
+
+  const chatLabel = `#${input.sessionId.slice(0, 8).toUpperCase()}`;
+  const captionLines = [
+    "<b>📎 Фото из чата сайта</b>",
+    `<b>Чат:</b> ${escapeTelegramHtml(chatLabel)}`,
+    input.page ? `<i>${escapeTelegramHtml(input.page)}</i>` : "",
+    input.text ? `<blockquote>${escapeTelegramHtml(truncateTelegramValue(input.text, 720))}</blockquote>` : "",
+    "",
+    "<i>Чтобы ответ попал в чат на сайте, ответьте в Telegram на это сообщение или фото.</i>",
+  ].filter(Boolean);
+  const caption = captionLines.join("\n");
+
+  const results = await Promise.all(
+    chatIds.map(async (chatId) => {
+      const body = new FormData();
+      const media = input.attachments.map((attachment, index) => {
+        const fieldName = `chat_photo_${index}`;
+        const copy = attachment.bytes.slice();
+        body.append(
+          fieldName,
+          new Blob([copy.buffer as ArrayBuffer], { type: attachment.mimeType }),
+          attachment.filename,
+        );
+
+        return {
+          type: "photo",
+          media: `attach://${fieldName}`,
+          ...(index === 0 && caption
+            ? {
+                caption,
+                parse_mode: "HTML",
+              }
+            : {}),
+        };
+      });
+
+      body.append("chat_id", chatId);
+      body.append("media", JSON.stringify(media));
+
+      const response = await fetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`chat ${chatId}: ${response.status} ${errorText}`);
+      }
+
+      const payload = (await response.json()) as {
+        ok?: boolean;
+        result?: {
+          message_id?: number;
+        }[];
+      };
+
+      if (!payload.ok || !Array.isArray(payload.result)) {
+        throw new Error(`chat ${chatId}: Telegram returned an invalid media response`);
+      }
+
+      return payload.result
+        .filter((message) => typeof message.message_id === "number")
+        .map((message) => ({
+          chatId,
+          messageId: message.message_id as number,
+        }));
+    }),
+  );
+
+  return results.flat();
+}
+
 export async function sendTelegramChatNotification(input: {
   sessionId: string;
   text: string;

@@ -280,18 +280,35 @@
     </button>
     <section class="site-chat" data-site-chat hidden>
       <div class="site-chat__header">
-        <div>
+        <span class="site-chat__avatar" aria-hidden="true">
+          <span>А</span>
+        </span>
+        <div class="site-chat__heading">
           <strong>Чат с Адамант Строй</strong>
-          <span>Отвечаем в рабочее время</span>
+          <span><i></i>Обычно отвечаем в рабочее время</span>
         </div>
-        <button class="site-chat__close" type="button" aria-label="Закрыть чат" data-chat-close>&times;</button>
+        <button class="site-chat__close" type="button" aria-label="Закрыть чат" data-chat-close>
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="site-chat__messages" data-chat-messages></div>
-      <form class="site-chat__form" data-chat-form>
-        <textarea name="message" rows="2" placeholder="Напишите сообщение" required></textarea>
-        <button type="submit" aria-label="Отправить сообщение">
-          <span aria-hidden="true">→</span>
-        </button>
+      <form class="site-chat__form" data-chat-form enctype="multipart/form-data">
+        <div class="site-chat__files" data-chat-files hidden></div>
+        <div class="site-chat__composer">
+          <textarea name="message" rows="1" placeholder="Напишите сообщение"></textarea>
+          <label class="site-chat__attach" aria-label="Прикрепить фото" title="Прикрепить фото">
+            <input type="file" name="photos" accept="image/*" multiple data-chat-photos>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21.4 10.3 12 19.7a5 5 0 0 1-7.1-7.1l9.8-9.8a3.5 3.5 0 1 1 5 5l-9.9 9.9a2 2 0 0 1-2.8-2.8l8.9-8.9"/>
+            </svg>
+          </label>
+          <button class="site-chat__send" type="submit" aria-label="Отправить сообщение">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
       </form>
       <p class="site-chat__status" aria-live="polite" data-chat-status></p>
     </section>
@@ -726,6 +743,8 @@
   const chatStatus = document.querySelector("[data-chat-status]");
   const chatBadge = document.querySelector("[data-chat-badge]");
   const chatTextarea = chatForm?.querySelector("textarea");
+  const chatPhotoInput = chatForm?.querySelector("[data-chat-photos]");
+  const chatFiles = chatForm?.querySelector("[data-chat-files]");
   const chatStorageKey = "adamant-site-chat-session";
   const chatLastSeenKey = "adamant-site-chat-last-seen";
   const chatState = {
@@ -844,6 +863,25 @@
     chatStatus.classList.toggle("site-chat__status--error", isError);
   };
 
+  const getChatPhotoFiles = () =>
+    Array.from(chatPhotoInput?.files ?? []).filter(
+      (file) => file instanceof File && file.size > 0
+    );
+
+  const getChatFileSummaryText = (files) => {
+    if (!files.length) return "";
+    if (files.length === 1) return files[0].name;
+    return `Выбрано фото: ${files.length}`;
+  };
+
+  const updateChatFileSummary = () => {
+    if (!chatFiles) return;
+
+    const files = getChatPhotoFiles();
+    chatFiles.hidden = !files.length;
+    chatFiles.textContent = getChatFileSummaryText(files);
+  };
+
   const formatChatTime = (value) => {
     const date = new Date(value);
 
@@ -870,6 +908,11 @@
       return;
     }
 
+    const day = document.createElement("div");
+    day.className = "site-chat__day";
+    day.innerHTML = "<span></span><em>Сегодня</em><span></span>";
+    chatMessages.append(day);
+
     messages.forEach((message) => {
       const item = document.createElement("article");
       const fromManager = message.from === "manager";
@@ -879,7 +922,20 @@
 
       const bubble = document.createElement("div");
       bubble.className = "site-chat__bubble";
-      bubble.textContent = message.text || "";
+      const text = document.createElement("span");
+      text.textContent = message.text || "";
+      bubble.append(text);
+
+      const attachments = Array.isArray(message.attachments) ? message.attachments : [];
+      if (attachments.length) {
+        const files = document.createElement("span");
+        files.className = "site-chat__attachments";
+        files.textContent =
+          attachments.length === 1
+            ? `Фото: ${attachments[0].name || "изображение"}`
+            : `Фото: ${attachments.length}`;
+        bubble.append(files);
+      }
 
       const time = document.createElement("time");
       time.dateTime = message.createdAt || "";
@@ -981,6 +1037,7 @@
   });
 
   chatClose?.addEventListener("click", closeChat);
+  chatPhotoInput?.addEventListener("change", updateChatFileSummary);
 
   chatTextarea?.addEventListener("keydown", (event) => {
     if (
@@ -1013,38 +1070,65 @@
     event.preventDefault();
 
     const text = chatTextarea?.value.trim() ?? "";
-    if (!text) return;
+    const photoFiles = getChatPhotoFiles();
+    const photoError = photoFiles.length ? validateRequestPhotoFiles(photoFiles) : "";
+
+    if (!text && !photoFiles.length) return;
+
+    if (photoError) {
+      setChatStatus(photoError, true);
+      return;
+    }
 
     chatState.sessionId = chatState.sessionId || getChatSessionId();
     setChatStatus("Отправляем...");
+
+    const attachments = photoFiles.map((file) => ({
+      type: "photo",
+      name: file.name,
+      size: file.size,
+    }));
+    const displayText = text || (attachments.length ? `Прикреплено фото: ${attachments.length}` : "");
 
     const optimisticMessage = {
       id: createLocalId(),
       sessionId: chatState.sessionId,
       from: "visitor",
-      text,
+      text: displayText,
       createdAt: new Date().toISOString(),
       page: window.location.pathname,
+      attachments,
     };
     chatState.messages = [...chatState.messages, optimisticMessage];
     renderChatMessages(chatState.messages);
     if (chatTextarea) chatTextarea.value = "";
+    if (chatPhotoInput) chatPhotoInput.value = "";
+    updateChatFileSummary();
 
     try {
+      const formData = new FormData();
+      formData.append("sessionId", chatState.sessionId);
+      formData.append("text", text);
+      formData.append("page", window.location.pathname);
+      photoFiles.forEach((file) => {
+        formData.append("photos", file);
+      });
+
       const response = await fetch("/api/chat/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sessionId: chatState.sessionId,
-          text,
-          page: window.location.pathname,
-        }),
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error(`Chat send failed with status ${response.status}`);
+        let errorText = "";
+        try {
+          const errorPayload = await response.json();
+          errorText = errorPayload?.error || "";
+        } catch {
+          errorText = "";
+        }
+
+        throw new Error(errorText || `Chat send failed with status ${response.status}`);
       }
 
       const payload = await response.json();
@@ -1059,8 +1143,13 @@
           : "Сообщение сохранено, но Telegram пока недоступен.",
         !payload.deliveredToTelegram
       );
-    } catch {
-      setChatStatus("Не удалось отправить сообщение. Попробуйте еще раз.", true);
+    } catch (error) {
+      setChatStatus(
+        error instanceof Error && error.message
+          ? error.message
+          : "Не удалось отправить сообщение. Попробуйте еще раз.",
+        true
+      );
     }
   });
 
