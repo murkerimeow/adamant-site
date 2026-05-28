@@ -281,11 +281,11 @@
     <section class="site-chat" data-site-chat hidden>
       <div class="site-chat__header">
         <span class="site-chat__avatar" aria-hidden="true">
-          <img src="/favicon-32x32.png" alt="" decoding="async">
+          <img src="/chat-logo.jpg" alt="" decoding="async">
         </span>
         <div class="site-chat__heading">
           <strong>Чат с Адамант Строй</strong>
-          <span><i></i>Обычно отвечаем в рабочее время</span>
+          <span><i></i>На связи 24/7</span>
         </div>
         <button class="site-chat__close" type="button" aria-label="Закрыть чат" data-chat-close>
           <span aria-hidden="true">&times;</span>

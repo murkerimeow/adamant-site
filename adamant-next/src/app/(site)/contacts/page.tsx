@@ -62,13 +62,6 @@ function ContactIcon({ type }: { type: "mail" | "map" | "message" | "phone" }) {
   );
 }
 
-const trustItems = [
-  "Фиксированная смета без скрытых платежей",
-  "Гарантия на все виды работ и конструкций",
-  "Соблюдение сроков по договору",
-  "Официальный договор и прозрачные условия",
-] as const;
-
 export default async function ContactsPage() {
   const [siteSettings, contactsPage] = await Promise.all([
     getSiteSettings(),
@@ -270,14 +263,6 @@ export default async function ContactsPage() {
           </div>
         </section>
 
-        <div className="contact-redesign__trust" aria-label="Преимущества">
-          {trustItems.map((item, index) => (
-            <article key={item}>
-              <span>{index + 1}</span>
-              <p>{item}</p>
-            </article>
-          ))}
-        </div>
       </section>
     </main>
   );

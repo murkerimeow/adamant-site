@@ -492,50 +492,51 @@
 
 .page.inner-page.catalog-page .listing-card__body {
   flex: 1;
-  padding: clamp(18px, 1.458vw, 28px) clamp(16px, 1.354vw, 26px) 0;
+  padding: clamp(16px, 1.25vw, 24px) clamp(14px, 1.146vw, 22px) 0;
 }
 
 .page.inner-page.catalog-page .listing-card__body h2 {
   color: #142033;
-  font-size: clamp(21px, 1.563vw, 30px);
-  line-height: 1.06;
+  font-size: clamp(20px, 1.25vw, 24px);
+  line-height: 1.12;
   font-weight: 900;
 }
 
 .page.inner-page.catalog-page .listing-card__description {
-  min-height: 3em;
-  margin-top: clamp(10px, 0.833vw, 16px);
+  min-height: 2.75em;
+  margin-top: clamp(8px, 0.625vw, 12px);
   -webkit-line-clamp: 2;
   color: #66738f;
-  font-size: clamp(14px, 0.938vw, 18px);
-  line-height: 1.45;
+  font-size: clamp(13px, 0.781vw, 15px);
+  line-height: 1.38;
   font-weight: 600;
 }
 
 .page.inner-page.catalog-page .listing-card__specs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: clamp(16px, 1.25vw, 24px);
+  gap: 7px;
+  margin-top: clamp(14px, 1.042vw, 20px);
 }
 
 .page.inner-page.catalog-page .listing-card__specs li {
-  display: flex;
+  display: grid;
+  grid-template-columns: clamp(20px, 1.25vw, 24px) minmax(0, 1fr);
   min-width: 0;
   align-items: center;
-  gap: 8px;
-  border-radius: 16px;
+  gap: 6px;
+  border-radius: 14px;
   background: #f3f7ff;
   color: #142033;
   font-size: inherit;
-  padding: 11px 10px;
+  padding: 9px 7px;
   white-space: normal;
 }
 
 .page.inner-page.catalog-page .listing-card__spec-icon {
-  width: clamp(24px, 1.667vw, 32px);
-  height: clamp(24px, 1.667vw, 32px);
-  flex: 0 0 clamp(24px, 1.667vw, 32px);
+  width: clamp(20px, 1.25vw, 24px);
+  height: clamp(20px, 1.25vw, 24px);
+  flex: 0 0 clamp(20px, 1.25vw, 24px);
   border: 0;
   border-radius: 0;
   color: var(--blue);
@@ -557,59 +558,63 @@
   display: block;
   line-height: 1.15;
   letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .page.inner-page.catalog-page .listing-card__specs strong {
   color: #142033;
-  font-size: clamp(13px, 0.885vw, 17px);
+  font-size: clamp(12px, 0.781vw, 15px);
   font-weight: 900;
 }
 
 .page.inner-page.catalog-page .listing-card__specs small {
-  margin-top: 3px;
+  margin-top: 2px;
   color: #7d89a0;
-  font-size: clamp(11px, 0.729vw, 14px);
+  font-size: clamp(9px, 0.573vw, 11px);
   font-weight: 600;
 }
 
 .page.inner-page.catalog-page .listing-card__footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   border-top: 1px solid rgba(209, 224, 247, 0.95);
-  margin: clamp(18px, 1.458vw, 28px) clamp(16px, 1.354vw, 26px) 0;
-  padding: clamp(16px, 1.25vw, 24px) 0 clamp(18px, 1.458vw, 28px);
+  margin: clamp(16px, 1.25vw, 24px) clamp(14px, 1.146vw, 22px) 0;
+  padding: clamp(14px, 1.042vw, 20px) 0 clamp(16px, 1.25vw, 24px);
 }
 
 .page.inner-page.catalog-page .listing-card__footer strong {
   display: flex;
   min-width: 0;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
   color: #142033;
-  font-size: clamp(22px, 1.667vw, 32px);
+  font-size: clamp(20px, 1.354vw, 26px);
   line-height: 1;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 .page.inner-page.catalog-page .listing-card__footer strong span {
   color: #6f7c92;
-  font-size: clamp(13px, 0.938vw, 18px);
+  font-size: clamp(12px, 0.781vw, 15px);
   font-weight: 800;
 }
 
 .page.inner-page.catalog-page .listing-card__button {
   display: inline-flex;
-  min-width: clamp(120px, 8.75vw, 168px);
-  min-height: clamp(44px, 3.125vw, 60px);
+  min-width: clamp(112px, 7.292vw, 140px);
+  min-height: clamp(40px, 2.5vw, 48px);
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   border-radius: 999px;
   background: linear-gradient(135deg, #0f55ff, #2f73ff);
   color: #ffffff;
-  font-size: clamp(14px, 0.938vw, 18px);
+  font-size: clamp(13px, 0.781vw, 15px);
   line-height: 1;
   font-weight: 900;
   box-shadow: 0 18px 42px rgba(47, 115, 255, 0.25);
@@ -1448,18 +1453,20 @@ body.is-chat-open::after {
   height: 56px;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   border-radius: 50%;
-  background: linear-gradient(145deg, #0f55ff, #286eff);
+  background: #050505;
   color: #ffffff;
   box-shadow: none;
 }
 
 .site-chat__avatar img {
   display: block;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
+  transform: none;
 }
 
 .site-chat__heading strong,
@@ -1809,8 +1816,9 @@ body.is-chat-open::after {
     height: 52px;
   }
 
-  .site-chat__avatar span {
-    font-size: 28px;
+  .site-chat__avatar img {
+    width: 100%;
+    height: 100%;
   }
 
   .site-chat__heading strong {
@@ -6923,7 +6931,7 @@ body.home-page {
   min-height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  transform: scale(1.01);
+  transform: none;
 }
 
 .home-page .visual-panel__image--lit {
@@ -13131,25 +13139,30 @@ body:has(.page.inner-page),
   border-radius: clamp(28px, 2.188vw, 42px);
   background: #eef6ff;
   box-shadow: 0 18px 50px rgba(24, 62, 116, 0.08);
+  isolation: isolate;
 }
 
 .mortgage-redesign--compact .mortgage-redesign__hero > img {
   position: absolute;
-  inset: 0;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
   object-position: center bottom;
+  transform: none;
 }
 
 .mortgage-redesign--compact .mortgage-redesign__hero::after {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(90deg, rgba(247, 251, 255, 0.99) 0%, rgba(247, 251, 255, 0.9) 34%, rgba(247, 251, 255, 0.16) 66%, rgba(247, 251, 255, 0) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0) 58%, rgba(238, 246, 255, 0.34) 100%);
+  display: none;
+  background: none;
   content: "";
   pointer-events: none;
 }
@@ -13709,11 +13722,10 @@ body:has(.page.inner-page),
   }
 
   .mortgage-redesign--compact .mortgage-redesign__hero {
-    display: flex;
+    display: block;
     min-height: 0;
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 20px;
+    height: calc(100svh - 86px);
+    border-radius: 24px;
   }
 
   .mortgage-redesign--compact .mortgage-redesign__hero::after {
@@ -13721,16 +13733,26 @@ body:has(.page.inner-page),
   }
 
   .mortgage-redesign--compact .mortgage-redesign__hero > img {
-    position: relative;
-    order: 2;
-    height: 300px;
+    position: absolute;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
     object-position: center bottom;
+    transform: none;
   }
 
   .mortgage-redesign--compact .mortgage-redesign__hero-content {
-    order: 1;
-    width: auto;
-    padding: 28px 22px 24px;
+    position: absolute;
+    left: clamp(18px, 5vw, 24px);
+    top: clamp(32px, 9vw, 52px);
+    z-index: 3;
+    width: min(calc(100% - 36px), 350px);
+    padding: 0;
   }
 
   .mortgage-redesign--compact .mortgage-redesign__hero-content > span {
@@ -13768,12 +13790,7 @@ body:has(.page.inner-page),
   }
 
   .mortgage-redesign--compact .mortgage-redesign__badges {
-    position: relative;
-    order: 3;
-    right: auto;
-    bottom: auto;
-    width: auto;
-    margin: 16px;
+    display: none;
   }
 
   .mortgage-redesign--compact .mortgage-redesign__badges article {
