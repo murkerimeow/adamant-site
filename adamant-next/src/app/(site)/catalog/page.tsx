@@ -78,7 +78,7 @@ const fallbackCatalogMeta: CatalogCardMeta = {
 };
 
 function formatPrice(value: number) {
-  return `от ${new Intl.NumberFormat("ru-RU").format(value)} ₽`;
+  return new Intl.NumberFormat("ru-RU").format(value);
 }
 
 function getNumber(value: string) {
@@ -215,37 +215,89 @@ export default async function CatalogPage() {
                 data-search={getSearchText([item.title, description, tagLabels])}
                 tabIndex={0}
               >
-                <a className="listing-card__media" href={href} aria-label={item.title}>
-                  <img
-                    src={getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage)}
-                    alt={getMediaAlt(item.previewImage, item.title)}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </a>
+                <div className="listing-card__media">
+                  <a className="listing-card__media-link" href={href} aria-label={item.title}>
+                    <img
+                      src={getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage)}
+                      alt={getMediaAlt(item.previewImage, item.title)}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                  <span className="listing-card__badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
+                    </svg>
+                    Хит проект
+                  </span>
+                  <span className="listing-card__favorite" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M20.8 5.9a5.2 5.2 0 0 0-7.4 0L12 7.3l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 22l8.8-8.7a5.2 5.2 0 0 0 0-7.4Z" />
+                    </svg>
+                  </span>
+                  <span className="listing-card__photos">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
+                      <circle cx="12" cy="13" r="3.2" />
+                    </svg>
+                    1/12
+                  </span>
+                </div>
 
                 <div className="listing-card__body">
                   <h2>{item.title}</h2>
                   <p className="listing-card__description">{description}</p>
                   <ul className="listing-card__specs" aria-label="Характеристики проекта">
-                    <li>
-                      <span className="listing-card__spec-icon" aria-hidden="true" />
-                      {meta.area}
+                    <li className="listing-card__spec listing-card__spec--area">
+                      <span className="listing-card__spec-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M5 5h14v14H5V5Z" />
+                          <path d="M5 10h4M15 5v4M19 14h-4M9 19v-4" />
+                        </svg>
+                      </span>
+                      <span>
+                        <strong>{meta.area}</strong>
+                        <small>Площадь</small>
+                      </span>
                     </li>
-                    <li>
-                      <span className="listing-card__spec-icon" aria-hidden="true" />
-                      {meta.floors}
+                    <li className="listing-card__spec listing-card__spec--floors">
+                      <span className="listing-card__spec-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="m12 3 8 4-8 4-8-4 8-4Z" />
+                          <path d="m20 12-8 4-8-4" />
+                          <path d="m20 17-8 4-8-4" />
+                        </svg>
+                      </span>
+                      <span>
+                        <strong>{meta.floors}</strong>
+                        <small>Этажность</small>
+                      </span>
                     </li>
-                    <li>
-                      <span className="listing-card__spec-icon" aria-hidden="true" />
-                      {meta.rooms}
+                    <li className="listing-card__spec listing-card__spec--rooms">
+                      <span className="listing-card__spec-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M4 11V6h5a3 3 0 0 1 3 3v2" />
+                          <path d="M12 11V7h5a3 3 0 0 1 3 3v1" />
+                          <path d="M4 11h16v7" />
+                          <path d="M4 18v-7" />
+                          <path d="M4 16h16" />
+                        </svg>
+                      </span>
+                      <span>
+                        <strong>{meta.rooms}</strong>
+                        <small>Комнаты</small>
+                      </span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="listing-card__footer">
-                  <strong>{formatPrice(meta.price)}</strong>
-                  <a className="listing-card__arrow" href={href} aria-label={`Подробнее: ${item.title}`}>
+                  <strong>
+                    <span>от</span>
+                    {formatPrice(meta.price)} ₽
+                  </strong>
+                  <a className="listing-card__button" href={href} aria-label={`Подробнее: ${item.title}`}>
+                    Подробнее
                     <span aria-hidden="true">→</span>
                   </a>
                 </div>
