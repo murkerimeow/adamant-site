@@ -1529,7 +1529,7 @@
     const nextButton = sliderRoot?.querySelector("[data-slider-next]");
 
     const getSlideStep = () => {
-      const firstCard = slider.querySelector(".home-card, .home-project-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card, .review-video-card");
       if (!firstCard) return Math.max(260, slider.clientWidth * 0.78);
 
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
@@ -1574,7 +1574,7 @@
       const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
       if (maxScroll <= 2) return;
 
-      const firstCard = slider.querySelector(".home-card, .home-project-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card, .review-video-card");
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
       const step = firstCard
         ? firstCard.getBoundingClientRect().width + gap
@@ -1915,4 +1915,70 @@
       }
     });
   });
+
+  const cookieConsentKey = "adamant_cookie_consent_v1";
+  const cookieConsentName = "adamant_cookie_consent";
+
+  const hasCookieConsent = () => {
+    try {
+      if (window.localStorage.getItem(cookieConsentKey)) return true;
+    } catch {
+      // localStorage can be blocked in private modes.
+    }
+
+    return document.cookie
+      .split(";")
+      .some((part) => part.trim().startsWith(`${cookieConsentName}=`));
+  };
+
+  const setCookieConsent = (status) => {
+    const value = {
+      status,
+      updatedAt: new Date().toISOString(),
+    };
+
+    try {
+      window.localStorage.setItem(cookieConsentKey, JSON.stringify(value));
+    } catch {
+      // Cookie below is the durable fallback.
+    }
+
+    document.cookie = `${cookieConsentName}=${encodeURIComponent(status)}; Max-Age=31536000; Path=/; SameSite=Lax`;
+  };
+
+  const initCookieConsent = () => {
+    if (hasCookieConsent() || document.querySelector("[data-cookie-consent]")) return;
+
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `
+        <section class="cookie-consent" data-cookie-consent aria-label="Настройки cookies">
+          <div>
+            <strong>Cookies на сайте</strong>
+            <p>Мы используем технические cookies для работы сайта, форм заявок и сохранения настроек. Подробнее — в <a href="/privacy">политике обработки данных</a>.</p>
+          </div>
+          <div class="cookie-consent__actions">
+            <button type="button" data-cookie-accept>Принять</button>
+            <button type="button" data-cookie-essential>Только необходимые</button>
+          </div>
+        </section>
+      `
+    );
+
+    const banner = document.querySelector("[data-cookie-consent]");
+    const closeBanner = (status) => {
+      setCookieConsent(status);
+      banner?.classList.add("cookie-consent--hidden");
+      window.setTimeout(() => banner?.remove(), 220);
+    };
+
+    banner?.querySelector("[data-cookie-accept]")?.addEventListener("click", () => {
+      closeBanner("accepted");
+    });
+    banner?.querySelector("[data-cookie-essential]")?.addEventListener("click", () => {
+      closeBanner("essential");
+    });
+  };
+
+  initCookieConsent();
 })();

@@ -3,9 +3,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getLegacyCatalogItemPath } from "@/site/routes";
 
 const legacyRedirects = new Map([
-  ["/home", "/"],
-  ["/home.html", "/"],
   ["/index.php", "/"],
+  ["/privacy-policy", "/privacy"],
+  ["/politika-konfidencialnosti", "/privacy"],
 ]);
 
 const legacySitemapRedirects = new Set([
@@ -17,16 +17,27 @@ const legacySitemapRedirects = new Set([
 
 const legacyGoneExact = new Set([
   "/comments",
+  "/comments/feed",
   "/feed",
   "/hello-world",
-  "/privacy-policy",
+  "/home",
+  "/home.html",
+  "/license.txt",
+  "/nothing-found",
+  "/readme.html",
   "/sample-page",
+  "/wp-comments-post.php",
+  "/wp-login.php",
   "/xmlrpc.php",
 ]);
 
 const legacyGonePrefixes = [
   "/author/",
   "/category/",
+  "/home/",
+  "/portfolio-category/",
+  "/project-category/",
+  "/service-category/",
   "/tag/",
   "/wp-admin",
   "/wp-content",

@@ -73,6 +73,8 @@ export interface Config {
     services: Service;
     portfolio: Portfolio;
     catalog: Catalog;
+    reviews: Review;
+    'team-members': TeamMember;
     vacancies: Vacancy;
     requests: Request;
     'payload-kv': PayloadKv;
@@ -88,6 +90,8 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     catalog: CatalogSelect<false> | CatalogSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     vacancies: VacanciesSelect<false> | VacanciesSelect<true>;
     requests: RequestsSelect<false> | RequestsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -313,6 +317,37 @@ export interface Catalog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: number;
+  name: string;
+  caption?: string | null;
+  avatar?: (number | null) | Media;
+  rating: number;
+  text: string;
+  order: number;
+  published?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members".
+ */
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  description?: string | null;
+  avatar?: (number | null) | Media;
+  order: number;
+  published?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "vacancies".
  */
 export interface Vacancy {
@@ -411,6 +446,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'catalog';
         value: number | Catalog;
+      } | null)
+    | ({
+        relationTo: 'reviews';
+        value: number | Review;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: number | TeamMember;
       } | null)
     | ({
         relationTo: 'vacancies';
@@ -620,6 +663,35 @@ export interface CatalogSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  name?: T;
+  caption?: T;
+  avatar?: T;
+  rating?: T;
+  text?: T;
+  order?: T;
+  published?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  description?: T;
+  avatar?: T;
+  order?: T;
+  published?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -845,13 +917,15 @@ export interface BlogPage {
   title: string;
   subtitle: string;
   /**
-   * До 3 ссылок на публичные Instagram Reels/Post. Если ссылка не заполнена, на сайте останется обычная карточка.
+   * Добавьте несколько роликов для верхнего блока блога. Для чистого отображения без интерфейса Instagram укажите прямую ссылку на видеофайл и обложку; Instagram-ссылка будет открываться по клику.
    */
   instagramVideos?:
     | {
         label: string;
         title: string;
         instagramUrl?: string | null;
+        videoUrl?: string | null;
+        posterImage?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -998,6 +1072,8 @@ export interface BlogPageSelect<T extends boolean = true> {
         label?: T;
         title?: T;
         instagramUrl?: T;
+        videoUrl?: T;
+        posterImage?: T;
         id?: T;
       };
   _status?: T;

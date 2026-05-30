@@ -1,4 +1,11 @@
-import { getAboutPage, getSiteSettings, splitParagraphs } from "@/site/cms";
+import {
+  getAboutPage,
+  getMediaAlt,
+  getMediaUrl,
+  getSiteSettings,
+  getTeamMembers,
+  splitParagraphs,
+} from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
@@ -105,22 +112,33 @@ const approachItems = [
   },
 ] as const;
 
-const team = [
-  ["Александр Петров", "Основатель, генеральный директор", "Отвечает за стратегию и развитие компании."],
-  ["Михаил Иванов", "Технический директор", "Контролирует качество работ и внедряет новые технологии."],
-  ["Екатерина Смирнова", "Руководитель проектов", "Координирует проекты на всех этапах."],
-  ["Дмитрий Кузнецов", "Руководитель строительных работ", "Отвечает за соблюдение сроков и качества."],
-  ["Ольга Белова", "Менеджер по работе с клиентами", "Помогает подобрать оптимальное решение."],
-  ["Снежана Прокопьева", "Супердиректор", "Держит команду в тонусе и помогает проектам двигаться быстрее."],
-  ["Игорь Важенин", "Просто директор", "Следит за порядком в процессах и важными решениями."],
-  ["Тимур Абдуллаев", "Прораб", "Координирует работы на объекте и отвечает за качество этапов."],
-  ["Мурад Керимов", "Просто мимо пробегал", "Появился вовремя и добавил команде хорошего настроения."],
+const fallbackTeam = [
+  { name: "Александр Петров", role: "Основатель, генеральный директор", description: "Отвечает за стратегию и развитие компании." },
+  { name: "Михаил Иванов", role: "Технический директор", description: "Контролирует качество работ и внедряет новые технологии." },
+  { name: "Екатерина Смирнова", role: "Руководитель проектов", description: "Координирует проекты на всех этапах." },
+  { name: "Дмитрий Кузнецов", role: "Руководитель строительных работ", description: "Отвечает за соблюдение сроков и качества." },
+  { name: "Ольга Белова", role: "Менеджер по работе с клиентами", description: "Помогает подобрать оптимальное решение." },
+  { name: "Снежана Прокопьева", role: "Супердиректор", description: "Держит команду в тонусе и помогает проектам двигаться быстрее." },
+  { name: "Игорь Важенин", role: "Просто директор", description: "Следит за порядком в процессах и важными решениями." },
+  { name: "Тимур Абдуллаев", role: "Прораб", description: "Координирует работы на объекте и отвечает за качество этапов." },
+  { name: "Мурад Керимов", role: "Просто мимо пробегал", description: "Появился вовремя и добавил команде хорошего настроения." },
 ] as const;
 
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
 export default async function AboutPage() {
-  const [siteSettings, aboutPage] = await Promise.all([
+  const [siteSettings, aboutPage, teamMembers] = await Promise.all([
     getSiteSettings(),
     getAboutPage(),
+    getTeamMembers(),
   ]);
 
   const paragraphs = splitParagraphs(aboutPage.intro);
@@ -131,6 +149,7 @@ export default async function AboutPage() {
     { icon: "shield" as const, value: "5 лет", label: "гарантии на работы" },
     { icon: "people" as const, value: "Работаем", label: "по всему СЗФО" },
   ];
+  const team = teamMembers.length ? teamMembers : fallbackTeam;
 
   return (
     <main className="page inner-page about-page about-page--fresh" aria-label="О компании Адамант">
@@ -224,16 +243,35 @@ export default async function AboutPage() {
             </a>
           </div>
           <div>
-            {team.map(([name, role, text]) => (
-              <article key={name}>
-                <div className="about-redesign__avatar" aria-hidden="true">
-                  <span>{name.split(" ").map((part) => part[0]).join("")}</span>
+            {team.map((member) => {
+              const avatarUrl =
+                "avatar" in member
+                  ? getMediaUrl(member.avatar, "thumb") || getMediaUrl(member.avatar)
+                  : "";
+
+              return (
+              <article key={member.name}>
+                <div
+                  className={`about-redesign__avatar${avatarUrl ? " about-redesign__avatar--image" : ""}`}
+                  aria-hidden="true"
+                >
+                  {avatarUrl ? (
+                    <img
+                      src={avatarUrl}
+                      alt={getMediaAlt("avatar" in member ? member.avatar : null, member.name)}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span>{getInitials(member.name)}</span>
+                  )}
                 </div>
-                <h3>{name}</h3>
-                <strong>{role}</strong>
-                <p>{text}</p>
+                <h3>{member.name}</h3>
+                <strong>{member.role}</strong>
+                <p>{member.description}</p>
               </article>
-            ))}
+              );
+            })}
           </div>
         </section>
 

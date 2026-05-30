@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { buildConfig } from "payload";
+import { ru } from "payload/i18n/ru";
 import sharp from "sharp";
 
 import { Catalog } from "./src/payload/collections/Catalog.ts";
@@ -10,7 +11,9 @@ import { Media } from "./src/payload/collections/Media.ts";
 import { Portfolio } from "./src/payload/collections/Portfolio.ts";
 import { Posts } from "./src/payload/collections/Posts.ts";
 import { Requests } from "./src/payload/collections/Requests.ts";
+import { Reviews } from "./src/payload/collections/Reviews.ts";
 import { Services } from "./src/payload/collections/Services.ts";
+import { TeamMembers } from "./src/payload/collections/TeamMembers.ts";
 import { Users } from "./src/payload/collections/Users.ts";
 import { Vacancies } from "./src/payload/collections/Vacancies.ts";
 import { AboutPage } from "./src/payload/globals/AboutPage.ts";
@@ -35,7 +38,18 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Media, Posts, Services, Portfolio, Catalog, Vacancies, Requests],
+  collections: [
+    Users,
+    Media,
+    Posts,
+    Services,
+    Portfolio,
+    Catalog,
+    Reviews,
+    TeamMembers,
+    Vacancies,
+    Requests,
+  ],
   db: sqliteAdapter({
     client: {
       url:
@@ -57,6 +71,12 @@ export default buildConfig({
   routes: {
     admin: "/admin",
     api: "/api",
+  },
+  i18n: {
+    fallbackLanguage: "ru",
+    supportedLanguages: {
+      ru,
+    },
   },
   secret: process.env.PAYLOAD_SECRET ?? "adamant-dev-secret-change-me",
   sharp,

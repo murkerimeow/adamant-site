@@ -6,8 +6,10 @@ import type {
   Media,
   Portfolio,
   Post,
+  Review,
   Service,
   SiteSetting,
+  TeamMember,
 } from "@/payload-types";
 import config from "@payload-config";
 
@@ -23,7 +25,9 @@ export type BlogPageGlobal = PageIntroGlobal & {
         id?: string | null;
         instagramUrl?: string | null;
         label: string;
+        posterImage?: number | Media | null;
         title: string;
+        videoUrl?: string | null;
       }[]
     | null;
 };
@@ -84,6 +88,14 @@ export type PortfolioItemDoc = Portfolio & {
   catalogItem?: number | CatalogItemDoc | null;
 };
 
+export type ReviewDoc = Review & {
+  avatar?: number | Media | null;
+};
+
+export type TeamMemberDoc = TeamMember & {
+  avatar?: number | Media | null;
+};
+
 export type VacancyDoc = {
   id: number;
   title: string;
@@ -121,6 +133,30 @@ type VacanciesCollectionClient = {
     sort?: string;
     where?: unknown;
   }): Promise<{ docs: VacancyDoc[] }>;
+};
+
+type ReviewsCollectionClient = {
+  find(args: {
+    collection: string;
+    depth?: number;
+    draft?: boolean;
+    limit?: number;
+    overrideAccess?: boolean;
+    sort?: string;
+    where?: unknown;
+  }): Promise<{ docs: ReviewDoc[] }>;
+};
+
+type TeamMembersCollectionClient = {
+  find(args: {
+    collection: string;
+    depth?: number;
+    draft?: boolean;
+    limit?: number;
+    overrideAccess?: boolean;
+    sort?: string;
+    where?: unknown;
+  }): Promise<{ docs: TeamMemberDoc[] }>;
 };
 
 type GlobalsClient = {
@@ -336,6 +372,70 @@ export async function getPortfolioItems() {
   });
 
   return result.docs as PortfolioItemDoc[];
+}
+
+export async function getPortfolioItemBySlug(slug: string) {
+  noStore();
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "portfolio",
+    depth: 1,
+    draft: false,
+    limit: 1,
+    overrideAccess: true,
+    where: {
+      and: [
+        publishedWhere,
+        {
+          slug: {
+            equals: slug,
+          },
+        },
+      ],
+    },
+  });
+
+  return (result.docs[0] as PortfolioItemDoc | undefined) ?? null;
+}
+
+export async function getReviews() {
+  noStore();
+  const payload = (await getPayloadClient()) as unknown as ReviewsCollectionClient;
+  const result = await payload.find({
+    collection: "reviews",
+    depth: 1,
+    draft: false,
+    limit: 20,
+    overrideAccess: true,
+    sort: "order",
+    where: {
+      published: {
+        equals: true,
+      },
+    },
+  });
+
+  return result.docs;
+}
+
+export async function getTeamMembers() {
+  noStore();
+  const payload = (await getPayloadClient()) as unknown as TeamMembersCollectionClient;
+  const result = await payload.find({
+    collection: "team-members",
+    depth: 1,
+    draft: false,
+    limit: 100,
+    overrideAccess: true,
+    sort: "order",
+    where: {
+      published: {
+        equals: true,
+      },
+    },
+  });
+
+  return result.docs;
 }
 
 export async function getPosts() {

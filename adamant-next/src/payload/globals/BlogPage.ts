@@ -22,7 +22,7 @@ export const BlogPage: GlobalConfig = {
       type: "array",
       admin: {
         description:
-          "До 3 ссылок на публичные Instagram Reels/Post. Если ссылка не заполнена, на сайте останется обычная карточка.",
+          "Добавьте несколько роликов для верхнего блока блога. Для чистого отображения без интерфейса Instagram укажите прямую ссылку на видеофайл и обложку; Instagram-ссылка будет открываться по клику.",
       },
       defaultValue: [
         {
@@ -59,9 +59,23 @@ export const BlogPage: GlobalConfig = {
           },
           label: "Ссылка на Instagram Reel/Post",
         },
+        {
+          name: "videoUrl",
+          type: "text",
+          admin: {
+            placeholder: "https://example.com/video.mp4",
+          },
+          label: "Прямая ссылка на видеофайл",
+        },
+        {
+          name: "posterImage",
+          type: "upload",
+          label: "Обложка видео",
+          relationTo: "media",
+        },
       ],
-      label: "Instagram-видео в верхнем блоке",
-      maxRows: 3,
+      label: "Видео в верхнем блоке",
+      maxRows: 12,
     },
   ],
   label: "Страница Блог",

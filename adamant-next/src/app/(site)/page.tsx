@@ -5,12 +5,13 @@ import {
   getMediaAlt,
   getMediaUrl,
   getPortfolioItems,
+  getReviews,
   getServices,
   getSiteSettings,
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { getCatalogItemPath } from "@/site/routes";
+import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
 
@@ -173,6 +174,21 @@ const reviewCards = [
   },
 ] as const;
 
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+function normalizeRating(value?: number | null) {
+  const rating = Number(value) || 5;
+  return Math.min(5, Math.max(1, Math.round(rating)));
+}
+
 type StatIconType = (typeof statIconTypes)[number];
 
 function StatIcon({ type }: { type: StatIconType }) {
@@ -224,22 +240,20 @@ function StatIcon({ type }: { type: StatIconType }) {
 }
 
 export default async function HomePage() {
-  const [siteSettings, homePage, services, portfolioItems, catalogItems, aboutPage] = await Promise.all([
+  const [siteSettings, homePage, services, portfolioItems, catalogItems, aboutPage, payloadReviews] = await Promise.all([
     getSiteSettings(),
     getHomePage(),
     getServices(),
     getPortfolioItems(),
     getCatalogItems(),
     getAboutPage(),
+    getReviews(),
   ]);
 
   const stats = defaultHomeStats;
   const description = splitHighlight(homePage.heroDescription);
-  const catalogById = new Map(catalogItems.map((item) => [item.id, item]));
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
-  const featuredServices = services.slice(0, 3);
   const cycleServices = services.slice(0, 4);
-  const featuredShowreelProjects = portfolioItems.slice(0, 3);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog).slice(0, 8);
   const portfolioStripItems = portfolioItems.slice(0, 6);
   const trustImageUrl =
@@ -247,6 +261,7 @@ export default async function HomePage() {
     getMediaUrl(portfolioStripItems[0]?.previewImage) ||
     "/фон.jpg";
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
+  const reviews = payloadReviews.length ? payloadReviews.slice(0, 3) : reviewCards;
 
   return (
     <div className="home-page">
@@ -492,10 +507,6 @@ export default async function HomePage() {
 
             <div className="home-trust__media" aria-hidden="true">
               <img src={trustImageUrl} alt="" loading="lazy" decoding="async" />
-              <div className="home-trust__badge">
-                <strong>Гарантия до 5 лет</strong>
-                <span>На все виды работ и конструктив</span>
-              </div>
             </div>
           </section>
 
@@ -595,14 +606,7 @@ export default async function HomePage() {
 
             <div className="home-portfolio-strip">
               {portfolioStripItems.map((project) => {
-                const relatedCatalog =
-                  project.catalogItem && typeof project.catalogItem === "object"
-                    ? project.catalogItem
-                    : typeof project.catalogItem === "number"
-                      ? catalogById.get(project.catalogItem)
-                      : null;
-                const catalogItem = relatedCatalog ?? catalogByTitle.get(project.title);
-                const href = catalogItem ? getCatalogItemPath(catalogItem) : "/portfolio";
+                const href = getPortfolioItemPath(project);
                 const imageUrl =
                   getMediaUrl(project.previewImage, "thumb") ||
                   getMediaUrl(project.previewImage, "card") ||
@@ -634,19 +638,41 @@ export default async function HomePage() {
             </div>
 
             <div className="home-reviews__grid">
-              {reviewCards.map((review) => (
-                <article className="home-review-card" key={review.name}>
-                  <div className="home-review-card__person">
-                    <span aria-hidden="true">{review.name.slice(0, 1)}</span>
-                    <div>
-                      <strong>{review.name}</strong>
-                      <small>{review.place}</small>
+              {reviews.map((review) => {
+                const avatarUrl =
+                  "avatar" in review
+                    ? getMediaUrl(review.avatar, "thumb") || getMediaUrl(review.avatar)
+                    : "";
+                const caption =
+                  "caption" in review
+                    ? review.caption
+                    : "place" in review
+                      ? review.place
+                      : "";
+                const rating = normalizeRating("rating" in review ? review.rating : 5);
+
+                return (
+                  <article className="home-review-card" key={review.name}>
+                    <div className="home-review-card__person">
+                      <span aria-hidden="true">
+                        {avatarUrl ? (
+                          <img src={avatarUrl} alt="" loading="lazy" decoding="async" />
+                        ) : (
+                          getInitials(review.name)
+                        )}
+                      </span>
+                      <div>
+                        <strong>{review.name}</strong>
+                        {caption ? <small>{caption}</small> : null}
+                      </div>
                     </div>
-                  </div>
-                  <p>{review.text}</p>
-                  <div className="home-review-card__stars" aria-label="Оценка 5 из 5">★★★★★</div>
-                </article>
-              ))}
+                    <p>{review.text}</p>
+                    <div className="home-review-card__stars" aria-label={`Оценка ${rating} из 5`}>
+                      {"★★★★★".slice(0, rating)}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </section>
 

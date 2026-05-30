@@ -29,3 +29,7 @@ export function getLegacyCatalogItemPath(itemKey?: string | null) {
   if (!itemKey) return null;
   return legacyCatalogItemPaths[itemKey] ?? null;
 }
+
+export function getPortfolioItemPath(item: { slug?: string | null }) {
+  return item.slug ? `/portfolio/${encodeURIComponent(item.slug)}` : "/portfolio";
+}

@@ -6,7 +6,6 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import Script from "next/script";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -20,16 +19,19 @@ export const metadata = createPageMetadata({
 const reviewVideos = [
   {
     image: "/дом из бруса.png",
+    instagramUrl: "https://www.instagram.com/adamantushka/",
     title: "Обзор реализованного проекта",
     label: "Обзор проекта",
   },
   {
     image: "/каркасный дом.png",
+    instagramUrl: "https://www.instagram.com/adamantushka/",
     title: "Видео с готового объекта",
     label: "Готовый объект",
   },
   {
     image: "/дом из газобетона.png",
+    instagramUrl: "https://www.instagram.com/adamantushka/",
     title: "Дом после завершения работ",
     label: "Дом после сдачи",
   },
@@ -60,17 +62,22 @@ export default async function BlogPage() {
     getPosts(),
   ]);
 
-  const videos = reviewVideos.map((fallback, index) => {
-    const cmsVideo = blogPage.instagramVideos?.[index];
+  const cmsVideos = blogPage.instagramVideos?.filter((video) => video?.label && video?.title) ?? [];
+  const videos = (cmsVideos.length ? cmsVideos : reviewVideos).map((video, index) => {
+    const fallback = reviewVideos[index % reviewVideos.length];
+    const posterUrl =
+      "posterImage" in video
+        ? getMediaUrl(video.posterImage, "card") || getMediaUrl(video.posterImage)
+        : "";
 
     return {
-      ...fallback,
-      instagramUrl: getInstagramPermalink(cmsVideo?.instagramUrl),
-      label: cmsVideo?.label || fallback.label,
-      title: cmsVideo?.title || fallback.title,
+      image: posterUrl || fallback.image,
+      instagramUrl: getInstagramPermalink(video.instagramUrl) || fallback.instagramUrl,
+      label: video.label || fallback.label,
+      title: video.title || fallback.title,
+      videoUrl: "videoUrl" in video ? video.videoUrl?.trim() || "" : "",
     };
   });
-  const hasInstagramVideos = videos.some((video) => video.instagramUrl);
 
   const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
     day: "2-digit",
@@ -82,7 +89,7 @@ export default async function BlogPage() {
     <main className="page inner-page blog-page" aria-label="Блог Адамант">
       <SiteHeader active="blog" phone={siteSettings.phonePrimary} />
 
-      <section className="section section--blog blog-reviews-section" aria-labelledby="blog-title">
+      <section className="section section--blog blog-reviews-section" aria-labelledby="blog-title" data-home-services-carousel>
         <div className="blog-reviews">
           <div className="blog-reviews__copy">
             <div className="blog-reviews__headline">
@@ -90,57 +97,63 @@ export default async function BlogPage() {
               <h1 id="blog-title">{blogPage.title}</h1>
               <p>{blogPage.subtitle}</p>
             </div>
+            <div className="blog-reviews__actions" aria-label="Навигация по видео">
+              <button className="home-project-preview__arrow" type="button" aria-label="Предыдущие видео" data-slider-prev>
+                ‹
+              </button>
+              <button className="home-project-preview__arrow home-project-preview__arrow--active" type="button" aria-label="Следующие видео" data-slider-next>
+                ›
+              </button>
+            </div>
           </div>
 
-          <div className="blog-reviews__videos" aria-label="Видеоотзывы клиентов">
+          <div className="blog-reviews__videos js-wheel-slider" aria-label="Видео Адамант Строй">
             {videos.map((video, index) => (
               <article
-                className={`review-video-card${
-                  video.instagramUrl ? " review-video-card--instagram" : ""
-                }`}
+                className="review-video-card"
                 key={`${index}-${video.label}`}
               >
-                {video.instagramUrl ? (
-                  <div className="review-video-card__embed">
-                    <blockquote
-                      className="instagram-media"
-                      data-instgrm-permalink={video.instagramUrl}
-                      data-instgrm-version="14"
-                    >
-                      <a href={video.instagramUrl} target="_blank" rel="noreferrer">
-                        Смотреть в Instagram: {video.label}
-                      </a>
-                    </blockquote>
-                  </div>
+                {video.videoUrl ? (
+                  <video
+                    src={video.videoUrl}
+                    poster={video.image}
+                    preload="metadata"
+                    playsInline
+                    controls
+                  >
+                    Ваш браузер не поддерживает видео.
+                  </video>
                 ) : (
-                  <>
+                  <a
+                    className="review-video-card__poster"
+                    href={video.instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Смотреть ролик: ${video.label}`}
+                  >
                     <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
-                    <button
+                    <span
                       className="review-video-card__play"
-                      type="button"
-                      aria-label={`Смотреть видео: ${video.label}`}
+                      aria-hidden="true"
                     >
-                      <span aria-hidden="true" />
-                    </button>
-                  </>
+                      <span />
+                    </span>
+                  </a>
                 )}
                 <div className="review-video-card__caption">
-                  <span>видео</span>
                   <strong>{video.label}</strong>
                 </div>
               </article>
             ))}
           </div>
         </div>
+      </section>
 
-        {hasInstagramVideos ? (
-          <Script async src="https://www.instagram.com/embed.js" strategy="afterInteractive" />
-        ) : null}
-
+      <section className="section section--blog blog-articles-section" aria-labelledby="blog-articles-title">
         <div className="blog-articles" id="blog-articles">
           <div className="blog-articles__intro">
             <span className="section__kicker">Статьи</span>
-            <h2>Полезные материалы о строительстве</h2>
+            <h2 id="blog-articles-title">Полезные материалы о строительстве</h2>
           </div>
 
           <div className="blog-grid">

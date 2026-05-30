@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
-import { getCatalogItems, getPosts } from "@/site/cms";
-import { getCatalogItemPath } from "@/site/routes";
+import { getCatalogItems, getPortfolioItems, getPosts } from "@/site/cms";
+import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { isIndexableLongFormText, SITE_URL } from "@/site/seo";
 
 const staticPaths = [
@@ -22,14 +22,17 @@ function getLastModified(date?: string | null) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const [catalogResult, postsResult] = await Promise.allSettled([
+  const [catalogResult, postsResult, portfolioResult] = await Promise.allSettled([
     getCatalogItems(),
     getPosts(),
+    getPortfolioItems(),
   ]);
 
   const catalogItems =
     catalogResult.status === "fulfilled" ? catalogResult.value : [];
   const posts = postsResult.status === "fulfilled" ? postsResult.value : [];
+  const portfolioItems =
+    portfolioResult.status === "fulfilled" ? portfolioResult.value : [];
 
   const staticEntries = staticPaths.map((path) => ({
     url: `${SITE_URL}${path}`,
@@ -54,5 +57,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.65,
     }));
 
-  return [...staticEntries, ...catalogEntries, ...postEntries];
+  const portfolioEntries = portfolioItems.map((item) => ({
+    url: `${SITE_URL}${getPortfolioItemPath(item)}`,
+    lastModified: getLastModified(item.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticEntries, ...catalogEntries, ...portfolioEntries, ...postEntries];
 }
