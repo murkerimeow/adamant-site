@@ -303,7 +303,6 @@ export interface Catalog {
     order: number;
     previewImage?: (number | null) | Media;
     detailImage?: (number | null) | Media;
-    galleryImages?: (number | Media)[] | null;
     gallery?:
       | {
           image: number | Media;
@@ -675,7 +674,6 @@ export interface CatalogSelect<T extends boolean = true> {
     order?: T;
     previewImage?: T;
     detailImage?: T;
-    galleryImages?: T;
     gallery?:
       | T
       | {

@@ -104,7 +104,6 @@ function getMediaIdentity(media: CatalogItemDoc["previewImage"]) {
 
 export function getCatalogPhotoCount(item: CatalogItemDoc) {
   const identities = [
-    ...(item.galleryImages ?? []),
     ...(item.gallery?.map((entry) => entry.image).filter(Boolean) ?? []),
     item.previewImage,
     item.detailImage,
