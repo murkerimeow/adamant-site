@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-sqlite'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from "@payloadcms/db-sqlite";
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`catalog_gallery\` (
