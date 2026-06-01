@@ -324,15 +324,6 @@ export default async function HomePage() {
                 <Link href="/about">
                   Подробнее о нас <span aria-hidden="true">→</span>
                 </Link>
-                <div>
-                  <span aria-hidden="true">
-                    <StatIcon type="award" />
-                  </span>
-                  <p>
-                    <strong>Работаем по договору</strong>
-                    <br />с фиксированными сроками и ценой
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -537,7 +528,7 @@ export default async function HomePage() {
             </div>
 
             <div className="home-cycle__grid">
-              {cycleServices.map((service, index) => {
+              {cycleServices.map((service) => {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
                 const imageUrl =
@@ -561,9 +552,6 @@ export default async function HomePage() {
                       ) : null}
                     </a>
                     <div className="home-cycle-card__body">
-                      <span className="home-cycle-card__icon" aria-hidden="true">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
                       <h3>{service.title}</h3>
                       <p>{service.shortDescription}</p>
                       <a href={href}>Подробнее <span aria-hidden="true">→</span></a>
