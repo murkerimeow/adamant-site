@@ -230,19 +230,6 @@ export default async function MortgagePage() {
               </button>
             </div>
           </div>
-          <div className="mortgage-redesign__badges">
-            {heroBadges.map(([icon, title, text]) => (
-              <article key={title}>
-                <span>
-                  <MortgageIcon type={icon} />
-                </span>
-                <div>
-                  <h2>{title}</h2>
-                  <p>{text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
         </section>
 
         <section className="mortgage-redesign__section mortgage-redesign__services" aria-labelledby="mortgage-services-title">

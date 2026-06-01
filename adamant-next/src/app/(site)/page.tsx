@@ -320,10 +320,6 @@ export default async function HomePage() {
                 и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
                 сметы до строительства под ключ.
               </p>
-              <p>
-                Вы заранее знаете сроки, бюджет и каким будет ваш дом. Никаких сюрпризов —
-                только понятный результат.
-              </p>
               <div className="home-about-stats__cta">
                 <Link href="/about">
                   Подробнее о нас <span aria-hidden="true">→</span>
@@ -515,6 +511,9 @@ export default async function HomePage() {
               <div>
                 <span className="section__kicker">Этапы работ</span>
                 <h2 id="home-process-title">Прозрачный процесс от идеи до вашего дома</h2>
+                <p className="home-process__lead">
+                  Четкий план и постоянная коммуникация на каждом этапе работы.
+                </p>
               </div>
             </div>
 

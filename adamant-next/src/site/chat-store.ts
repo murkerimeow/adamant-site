@@ -27,6 +27,7 @@ type ChatStore = {
 const storeDir = path.join(process.cwd(), ".data");
 const storePath = path.join(storeDir, "site-chat.json");
 const maxMessages = 1000;
+const messageRetentionMs = 3 * 24 * 60 * 60 * 1000;
 
 let writeQueue = Promise.resolve();
 
@@ -48,6 +49,30 @@ function normalizeStore(value: Partial<ChatStore> | null | undefined): ChatStore
     telegramUpdateOffset:
       typeof value?.telegramUpdateOffset === "number" ? value.telegramUpdateOffset : null,
   };
+}
+
+function pruneExpiredChatMessages(store: ChatStore, now = Date.now()) {
+  const cutoff = now - messageRetentionMs;
+  const activeMessages = store.messages.filter((message) => {
+    const createdAt = Date.parse(message.createdAt);
+    return Number.isFinite(createdAt) && createdAt >= cutoff;
+  });
+  const activeSessionIds = new Set(activeMessages.map((message) => message.sessionId));
+  const activeTelegramMessageMap = Object.fromEntries(
+    Object.entries(store.telegramMessageMap).filter(([, sessionId]) =>
+      activeSessionIds.has(sessionId),
+    ),
+  );
+  const changed =
+    activeMessages.length !== store.messages.length ||
+    Object.keys(activeTelegramMessageMap).length !== Object.keys(store.telegramMessageMap).length;
+
+  if (changed) {
+    store.messages = activeMessages;
+    store.telegramMessageMap = activeTelegramMessageMap;
+  }
+
+  return changed;
 }
 
 async function readStore(): Promise<ChatStore> {
@@ -73,7 +98,9 @@ async function writeStore(store: ChatStore) {
 async function updateStore<T>(updater: (store: ChatStore) => T | Promise<T>): Promise<T> {
   const next = writeQueue.then(async () => {
     const store = await readStore();
+    pruneExpiredChatMessages(store);
     const result = await updater(store);
+    pruneExpiredChatMessages(store);
     store.messages = store.messages.slice(-maxMessages);
     await writeStore(store);
     return result;
@@ -85,6 +112,16 @@ async function updateStore<T>(updater: (store: ChatStore) => T | Promise<T>): Pr
   );
 
   return next;
+}
+
+async function readActiveStore(): Promise<ChatStore> {
+  const store = await readStore();
+
+  if (!pruneExpiredChatMessages(store)) {
+    return store;
+  }
+
+  return updateStore((queuedStore) => queuedStore);
 }
 
 export function createChatMessage(input: Omit<SiteChatMessage, "id" | "createdAt">): SiteChatMessage {
@@ -103,7 +140,7 @@ export async function appendChatMessage(message: SiteChatMessage) {
 }
 
 export async function getChatMessages(sessionId: string) {
-  const store = await readStore();
+  const store = await readActiveStore();
 
   return store.messages
     .filter((message) => message.sessionId === sessionId)
@@ -124,7 +161,7 @@ export async function findSessionByTelegramReply(params: {
   chatId: string | number;
   replyToMessageId: string | number;
 }) {
-  const store = await readStore();
+  const store = await readActiveStore();
   return store.telegramMessageMap[`${params.chatId}:${params.replyToMessageId}`] ?? null;
 }
 
