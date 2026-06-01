@@ -84,31 +84,21 @@ function AboutIcon({ type }: { type: "care" | "eco" | "home" | "people" | "shiel
   );
 }
 
-const approachItems = [
-  {
-    icon: "target",
-    title: "Качество",
-    text: "Используем проверенные материалы и современные технологии строительства.",
-  },
+const approachTrustCards = [
   {
     icon: "people",
-    title: "Честность",
-    text: "Прозрачные сметы, понятные договоры и открытая коммуникация.",
+    title: "Управление проектом",
+    items: ["Собственная команда", "Один ответственный менеджер", "Понятные этапы и сроки"],
+  },
+  {
+    icon: "target",
+    title: "Финансовая прозрачность",
+    items: ["Фиксированная смета", "Официальный договор", "Без скрытых доплат"],
   },
   {
     icon: "shield",
-    title: "Надежность",
-    text: "Соблюдаем сроки и даем гарантию на все виды работ.",
-  },
-  {
-    icon: "care",
-    title: "Забота о клиентах",
-    text: "Сопровождаем на всех этапах от идеи до сдачи дома.",
-  },
-  {
-    icon: "eco",
-    title: "Экологичность",
-    text: "Строим энергоэффективные дома с заботой о природе и здоровье.",
+    title: "Контроль и гарантия",
+    items: ["Технадзор на этапах", "Сертифицированные материалы", "Гарантия до 5 лет"],
   },
 ] as const;
 
@@ -221,15 +211,32 @@ export default async function AboutPage() {
         </section>
 
         <section className="about-redesign__approach" aria-labelledby="about-approach-title">
-          <h2 id="about-approach-title">Наш подход</h2>
-          <div>
-            {approachItems.map((item) => (
-              <article key={item.title}>
-                <span>
+          <div className="about-approach-intro">
+            <span>Наш подход</span>
+            <h2 id="about-approach-title">Почему нам доверяют</h2>
+            <i aria-hidden="true" />
+            <p>
+              Выстраиваем понятную систему работы и берем на себя все ключевые
+              процессы строительства, чтобы вы получили качественный результат
+              без лишних рисков и забот.
+            </p>
+          </div>
+          <div className="about-approach-cards">
+            {approachTrustCards.map((item, index) => (
+              <article key={item.title} className="about-approach-card">
+                <span className="about-approach-card__icon" aria-hidden="true">
                   <AboutIcon type={item.icon} />
                 </span>
+                <strong className="about-approach-card__number">
+                  {String(index + 1).padStart(2, "0")}
+                </strong>
                 <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <i aria-hidden="true" />
+                <ul>
+                  {item.items.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>

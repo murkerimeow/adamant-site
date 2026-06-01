@@ -3,11 +3,13 @@ import type { CSSProperties } from "react";
 import {
   getCatalogItems,
   getCatalogPage,
+  getCatalogCoverMedia,
   getMediaAlt,
   getMediaUrl,
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
@@ -20,64 +22,7 @@ export const metadata = createPageMetadata({
   path: "/catalog",
 });
 
-type CatalogCardMeta = {
-  area: string;
-  floors: string;
-  price: number;
-  rooms: string;
-};
-
-const catalogCardMeta: Record<string, CatalogCardMeta> = {
-  classic: {
-    area: "175 м²",
-    floors: "2 этажа",
-    price: 16500000,
-    rooms: "4 комнаты",
-  },
-  frame: {
-    area: "98 м²",
-    floors: "1 этаж",
-    price: 8900000,
-    rooms: "2 комнаты",
-  },
-  gasbeton: {
-    area: "150 м²",
-    floors: "2 этажа",
-    price: 15900000,
-    rooms: "4 комнаты",
-  },
-  modern: {
-    area: "216 м²",
-    floors: "2 этажа",
-    price: 18100000,
-    rooms: "5 комнат",
-  },
-  onefloor: {
-    area: "100 м²",
-    floors: "1 этаж",
-    price: 5400000,
-    rooms: "3 комнаты",
-  },
-  terrace: {
-    area: "150 м²",
-    floors: "2 этажа",
-    price: 15900000,
-    rooms: "4 комнаты",
-  },
-  timber: {
-    area: "129 м²",
-    floors: "1 этаж",
-    price: 11800000,
-    rooms: "3 комнаты",
-  },
-};
-
-const fallbackCatalogMeta: CatalogCardMeta = {
-  area: "120 м²",
-  floors: "1 этаж",
-  price: 8900000,
-  rooms: "3 комнаты",
-};
+const fallbackCatalogPrice = 8900000;
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("ru-RU").format(value);
@@ -136,9 +81,9 @@ export default async function CatalogPage() {
   ]);
 
   const items = catalogItems.filter((item) => item.showInCatalog);
-  const prices = items.map((item) => (catalogCardMeta[item.itemKey] ?? fallbackCatalogMeta).price);
-  const minCatalogPrice = prices.length ? Math.min(...prices) : fallbackCatalogMeta.price;
-  const maxCatalogPrice = prices.length ? Math.max(...prices) : fallbackCatalogMeta.price;
+  const prices = items.map((item) => getCatalogCardMeta(item).price);
+  const minCatalogPrice = prices.length ? Math.min(...prices) : fallbackCatalogPrice;
+  const maxCatalogPrice = prices.length ? Math.max(...prices) : fallbackCatalogPrice;
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
@@ -243,7 +188,8 @@ export default async function CatalogPage() {
         <div className="listing-grid listing-grid--catalog" data-filter-scope="catalog">
           {items.map((item) => {
             const href = getCatalogItemPath(item);
-            const meta = catalogCardMeta[item.itemKey] ?? fallbackCatalogMeta;
+            const meta = getCatalogCardMeta(item);
+            const coverMedia = getCatalogCoverMedia(item);
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description;
 
@@ -263,8 +209,8 @@ export default async function CatalogPage() {
                 <div className="listing-card__media">
                   <a className="listing-card__media-link" href={href} aria-label={item.title}>
                     <img
-                      src={getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage)}
-                      alt={getMediaAlt(item.previewImage, item.title)}
+                      src={getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia)}
+                      alt={getMediaAlt(coverMedia, item.title)}
                       loading="lazy"
                       decoding="async"
                     />
@@ -282,7 +228,7 @@ export default async function CatalogPage() {
                       <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
                       <circle cx="12" cy="13" r="3.2" />
                     </svg>
-                    1/12
+                    1/{meta.photoCount}
                   </span>
                 </div>
 

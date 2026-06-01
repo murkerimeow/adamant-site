@@ -24,6 +24,12 @@ export const Requests: CollectionConfig = {
           return doc;
         }
 
+        const context = req.context as { skipTelegramNotification?: boolean } | undefined;
+
+        if (context?.skipTelegramNotification) {
+          return doc;
+        }
+
         try {
           await sendTelegramRequestNotification(doc);
         } catch (error) {

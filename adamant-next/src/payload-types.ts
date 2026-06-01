@@ -303,6 +303,28 @@ export interface Catalog {
   order: number;
   previewImage?: (number | null) | Media;
   detailImage?: (number | null) | Media;
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Стоимость в рублях, например 18100000
+   */
+  price?: number | null;
+  /**
+   * Площадь дома в м²
+   */
+  area?: number | null;
+  /**
+   * Количество этажей
+   */
+  floors?: number | null;
+  /**
+   * Количество комнат
+   */
+  rooms?: number | null;
   cardSummary?: string | null;
   description: string;
   tags?:
@@ -652,6 +674,16 @@ export interface CatalogSelect<T extends boolean = true> {
   order?: T;
   previewImage?: T;
   detailImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  price?: T;
+  area?: T;
+  floors?: T;
+  rooms?: T;
   cardSummary?: T;
   description?: T;
   tags?:

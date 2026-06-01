@@ -74,7 +74,6 @@ export async function POST(request: Request) {
     }
 
     const payload = await getPayload({ config });
-    const photoNote = photoFiles.length ? `Прикреплено фото: ${photoFiles.length}` : "";
     const doc = await payload.create({
       collection: "requests",
       data: {
@@ -83,9 +82,12 @@ export async function POST(request: Request) {
         phone,
         email,
         service: readString(formData, "service"),
-        message: [message, photoNote].filter(Boolean).join("\n"),
+        message,
         sourcePage: readString(formData, "sourcePage"),
         status: "new",
+      },
+      context: {
+        skipTelegramNotification: photoFiles.length > 0,
       },
     });
 

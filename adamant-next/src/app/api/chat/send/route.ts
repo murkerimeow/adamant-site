@@ -133,23 +133,19 @@ export async function POST(request: Request) {
   try {
     const telegramMessages: TelegramSendResult[] = [];
 
-    if (text) {
-      telegramMessages.push(
-        ...(await sendTelegramChatNotification({
-          sessionId,
-          text: attachments.length ? `${text}\n\nПрикреплено фото: ${attachments.length}` : text,
-          page,
-        })),
-      );
-    }
-
     if (photoFiles.length) {
       telegramMessages.push(
         ...(await sendTelegramChatPhotos({
           sessionId,
           text,
-          page,
           attachments: await buildTelegramPhotoAttachments(photoFiles),
+        })),
+      );
+    } else if (text) {
+      telegramMessages.push(
+        ...(await sendTelegramChatNotification({
+          sessionId,
+          text,
         })),
       );
     }

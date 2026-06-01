@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
+  getCatalogCoverMedia,
   getCatalogItem,
   getCatalogItems,
   getMediaAlt,
@@ -12,6 +13,13 @@ import {
 } from "@/site/cms";
 import { ProductGallery } from "@/site/components/ProductGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import {
+  formatArea,
+  formatFloors,
+  formatProjectPrice,
+  formatRooms,
+  getCatalogCardMeta,
+} from "@/site/catalog-meta";
 import { getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
@@ -199,18 +207,28 @@ export default async function CatalogItemPage({
   const relatedItems = catalogItems
     .filter((candidate) => candidate.id !== item.id && candidate.showInCatalog)
     .slice(0, 3);
+  const coverMedia = getCatalogCoverMedia(item);
+  const cmsGalleryImages =
+    item.gallery?.map((entry) => ({
+      alt: getMediaAlt(entry.image, item.title),
+      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
+      thumbSrc:
+        getMediaUrl(entry.image, "thumb") ||
+        getMediaUrl(entry.image, "card") ||
+        getMediaUrl(entry.image),
+    })) ?? [];
   const galleryImages = [
     {
-      alt: getMediaAlt(item.previewImage, item.title),
+      alt: getMediaAlt(coverMedia, item.title),
       src:
-        getMediaUrl(item.previewImage) ||
-        getMediaUrl(item.previewImage, "card") ||
+        getMediaUrl(coverMedia) ||
+        getMediaUrl(coverMedia, "card") ||
         getMediaUrl(item.detailImage) ||
         getMediaUrl(item.detailImage, "card"),
       thumbSrc:
-        getMediaUrl(item.previewImage, "thumb") ||
-        getMediaUrl(item.previewImage, "card") ||
-        getMediaUrl(item.previewImage),
+        getMediaUrl(coverMedia, "thumb") ||
+        getMediaUrl(coverMedia, "card") ||
+        getMediaUrl(coverMedia),
     },
     {
       alt: getMediaAlt(item.detailImage, item.title),
@@ -224,6 +242,7 @@ export default async function CatalogItemPage({
         getMediaUrl(item.detailImage, "card") ||
         getMediaUrl(item.detailImage),
     },
+    ...cmsGalleryImages,
     ...relatedItems.flatMap((related) => [
       {
         alt: getMediaAlt(related.previewImage, related.title),
@@ -255,11 +274,12 @@ export default async function CatalogItemPage({
     )
     .slice(0, 8);
 
-  const productPrice = productPrices[item.itemKey] || "от 12 800 000 ₽";
+  const meta = getCatalogCardMeta(item);
+  const productPrice = `от ${formatProjectPrice(meta.price)} ₽`;
   const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean) ?? [];
-  const area = findTag(tagLabels, /(м²|м2|м\^2|кв)/i, "168 м²");
-  const floors = findTag(tagLabels, /этаж/i, "2 этажа");
-  const rooms = findTag(tagLabels, /(комнат|спальн)/i, "4 комнаты");
+  const area = item.area ? formatArea(item.area) : findTag(tagLabels, /(м²|м2|м\^2|кв)/i, meta.area);
+  const floors = item.floors ? formatFloors(item.floors) : findTag(tagLabels, /этаж/i, meta.floors);
+  const rooms = item.rooms ? formatRooms(item.rooms) : findTag(tagLabels, /(комнат|спальн)/i, meta.rooms);
   const bathrooms = findTag(tagLabels, /(сануз|ванн)/i, "2 санузла");
   const benefits = [...tagLabels, ...defaultBenefits]
     .filter((label, index, labels) => labels.indexOf(label) === index)
@@ -443,10 +463,12 @@ export default async function CatalogItemPage({
             <div className="product-related">
               {relatedCards.slice(0, 3).map((related, index) => {
                 const href = getCatalogItemPath(related);
+                const relatedMeta = getCatalogCardMeta(related);
+                const relatedCoverMedia = getCatalogCoverMedia(related);
                 const relatedTags = related.tags?.slice(0, 3).map((tag) => tag.label).join(" · ");
                 const relatedImage =
-                  getMediaUrl(related.previewImage, "card") ||
-                  getMediaUrl(related.previewImage) ||
+                  getMediaUrl(relatedCoverMedia, "card") ||
+                  getMediaUrl(relatedCoverMedia) ||
                   galleryImages[index + 1]?.src ||
                   galleryImages[0]?.src;
 
@@ -454,14 +476,14 @@ export default async function CatalogItemPage({
                   <article className="product-related-card" data-card-link={href} tabIndex={0} key={related.id}>
                     <img
                       src={relatedImage}
-                      alt={getMediaAlt(related.previewImage, related.title)}
+                      alt={getMediaAlt(relatedCoverMedia, related.title)}
                       loading="lazy"
                       decoding="async"
                     />
                     <div>
                       <h3>{related.title}</h3>
                       <p>{relatedTags || "Современный проект под ключ"}</p>
-                      <strong>{productPrices[related.itemKey] || productPrice}</strong>
+                      <strong>от {formatProjectPrice(relatedMeta.price)} ₽</strong>
                     </div>
                     <a href={href} aria-label={`Смотреть проект ${related.title}`}>→</a>
                   </article>

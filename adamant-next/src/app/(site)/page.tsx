@@ -1,5 +1,6 @@
 import {
   getAboutPage,
+  getCatalogCoverMedia,
   getCatalogItems,
   getHomePage,
   getMediaAlt,
@@ -11,6 +12,7 @@ import {
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
@@ -253,7 +255,7 @@ export default async function HomePage() {
   const stats = defaultHomeStats;
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
-  const cycleServices = services.slice(0, 4);
+  const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog).slice(0, 8);
   const portfolioStripItems = portfolioItems.slice(0, 6);
   const trustImageUrl =
@@ -391,9 +393,10 @@ export default async function HomePage() {
             <div className="home-project-preview__grid js-wheel-slider">
               {featuredProjects.map((project) => {
                 const href = getCatalogItemPath(project);
+                const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
-                  getMediaUrl(project.previewImage, "card") || getMediaUrl(project.previewImage);
-                const meta = projectCardMeta[project.itemKey] ?? fallbackProjectCardMeta;
+                  getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
+                const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
 
                 return (
@@ -408,7 +411,7 @@ export default async function HomePage() {
                         {imageUrl ? (
                           <img
                             src={imageUrl}
-                            alt={getMediaAlt(project.previewImage, project.title)}
+                            alt={getMediaAlt(coverMedia, project.title)}
                             loading="lazy"
                             decoding="async"
                           />
@@ -427,7 +430,7 @@ export default async function HomePage() {
                           <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
                           <circle cx="12" cy="13" r="3.2" />
                         </svg>
-                        1/12
+                        1/{meta.photoCount}
                       </span>
                     </div>
                     <div className="listing-card__body">

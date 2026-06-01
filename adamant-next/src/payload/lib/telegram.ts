@@ -141,7 +141,7 @@ async function sendTelegramPhotos(
   }
 
   const captionLines = [
-    "<b>📎 Фото к заявке с сайта</b>",
+    "<b>💻 Новая заявка с сайта</b>",
     buildTelegramField("Тип", requestTypeLabels[doc.requestType] ?? doc.requestType),
     buildTelegramField("Имя", doc.name),
     buildTelegramField("Телефон", doc.phone),
@@ -213,12 +213,6 @@ async function sendTelegramPhotos(
 }
 
 function buildRequestMessage(doc: RequestDoc) {
-  const meta = [
-    requestTypeLabels[doc.requestType] ?? doc.requestType,
-    doc.sourcePage ? `страница: ${doc.sourcePage}` : "",
-    doc.createdAt ? formatCreatedAt(doc.createdAt) : "",
-  ].filter(Boolean);
-
   const contactLines = [
     buildTelegramField("Имя", doc.name),
     buildTelegramField("Телефон", doc.phone),
@@ -235,7 +229,6 @@ function buildRequestMessage(doc: RequestDoc) {
     ["<b>💻 Новая заявка с сайта</b>"],
     contactLines,
     serviceLines,
-    meta.length ? [`<i>${escapeTelegramHtml(meta.join(" · "))}</i>`] : [],
   ].filter((section) => section.length);
 
   return sections.map((section) => section.join("\n")).join("\n\n");
@@ -265,12 +258,11 @@ export async function sendTelegramChatPhotos(input: {
     return [];
   }
 
-  const chatLabel = `#${input.sessionId.slice(0, 8).toUpperCase()}`;
   const captionLines = [
-    "<b>📎 Фото из чата сайта</b>",
-    `<b>Чат:</b> ${escapeTelegramHtml(chatLabel)}`,
-    input.page ? `<i>${escapeTelegramHtml(input.page)}</i>` : "",
-    input.text ? `<blockquote>${escapeTelegramHtml(truncateTelegramValue(input.text, 720))}</blockquote>` : "",
+    "<b>💬 Сообщение из чата сайта</b>",
+    input.text
+      ? `<blockquote>${escapeTelegramHtml(truncateTelegramValue(input.text, 720))}</blockquote>`
+      : "<i>Клиент прикрепил фото.</i>",
     "",
     "<i>Чтобы ответ попал в чат на сайте, ответьте в Telegram на это сообщение или фото.</i>",
   ].filter(Boolean);
@@ -341,11 +333,8 @@ export async function sendTelegramChatNotification(input: {
   text: string;
   page?: string;
 }) {
-  const chatLabel = `#${input.sessionId.slice(0, 8).toUpperCase()}`;
   const message = [
     "<b>💬 Новое сообщение в чате сайта</b>",
-    "",
-    `<b>Чат:</b> ${escapeTelegramHtml(chatLabel)}`,
     "",
     `<blockquote>${escapeTelegramHtml(input.text)}</blockquote>`,
     "",
@@ -356,11 +345,8 @@ export async function sendTelegramChatNotification(input: {
 }
 
 export function buildTelegramChatPreview(input: { sessionId: string; text: string }) {
-  const chatLabel = `#${input.sessionId.slice(0, 8).toUpperCase()}`;
   const lines = [
     "💬 Новое сообщение в чате сайта",
-    "",
-    `Чат: ${chatLabel}`,
     "",
     input.text,
     "",

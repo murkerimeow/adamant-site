@@ -107,6 +107,60 @@ export const Catalog: CollectionConfig = {
       relationTo: "media",
     },
     {
+      name: "gallery",
+      type: "array",
+      label: "Фотографии проекта",
+      labels: {
+        plural: "Фотографии",
+        singular: "Фотография",
+      },
+      fields: [
+        {
+          name: "image",
+          type: "upload",
+          label: "Фото",
+          relationTo: "media",
+          required: true,
+        },
+      ],
+    },
+    {
+      name: "price",
+      type: "number",
+      admin: {
+        description: "Стоимость в рублях, например 18100000",
+        step: 100000,
+      },
+      label: "Стоимость",
+    },
+    {
+      name: "area",
+      type: "number",
+      admin: {
+        description: "Площадь дома в м²",
+        step: 1,
+      },
+      label: "Площадь, м²",
+    },
+    {
+      name: "floors",
+      type: "number",
+      admin: {
+        description: "Количество этажей",
+        step: 1,
+      },
+      label: "Этажность",
+    },
+    {
+      name: "rooms",
+      type: "number",
+      admin: {
+        description: "Количество комнат",
+        step: 1,
+      },
+      label: "Комнаты",
+    },
+    {
       name: "cardSummary",
       type: "textarea",
       label: "Текст карточки",

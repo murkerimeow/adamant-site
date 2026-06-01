@@ -72,6 +72,16 @@ export type CatalogItemDoc = {
   order: number;
   previewImage?: number | Media | null;
   detailImage?: number | Media | null;
+  gallery?:
+    | {
+        id?: string | null;
+        image?: number | Media | null;
+      }[]
+    | null;
+  price?: number | null;
+  area?: number | null;
+  floors?: number | null;
+  rooms?: number | null;
   cardSummary?: string | null;
   description: string;
   tags?: { id?: string | null; label: string }[] | null;
@@ -200,6 +210,17 @@ export function getMediaUrl(
 export function getMediaAlt(media?: number | Media | null, fallback = "") {
   if (!media || typeof media === "number") return fallback;
   return media.alt || fallback;
+}
+
+export function getCatalogCoverMedia(
+  item: Pick<CatalogItemDoc, "detailImage" | "gallery" | "previewImage">,
+) {
+  return (
+    item.previewImage ||
+    item.gallery?.find((entry) => entry.image)?.image ||
+    item.detailImage ||
+    null
+  );
 }
 
 export function splitParagraphs(text?: string | null) {
