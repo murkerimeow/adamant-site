@@ -208,7 +208,16 @@ export default async function CatalogItemPage({
     .filter((candidate) => candidate.id !== item.id && candidate.showInCatalog)
     .slice(0, 3);
   const coverMedia = getCatalogCoverMedia(item);
-  const cmsGalleryImages =
+  const uploadGalleryImages =
+    item.galleryImages?.map((image) => ({
+      alt: getMediaAlt(image, item.title),
+      src: getMediaUrl(image) || getMediaUrl(image, "card"),
+      thumbSrc:
+        getMediaUrl(image, "thumb") ||
+        getMediaUrl(image, "card") ||
+        getMediaUrl(image),
+    })) ?? [];
+  const arrayGalleryImages =
     item.gallery?.map((entry) => ({
       alt: getMediaAlt(entry.image, item.title),
       src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
@@ -242,7 +251,8 @@ export default async function CatalogItemPage({
         getMediaUrl(item.detailImage, "card") ||
         getMediaUrl(item.detailImage),
     },
-    ...cmsGalleryImages,
+    ...uploadGalleryImages,
+    ...arrayGalleryImages,
     ...relatedItems.flatMap((related) => [
       {
         alt: getMediaAlt(related.previewImage, related.title),
@@ -365,10 +375,6 @@ export default async function CatalogItemPage({
             >
               Оставить заявку
             </button>
-
-            <a className="product-hero-info__back" href={backTarget.href}>
-              Вернуться к списку проектов
-            </a>
           </aside>
         </div>
 

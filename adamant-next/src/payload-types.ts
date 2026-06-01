@@ -300,12 +300,13 @@ export interface Catalog {
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
   catalogCategory: 'modern' | 'classic' | 'other';
-  order: number;
-  previewImage?: (number | null) | Media;
-  detailImage?: (number | null) | Media;
-  gallery?:
-    | {
-        image: number | Media;
+    order: number;
+    previewImage?: (number | null) | Media;
+    detailImage?: (number | null) | Media;
+    galleryImages?: (number | Media)[] | null;
+    gallery?:
+      | {
+          image: number | Media;
         id?: string | null;
       }[]
     | null;
@@ -671,12 +672,13 @@ export interface CatalogSelect<T extends boolean = true> {
   showInCatalog?: T;
   isHit?: T;
   catalogCategory?: T;
-  order?: T;
-  previewImage?: T;
-  detailImage?: T;
-  gallery?:
-    | T
-    | {
+    order?: T;
+    previewImage?: T;
+    detailImage?: T;
+    galleryImages?: T;
+    gallery?:
+      | T
+      | {
         image?: T;
         id?: T;
       };

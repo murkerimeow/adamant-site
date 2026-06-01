@@ -72,6 +72,7 @@ export type CatalogItemDoc = {
   order: number;
   previewImage?: number | Media | null;
   detailImage?: number | Media | null;
+  galleryImages?: (number | Media)[] | null;
   gallery?:
     | {
         id?: string | null;
@@ -213,10 +214,11 @@ export function getMediaAlt(media?: number | Media | null, fallback = "") {
 }
 
 export function getCatalogCoverMedia(
-  item: Pick<CatalogItemDoc, "detailImage" | "gallery" | "previewImage">,
+  item: Pick<CatalogItemDoc, "detailImage" | "gallery" | "galleryImages" | "previewImage">,
 ) {
   return (
     item.previewImage ||
+    item.galleryImages?.find(Boolean) ||
     item.gallery?.find((entry) => entry.image)?.image ||
     item.detailImage ||
     null

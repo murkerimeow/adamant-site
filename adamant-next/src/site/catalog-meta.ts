@@ -95,15 +95,32 @@ export function formatRooms(value: number) {
   return `${value} ${formatCount(value, ["комната", "комнаты", "комнат"])}`;
 }
 
+function getMediaIdentity(media: CatalogItemDoc["previewImage"]) {
+  if (!media) return "";
+  if (typeof media === "number") return `id:${media}`;
+
+  return media.id ? `id:${media.id}` : media.url || media.filename || "";
+}
+
+export function getCatalogPhotoCount(item: CatalogItemDoc) {
+  const identities = [
+    ...(item.galleryImages ?? []),
+    ...(item.gallery?.map((entry) => entry.image).filter(Boolean) ?? []),
+    item.previewImage,
+    item.detailImage,
+  ]
+    .map(getMediaIdentity)
+    .filter(Boolean);
+
+  return Math.max(new Set(identities).size, 1);
+}
+
 export function getCatalogCardMeta(item: CatalogItemDoc): CatalogCardMeta {
   const fallback = fallbackByKey[item.itemKey] ?? fallbackMeta;
-  const galleryCount = item.gallery?.filter((entry) => entry.image).length ?? 0;
-  const photoCount = galleryCount || 12;
-
   return {
     area: item.area ? formatArea(item.area) : fallback.area,
     floors: item.floors ? formatFloors(item.floors) : fallback.floors,
-    photoCount,
+    photoCount: getCatalogPhotoCount(item),
     price: item.price ?? fallback.price,
     rooms: item.rooms ? formatRooms(item.rooms) : fallback.rooms,
   };

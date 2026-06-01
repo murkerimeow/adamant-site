@@ -75,6 +75,66 @@ function truncateTelegramValue(value?: string | null, maxLength = 520) {
     : normalizedValue;
 }
 
+function appendTelegramPhoto(
+  body: FormData,
+  fieldName: string,
+  attachment: TelegramPhotoAttachment,
+) {
+  const bytes = attachment.bytes.slice();
+  const arrayBuffer = bytes.buffer.slice(
+    bytes.byteOffset,
+    bytes.byteOffset + bytes.byteLength,
+  ) as ArrayBuffer;
+
+  body.append(
+    fieldName,
+    new Blob([arrayBuffer], { type: attachment.mimeType || "image/jpeg" }),
+    attachment.filename,
+  );
+}
+
+async function sendTelegramSinglePhoto(input: {
+  attachment: TelegramPhotoAttachment;
+  caption: string;
+  chatId: string;
+  token: string;
+}) {
+  const body = new FormData();
+  appendTelegramPhoto(body, "photo", input.attachment);
+  body.append("chat_id", input.chatId);
+
+  if (input.caption) {
+    body.append("caption", input.caption);
+    body.append("parse_mode", "HTML");
+  }
+
+  const response = await fetch(`https://api.telegram.org/bot${input.token}/sendPhoto`, {
+    method: "POST",
+    body,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`chat ${input.chatId}: ${response.status} ${errorText}`);
+  }
+
+  const payload = (await response.json()) as {
+    ok?: boolean;
+    result?: {
+      message_id?: number;
+    };
+  };
+
+  if (!payload.ok || typeof payload.result?.message_id !== "number") {
+    throw new Error(`chat ${input.chatId}: Telegram returned an invalid photo response`);
+  }
+
+  return {
+    chatId: input.chatId,
+    messageId: payload.result.message_id,
+  };
+}
+
 async function sendTelegramMessage(
   text: string,
   options: TelegramMessageOptions = {},
@@ -152,17 +212,27 @@ async function sendTelegramPhotos(
 
   const caption = captionLines.join("\n");
 
+  const [firstAttachment] = attachments;
+
+  if (attachments.length === 1 && firstAttachment) {
+    return Promise.all(
+      chatIds.map((chatId) =>
+        sendTelegramSinglePhoto({
+          attachment: firstAttachment,
+          caption,
+          chatId,
+          token,
+        }),
+      ),
+    );
+  }
+
   const results = await Promise.all(
     chatIds.map(async (chatId) => {
       const body = new FormData();
       const media = attachments.map((attachment, index) => {
         const fieldName = `photo_${index}`;
-        const copy = attachment.bytes.slice();
-        body.append(
-          fieldName,
-          new Blob([copy.buffer as ArrayBuffer], { type: attachment.mimeType }),
-          attachment.filename,
-        );
+        appendTelegramPhoto(body, fieldName, attachment);
 
         return {
           type: "photo",
@@ -268,17 +338,27 @@ export async function sendTelegramChatPhotos(input: {
   ].filter(Boolean);
   const caption = captionLines.join("\n");
 
+  const [firstAttachment] = input.attachments;
+
+  if (input.attachments.length === 1 && firstAttachment) {
+    return Promise.all(
+      chatIds.map((chatId) =>
+        sendTelegramSinglePhoto({
+          attachment: firstAttachment,
+          caption,
+          chatId,
+          token,
+        }),
+      ),
+    );
+  }
+
   const results = await Promise.all(
     chatIds.map(async (chatId) => {
       const body = new FormData();
       const media = input.attachments.map((attachment, index) => {
         const fieldName = `chat_photo_${index}`;
-        const copy = attachment.bytes.slice();
-        body.append(
-          fieldName,
-          new Blob([copy.buffer as ArrayBuffer], { type: attachment.mimeType }),
-          attachment.filename,
-        );
+        appendTelegramPhoto(body, fieldName, attachment);
 
         return {
           type: "photo",

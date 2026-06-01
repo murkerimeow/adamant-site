@@ -312,10 +312,7 @@ export default async function HomePage() {
 
           <section className="home-about-stats" aria-labelledby="home-about-stats-title">
             <div className="home-about-stats__copy">
-              <span className="home-about-stats__eyebrow">
-                <StatIcon type="house" />
-                О компании
-              </span>
+              <span className="home-about-stats__eyebrow">О компании</span>
               <h2 id="home-about-stats-title">О нас</h2>
               <span className="home-about-stats__line" aria-hidden="true" />
               <p>

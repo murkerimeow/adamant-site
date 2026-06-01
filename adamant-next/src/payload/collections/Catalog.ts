@@ -107,8 +107,25 @@ export const Catalog: CollectionConfig = {
       relationTo: "media",
     },
     {
+      name: "galleryImages",
+      type: "upload",
+      admin: {
+        description:
+          "Р—Р°РіСЂСѓР·РёС‚Рµ РЅРµСЃРєРѕР»СЊРєРѕ С„РѕС‚Рѕ РїСЂРѕРµРєС‚Р° РґР»СЏ РіР°Р»РµСЂРµРё Рё СЃС‡РµС‚С‡РёРєР° РІ РєР°СЂС‚РѕС‡РєРµ.",
+        isSortable: true,
+      },
+      hasMany: true,
+      label: "Р¤РѕС‚РѕРіСЂР°С„РёРё РїСЂРѕРµРєС‚Р°",
+      maxRows: 40,
+      relationTo: "media",
+    },
+    {
       name: "gallery",
       type: "array",
+      admin: {
+        description:
+          "РЎС‚Р°СЂРѕРµ РїРѕР»Рµ. РќРѕРІС‹Рµ С„РѕС‚Рѕ РґРѕР±Р°РІР»СЏР№С‚Рµ РІ РїРѕР»Рµ \"Р¤РѕС‚РѕРіСЂР°С„РёРё РїСЂРѕРµРєС‚Р°\" РІС‹С€Рµ.",
+      },
       label: "Фотографии проекта",
       labels: {
         plural: "Фотографии",
