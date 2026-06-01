@@ -16,6 +16,9 @@ const noIndexHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    proxyClientMaxBodySize: "50mb",
+  },
   skipTrailingSlashRedirect: true,
   async headers() {
     return [

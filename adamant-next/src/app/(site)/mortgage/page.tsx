@@ -210,14 +210,14 @@ export default async function MortgagePage() {
       <section className="section mortgage-redesign mortgage-redesign--compact" aria-labelledby="mortgage-title">
         <section className="mortgage-redesign__hero">
           <img
-            src="/mortgage-banner.png"
+            src="/mortgage-banner-new.png"
             alt=""
             loading="eager"
             decoding="async"
             fetchPriority="high"
           />
           <div className="mortgage-redesign__hero-content">
-            <span>Строим дома вашей мечты — с поддержкой надежных банков</span>
+            <span>Поддержка надежных банков</span>
             <h1 id="mortgage-title">
               Постройте дом <strong>в ипотеку</strong>
             </h1>
@@ -226,7 +226,7 @@ export default async function MortgagePage() {
             </p>
             <div>
               <button className="js-open-estimate" type="button">
-                Получить консультацию <span aria-hidden="true">→</span>
+                Получить консультацию
               </button>
             </div>
           </div>
