@@ -37,22 +37,50 @@ const reviewVideos = [
   },
 ];
 
-function getInstagramPermalink(url?: string | null) {
+function getSocialPermalink(url?: string | null) {
   const value = url?.trim();
   if (!value) return null;
 
   try {
     const parsed = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
-    const hostname = parsed.hostname.replace(/^www\./, "");
-
-    if (hostname !== "instagram.com") {
-      return null;
-    }
-
     return parsed.toString();
   } catch {
     return null;
   }
+}
+
+function getVideoEmbed(url?: string | null) {
+  const permalink = getSocialPermalink(url);
+  if (!permalink) return null;
+
+  try {
+    const parsed = new URL(permalink);
+    const hostname = parsed.hostname.replace(/^www\./, "");
+    const parts = parsed.pathname.split("/").filter(Boolean);
+
+    if (hostname === "youtube.com" || hostname === "m.youtube.com") {
+      const id = parts[0] === "shorts" ? parts[1] : parsed.searchParams.get("v");
+      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+    }
+
+    if (hostname === "youtu.be") {
+      return parts[0] ? `https://www.youtube-nocookie.com/embed/${parts[0]}` : null;
+    }
+
+    if (hostname === "tiktok.com" || hostname.endsWith(".tiktok.com")) {
+      const videoIndex = parts.findIndex((part) => part === "video");
+      const id = videoIndex >= 0 ? parts[videoIndex + 1] : null;
+      return id ? `https://www.tiktok.com/embed/v2/${id}` : permalink;
+    }
+
+    if (hostname === "instagram.com" || hostname === "www.instagram.com") {
+      return permalink.replace(/\/?$/, "/embed");
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 }
 
 export default async function BlogPage() {
@@ -72,7 +100,7 @@ export default async function BlogPage() {
 
     return {
       image: posterUrl || fallback.image,
-      instagramUrl: getInstagramPermalink(video.instagramUrl) || fallback.instagramUrl,
+      socialUrl: getSocialPermalink(video.instagramUrl) || fallback.instagramUrl,
       label: video.label || fallback.label,
       title: video.title || fallback.title,
       videoUrl: "videoUrl" in video ? video.videoUrl?.trim() || "" : "",
@@ -108,43 +136,56 @@ export default async function BlogPage() {
           </div>
 
           <div className="blog-reviews__videos js-wheel-slider" aria-label="Видео Адамант Строй">
-            {videos.map((video, index) => (
-              <article
-                className="review-video-card"
-                key={`${index}-${video.label}`}
-              >
-                {video.videoUrl ? (
-                  <video
-                    src={video.videoUrl}
-                    poster={video.image}
-                    preload="metadata"
-                    playsInline
-                    controls
-                  >
-                    Ваш браузер не поддерживает видео.
-                  </video>
-                ) : (
-                  <a
-                    className="review-video-card__poster"
-                    href={video.instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Смотреть ролик: ${video.label}`}
-                  >
-                    <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
-                    <span
-                      className="review-video-card__play"
-                      aria-hidden="true"
+            {videos.map((video, index) => {
+              const embedUrl = getVideoEmbed(video.socialUrl);
+
+              return (
+                <article
+                  className="review-video-card"
+                  key={`${index}-${video.label}`}
+                >
+                  {video.videoUrl ? (
+                    <video
+                      src={video.videoUrl}
+                      poster={video.image}
+                      preload="metadata"
+                      playsInline
+                      controls
                     >
-                      <span />
-                    </span>
-                  </a>
-                )}
-                <div className="review-video-card__caption">
-                  <strong>{video.label}</strong>
-                </div>
-              </article>
-            ))}
+                      Ваш браузер не поддерживает видео.
+                    </video>
+                  ) : embedUrl ? (
+                    <iframe
+                      className="review-video-card__embed"
+                      src={embedUrl}
+                      title={video.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <a
+                      className="review-video-card__poster"
+                      href={video.socialUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Смотреть ролик: ${video.label}`}
+                    >
+                      <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
+                      <span
+                        className="review-video-card__play"
+                        aria-hidden="true"
+                      >
+                        <span />
+                      </span>
+                    </a>
+                  )}
+                  <div className="review-video-card__caption">
+                    <strong>{video.label}</strong>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -264,6 +264,7 @@ export default async function HomePage() {
     "/фон.jpg";
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
   const reviews = payloadReviews.length ? payloadReviews.slice(0, 3) : reviewCards;
+  const sectionEyebrows = homePage.sectionEyebrows ?? {};
 
   return (
     <div className="home-page">
@@ -312,7 +313,7 @@ export default async function HomePage() {
 
           <section className="home-about-stats" aria-labelledby="home-about-stats-title">
             <div className="home-about-stats__copy">
-              <span className="home-about-stats__eyebrow">О компании</span>
+              <span className="home-about-stats__eyebrow">{sectionEyebrows.about || "О компании"}</span>
               <h2 id="home-about-stats-title">О нас</h2>
               <span className="home-about-stats__line" aria-hidden="true" />
               <p>
@@ -321,9 +322,7 @@ export default async function HomePage() {
                 сметы до строительства под ключ.
               </p>
               <div className="home-about-stats__cta">
-                <Link href="/about">
-                  Подробнее о нас <span aria-hidden="true">→</span>
-                </Link>
+                <Link href="/about">Подробнее о нас</Link>
               </div>
             </div>
 
@@ -348,7 +347,7 @@ export default async function HomePage() {
           >
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">Наши проекты</span>
+                <span className="section__kicker">{sectionEyebrows.projects || "Наши проекты"}</span>
                 <h2 id="home-project-preview-title">Современные дома для комфортной жизни</h2>
               </div>
               <div className="home-project-preview__actions" aria-label="Навигация по проектам">
@@ -480,7 +479,7 @@ export default async function HomePage() {
 
           <section className="home-section home-trust" aria-labelledby="home-trust-title">
             <div className="home-trust__copy">
-              <span className="section__kicker">Почему выбирают нас</span>
+              <span className="section__kicker">{sectionEyebrows.trust || "Почему выбирают нас"}</span>
               <h2 id="home-trust-title">Надежность, качество и прозрачность на каждом этапе</h2>
               <ul className="home-trust__list">
                 {trustItems.map((item) => (
@@ -500,7 +499,7 @@ export default async function HomePage() {
           <section className="home-section home-process" aria-labelledby="home-process-title" data-stagger-reveal>
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">Этапы работ</span>
+                <span className="section__kicker">{sectionEyebrows.process || "Этапы работ"}</span>
                 <h2 id="home-process-title">Прозрачный процесс от идеи до вашего дома</h2>
                 <p className="home-process__lead">
                   Четкий план и постоянная коммуникация на каждом этапе работы.
@@ -519,15 +518,33 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="home-section home-cycle" aria-labelledby="home-cycle-title">
+          <section className="home-section home-cycle" aria-labelledby="home-cycle-title" data-home-services-carousel>
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">Наши услуги</span>
+                <span className="section__kicker">{sectionEyebrows.services || "Наши услуги"}</span>
                 <h2 id="home-cycle-title">Полный цикл строительства</h2>
+              </div>
+              <div className="home-project-preview__actions home-cycle__actions" aria-label="Навигация по услугам">
+                <button
+                  className="home-project-preview__arrow"
+                  type="button"
+                  aria-label="Предыдущие услуги"
+                  data-slider-prev
+                >
+                  ‹
+                </button>
+                <button
+                  className="home-project-preview__arrow home-project-preview__arrow--active"
+                  type="button"
+                  aria-label="Следующие услуги"
+                  data-slider-next
+                >
+                  ›
+                </button>
               </div>
             </div>
 
-            <div className="home-cycle__grid">
+            <div className="home-cycle__grid js-wheel-slider">
               {cycleServices.map((service) => {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
@@ -583,7 +600,7 @@ export default async function HomePage() {
           <section className="home-section home-portfolio-showcase" aria-labelledby="home-portfolio-title">
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">Портфолио</span>
+                <span className="section__kicker">{sectionEyebrows.portfolio || "Портфолио"}</span>
                 <h2 id="home-portfolio-title">Реализованные проекты</h2>
               </div>
               <a className="home-section__link" href="/portfolio">
@@ -619,7 +636,7 @@ export default async function HomePage() {
           <section className="home-section home-reviews" aria-labelledby="home-reviews-title">
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">Отзывы клиентов</span>
+                <span className="section__kicker">{sectionEyebrows.reviews || "Отзывы клиентов"}</span>
                 <h2 id="home-reviews-title">Нам доверяют</h2>
               </div>
             </div>
@@ -667,7 +684,7 @@ export default async function HomePage() {
             <section className="home-section home-faq" aria-labelledby="home-faq-title">
               <div className="home-section__head home-section__head--compact">
                 <div>
-                  <span className="section__kicker">Ответы на частые вопросы</span>
+                  <span className="section__kicker">{sectionEyebrows.faq || "Ответы на частые вопросы"}</span>
                   <h2 id="home-faq-title">FAQ</h2>
                 </div>
               </div>

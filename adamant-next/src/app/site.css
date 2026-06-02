@@ -17509,3 +17509,834 @@ body:has(.page.inner-page),
     height: 148px !important;
   }
 }
+
+/* Final alignment pass: required marks, catalog tools, team carousel, cards and shared blocks. */
+.has-required-placeholder-star {
+  position: relative !important;
+}
+
+.required-placeholder-star {
+  position: absolute;
+  z-index: 5;
+  color: #ef233c;
+  font: inherit;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.required-placeholder-star--hidden {
+  opacity: 0;
+}
+
+.home-footer {
+  border-radius: clamp(20px, 2vw, 34px) !important;
+}
+
+.home-page .home-about-stats__line,
+.home-page .home-about-stat i {
+  display: none !important;
+}
+
+.home-page .home-about-stats {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr) !important;
+  gap: clamp(28px, 4vw, 74px) !important;
+  padding: clamp(42px, 4.2vw, 78px) clamp(36px, 5vw, 92px) !important;
+}
+
+.home-page .home-about-stats__eyebrow {
+  width: max-content !important;
+  padding-inline: 18px !important;
+}
+
+.home-page .home-about-stats__copy h2 {
+  margin-top: 22px !important;
+  font-size: clamp(44px, 5vw, 82px) !important;
+  line-height: 0.95 !important;
+}
+
+.home-page .home-about-stats__copy p {
+  max-width: 760px !important;
+  margin-top: 22px !important;
+  font-size: clamp(17px, 1.12vw, 21px) !important;
+  line-height: 1.48 !important;
+}
+
+.home-page .home-about-stats__cta {
+  margin-top: 26px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-about-stats__cta > a {
+  min-height: 58px !important;
+  border-radius: 999px !important;
+  padding: 0 28px !important;
+  font-size: 16px !important;
+}
+
+.home-page .home-about-stats__cta > a span {
+  display: none !important;
+}
+
+.home-page .home-about-stat {
+  min-height: clamp(170px, 12vw, 230px) !important;
+  padding: clamp(22px, 1.6vw, 30px) !important;
+}
+
+.home-page .home-about-stat__icon {
+  display: grid !important;
+  place-items: center !important;
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.home-page .home-about-stat__icon svg {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.home-page .home-about-stat strong {
+  margin-top: 28px !important;
+  font-size: clamp(34px, 3.6vw, 62px) !important;
+}
+
+.home-page .home-about-stat > span:not(.home-about-stat__icon) {
+  margin-top: 8px !important;
+  font-size: clamp(13px, 0.82vw, 16px) !important;
+}
+
+.home-cycle__actions {
+  display: inline-flex !important;
+}
+
+.home-cycle__grid,
+.home-portfolio-strip {
+  scroll-padding-inline: 2px;
+  box-shadow: none !important;
+}
+
+.home-cycle-card {
+  box-shadow: none !important;
+}
+
+.home-portfolio-strip {
+  display: flex !important;
+  gap: clamp(16px, 1.5vw, 26px) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x proximity !important;
+  padding: 2px 2px 12px !important;
+}
+
+.home-portfolio-thumb {
+  flex: 0 0 clamp(270px, 23vw, 360px) !important;
+  display: grid !important;
+  gap: 14px !important;
+  min-height: 0 !important;
+  border: 1px solid rgba(204, 221, 247, 0.9) !important;
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  padding: 14px !important;
+  box-shadow: none !important;
+  scroll-snap-align: start !important;
+}
+
+.home-portfolio-thumb::after {
+  display: none !important;
+}
+
+.home-portfolio-thumb img {
+  width: 100% !important;
+  aspect-ratio: 16 / 10 !important;
+  object-fit: cover !important;
+  border-radius: 18px !important;
+}
+
+.home-portfolio-thumb span {
+  position: static !important;
+  display: block !important;
+  width: auto !important;
+  padding: 0 4px 4px !important;
+  color: var(--ink) !important;
+  font-size: clamp(18px, 1.25vw, 24px) !important;
+  line-height: 1.12 !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+}
+
+.listing-card__body {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.listing-card__description {
+  min-height: 3.15em !important;
+}
+
+.listing-card__specs {
+  margin-top: auto !important;
+  padding-top: clamp(14px, 1vw, 18px) !important;
+}
+
+.listing-card__footer {
+  margin-top: clamp(16px, 1.15vw, 22px) !important;
+}
+
+.catalog-page .listing-filters--catalog {
+  display: grid !important;
+  grid-template-columns:
+    minmax(250px, 1.1fr)
+    minmax(300px, 1fr)
+    minmax(160px, 0.58fr)
+    minmax(160px, 0.58fr)
+    minmax(160px, 0.58fr) !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+}
+
+.catalog-page .listing-filters--catalog .listing-filters__field,
+.catalog-page .listing-filters--catalog .listing-filters__field--search,
+.catalog-page .listing-filters--catalog .listing-filters__field--price {
+  grid-column: auto !important;
+}
+
+.catalog-page .listing-filters__field--search {
+  position: relative !important;
+}
+
+.catalog-page .listing-filters__field--search::after {
+  top: 50% !important;
+  right: 18px !important;
+  transform: translateY(-50%) !important;
+}
+
+.catalog-mobile-tools {
+  display: none;
+}
+
+.services-page .services-redesign {
+  display: grid !important;
+  gap: var(--section-gap, clamp(28px, 2.4vw, 46px)) !important;
+}
+
+.services-redesign__hero {
+  display: none !important;
+}
+
+.services-redesign__section,
+.services-redesign__consult,
+.mortgage-redesign__section,
+.mortgage-redesign__consult {
+  border-radius: clamp(24px, 2vw, 34px) !important;
+}
+
+.services-redesign__service-card {
+  min-height: clamp(250px, 19vw, 330px) !important;
+  align-items: stretch !important;
+  overflow: hidden !important;
+}
+
+.services-redesign__service-card > div {
+  display: flex !important;
+  min-width: 0 !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  padding: clamp(18px, 1.35vw, 26px) !important;
+}
+
+.services-redesign__service-media {
+  min-width: 0 !important;
+}
+
+.services-redesign__service-card h3 {
+  margin: 0 !important;
+  font-size: clamp(23px, 1.7vw, 34px) !important;
+  line-height: 1.08 !important;
+}
+
+.services-redesign__service-card p {
+  margin: 0 !important;
+  font-size: clamp(15px, 1vw, 18px) !important;
+  line-height: 1.38 !important;
+}
+
+.services-redesign__link {
+  width: max-content !important;
+  margin-top: auto !important;
+}
+
+.mortgage-redesign--compact {
+  gap: clamp(30px, 2.6vw, 50px) !important;
+}
+
+.mortgage-redesign__hero {
+  border-radius: clamp(24px, 2vw, 34px) !important;
+  overflow: hidden !important;
+}
+
+.mortgage-redesign__hero::after {
+  display: none !important;
+}
+
+.mortgage-redesign__hero-content {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  padding-top: clamp(46px, 4.6vw, 88px) !important;
+}
+
+.mortgage-redesign__hero-content h1,
+.mortgage-redesign__hero-content p {
+  text-align: left !important;
+}
+
+.mortgage-redesign__hero-content button {
+  width: auto !important;
+  min-height: 50px !important;
+  padding-inline: 24px !important;
+  border-radius: 999px !important;
+  font-size: 15px !important;
+}
+
+.mortgage-redesign__hero > img {
+  object-position: center bottom !important;
+  transform: translateY(5.5%) !important;
+}
+
+.mortgage-redesign__consult {
+  display: grid !important;
+  grid-template-columns: minmax(300px, 0.92fr) minmax(0, 1.08fr) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+.mortgage-redesign__consult > img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 360px !important;
+  object-fit: cover !important;
+}
+
+.mortgage-redesign__form {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.48fr) !important;
+  gap: clamp(18px, 1.6vw, 28px) !important;
+  padding: clamp(28px, 2.6vw, 48px) !important;
+  background: #ffffff !important;
+}
+
+.mortgage-redesign__form-main {
+  display: grid !important;
+  gap: 14px !important;
+}
+
+.mortgage-redesign__form-main h2,
+.mortgage-redesign__form-main p {
+  margin: 0 !important;
+}
+
+.mortgage-redesign__form-main > div {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.mortgage-redesign__form textarea {
+  min-height: 96px !important;
+}
+
+.mortgage-redesign__form aside {
+  align-self: center !important;
+  border: 1px solid rgba(204, 221, 247, 0.9) !important;
+  border-radius: 24px !important;
+  padding: 22px !important;
+  background: linear-gradient(145deg, #ffffff, #f3f7ff) !important;
+}
+
+.mortgage-redesign__form aside span {
+  color: #35c676 !important;
+}
+
+.mortgage-redesign__form button span {
+  display: none !important;
+}
+
+.blog-articles {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.review-video-card__embed,
+.review-video-card video {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: #0f172a !important;
+}
+
+.review-video-card__caption {
+  display: none !important;
+}
+
+.about-redesign__section-head {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+}
+
+.about-redesign__section-head h2 {
+  margin-right: 6px !important;
+}
+
+.about-redesign__team-actions {
+  display: inline-flex !important;
+  gap: 10px !important;
+  margin-left: auto !important;
+}
+
+.about-redesign__team > div.about-redesign__team-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: clamp(14px, 1.05vw, 22px) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x proximity !important;
+  scrollbar-width: none !important;
+  padding: 10px 2px 18px !important;
+}
+
+.about-redesign__team > div.about-redesign__team-track::-webkit-scrollbar {
+  display: none !important;
+}
+
+.about-redesign__team article {
+  flex: 0 0 clamp(180px, 13vw, 236px) !important;
+  min-width: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  text-align: center !important;
+  scroll-snap-align: start !important;
+}
+
+.about-redesign__team .about-redesign__avatar,
+.about-redesign__team .about-redesign__avatar--image {
+  display: block !important;
+  width: clamp(142px, 11vw, 198px) !important;
+  height: clamp(142px, 11vw, 198px) !important;
+  margin: 0 auto 14px !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: #eaf3ff !important;
+  box-shadow: 0 12px 28px rgba(31, 62, 114, 0.08) !important;
+  outline: 0 !important;
+}
+
+.about-redesign__team .about-redesign__avatar--image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+.about-redesign__team .about-redesign__avatar span {
+  display: grid !important;
+  width: 100% !important;
+  height: 100% !important;
+  place-items: center !important;
+  color: #2f73ff !important;
+  font-size: 34px !important;
+  font-weight: 900 !important;
+}
+
+.about-redesign__team h3 {
+  display: grid !important;
+  gap: 2px !important;
+  justify-items: center !important;
+  margin: 0 !important;
+  font-size: clamp(18px, 1.15vw, 24px) !important;
+  line-height: 1.04 !important;
+  text-align: center !important;
+}
+
+.about-redesign__team h3 span {
+  display: block !important;
+}
+
+.about-redesign__team strong {
+  display: block !important;
+  margin-top: 8px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+}
+
+.about-redesign__team p {
+  display: none !important;
+}
+
+.about-redesign__cta--career {
+  grid-template-columns: minmax(0, 0.8fr) minmax(320px, 0.9fr) !important;
+  align-items: center !important;
+  gap: clamp(26px, 3vw, 56px) !important;
+}
+
+.about-redesign__career-form {
+  display: grid !important;
+  gap: 12px !important;
+  border: 1px solid rgba(204, 221, 247, 0.2) !important;
+  border-radius: 24px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  padding: clamp(20px, 2vw, 34px) !important;
+}
+
+.about-redesign__career-form input,
+.about-redesign__career-form textarea {
+  width: 100% !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: var(--ink) !important;
+  padding: 16px 18px !important;
+}
+
+.about-redesign__career-form label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 13px !important;
+}
+
+.about-redesign__career-form label input {
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+}
+
+.about-redesign__career-form button {
+  min-height: 54px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #2476ff !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+.about-redesign__career-form button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.56 !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-process[data-stagger-reveal].is-stagger-ready .home-process__item {
+    opacity: 0 !important;
+    transform:
+      translate3d(calc((1.5 - var(--stagger-index, 0)) * 30px), 40px, 0)
+      rotate(calc(var(--process-tilt) - 7deg))
+      scale(0.94) !important;
+    transition:
+      opacity 540ms ease,
+      transform 720ms cubic-bezier(0.18, 0.92, 0.22, 1.02),
+      box-shadow 260ms ease !important;
+  }
+
+  .home-process[data-stagger-reveal].is-stagger-ready.is-stagger-visible .home-process__item {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) rotate(var(--process-tilt)) scale(1) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .header .phone,
+  .home-page .header .phone,
+  .page.inner-page .header .phone {
+    border: 0 !important;
+    background: rgba(47, 115, 255, 0.14) !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  .header .phone::before,
+  .home-page .header .phone::before,
+  .page.inner-page .header .phone::before {
+    width: 17px !important;
+    height: 17px !important;
+    background: none !important;
+    filter: none !important;
+    mask: url("/new-icons/phone.png") center / contain no-repeat;
+    -webkit-mask: url("/new-icons/phone.png") center / contain no-repeat;
+    background-color: #2476ff !important;
+  }
+
+  .header .mobile-menu-toggle,
+  .home-page .header .mobile-menu-toggle,
+  .page.inner-page .header .mobile-menu-toggle {
+    border: 0 !important;
+    background: rgba(20, 31, 48, 0.9) !important;
+    box-shadow: none !important;
+  }
+
+  .header .mobile-menu-toggle::before,
+  .home-page .header .mobile-menu-toggle::before,
+  .page.inner-page .header .mobile-menu-toggle::before {
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .header .mobile-menu-toggle span,
+  .home-page .header .mobile-menu-toggle span,
+  .page.inner-page .header .mobile-menu-toggle span {
+    width: 15px !important;
+    height: 2px !important;
+    background: #ffffff !important;
+  }
+
+  .mobile-nav-open .mobile-menu-toggle,
+  body.mobile-nav-open .mobile-menu-toggle {
+    background: rgba(20, 31, 48, 0.9) !important;
+  }
+
+  .mobile-nav-open .mobile-menu-toggle span:nth-child(1),
+  body.mobile-nav-open .mobile-menu-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg) scaleX(0.86) !important;
+  }
+
+  .mobile-nav-open .mobile-menu-toggle span:nth-child(3),
+  body.mobile-nav-open .mobile-menu-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg) scaleX(0.86) !important;
+  }
+
+  .home-page .home-about-stats {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+    padding: 34px 24px !important;
+  }
+
+  .home-page .home-about-stats__copy h2 {
+    font-size: clamp(40px, 15vw, 62px) !important;
+  }
+
+  .home-page .home-about-stats__copy p {
+    font-size: 15px !important;
+  }
+
+  .home-page .home-about-stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .home-page .home-about-stat {
+    min-height: 136px !important;
+    padding: 16px !important;
+  }
+
+  .home-page .home-about-stat__icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .home-page .home-about-stat strong {
+    margin-top: 16px !important;
+    font-size: clamp(28px, 9vw, 38px) !important;
+  }
+
+  .home-trust__media {
+    display: none !important;
+  }
+
+  .home-cycle__actions {
+    display: none !important;
+  }
+
+  .catalog-mobile-tools {
+    position: sticky;
+    top: calc(var(--header-offset, 14px) + var(--header-height, 72px) + 8px);
+    z-index: 42;
+    display: grid;
+    width: min(var(--site-frame-width), calc(100vw - 20px));
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 8px;
+    margin: 10px auto 0;
+    pointer-events: auto;
+  }
+
+  .catalog-mobile-tools__search {
+    position: relative;
+    display: block;
+    min-height: 48px;
+    border: 1px solid rgba(204, 221, 247, 0.96);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 10px 24px rgba(31, 62, 114, 0.08);
+  }
+
+  .catalog-mobile-tools__search span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .catalog-mobile-tools__search input {
+    width: 100%;
+    height: 48px;
+    border: 0;
+    background: transparent;
+    padding: 0 46px 0 18px;
+    color: var(--ink);
+    font-weight: 800;
+    outline: none;
+  }
+
+  .catalog-mobile-tools__search svg {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    color: #66758e;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: translateY(-50%);
+  }
+
+  .catalog-mobile-tools__filter {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #2476ff;
+    color: #ffffff;
+    box-shadow: 0 10px 24px rgba(36, 118, 255, 0.22);
+  }
+
+  .catalog-mobile-tools__filter svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.3;
+    stroke-linecap: round;
+  }
+
+  .catalog-page .listing-filters--catalog {
+    position: fixed !important;
+    top: calc(var(--header-offset, 14px) + var(--header-height, 72px) + 66px) !important;
+    left: 50% !important;
+    z-index: 44 !important;
+    display: grid !important;
+    width: min(420px, calc(100vw - 24px)) !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 14px !important;
+    border: 1px solid rgba(204, 221, 247, 0.96) !important;
+    border-radius: 22px !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 24px 60px rgba(31, 62, 114, 0.2) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(-8px) !important;
+    transition: opacity 180ms ease, transform 180ms ease !important;
+  }
+
+  body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .catalog-page .listing-filters--catalog .listing-filters__field--search {
+    display: none !important;
+  }
+
+  .catalog-page .listing-filters--catalog .listing-filters__field--price,
+  .catalog-page .listing-filters--catalog .listing-filters__field {
+    grid-column: auto !important;
+  }
+
+  .services-redesign__service-card {
+    grid-template-columns: minmax(108px, 0.48fr) minmax(0, 1fr) !important;
+    min-height: 218px !important;
+  }
+
+  .services-redesign__service-card h3 {
+    font-size: 20px !important;
+  }
+
+  .services-redesign__service-card p {
+    font-size: 13px !important;
+  }
+
+  .mortgage-redesign__hero-content {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .mortgage-redesign__hero-content h1,
+  .mortgage-redesign__hero-content p {
+    text-align: center !important;
+  }
+
+  .mortgage-redesign__hero > img {
+    transform: none !important;
+  }
+
+  .mortgage-redesign__consult,
+  .mortgage-redesign__form,
+  .about-redesign__cta--career {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mortgage-redesign__consult > img {
+    display: none !important;
+  }
+
+  .mortgage-redesign__form-main > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mortgage-redesign__form aside {
+    align-self: stretch !important;
+  }
+
+  .about-redesign__team-actions {
+    display: none !important;
+  }
+
+  .about-redesign__team > div.about-redesign__team-track {
+    gap: 14px !important;
+  }
+
+  .about-redesign__team article {
+    flex-basis: 154px !important;
+  }
+
+  .about-redesign__team .about-redesign__avatar,
+  .about-redesign__team .about-redesign__avatar--image {
+    width: 132px !important;
+    height: 132px !important;
+  }
+}

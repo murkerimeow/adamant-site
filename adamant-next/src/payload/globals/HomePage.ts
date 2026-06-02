@@ -45,6 +45,61 @@ export const HomePage: GlobalConfig = {
         },
       ],
     },
+    {
+      name: "sectionEyebrows",
+      type: "group",
+      label: "Плашки над заголовками",
+      fields: [
+        {
+          name: "about",
+          type: "text",
+          label: "О компании",
+          defaultValue: "О компании",
+        },
+        {
+          name: "projects",
+          type: "text",
+          label: "Наши проекты",
+          defaultValue: "Наши проекты",
+        },
+        {
+          name: "trust",
+          type: "text",
+          label: "Почему выбирают нас",
+          defaultValue: "Почему выбирают нас",
+        },
+        {
+          name: "process",
+          type: "text",
+          label: "Этапы работ",
+          defaultValue: "Этапы работ",
+        },
+        {
+          name: "services",
+          type: "text",
+          label: "Наши услуги",
+          defaultValue: "Наши услуги",
+        },
+        {
+          name: "portfolio",
+          type: "text",
+          label: "Портфолио",
+          defaultValue: "Портфолио",
+        },
+        {
+          name: "reviews",
+          type: "text",
+          label: "Отзывы",
+          defaultValue: "Отзывы клиентов",
+        },
+        {
+          name: "faq",
+          type: "text",
+          label: "FAQ",
+          defaultValue: "Ответы на частые вопросы",
+        },
+      ],
+    },
   ],
   label: "Главная страница",
   versions: {

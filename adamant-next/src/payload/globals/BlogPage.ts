@@ -22,7 +22,7 @@ export const BlogPage: GlobalConfig = {
       type: "array",
       admin: {
         description:
-          "Добавьте несколько роликов для верхнего блока блога. Для чистого отображения без интерфейса Instagram укажите прямую ссылку на видеофайл и обложку; Instagram-ссылка будет открываться по клику.",
+          "Добавьте несколько роликов для верхнего блока блога. Можно указать прямую ссылку на видеофайл или ссылку на Instagram, TikTok, YouTube Shorts.",
       },
       defaultValue: [
         {
@@ -55,9 +55,9 @@ export const BlogPage: GlobalConfig = {
           name: "instagramUrl",
           type: "text",
           admin: {
-            placeholder: "https://www.instagram.com/reel/...",
+            placeholder: "https://www.instagram.com/reel/... или https://youtube.com/shorts/...",
           },
-          label: "Ссылка на Instagram Reel/Post",
+          label: "Ссылка на соцсеть",
         },
         {
           name: "videoUrl",

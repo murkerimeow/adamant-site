@@ -32,6 +32,19 @@ export type BlogPageGlobal = PageIntroGlobal & {
     | null;
 };
 
+export type HomePageGlobal = HomePage & {
+  sectionEyebrows?: {
+    about?: string | null;
+    projects?: string | null;
+    trust?: string | null;
+    process?: string | null;
+    services?: string | null;
+    portfolio?: string | null;
+    reviews?: string | null;
+    faq?: string | null;
+  } | null;
+};
+
 export type AboutPageGlobal = PageIntroGlobal & {
   faqItems?:
     | {
@@ -288,7 +301,7 @@ export async function getHomePage() {
     depth: 1,
     draft: false,
     overrideAccess: true,
-  }) as Promise<HomePage>;
+  }) as Promise<HomePageGlobal>;
 }
 
 export async function getAboutPage() {

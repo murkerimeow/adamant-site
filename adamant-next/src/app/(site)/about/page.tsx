@@ -242,19 +242,28 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <section className="about-redesign__team" aria-labelledby="about-team-title">
+        <section className="about-redesign__team" aria-labelledby="about-team-title" data-home-services-carousel>
           <div className="about-redesign__section-head">
             <h2 id="about-team-title">Наша команда</h2>
             <a href="/vacancies">
               Все специалисты <span aria-hidden="true">→</span>
             </a>
+            <div className="about-redesign__team-actions" aria-label="Навигация по команде">
+              <button className="home-project-preview__arrow" type="button" aria-label="Предыдущие специалисты" data-slider-prev>
+                ‹
+              </button>
+              <button className="home-project-preview__arrow home-project-preview__arrow--active" type="button" aria-label="Следующие специалисты" data-slider-next>
+                ›
+              </button>
+            </div>
           </div>
-          <div>
+          <div className="about-redesign__team-track js-wheel-slider">
             {team.map((member) => {
               const avatarUrl =
                 "avatar" in member
-                  ? getMediaUrl(member.avatar, "thumb") || getMediaUrl(member.avatar)
+                  ? getMediaUrl(member.avatar) || getMediaUrl(member.avatar, "thumb")
                   : "";
+              const nameParts = member.name.split(/\s+/).filter(Boolean);
 
               return (
               <article key={member.name}>
@@ -273,7 +282,11 @@ export default async function AboutPage() {
                     <span>{getInitials(member.name)}</span>
                   )}
                 </div>
-                <h3>{member.name}</h3>
+                <h3>
+                  {nameParts.map((part) => (
+                    <span key={`${member.name}-${part}`}>{part}</span>
+                  ))}
+                </h3>
                 <strong>{member.role}</strong>
                 <p>{member.description}</p>
               </article>
@@ -282,27 +295,27 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <section className="about-redesign__cta" aria-label="Связаться с нами">
+        <section className="about-redesign__cta about-redesign__cta--career" aria-label="Отклик на вакансию">
           <div>
-            <h2>Ваш дом — наша работа</h2>
-            <p>Мы строим дома, в которых хочется жить. Давайте создадим ваш дом мечты вместе.</p>
+            <h2>Хотите работать с нами?</h2>
+            <p>Оставьте контакты и коротко расскажите о себе. Мы свяжемся, если найдем подходящую роль в команде.</p>
             <div>
-              <button className="js-open-estimate" type="button">Связаться с нами</button>
-              <a href="/portfolio">Смотреть портфолио <span aria-hidden="true">→</span></a>
+              <a href="/vacancies">Смотреть вакансии <span aria-hidden="true">→</span></a>
             </div>
           </div>
-          <div className="about-redesign__cta-stats">
-            {stats.slice(1, 4).map((stat) => (
-              <article key={`cta-${stat.value}`}>
-                <span>
-                  <AboutIcon type={stat.icon} />
-                </span>
-                <strong>{stat.value}</strong>
-                <small>{stat.label}</small>
-              </article>
-            ))}
-          </div>
-          <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
+          <form className="contact-form about-redesign__career-form" aria-label="Отклик на вакансию">
+            <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+            <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+            <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
+            <textarea name="message" rows={3} placeholder="Расскажите о себе" aria-label="Сообщение" />
+            <input type="hidden" name="service" value="Отклик на вакансию" />
+            <label>
+              <input type="checkbox" name="privacy" required />
+              <span>Я согласен на обработку персональных данных</span>
+            </label>
+            <button type="submit" disabled>Отправить отклик</button>
+            <p className="contact-form__status" aria-live="polite" />
+          </form>
         </section>
       </section>
     </main>

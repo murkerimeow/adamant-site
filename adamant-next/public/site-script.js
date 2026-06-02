@@ -1439,6 +1439,32 @@
     applyListingFilters();
   });
 
+  document.querySelectorAll("[data-catalog-mobile-tools]").forEach((tools) => {
+    const key = tools.querySelector("[data-mobile-listing-search]")?.dataset.mobileListingSearch || "catalog";
+    const filters = document.querySelector(`[data-listing-filters="${key}"]`);
+    const mobileSearch = tools.querySelector("[data-mobile-listing-search]");
+    const desktopSearch = filters?.querySelector("[data-listing-search]");
+    const toggle = tools.querySelector("[data-mobile-filters-toggle]");
+
+    if (mobileSearch && desktopSearch) {
+      mobileSearch.addEventListener("input", () => {
+        desktopSearch.value = mobileSearch.value;
+        desktopSearch.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+
+      desktopSearch.addEventListener("input", () => {
+        if (mobileSearch.value !== desktopSearch.value) {
+          mobileSearch.value = desktopSearch.value;
+        }
+      });
+    }
+
+    toggle?.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("catalog-mobile-filters-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+
   document.querySelectorAll(".js-wheel-slider").forEach((slider) => {
     let animationFrame = 0;
     let targetScrollLeft = slider.scrollLeft;
@@ -1529,7 +1555,7 @@
     const nextButton = sliderRoot?.querySelector("[data-slider-next]");
 
     const getSlideStep = () => {
-      const firstCard = slider.querySelector(".home-card, .home-project-card, .review-video-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card, .home-cycle-card, .review-video-card, .about-redesign__team article");
       if (!firstCard) return Math.max(260, slider.clientWidth * 0.78);
 
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
@@ -1574,7 +1600,7 @@
       const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
       if (maxScroll <= 2) return;
 
-      const firstCard = slider.querySelector(".home-card, .home-project-card, .review-video-card");
+      const firstCard = slider.querySelector(".home-card, .home-project-card, .home-cycle-card, .review-video-card, .about-redesign__team article");
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
       const step = firstCard
         ? firstCard.getBoundingClientRect().width + gap
@@ -1914,6 +1940,60 @@
         updateConsentSubmitState(form);
       }
     });
+  });
+
+  const decorateRequiredPlaceholders = () => {
+    const controls = Array.from(document.querySelectorAll("input[placeholder*='*'], textarea[placeholder*='*']"));
+
+    controls.forEach((control) => {
+      if (control.dataset.requiredStarReady === "true") return;
+
+      const rawPlaceholder = control.getAttribute("placeholder") || "";
+      const cleanPlaceholder = rawPlaceholder.replace(/\s*\*/g, "").trimEnd();
+      const host = control.parentElement;
+      if (!host || !cleanPlaceholder) return;
+
+      control.dataset.requiredStarReady = "true";
+      control.dataset.requiredPlaceholder = cleanPlaceholder;
+      control.setAttribute("placeholder", cleanPlaceholder);
+      host.classList.add("has-required-placeholder-star");
+
+      const marker = document.createElement("span");
+      marker.className = "required-placeholder-star";
+      marker.setAttribute("aria-hidden", "true");
+      marker.textContent = "*";
+      host.append(marker);
+
+      const updateMarker = () => {
+        const widthEstimate = Math.min(
+          cleanPlaceholder.length * 9.6,
+          Math.max(28, control.clientWidth - 42)
+        );
+        const left = control.offsetLeft + 22 + widthEstimate;
+        const top =
+          control.tagName === "TEXTAREA"
+            ? control.offsetTop + 24
+            : control.offsetTop + control.offsetHeight / 2;
+
+        marker.style.left = `${left}px`;
+        marker.style.top = `${top}px`;
+        marker.classList.toggle("required-placeholder-star--hidden", Boolean(control.value));
+      };
+
+      control.addEventListener("input", updateMarker);
+      control.addEventListener("change", updateMarker);
+      control.addEventListener("focus", updateMarker);
+      control.addEventListener("blur", updateMarker);
+      updateMarker();
+    });
+  };
+
+  decorateRequiredPlaceholders();
+  window.addEventListener("resize", () => {
+    decorateRequiredPlaceholders();
+    document
+      .querySelectorAll("[data-required-star-ready='true']")
+      .forEach((control) => control.dispatchEvent(new Event("input")));
   });
 
   const cookieConsentKey = "adamant_cookie_consent_v1";

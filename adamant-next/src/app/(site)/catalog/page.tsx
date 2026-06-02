@@ -89,6 +89,35 @@ export default async function CatalogPage() {
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
       <SiteHeader active="catalog" phone={siteSettings.phonePrimary} />
 
+      <div className="catalog-mobile-tools" data-catalog-mobile-tools>
+        <label className="catalog-mobile-tools__search">
+          <span>Поиск</span>
+          <input
+            type="search"
+            placeholder="Поиск по проектам..."
+            data-mobile-listing-search="catalog"
+            aria-label="Поиск по проектам"
+          />
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.7" cy="10.7" r="5.6" />
+            <path d="m15.1 15.1 4.2 4.2" />
+          </svg>
+        </label>
+        <button
+          className="catalog-mobile-tools__filter"
+          type="button"
+          data-mobile-filters-toggle="catalog"
+          aria-label="Открыть фильтры"
+          aria-expanded="false"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16" />
+            <path d="M7 12h10" />
+            <path d="M10 18h4" />
+          </svg>
+        </button>
+      </div>
+
       <section className="section section--projects" aria-labelledby="catalog-title">
         <div className="section__intro section__intro--page section__intro--projects">
           <span className="section__kicker">{catalogPage.eyebrow}</span>

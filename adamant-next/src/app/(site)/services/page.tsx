@@ -165,16 +165,11 @@ function ServicesIcon({ type }: { type: ServicesIconType }) {
   );
 }
 
-const heroBadges = [
-  ["box", "Строительство под ключ", "Берём на себя всё — от фундамента до отделки"],
-  ["plan", "Проектирование", "Разрабатываем проекты под ваши задачи и бюджет"],
-  ["shield", "Ипотека и сопровождение", "Помогаем с ипотекой и ведём сделку до конца"],
-] as const;
-
 type ServiceCardView = {
   description: string;
   href: string;
   icon: ServicesIconType;
+  id?: string;
   image: string;
   imageAlt: string;
   title: string;
@@ -253,17 +248,22 @@ export default async function ServicesPage() {
   ]);
   const cmsServiceCards = payloadServices
     .filter((service) => service.showOnServicesPage !== false)
-    .map<ServiceCardView>((service) => ({
-      description: service.shortDescription,
-      href: service.href || "/contacts",
-      icon: getServiceIcon(service.icon),
-      image:
-        getMediaUrl(service.previewImage, "card") ||
-        getMediaUrl(service.previewImage) ||
-        "/request-house.jpg",
-      imageAlt: getMediaAlt(service.previewImage, service.title),
-      title: service.title,
-    }));
+    .map<ServiceCardView>((service) => {
+      const id = `service-${service.slug}`;
+
+      return {
+        description: service.shortDescription,
+        href: service.href || `#${id}`,
+        icon: getServiceIcon(service.icon),
+        id,
+        image:
+          getMediaUrl(service.previewImage, "card") ||
+          getMediaUrl(service.previewImage) ||
+          "/request-house.jpg",
+        imageAlt: getMediaAlt(service.previewImage, service.title),
+        title: service.title,
+      };
+    });
   const serviceCards = cmsServiceCards.length ? cmsServiceCards : fallbackServiceCards;
 
   return (
@@ -271,46 +271,6 @@ export default async function ServicesPage() {
       <SiteHeader active="services" phone={siteSettings.phonePrimary} />
 
       <section className="services-redesign" aria-labelledby="services-title">
-        <section className="services-redesign__hero">
-          <img
-            className="services-redesign__hero-image"
-            src="/request-house.jpg"
-            alt=""
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
-          <div className="services-redesign__hero-content">
-            <h1 id="services-title">Услуги</h1>
-            <p>
-              Строим, проектируем и сопровождаем загородные дома под ключ — от идеи до готового результата.
-            </p>
-            <div className="services-redesign__hero-actions">
-              <button className="services-redesign__primary js-open-estimate" type="button">
-                Оставить заявку <span aria-hidden="true">→</span>
-              </button>
-              <button className="services-redesign__secondary js-open-callback" type="button">
-                Получить консультацию
-                <ServicesIcon type="chat" />
-              </button>
-            </div>
-          </div>
-
-          <div className="services-redesign__hero-badges" aria-label="Ключевые услуги">
-            {heroBadges.map(([icon, title, text]) => (
-              <article key={title}>
-                <span>
-                  <ServicesIcon type={icon} />
-                </span>
-                <div>
-                  <h2>{title}</h2>
-                  <p>{text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section className="services-redesign__section services-redesign__section--cards" aria-labelledby="services-main-title">
           <div className="services-redesign__section-head">
             <span>Наши возможности</span>
@@ -319,7 +279,13 @@ export default async function ServicesPage() {
           </div>
           <div className="services-redesign__cards">
             {serviceCards.map((card) => (
-              <article className="services-redesign__service-card" key={card.title} data-card-link={card.href} tabIndex={0}>
+              <article
+                className="services-redesign__service-card"
+                id={card.id}
+                key={card.title}
+                data-card-link={card.href}
+                tabIndex={0}
+              >
                 <Link className="services-redesign__service-media" href={card.href} aria-label={card.title}>
                   <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
                 </Link>
