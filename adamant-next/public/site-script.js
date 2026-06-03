@@ -700,10 +700,16 @@
       const items = Array.from(section.querySelectorAll("[data-stagger-item]"));
 
       items.forEach((item, index) => {
-        item.style.setProperty("--stagger-delay", `${index * 150}ms`);
+        item.style.setProperty("--stagger-index", String(index));
+        item.style.setProperty("--stagger-delay", `${index * 90}ms`);
       });
 
-      const reveal = () => section.classList.add("is-stagger-visible");
+      const reveal = () => {
+        section.classList.add("is-stagger-visible");
+        window.setTimeout(() => {
+          section.classList.add("is-stagger-done");
+        }, 900);
+      };
 
       if (reduceMotion) {
         reveal();
@@ -1940,60 +1946,6 @@
         updateConsentSubmitState(form);
       }
     });
-  });
-
-  const decorateRequiredPlaceholders = () => {
-    const controls = Array.from(document.querySelectorAll("input[placeholder*='*'], textarea[placeholder*='*']"));
-
-    controls.forEach((control) => {
-      if (control.dataset.requiredStarReady === "true") return;
-
-      const rawPlaceholder = control.getAttribute("placeholder") || "";
-      const cleanPlaceholder = rawPlaceholder.replace(/\s*\*/g, "").trimEnd();
-      const host = control.parentElement;
-      if (!host || !cleanPlaceholder) return;
-
-      control.dataset.requiredStarReady = "true";
-      control.dataset.requiredPlaceholder = cleanPlaceholder;
-      control.setAttribute("placeholder", cleanPlaceholder);
-      host.classList.add("has-required-placeholder-star");
-
-      const marker = document.createElement("span");
-      marker.className = "required-placeholder-star";
-      marker.setAttribute("aria-hidden", "true");
-      marker.textContent = "*";
-      host.append(marker);
-
-      const updateMarker = () => {
-        const widthEstimate = Math.min(
-          cleanPlaceholder.length * 9.6,
-          Math.max(28, control.clientWidth - 42)
-        );
-        const left = control.offsetLeft + 22 + widthEstimate;
-        const top =
-          control.tagName === "TEXTAREA"
-            ? control.offsetTop + 24
-            : control.offsetTop + control.offsetHeight / 2;
-
-        marker.style.left = `${left}px`;
-        marker.style.top = `${top}px`;
-        marker.classList.toggle("required-placeholder-star--hidden", Boolean(control.value));
-      };
-
-      control.addEventListener("input", updateMarker);
-      control.addEventListener("change", updateMarker);
-      control.addEventListener("focus", updateMarker);
-      control.addEventListener("blur", updateMarker);
-      updateMarker();
-    });
-  };
-
-  decorateRequiredPlaceholders();
-  window.addEventListener("resize", () => {
-    decorateRequiredPlaceholders();
-    document
-      .querySelectorAll("[data-required-star-ready='true']")
-      .forEach((control) => control.dispatchEvent(new Event("input")));
   });
 
   const cookieConsentKey = "adamant_cookie_consent_v1";

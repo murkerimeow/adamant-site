@@ -17510,25 +17510,7 @@ body:has(.page.inner-page),
   }
 }
 
-/* Final alignment pass: required marks, catalog tools, team carousel, cards and shared blocks. */
-.has-required-placeholder-star {
-  position: relative !important;
-}
-
-.required-placeholder-star {
-  position: absolute;
-  z-index: 5;
-  color: #ef233c;
-  font: inherit;
-  font-weight: 800;
-  line-height: 1;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-.required-placeholder-star--hidden {
-  opacity: 0;
-}
+/* Final alignment pass: catalog tools, team carousel, cards and shared blocks. */
 
 .home-footer {
   border-radius: clamp(20px, 2vw, 34px) !important;
@@ -18338,5 +18320,458 @@ body:has(.page.inner-page),
   .about-redesign__team .about-redesign__avatar--image {
     width: 132px !important;
     height: 132px !important;
+  }
+}
+
+/* 2026-06-03: compact home pass, lighter motion and aligned section rhythm. */
+.home-page {
+  --section-gap: clamp(18px, 1.55vw, 30px);
+}
+
+.home-page .home-section,
+.home-page .home-about-stats,
+.page.inner-page .services-redesign__section,
+.page.inner-page .services-redesign__consult,
+.page.inner-page .mortgage-redesign__section,
+.page.inner-page .mortgage-redesign__consult,
+.page.inner-page .contact-redesign__consult,
+.page.inner-page .about-redesign__section,
+.page.inner-page .blog-section {
+  margin-top: var(--section-gap) !important;
+}
+
+.home-page .home-section,
+.page.inner-page .services-redesign__section,
+.page.inner-page .mortgage-redesign__section,
+.page.inner-page .contact-redesign__consult,
+.page.inner-page .about-redesign__section,
+.page.inner-page .blog-section {
+  padding-top: clamp(30px, 2.8vw, 54px) !important;
+  padding-bottom: clamp(30px, 2.8vw, 54px) !important;
+}
+
+.home-page .home-about-stats {
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 0.86fr) !important;
+  gap: clamp(24px, 3.3vw, 58px) !important;
+  padding: clamp(30px, 3vw, 56px) clamp(28px, 4vw, 72px) !important;
+}
+
+.home-page .home-about-stats__eyebrow {
+  min-height: 34px !important;
+  padding-inline: 16px !important;
+  font-size: 13px !important;
+}
+
+.home-page .home-about-stats__copy h2 {
+  margin-top: 16px !important;
+  font-size: clamp(36px, 3.7vw, 62px) !important;
+  line-height: 0.98 !important;
+}
+
+.home-page .home-about-stats__copy p {
+  max-width: 690px !important;
+  margin-top: 16px !important;
+  font-size: clamp(14px, 0.92vw, 17px) !important;
+  line-height: 1.42 !important;
+}
+
+.home-page .home-about-stats__cta {
+  margin-top: 20px !important;
+}
+
+.home-page .home-about-stats__cta > a {
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  border-radius: 999px !important;
+  font-size: 14px !important;
+}
+
+.home-page .home-about-stats__grid {
+  gap: clamp(12px, 1.1vw, 18px) !important;
+}
+
+.home-page .home-about-stat {
+  min-height: clamp(132px, 8.7vw, 172px) !important;
+  padding: clamp(16px, 1.15vw, 22px) !important;
+}
+
+.home-page .home-about-stat__icon {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 13px !important;
+}
+
+.home-page .home-about-stat__icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.home-page .home-about-stat strong {
+  margin-top: clamp(16px, 1.5vw, 24px) !important;
+  font-size: clamp(28px, 2.8vw, 46px) !important;
+  line-height: 0.95 !important;
+}
+
+.home-page .home-about-stat > span:not(.home-about-stat__icon) {
+  margin-top: 6px !important;
+  font-size: clamp(10px, 0.72vw, 13px) !important;
+  line-height: 1.18 !important;
+}
+
+.home-page .home-project-preview__grid {
+  display: flex !important;
+  gap: clamp(16px, 1.5vw, 26px) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x proximity !important;
+  scroll-padding-inline: 2px !important;
+  padding: 2px 2px 12px !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-project-preview .home-project-card.project-card-blog {
+  flex: 0 0 clamp(270px, 23vw, 360px) !important;
+  min-height: 0 !important;
+  border: 1px solid rgba(204, 221, 247, 0.9) !important;
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  scroll-snap-align: start !important;
+}
+
+.home-page .home-project-preview .home-project-card .blog-card__media {
+  aspect-ratio: 1.68 !important;
+  margin: 8px 8px 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #e9f0fb !important;
+}
+
+.home-page .home-project-preview .home-project-card .blog-card__media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.home-page .home-project-preview .home-project-card .blog-card__body {
+  display: grid !important;
+  gap: 10px !important;
+  padding: 18px 20px 0 !important;
+}
+
+.home-page .home-project-preview .home-project-card h2 {
+  color: #142033 !important;
+  font-size: clamp(17px, 1.146vw, 22px) !important;
+  line-height: 1.15 !important;
+  font-weight: 900 !important;
+}
+
+.home-page .home-project-preview .home-project-card p {
+  color: #61718a !important;
+  font-size: clamp(13px, 0.833vw, 16px) !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+}
+
+.home-page .home-project-preview .home-project-card .project-card-blog__tags span {
+  min-height: 30px !important;
+  border-radius: 999px !important;
+  background: #edf5ff !important;
+  color: var(--blue) !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  padding: 0 12px !important;
+}
+
+.home-page .home-project-preview .home-project-card > a {
+  display: inline-flex !important;
+  width: auto !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-self: start !important;
+  gap: 7px !important;
+  margin: 18px 20px 20px !important;
+  border-radius: 999px !important;
+  background: #edf5ff !important;
+  color: var(--blue) !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  padding: 0 18px !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-project-preview .home-project-card > a:hover {
+  background: var(--blue) !important;
+  color: #ffffff !important;
+}
+
+.home-page .home-proof-section {
+  background: #f4f9ff !important;
+}
+
+.home-page .home-proof-strip {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(10px, 1vw, 16px) !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.home-page .home-proof-strip__item {
+  --proof-tilt: 0deg;
+  position: relative !important;
+  display: grid !important;
+  min-height: clamp(178px, 12vw, 226px) !important;
+  grid-template-columns: 1fr !important;
+  align-content: end !important;
+  gap: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(219, 229, 245, 0.96) !important;
+  border-radius: clamp(18px, 1.25vw, 24px) !important;
+  background: #ffffff !important;
+  box-shadow: 0 16px 34px rgba(31, 62, 114, 0.08) !important;
+  padding: clamp(70px, 5vw, 96px) clamp(18px, 1.35vw, 26px) clamp(18px, 1.25vw, 24px) !important;
+  transform: rotate(var(--proof-tilt)) !important;
+}
+
+.home-page .home-proof-strip__item:nth-child(1) {
+  --proof-tilt: -1.8deg;
+}
+
+.home-page .home-proof-strip__item:nth-child(2) {
+  --proof-tilt: 1.4deg;
+  border-color: rgba(47, 115, 255, 0.26) !important;
+  background: linear-gradient(145deg, #2f73ff 0%, #185be8 100%) !important;
+  color: #ffffff !important;
+}
+
+.home-page .home-proof-strip__item:nth-child(3) {
+  --proof-tilt: -1deg;
+}
+
+.home-page .home-proof-strip__icon {
+  position: absolute !important;
+  top: clamp(12px, 1vw, 18px) !important;
+  right: clamp(14px, 1.35vw, 26px) !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-proof-strip__icon::before {
+  display: none !important;
+}
+
+.home-page .home-proof-strip__icon::after {
+  content: "✓";
+  color: rgba(47, 115, 255, 0.13);
+  font-size: clamp(72px, 5.5vw, 112px);
+  line-height: 0.82;
+  font-weight: 900;
+}
+
+.home-page .home-proof-strip__item:nth-child(2) .home-proof-strip__icon::after {
+  color: rgba(255, 255, 255, 0.24);
+}
+
+.home-page .home-proof-strip__item h3 {
+  position: relative !important;
+  z-index: 1 !important;
+  margin: 0 !important;
+  color: inherit !important;
+  font-size: clamp(18px, 1.15vw, 23px) !important;
+  line-height: 1.12 !important;
+  font-weight: 900 !important;
+}
+
+.home-page .home-proof-strip__item ul {
+  position: relative !important;
+  z-index: 1 !important;
+  display: grid !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #61718a !important;
+  font-size: clamp(13px, 0.82vw, 15px) !important;
+  line-height: 1.32 !important;
+  font-weight: 700 !important;
+  list-style: none !important;
+}
+
+.home-page .home-proof-strip__item:nth-child(2) ul {
+  color: rgba(255, 255, 255, 0.86) !important;
+}
+
+.home-page .home-proof-strip__item li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.home-page .home-proof-strip__item li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #2fc978;
+  font-weight: 900;
+}
+
+.home-page .home-proof-strip__item:nth-child(2) li::before {
+  color: #7ff0ae;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item {
+    opacity: 1 !important;
+    will-change: transform;
+    transition:
+      transform 720ms cubic-bezier(0.18, 0.92, 0.22, 1.02),
+      box-shadow 220ms ease !important;
+    transition-delay: var(--stagger-delay, 0ms) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(1) {
+    transform: translate3d(calc(150% + 24px), 6px, 0) rotate(-7deg) scale(0.965) !important;
+    z-index: 4;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(2) {
+    transform: translate3d(calc(50% + 8px), -2px, 0) rotate(-2deg) scale(0.975) !important;
+    z-index: 3;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(3) {
+    transform: translate3d(calc(-50% - 8px), 2px, 0) rotate(2deg) scale(0.975) !important;
+    z-index: 2;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(4) {
+    transform: translate3d(calc(-150% - 24px), -6px, 0) rotate(7deg) scale(0.965) !important;
+    z-index: 1;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready.is-stagger-visible .home-process__item {
+    transform: translate3d(0, 0, 0) rotate(var(--process-tilt)) scale(1) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-done .home-process__item {
+    will-change: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .mortgage-redesign--compact .mortgage-redesign__hero,
+  .mortgage-redesign__hero {
+    background: transparent !important;
+    border-radius: clamp(24px, 2vw, 34px) !important;
+    overflow: hidden !important;
+  }
+
+  .mortgage-redesign--compact .mortgage-redesign__hero::before,
+  .mortgage-redesign--compact .mortgage-redesign__hero::after,
+  .mortgage-redesign__hero::before,
+  .mortgage-redesign__hero::after {
+    display: none !important;
+    background: none !important;
+  }
+
+  .mortgage-redesign--compact .mortgage-redesign__hero > img,
+  .mortgage-redesign__hero > img {
+    inset: -8% 0 0 0 !important;
+    width: 100% !important;
+    height: 116% !important;
+    max-width: none !important;
+    min-height: 116% !important;
+    object-fit: cover !important;
+    object-position: center bottom !important;
+    transform: translateY(6%) !important;
+  }
+
+  .mortgage-redesign--compact .mortgage-redesign__hero-content,
+  .mortgage-redesign__hero-content {
+    position: absolute !important;
+    top: clamp(136px, 13.5vh, 178px) !important;
+    left: clamp(44px, 5vw, 96px) !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    justify-self: start !important;
+    width: min(600px, calc(100% - 64px)) !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+
+  .mortgage-redesign--compact .mortgage-redesign__hero-content h1,
+  .mortgage-redesign--compact .mortgage-redesign__hero-content p,
+  .mortgage-redesign__hero-content h1,
+  .mortgage-redesign__hero-content p {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page .home-about-stats {
+    gap: 18px !important;
+    padding: 28px 18px !important;
+  }
+
+  .home-page .home-about-stats__copy h2 {
+    font-size: clamp(34px, 11vw, 48px) !important;
+  }
+
+  .home-page .home-about-stats__copy p {
+    font-size: 14px !important;
+  }
+
+  .home-page .home-about-stat {
+    min-height: 118px !important;
+    padding: 14px !important;
+  }
+
+  .home-page .home-about-stat strong {
+    margin-top: 14px !important;
+    font-size: clamp(25px, 8vw, 34px) !important;
+  }
+
+  .home-page .home-project-preview .home-project-card.project-card-blog {
+    flex-basis: min(78vw, 310px) !important;
+  }
+
+  .home-page .home-proof-strip {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .home-page .home-proof-strip__item {
+    min-height: 172px !important;
+    padding: 68px 20px 20px !important;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(1) {
+    transform: translate3d(0, calc(150% + 28px), 0) rotate(-4deg) scale(0.965) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(2) {
+    transform: translate3d(0, calc(50% + 10px), 0) rotate(-1deg) scale(0.975) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(3) {
+    transform: translate3d(0, calc(-50% - 10px), 0) rotate(1deg) scale(0.975) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready .home-process__item:nth-child(4) {
+    transform: translate3d(0, calc(-150% - 28px), 0) rotate(4deg) scale(0.965) !important;
+  }
+
+  .home-page .home-process[data-stagger-reveal].is-stagger-ready.is-stagger-visible .home-process__item {
+    transform: translate3d(0, 0, 0) rotate(var(--process-tilt)) scale(1) !important;
   }
 }
