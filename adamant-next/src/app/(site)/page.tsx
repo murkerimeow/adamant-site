@@ -547,7 +547,7 @@ export default async function HomePage() {
               </a>
             </div>
 
-            <div className="home-portfolio-strip">
+            <div className="projects-grid home-portfolio-strip">
               {portfolioStripItems.map((project) => {
                 const href = getPortfolioItemPath(project);
                 const imageUrl =

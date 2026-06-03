@@ -19042,3 +19042,255 @@ body:has(.page.inner-page),
     scroll-snap-align: start;
   }
 }
+
+/* Final mobile header and catalog placement fixes */
+@media (max-width: 767px) {
+  .header,
+  .home-page .header,
+  .page.inner-page .header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 32px 32px !important;
+    gap: 7px !important;
+    align-items: center !important;
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+  }
+
+  .header .brand,
+  .home-page .header .brand,
+  .page.inner-page .header .brand {
+    min-width: 0 !important;
+    max-width: 150px !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  .header .phone,
+  .home-page .header .phone,
+  .page.inner-page .header .phone,
+  .header .mobile-menu-toggle,
+  .home-page .header .mobile-menu-toggle,
+  .page.inner-page .header .mobile-menu-toggle {
+    position: static !important;
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 32px !important;
+    margin: 0 !important;
+    transform: none !important;
+    justify-self: end !important;
+    align-self: center !important;
+    border: 0 !important;
+  }
+
+  .header .mobile-menu-toggle,
+  .home-page .header .mobile-menu-toggle,
+  .page.inner-page .header .mobile-menu-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(21, 32, 49, 0.84) !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .header .mobile-menu-toggle span,
+  .home-page .header .mobile-menu-toggle span,
+  .page.inner-page .header .mobile-menu-toggle span {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    display: block !important;
+    width: 15px !important;
+    height: 2px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    transform-origin: center !important;
+  }
+
+  .header .mobile-menu-toggle span:nth-child(1),
+  .home-page .header .mobile-menu-toggle span:nth-child(1),
+  .page.inner-page .header .mobile-menu-toggle span:nth-child(1) {
+    transform: translate(-50%, -6px) !important;
+  }
+
+  .header .mobile-menu-toggle span:nth-child(2),
+  .home-page .header .mobile-menu-toggle span:nth-child(2),
+  .page.inner-page .header .mobile-menu-toggle span:nth-child(2) {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .header .mobile-menu-toggle span:nth-child(3),
+  .home-page .header .mobile-menu-toggle span:nth-child(3),
+  .page.inner-page .header .mobile-menu-toggle span:nth-child(3) {
+    transform: translate(-50%, 4px) !important;
+  }
+
+  body.mobile-nav-open .header .mobile-menu-toggle span:nth-child(1),
+  body.mobile-nav-open .home-page .header .mobile-menu-toggle span:nth-child(1),
+  body.mobile-nav-open .page.inner-page .header .mobile-menu-toggle span:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(45deg) scaleX(0.78) !important;
+  }
+
+  body.mobile-nav-open .header .mobile-menu-toggle span:nth-child(2),
+  body.mobile-nav-open .home-page .header .mobile-menu-toggle span:nth-child(2),
+  body.mobile-nav-open .page.inner-page .header .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scaleX(0.2) !important;
+  }
+
+  body.mobile-nav-open .header .mobile-menu-toggle span:nth-child(3),
+  body.mobile-nav-open .home-page .header .mobile-menu-toggle span:nth-child(3),
+  body.mobile-nav-open .page.inner-page .header .mobile-menu-toggle span:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(-45deg) scaleX(0.78) !important;
+  }
+
+  .catalog-page > .catalog-mobile-tools {
+    display: none !important;
+  }
+
+  .catalog-page .section--projects {
+    padding-top: clamp(30px, 2.8vw, 54px) !important;
+  }
+
+  .catalog-page .section--projects > .catalog-mobile-tools--inline {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 2 !important;
+    display: grid !important;
+    width: 100% !important;
+    max-width: none !important;
+    grid-template-columns: minmax(0, 1fr) 48px !important;
+    gap: 8px !important;
+    margin: 18px 0 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .catalog-page .catalog-mobile-tools__search svg {
+    top: 50% !important;
+    right: 16px !important;
+    transform: translateY(-50%) !important;
+    pointer-events: none !important;
+  }
+
+  .catalog-page .listing-filters--catalog {
+    position: static !important;
+    display: grid !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
+    max-height: 560px !important;
+    margin: 10px 0 0 !important;
+    padding: 14px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    border: 1px solid rgba(204, 221, 247, 0.96) !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+  }
+
+  .catalog-page .listing-filters--catalog .listing-filters__field--search {
+    display: none !important;
+  }
+}
+
+.home-page .home-portfolio-strip.projects-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(18px, 1.563vw, 30px) !important;
+  margin-top: clamp(30px, 2.5vw, 48px) !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  scroll-snap-type: none !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card {
+  flex: initial !important;
+  width: auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(219, 229, 245, 0.92) !important;
+  border-radius: clamp(18px, 1.354vw, 26px) !important;
+  background: #ffffff !important;
+  box-shadow: 0 16px 38px rgba(31, 62, 114, 0.08) !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card .blog-card__media {
+  aspect-ratio: 1.68 !important;
+  margin: 8px 8px 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #e9f0fb !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card .blog-card__media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card .blog-card__body {
+  display: grid !important;
+  gap: 10px !important;
+  padding: 18px 20px 0 !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card .blog-card__body h2 {
+  margin: 0 !important;
+  color: #142033 !important;
+  font-size: clamp(17px, 1.146vw, 22px) !important;
+  line-height: 1.15 !important;
+  font-weight: 900 !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card .blog-card__body p {
+  margin: 0 !important;
+  color: #61718a !important;
+  font-size: clamp(13px, 0.833vw, 16px) !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+}
+
+.home-page .home-portfolio-strip.projects-grid .home-portfolio-card > a {
+  display: inline-flex !important;
+  width: auto !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 18px 20px 20px !important;
+  border-radius: 999px !important;
+  background: #edf5ff !important;
+  color: var(--blue) !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 1180px) {
+  .home-page .home-portfolio-strip.projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page .home-portfolio-strip.projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
