@@ -46,7 +46,22 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     notFound();
   }
 
-  const imageUrl = getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage);
+  const imageUrl = getMediaUrl(item.previewImage) || getMediaUrl(item.previewImage, "card");
+  const galleryImages = [
+    {
+      alt: getMediaAlt(item.previewImage, item.title),
+      src: imageUrl,
+    },
+    ...(item.gallery?.map((entry) => ({
+      alt: getMediaAlt(entry.image, item.title),
+      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
+    })) ?? []),
+  ]
+    .filter((image) => image.src)
+    .filter(
+      (image, index, images) =>
+        images.findIndex((candidate) => candidate.src === image.src) === index,
+    );
   const paragraphs = splitParagraphs(item.description || item.summary);
   const similarItems = portfolioItems
     .filter((candidate) => candidate.id !== item.id)
@@ -66,21 +81,29 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
         </nav>
 
         <div className="portfolio-detail__hero">
-          <div className="portfolio-detail__gallery">
-            {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt={getMediaAlt(item.previewImage, item.title)}
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-              />
+          <div className="portfolio-detail__gallery" data-portfolio-gallery-size={galleryImages.length}>
+            {galleryImages.length ? (
+              <div className="portfolio-detail__gallery-track">
+                {galleryImages.map((image, index) => (
+                  <figure key={`${image.src}-${index}`}>
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                    />
+                  </figure>
+                ))}
+              </div>
             ) : null}
-            <div className="portfolio-detail__dots" aria-label="Фотографии проекта">
-              <span />
-              <span />
-              <span />
-            </div>
+            {galleryImages.length > 1 ? (
+              <div className="portfolio-detail__dots" aria-label="Фотографии проекта">
+                {galleryImages.map((image, index) => (
+                  <span key={`${image.src}-dot-${index}`} />
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <aside className="portfolio-detail__summary">

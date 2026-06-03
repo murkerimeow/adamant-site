@@ -97,6 +97,15 @@ export type CatalogItemDoc = {
   rooms?: number | null;
   cardSummary?: string | null;
   description: string;
+  advantages?: { id?: string | null; text: string }[] | null;
+  layouts?:
+    | {
+        id?: string | null;
+        image?: number | Media | null;
+        meta?: string | null;
+        title: string;
+      }[]
+    | null;
   tags?: { id?: string | null; label: string }[] | null;
   _status?: "draft" | "published" | null;
 };
@@ -109,6 +118,12 @@ export type ServiceCardDoc = Service & {
 
 export type PortfolioItemDoc = Portfolio & {
   catalogItem?: number | CatalogItemDoc | null;
+  gallery?:
+    | {
+        id?: string | null;
+        image?: number | Media | null;
+      }[]
+    | null;
 };
 
 export type ReviewDoc = Review & {

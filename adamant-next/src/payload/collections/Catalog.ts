@@ -178,6 +178,61 @@ export const Catalog: CollectionConfig = {
       required: true,
     },
     {
+      name: "advantages",
+      type: "array",
+      admin: {
+        description: "Пункты, которые выводятся в карточке проекта в блоке преимуществ.",
+        isSortable: true,
+      },
+      label: "Преимущества проекта",
+      labels: {
+        plural: "Преимущества",
+        singular: "Преимущество",
+      },
+      fields: [
+        {
+          name: "text",
+          type: "text",
+          label: "Текст преимущества",
+          required: true,
+        },
+      ],
+      maxRows: 12,
+    },
+    {
+      name: "layouts",
+      type: "array",
+      admin: {
+        description: "Планировки и генпланы, которые выводятся внутри карточки проекта.",
+        isSortable: true,
+      },
+      label: "Планировки проекта",
+      labels: {
+        plural: "Планировки",
+        singular: "Планировка",
+      },
+      fields: [
+        {
+          name: "title",
+          type: "text",
+          label: "Название",
+          required: true,
+        },
+        {
+          name: "meta",
+          type: "text",
+          label: "Подпись",
+        },
+        {
+          name: "image",
+          type: "upload",
+          label: "Изображение планировки",
+          relationTo: "media",
+        },
+      ],
+      maxRows: 12,
+    },
+    {
       name: "tags",
       type: "array",
       label: "Теги",

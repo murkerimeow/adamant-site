@@ -59,7 +59,7 @@ const backTargets = {
   services: { active: "services", href: "/services", label: "Услуги" },
 } as const;
 
-const fallbackImages = ["/home-main-new.webp", "/request-house.jpg", "/main1.jpg", "/main2.jpg"];
+const fallbackImages = ["/home-main-new.webp"];
 
 const defaultBenefits = [
   "Панорамное остекление и много света",
@@ -217,7 +217,7 @@ export default async function CatalogItemPage({
         getMediaUrl(entry.image, "card") ||
         getMediaUrl(entry.image),
     })) ?? [];
-  const galleryImages = [
+  const projectGalleryImages = [
     {
       alt: getMediaAlt(coverMedia, item.title),
       src:
@@ -243,29 +243,6 @@ export default async function CatalogItemPage({
         getMediaUrl(item.detailImage),
     },
     ...arrayGalleryImages,
-    ...relatedItems.flatMap((related) => [
-      {
-        alt: getMediaAlt(related.previewImage, related.title),
-        src: getMediaUrl(related.previewImage) || getMediaUrl(related.previewImage, "card"),
-        thumbSrc:
-          getMediaUrl(related.previewImage, "thumb") ||
-          getMediaUrl(related.previewImage, "card") ||
-          getMediaUrl(related.previewImage),
-      },
-      {
-        alt: getMediaAlt(related.detailImage, related.title),
-        src: getMediaUrl(related.detailImage) || getMediaUrl(related.detailImage, "card"),
-        thumbSrc:
-          getMediaUrl(related.detailImage, "thumb") ||
-          getMediaUrl(related.detailImage, "card") ||
-          getMediaUrl(related.detailImage),
-      },
-    ]),
-    ...fallbackImages.map((src) => ({
-      alt: item.title,
-      src,
-      thumbSrc: src,
-    })),
   ]
     .filter((image) => image.src)
     .filter(
@@ -273,6 +250,13 @@ export default async function CatalogItemPage({
         images.findIndex((candidate) => candidate.src === image.src) === index,
     )
     .slice(0, 8);
+  const galleryImages = projectGalleryImages.length
+    ? projectGalleryImages
+    : fallbackImages.map((src) => ({
+        alt: item.title,
+        src,
+        thumbSrc: src,
+      }));
 
   const meta = getCatalogCardMeta(item);
   const productPrice = `от ${formatProjectPrice(meta.price)} ₽`;
@@ -281,16 +265,31 @@ export default async function CatalogItemPage({
   const floors = item.floors ? formatFloors(item.floors) : findTag(tagLabels, /этаж/i, meta.floors);
   const rooms = item.rooms ? formatRooms(item.rooms) : findTag(tagLabels, /(комнат|спальн)/i, meta.rooms);
   const bathrooms = findTag(tagLabels, /(сануз|ванн)/i, "2 санузла");
-  const benefits = [...tagLabels, ...defaultBenefits]
+  const customBenefits =
+    item.advantages?.map((entry) => entry.text).filter(Boolean) ?? [];
+  const benefitsSource = customBenefits.length
+    ? customBenefits
+    : [...tagLabels, ...defaultBenefits];
+  const benefits = benefitsSource
     .filter((label, index, labels) => labels.indexOf(label) === index)
     .slice(0, 5);
   const descriptionParagraphs = getParagraphs(item.description);
-  const additionalImages = galleryImages.slice(0, 5);
-  const planCards = [
-    { title: "План 1 этажа", meta: area },
-    { title: "План 2 этажа", meta: "100 м²" },
-    { title: "Генплан участка", meta: "12 соток", image: galleryImages[1]?.src || galleryImages[0]?.src },
-  ];
+  const additionalImages = galleryImages.length > 1 ? galleryImages.slice(1, 6) : [];
+  const customPlanCards =
+    item.layouts
+      ?.map((plan, index) => ({
+        title: plan.title || `План ${index + 1}`,
+        meta: plan.meta || "",
+        image: getMediaUrl(plan.image, "card") || getMediaUrl(plan.image),
+      }))
+      .filter((plan) => plan.title || plan.meta || plan.image) ?? [];
+  const planCards = customPlanCards.length
+    ? customPlanCards
+    : [
+        { title: "План 1 этажа", meta: area, image: "" },
+        { title: "План 2 этажа", meta: "100 м²", image: "" },
+        { title: "Генплан участка", meta: "12 соток", image: "" },
+      ];
   const relatedCards = relatedItems.length
     ? relatedItems
     : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 3);
@@ -326,7 +325,25 @@ export default async function CatalogItemPage({
         </nav>
 
         <div className="product-hero-card">
-          <ProductGallery images={galleryImages} title={item.title} />
+          <div className="product-hero-media-stack">
+            <ProductGallery images={galleryImages} title={item.title} />
+
+            {additionalImages.length ? (
+              <section
+                className="product-section product-section--photos product-section--hero-photos"
+                aria-labelledby="product-photos-title"
+              >
+                <h2 id="product-photos-title">Дополнительные фото</h2>
+                <div className="product-photo-strip">
+                  {additionalImages.map((image, index) => (
+                    <figure key={`${image.src}-additional-${index}`}>
+                      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                    </figure>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+          </div>
 
           <aside className="product-hero-info">
             <span className="product-hero-info__eyebrow">Проект загородного дома</span>
@@ -412,17 +429,6 @@ export default async function CatalogItemPage({
                   <small>{step.time}</small>
                 </div>
               </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="product-section" aria-labelledby="product-photos-title">
-          <h2 id="product-photos-title">Дополнительные фото</h2>
-          <div className="product-photo-strip">
-            {additionalImages.map((image, index) => (
-              <figure key={`${image.src}-additional-${index}`}>
-                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-              </figure>
             ))}
           </div>
         </section>

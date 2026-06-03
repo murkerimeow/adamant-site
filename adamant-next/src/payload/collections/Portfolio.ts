@@ -87,6 +87,29 @@ export const Portfolio: CollectionConfig = {
       relationTo: "media",
     },
     {
+      name: "gallery",
+      type: "array",
+      admin: {
+        description: "Дополнительные фотографии выполненной работы.",
+        isSortable: true,
+      },
+      label: "Фотографии проекта",
+      labels: {
+        plural: "Фотографии",
+        singular: "Фотография",
+      },
+      fields: [
+        {
+          name: "image",
+          type: "upload",
+          label: "Фото",
+          relationTo: "media",
+          required: true,
+        },
+      ],
+      maxRows: 40,
+    },
+    {
       name: "summary",
       type: "textarea",
       label: "Краткое описание",

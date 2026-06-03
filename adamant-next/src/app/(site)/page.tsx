@@ -12,7 +12,7 @@ import {
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { getCatalogCardMeta } from "@/site/catalog-meta";
+import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
@@ -318,39 +318,98 @@ export default async function HomePage() {
                   getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
-                const tags = [meta.area, meta.floors, meta.rooms].filter(Boolean);
 
                 return (
                   <article
                     key={project.id}
-                    className="blog-card project-card-blog home-project-card"
+                    className="home-project-card listing-card"
                     data-card-link={href}
                     tabIndex={0}
                   >
-                    <div className="blog-card__media">
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={getMediaAlt(coverMedia, project.title)}
-                          loading="lazy"
-                          decoding="async"
-                        />
+                    <div className="listing-card__media">
+                      <a className="listing-card__media-link" href={href} aria-label={project.title}>
+                        {imageUrl ? (
+                          <img
+                            src={imageUrl}
+                            alt={getMediaAlt(coverMedia, project.title)}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null}
+                      </a>
+                      {project.isHit ? (
+                        <span className="listing-card__badge">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
+                          </svg>
+                          Хит проект
+                        </span>
                       ) : null}
+                      <span className="listing-card__photos">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
+                          <circle cx="12" cy="13" r="3.2" />
+                        </svg>
+                        1/{meta.photoCount}
+                      </span>
                     </div>
-                    <div className="blog-card__body">
+
+                    <div className="listing-card__body">
                       <h2>{project.title}</h2>
-                      <p>{description}</p>
-                      {tags.length ? (
-                        <div className="project-card-blog__tags">
-                          {tags.map((tag) => (
-                            <span key={tag}>{tag}</span>
-                          ))}
-                        </div>
-                      ) : null}
+                      <p className="listing-card__description">{description}</p>
+                      <ul className="listing-card__specs" aria-label="Характеристики проекта">
+                        <li className="listing-card__spec listing-card__spec--area">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="M5 5h14v14H5V5Z" />
+                              <path d="M5 10h4M15 5v4M19 14h-4M9 19v-4" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.area}</strong>
+                            <small>Площадь</small>
+                          </span>
+                        </li>
+                        <li className="listing-card__spec listing-card__spec--floors">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="m12 3 8 4-8 4-8-4 8-4Z" />
+                              <path d="m20 12-8 4-8-4" />
+                              <path d="m20 17-8 4-8-4" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.floors}</strong>
+                            <small>Этажность</small>
+                          </span>
+                        </li>
+                        <li className="listing-card__spec listing-card__spec--rooms">
+                          <span className="listing-card__spec-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                              <path d="M4 11V6h5a3 3 0 0 1 3 3v2" />
+                              <path d="M12 11V7h5a3 3 0 0 1 3 3v1" />
+                              <path d="M4 11h16v7" />
+                              <path d="M4 18v-7" />
+                              <path d="M4 16h16" />
+                            </svg>
+                          </span>
+                          <span>
+                            <strong>{meta.rooms}</strong>
+                            <small>Комнаты</small>
+                          </span>
+                        </li>
+                      </ul>
                     </div>
-                    <a href={href} aria-label={`Подробнее: ${project.title}`}>
-                      Подробнее <span aria-hidden="true">→</span>
-                    </a>
+
+                    <div className="listing-card__footer">
+                      <strong>
+                        <span>от</span>
+                        {formatProjectPrice(meta.price)} ₽
+                      </strong>
+                      <a className="listing-card__button" href={href} aria-label={`Подробнее: ${project.title}`}>
+                        Подробнее
+                      </a>
+                    </div>
                   </article>
                 );
               })}
@@ -492,22 +551,43 @@ export default async function HomePage() {
               {portfolioStripItems.map((project) => {
                 const href = getPortfolioItemPath(project);
                 const imageUrl =
-                  getMediaUrl(project.previewImage, "thumb") ||
                   getMediaUrl(project.previewImage, "card") ||
                   getMediaUrl(project.previewImage);
+                const visibleTags = project.tags?.slice(0, 2) || [];
 
                 return (
-                  <a key={project.id} className="home-portfolio-thumb" href={href}>
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt={getMediaAlt(project.previewImage, project.title)}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : null}
-                    <span>{project.title}</span>
-                  </a>
+                  <article
+                    key={project.id}
+                    className="blog-card project-card-blog home-portfolio-card"
+                    data-card-link={href}
+                    tabIndex={0}
+                    data-category={project.category}
+                  >
+                    <div className="blog-card__media">
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={getMediaAlt(project.previewImage, project.title)}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : null}
+                    </div>
+                    <div className="blog-card__body">
+                      <h2>{project.title}</h2>
+                      <p>{project.summary}</p>
+                      {visibleTags.length ? (
+                        <div className="project-card-blog__tags">
+                          {visibleTags.map((tag) => (
+                            <span key={tag.id ?? tag.label}>{tag.label}</span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                    <a href={href}>
+                      Подробнее <span aria-hidden="true">→</span>
+                    </a>
+                  </article>
                 );
               })}
             </div>

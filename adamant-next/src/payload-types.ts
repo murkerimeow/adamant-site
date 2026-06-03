@@ -276,6 +276,15 @@ export interface Portfolio {
   location?: string | null;
   projectArea?: number | null;
   previewImage?: (number | null) | Media;
+  /**
+   * Дополнительные фотографии выполненной работы.
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   summary: string;
   description?: string | null;
   tags?:
@@ -300,12 +309,15 @@ export interface Catalog {
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
   catalogCategory: 'modern' | 'classic' | 'other';
-    order: number;
-    previewImage?: (number | null) | Media;
-    detailImage?: (number | null) | Media;
-    gallery?:
-      | {
-          image: number | Media;
+  order: number;
+  previewImage?: (number | null) | Media;
+  detailImage?: (number | null) | Media;
+  /**
+   * Добавляйте сюда все фотографии проекта. Количество фото в карточке каталога считается по этому списку.
+   */
+  gallery?:
+    | {
+        image: number | Media;
         id?: string | null;
       }[]
     | null;
@@ -327,6 +339,26 @@ export interface Catalog {
   rooms?: number | null;
   cardSummary?: string | null;
   description: string;
+  /**
+   * Пункты, которые выводятся в карточке проекта в блоке преимуществ.
+   */
+  advantages?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Планировки и генпланы, которые выводятся внутри карточки проекта.
+   */
+  layouts?:
+    | {
+        title: string;
+        meta?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   tags?:
     | {
         label: string;
@@ -648,6 +680,12 @@ export interface PortfolioSelect<T extends boolean = true> {
   location?: T;
   projectArea?: T;
   previewImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   summary?: T;
   description?: T;
   tags?:
@@ -671,12 +709,12 @@ export interface CatalogSelect<T extends boolean = true> {
   showInCatalog?: T;
   isHit?: T;
   catalogCategory?: T;
-    order?: T;
-    previewImage?: T;
-    detailImage?: T;
-    gallery?:
-      | T
-      | {
+  order?: T;
+  previewImage?: T;
+  detailImage?: T;
+  gallery?:
+    | T
+    | {
         image?: T;
         id?: T;
       };
@@ -686,6 +724,20 @@ export interface CatalogSelect<T extends boolean = true> {
   rooms?: T;
   cardSummary?: T;
   description?: T;
+  advantages?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  layouts?:
+    | T
+    | {
+        title?: T;
+        meta?: T;
+        image?: T;
+        id?: T;
+      };
   tags?:
     | T
     | {
@@ -847,6 +899,16 @@ export interface HomePage {
         id?: string | null;
       }[]
     | null;
+  sectionEyebrows?: {
+    about?: string | null;
+    projects?: string | null;
+    trust?: string | null;
+    process?: string | null;
+    services?: string | null;
+    portfolio?: string | null;
+    reviews?: string | null;
+    faq?: string | null;
+  };
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -949,7 +1011,7 @@ export interface BlogPage {
   title: string;
   subtitle: string;
   /**
-   * Добавьте несколько роликов для верхнего блока блога. Для чистого отображения без интерфейса Instagram укажите прямую ссылку на видеофайл и обложку; Instagram-ссылка будет открываться по клику.
+   * Добавьте несколько роликов для верхнего блока блога. Можно указать прямую ссылку на видеофайл или ссылку на Instagram, TikTok, YouTube Shorts.
    */
   instagramVideos?:
     | {
@@ -994,6 +1056,18 @@ export interface HomePageSelect<T extends boolean = true> {
         value?: T;
         label?: T;
         id?: T;
+      };
+  sectionEyebrows?:
+    | T
+    | {
+        about?: T;
+        projects?: T;
+        trust?: T;
+        process?: T;
+        services?: T;
+        portfolio?: T;
+        reviews?: T;
+        faq?: T;
       };
   _status?: T;
   updatedAt?: T;
