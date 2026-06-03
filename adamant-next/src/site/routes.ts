@@ -25,6 +25,10 @@ export function getCatalogItemPath(item: {
   return "/catalog";
 }
 
+export function getCatalogCategoryPath(category: { slug?: string | null }) {
+  return category.slug ? `/catalog/category/${encodeURIComponent(category.slug)}` : "/catalog";
+}
+
 export function getLegacyCatalogItemPath(itemKey?: string | null) {
   if (!itemKey) return null;
   return legacyCatalogItemPaths[itemKey] ?? null;

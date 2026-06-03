@@ -1265,6 +1265,12 @@
     mobileMenuButtons.forEach((button) => {
       button.setAttribute("aria-expanded", "false");
     });
+    document.querySelectorAll(".nav__item--submenu-open").forEach((item) => {
+      item.classList.remove("nav__item--submenu-open");
+      item
+        .querySelector("[data-nav-submenu-toggle]")
+        ?.setAttribute("aria-expanded", "false");
+    });
   };
 
   mobileMenuButtons.forEach((button) => {
@@ -1275,6 +1281,23 @@
   });
 
   document.querySelectorAll(".nav__link").forEach((link) => {
+    link.addEventListener("click", closeMobileNav);
+  });
+
+  document.querySelectorAll("[data-nav-submenu-toggle]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const item = button.closest(".nav__item");
+      if (!item) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const isOpen = item.classList.toggle("nav__item--submenu-open");
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+
+  document.querySelectorAll(".nav__dropdown a").forEach((link) => {
     link.addEventListener("click", closeMobileNav);
   });
 
@@ -1401,6 +1424,15 @@
     const applyListingFilters = () => {
       updateListingRanges();
 
+      const categoryFromQuery = new URLSearchParams(window.location.search)
+        .get("category")
+        ?.trim()
+        .toLowerCase();
+      const categoryFromPath = window.location.pathname
+        .match(/^\/catalog\/category\/([^/]+)/)?.[1]
+        ?.trim()
+        .toLowerCase();
+      const categoryFromUrl = categoryFromQuery || categoryFromPath;
       const query = (
         filters.querySelector("[data-listing-search]")?.value || ""
       )
@@ -1428,7 +1460,9 @@
           !cardPrice ||
           (cardPrice >= priceMin && cardPrice <= priceMax);
         const matchesSearch = !query || (card.dataset.search || "").includes(query);
-        const isVisible = matchesControls && matchesPrice && matchesSearch;
+        const matchesCategory =
+          !categoryFromUrl || (card.dataset.category || "").toLowerCase() === categoryFromUrl;
+        const isVisible = matchesControls && matchesPrice && matchesSearch && matchesCategory;
 
         card.hidden = !isVisible;
         if (isVisible) visibleCount += 1;

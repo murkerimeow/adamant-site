@@ -81,6 +81,7 @@ export type CatalogItemDoc = {
   itemKey: string;
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
+  landingCategory?: number | CatalogCategoryDoc | null;
   catalogCategory: "classic" | "modern" | "other";
   order: number;
   previewImage?: number | Media | null;
@@ -108,6 +109,15 @@ export type CatalogItemDoc = {
     | null;
   tags?: { id?: string | null; label: string }[] | null;
   _status?: "draft" | "published" | null;
+};
+
+export type CatalogCategoryDoc = {
+  id: number | string;
+  title: string;
+  slug: string;
+  description?: string | null;
+  showInHeader?: boolean | null;
+  order?: number | null;
 };
 
 export type ServiceCardDoc = Service & {
@@ -161,6 +171,18 @@ type CatalogCollectionClient = {
   }): Promise<{ docs: CatalogItemDoc[] }>;
 };
 
+type CatalogCategoriesCollectionClient = {
+  find(args: {
+    collection: string;
+    depth?: number;
+    draft?: boolean;
+    limit?: number;
+    overrideAccess?: boolean;
+    sort?: string;
+    where?: unknown;
+  }): Promise<{ docs: CatalogCategoryDoc[] }>;
+};
+
 type VacanciesCollectionClient = {
   find(args: {
     collection: string;
@@ -212,6 +234,30 @@ const publishedWhere = {
   },
 };
 
+const fallbackCatalogCategories: CatalogCategoryDoc[] = [
+  {
+    id: "dom-iz-gazobetona",
+    title: "Дом из газобетона",
+    slug: "dom-iz-gazobetona",
+    order: 10,
+    showInHeader: true,
+  },
+  {
+    id: "karkasnye-doma",
+    title: "Каркасные дома",
+    slug: "karkasnye-doma",
+    order: 20,
+    showInHeader: true,
+  },
+  {
+    id: "dachnye-doma",
+    title: "Дачные дома",
+    slug: "dachnye-doma",
+    order: 30,
+    showInHeader: true,
+  },
+];
+
 let payloadPromise: ReturnType<typeof getPayload> | null = null;
 
 async function getPayloadClient() {
@@ -249,6 +295,29 @@ export function getCatalogCoverMedia(
     item.detailImage ||
     null
   );
+}
+
+export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "catalogCategory" | "itemKey" | "landingCategory">) {
+  if (item.landingCategory && typeof item.landingCategory !== "number") {
+    return item.landingCategory.slug;
+  }
+
+  const legacyByItemKey: Record<string, string> = {
+    frame: "karkasnye-doma",
+    gasbeton: "dom-iz-gazobetona",
+    onefloor: "dachnye-doma",
+    terrace: "dachnye-doma",
+    timber: "dachnye-doma",
+  };
+
+  if (item.itemKey && legacyByItemKey[item.itemKey]) {
+    return legacyByItemKey[item.itemKey];
+  }
+
+  if (item.catalogCategory === "classic") return "klassicheskie-doma";
+  if (item.catalogCategory === "modern") return "sovremennye-doma";
+
+  return "";
 }
 
 export function splitParagraphs(text?: string | null) {
@@ -541,6 +610,31 @@ export async function getCatalogItems() {
   });
 
   return result.docs;
+}
+
+export async function getCatalogCategories() {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as CatalogCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "catalog-categories",
+      depth: 0,
+      draft: false,
+      limit: 100,
+      overrideAccess: true,
+      sort: "order",
+      where: {
+        showInHeader: {
+          equals: true,
+        },
+      },
+    });
+
+    return result.docs.length ? result.docs : fallbackCatalogCategories;
+  } catch {
+    return fallbackCatalogCategories;
+  }
 }
 
 export async function getCatalogItem(params: {

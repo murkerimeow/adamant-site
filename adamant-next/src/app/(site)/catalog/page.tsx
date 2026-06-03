@@ -4,6 +4,7 @@ import {
   getCatalogItems,
   getCatalogPage,
   getCatalogCoverMedia,
+  getCatalogLandingCategorySlug,
   getMediaAlt,
   getMediaUrl,
   getSiteSettings,
@@ -259,6 +260,7 @@ export default async function CatalogPage() {
                 data-area={getAreaGroup(meta.area)}
                 data-budget={getBudgetGroup(meta.price)}
                 data-price={meta.price}
+                data-category={getCatalogLandingCategorySlug(item)}
                 data-floors={getFloorsGroup(meta.floors)}
                 data-rooms={getRoomsGroup(meta.rooms)}
                 data-search={getSearchText([item.title, description, tagLabels])}

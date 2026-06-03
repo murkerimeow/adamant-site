@@ -7,6 +7,7 @@ import { ru } from "payload/i18n/ru";
 import sharp from "sharp";
 
 import { Catalog } from "./src/payload/collections/Catalog.ts";
+import { CatalogCategories } from "./src/payload/collections/CatalogCategories.ts";
 import { Media } from "./src/payload/collections/Media.ts";
 import { Portfolio } from "./src/payload/collections/Portfolio.ts";
 import { Posts } from "./src/payload/collections/Posts.ts";
@@ -44,6 +45,7 @@ export default buildConfig({
     Posts,
     Services,
     Portfolio,
+    CatalogCategories,
     Catalog,
     Reviews,
     TeamMembers,

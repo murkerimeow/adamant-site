@@ -19283,6 +19283,175 @@ body:has(.page.inner-page),
   box-shadow: none !important;
 }
 
+/* Catalog landing menu and team heading alignment. */
+.header,
+.nav {
+  overflow: visible !important;
+}
+
+.nav__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.nav__submenu-toggle {
+  display: none;
+}
+
+.nav__dropdown {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 16px);
+  z-index: 90;
+  display: grid;
+  min-width: 230px;
+  gap: 6px;
+  border: 1px solid rgba(209, 224, 247, 0.94);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 58px rgba(31, 62, 114, 0.16);
+  opacity: 0;
+  padding: 10px;
+  pointer-events: none;
+  transform: translate(-50%, -8px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.nav__dropdown::before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 18px;
+  content: "";
+}
+
+.nav__item--catalog:hover .nav__dropdown,
+.nav__item--catalog:focus-within .nav__dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.nav__dropdown a {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  border-radius: 12px;
+  color: #142033;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 800;
+  padding: 0 13px;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.nav__dropdown a:hover {
+  background: #edf5ff;
+  color: #2476ff;
+  transform: translateX(2px);
+}
+
+.about-redesign__section-head h2 {
+  margin-right: auto !important;
+}
+
+.about-redesign__section-head > a {
+  margin-left: auto !important;
+}
+
+.about-redesign__team-actions {
+  margin-left: 0 !important;
+}
+
+@media (max-width: 767px) {
+  .nav__item {
+    display: grid !important;
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) 34px !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .nav__item + .nav__item {
+    margin-top: 6px !important;
+  }
+
+  .nav__item .nav__link {
+    min-width: 0 !important;
+  }
+
+  .nav__item:not(.nav__item--catalog) .nav__link {
+    grid-column: 1 / -1 !important;
+  }
+
+  .nav__submenu-toggle {
+    display: grid !important;
+    width: 34px !important;
+    height: 34px !important;
+    place-items: center !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: rgba(47, 115, 255, 0.12) !important;
+    color: #2476ff !important;
+    cursor: pointer !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease !important;
+  }
+
+  .nav__item--submenu-open .nav__submenu-toggle {
+    background: rgba(255, 40, 71, 0.12) !important;
+    color: #ff2847 !important;
+    transform: rotate(45deg) !important;
+  }
+
+  .nav__dropdown {
+    position: static !important;
+    grid-column: 1 / -1 !important;
+    min-width: 0 !important;
+    max-height: 0 !important;
+    gap: 7px !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 16px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+    transform: none !important;
+    transition: max-height 180ms ease, padding 180ms ease, background 180ms ease !important;
+  }
+
+  .nav__dropdown::before {
+    display: none !important;
+  }
+
+  .nav__item--submenu-open .nav__dropdown {
+    max-height: 260px !important;
+    background: rgba(239, 246, 255, 0.78) !important;
+    padding: 8px !important;
+    pointer-events: auto !important;
+  }
+
+  .nav__dropdown a {
+    min-height: 40px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    font-size: 14px !important;
+    padding: 0 14px !important;
+  }
+
+  .about-redesign__section-head > a {
+    margin-left: 0 !important;
+  }
+}
+
 @media (max-width: 1180px) {
   .home-page .home-portfolio-strip.projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

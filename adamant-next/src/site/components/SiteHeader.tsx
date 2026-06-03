@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { getCatalogCategories } from "@/site/cms";
+import { getCatalogCategoryPath } from "@/site/routes";
 import { SocialIcon, socialLinks } from "@/site/socials";
 
 type SiteHeaderProps = {
@@ -25,7 +27,9 @@ const navItems = [
   { href: "/about", key: "about", label: "О нас" },
 ] as const;
 
-export function SiteHeader({ active, phone }: SiteHeaderProps) {
+export async function SiteHeader({ active, phone }: SiteHeaderProps) {
+  const catalogCategories = await getCatalogCategories();
+
   return (
     <header className="header">
       <a className="brand" href="/" aria-label="Адамант">
@@ -39,21 +43,49 @@ export function SiteHeader({ active, phone }: SiteHeaderProps) {
       </a>
 
       <nav className="nav" aria-label="Основная навигация">
-        {navItems.map((item) => (
-          <a
-            key={item.href}
-            className={`nav__link${item.key === active ? " nav__link--active" : ""}`}
-            href={item.href}
-          >
-            <span className="nav__label">{item.label}</span>
-            {"badge" in item ? (
-              <>
-                {" "}
-                <span className="nav__badge">{item.badge}</span>
-              </>
-            ) : null}
-          </a>
-        ))}
+        {navItems.map((item) => {
+          const isCatalog = item.key === "catalog";
+
+          return (
+            <div
+              key={item.href}
+              className={`nav__item${isCatalog ? " nav__item--catalog" : ""}`}
+            >
+              <a
+                className={`nav__link${item.key === active ? " nav__link--active" : ""}`}
+                href={item.href}
+              >
+                <span className="nav__label">{item.label}</span>
+                {"badge" in item ? (
+                  <>
+                    {" "}
+                    <span className="nav__badge">{item.badge}</span>
+                  </>
+                ) : null}
+              </a>
+              {isCatalog && catalogCategories.length ? (
+                <>
+                  <button
+                    className="nav__submenu-toggle"
+                    type="button"
+                    aria-label="Показать категории каталога"
+                    aria-expanded="false"
+                    data-nav-submenu-toggle="catalog"
+                  >
+                    +
+                  </button>
+                  <div className="nav__dropdown" aria-label="Категории каталога">
+                    {catalogCategories.map((category) => (
+                      <a key={category.id} href={getCatalogCategoryPath(category)}>
+                        {category.title}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          );
+        })}
 
         <div className="nav__mobile-contact" aria-label="Контакты">
           <button className="nav__mobile-phone js-open-callback" type="button">

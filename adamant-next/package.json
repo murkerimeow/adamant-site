@@ -9,7 +9,8 @@
     "lint": "eslint",
     "payload:generate:types": "payload generate:types",
     "payload:generate:importmap": "payload generate:importmap",
-    "payload:generate": "npm run payload:generate:types && npm run payload:generate:importmap"
+    "payload:generate": "npm run payload:generate:types && npm run payload:generate:importmap",
+    "db:ensure-catalog-categories": "node scripts/ensure-catalog-categories-db.mjs"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "^3.84.0",

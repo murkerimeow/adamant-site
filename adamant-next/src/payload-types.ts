@@ -72,6 +72,7 @@ export interface Config {
     posts: Post;
     services: Service;
     portfolio: Portfolio;
+    'catalog-categories': CatalogCategory;
     catalog: Catalog;
     reviews: Review;
     'team-members': TeamMember;
@@ -89,6 +90,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
+    'catalog-categories': CatalogCategoriesSelect<false> | CatalogCategoriesSelect<true>;
     catalog: CatalogSelect<false> | CatalogSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
@@ -308,6 +310,10 @@ export interface Catalog {
   itemKey: string;
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
+  /**
+   * Категория посадочной страницы. Используется для выпадающего меню каталога и фильтрации карточек.
+   */
+  landingCategory?: (number | null) | CatalogCategory;
   catalogCategory: 'modern' | 'classic' | 'other';
   order: number;
   previewImage?: (number | null) | Media;
@@ -368,6 +374,20 @@ export interface Catalog {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories".
+ */
+export interface CatalogCategory {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string | null;
+  showInHeader?: boolean | null;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -496,6 +516,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'portfolio';
         value: number | Portfolio;
+      } | null)
+    | ({
+        relationTo: 'catalog-categories';
+        value: number | CatalogCategory;
       } | null)
     | ({
         relationTo: 'catalog';
@@ -700,6 +724,19 @@ export interface PortfolioSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories_select".
+ */
+export interface CatalogCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  showInHeader?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "catalog_select".
  */
 export interface CatalogSelect<T extends boolean = true> {
@@ -708,6 +745,7 @@ export interface CatalogSelect<T extends boolean = true> {
   itemKey?: T;
   showInCatalog?: T;
   isHit?: T;
+  landingCategory?: T;
   catalogCategory?: T;
   order?: T;
   previewImage?: T;

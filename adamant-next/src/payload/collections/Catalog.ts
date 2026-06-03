@@ -12,6 +12,7 @@ export const Catalog: CollectionConfig = {
       "itemKey",
       "showInCatalog",
       "isHit",
+      "landingCategory",
       "catalogCategory",
       "order",
       "_status",
@@ -62,6 +63,17 @@ export const Catalog: CollectionConfig = {
       },
       defaultValue: false,
       label: "Плашка \"Хит\"",
+    },
+    {
+      name: "landingCategory",
+      type: "relationship",
+      admin: {
+        description:
+          "Категория посадочной страницы. Используется для выпадающего меню каталога и фильтрации карточек.",
+        position: "sidebar",
+      },
+      label: "Посадочная категория",
+      relationTo: "catalog-categories",
     },
     {
       name: "catalogCategory",
