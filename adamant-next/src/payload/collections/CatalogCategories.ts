@@ -52,7 +52,7 @@ export const CatalogCategories: CollectionConfig = {
     },
   ],
   labels: {
-    plural: "Категории каталога",
-    singular: "Категория каталога",
+    plural: "Посадочные каталога",
+    singular: "Посадочная каталога",
   },
 };

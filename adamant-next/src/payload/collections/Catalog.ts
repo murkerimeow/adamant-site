@@ -13,7 +13,6 @@ export const Catalog: CollectionConfig = {
       "showInCatalog",
       "isHit",
       "landingCategory",
-      "catalogCategory",
       "order",
       "_status",
     ],
@@ -74,21 +73,6 @@ export const Catalog: CollectionConfig = {
       },
       label: "Посадочная категория",
       relationTo: "catalog-categories",
-    },
-    {
-      name: "catalogCategory",
-      type: "select",
-      admin: {
-        position: "sidebar",
-      },
-      defaultValue: "other",
-      label: "Категория каталога",
-      options: [
-        { label: "Современные", value: "modern" },
-        { label: "Классические", value: "classic" },
-        { label: "Вне каталога", value: "other" },
-      ],
-      required: true,
     },
     {
       name: "order",

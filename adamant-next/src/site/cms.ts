@@ -82,7 +82,6 @@ export type CatalogItemDoc = {
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
   landingCategory?: number | CatalogCategoryDoc | null;
-  catalogCategory: "classic" | "modern" | "other";
   order: number;
   previewImage?: number | Media | null;
   detailImage?: number | Media | null;
@@ -256,6 +255,20 @@ const fallbackCatalogCategories: CatalogCategoryDoc[] = [
     order: 30,
     showInHeader: true,
   },
+  {
+    id: "modulnye-doma",
+    title: "Модульные дома",
+    slug: "modulnye-doma",
+    order: 40,
+    showInHeader: true,
+  },
+  {
+    id: "bani",
+    title: "Бани",
+    slug: "bani",
+    order: 50,
+    showInHeader: true,
+  },
 ];
 
 let payloadPromise: ReturnType<typeof getPayload> | null = null;
@@ -297,7 +310,7 @@ export function getCatalogCoverMedia(
   );
 }
 
-export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "catalogCategory" | "itemKey" | "landingCategory">) {
+export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "itemKey" | "landingCategory">) {
   if (item.landingCategory && typeof item.landingCategory !== "number") {
     return item.landingCategory.slug;
   }
@@ -313,9 +326,6 @@ export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "catalo
   if (item.itemKey && legacyByItemKey[item.itemKey]) {
     return legacyByItemKey[item.itemKey];
   }
-
-  if (item.catalogCategory === "classic") return "klassicheskie-doma";
-  if (item.catalogCategory === "modern") return "sovremennye-doma";
 
   return "";
 }

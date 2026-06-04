@@ -72,7 +72,9 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     VALUES
       ('Дом из газобетона', 'dom-iz-gazobetona', 'Проекты домов из газобетона', true, 10, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
       ('Каркасные дома', 'karkasnye-doma', 'Каркасные проекты загородных домов', true, 20, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-      ('Дачные дома', 'dachnye-doma', 'Дачные дома для сезонного проживания', true, 30, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));`);
+      ('Дачные дома', 'dachnye-doma', 'Дачные дома для сезонного проживания', true, 30, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+      ('Модульные дома', 'modulnye-doma', 'Модульные дома для быстрого строительства', true, 40, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+      ('Бани', 'bani', 'Проекты бань и гостевых построек', true, 50, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));`);
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {

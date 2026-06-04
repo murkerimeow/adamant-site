@@ -228,6 +228,9 @@ export default async function MortgagePage() {
               <button className="js-open-estimate" type="button">
                 Получить консультацию
               </button>
+              <a className="mortgage-redesign__hero-secondary" href="#mortgage-calculator">
+                Ипотечный калькулятор
+              </a>
             </div>
           </div>
         </section>
@@ -290,6 +293,60 @@ export default async function MortgagePage() {
                 <p>{text}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          className="mortgage-redesign__section mortgage-calculator"
+          id="mortgage-calculator"
+          aria-labelledby="mortgage-calculator-title"
+        >
+          <div className="mortgage-calculator__intro">
+            <span className="section__kicker">Ипотечный калькулятор</span>
+            <h2 id="mortgage-calculator-title">Рассчитайте ориентировочный платеж</h2>
+            <p>
+              Укажите стоимость дома, первоначальный взнос, ставку и срок. Расчет предварительный,
+              точные условия подберем после заявки.
+            </p>
+          </div>
+
+          <div className="mortgage-calculator__grid" data-mortgage-calculator>
+            <div className="mortgage-calculator__fields">
+              <label>
+                <span>Стоимость дома</span>
+                <input type="number" min={1000000} step={100000} defaultValue={12000000} data-mortgage-price />
+              </label>
+              <label>
+                <span>Первоначальный взнос</span>
+                <input type="number" min={0} step={100000} defaultValue={2400000} data-mortgage-down />
+              </label>
+              <label>
+                <span>Ставка, %</span>
+                <input type="number" min={0.1} step={0.1} defaultValue={6} data-mortgage-rate />
+              </label>
+              <label>
+                <span>Срок, лет</span>
+                <input type="number" min={1} max={30} step={1} defaultValue={20} data-mortgage-years />
+              </label>
+            </div>
+
+            <aside className="mortgage-calculator__result" aria-live="polite">
+              <span>Ежемесячный платеж</span>
+              <strong data-mortgage-monthly>0 ₽</strong>
+              <dl>
+                <div>
+                  <dt>Сумма кредита</dt>
+                  <dd data-mortgage-loan>0 ₽</dd>
+                </div>
+                <div>
+                  <dt>Первоначальный взнос</dt>
+                  <dd data-mortgage-down-output>0 ₽</dd>
+                </div>
+              </dl>
+              <button className="js-open-estimate" type="button">
+                Получить консультацию
+              </button>
+            </aside>
           </div>
         </section>
 

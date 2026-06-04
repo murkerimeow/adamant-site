@@ -9,7 +9,6 @@ import config from "../payload.config.ts";
 
 type SeedCatalogItem = {
   cardSummary?: string;
-  catalogCategory: "classic" | "modern" | "other";
   description: string;
   itemKey: string;
   order: number;
@@ -33,7 +32,6 @@ const items: SeedCatalogItem[] = [
     slug: "sovremennyj-dom",
     itemKey: "modern",
     showInCatalog: true,
-    catalogCategory: "modern",
     order: 10,
     previewImageFile: "строительство.png",
     cardSummary:
@@ -47,7 +45,6 @@ const items: SeedCatalogItem[] = [
     slug: "dom-s-terrasoj",
     itemKey: "terrace",
     showInCatalog: true,
-    catalogCategory: "classic",
     order: 20,
     previewImageFile: "дом из бруса.png",
     cardSummary:
@@ -61,7 +58,6 @@ const items: SeedCatalogItem[] = [
     slug: "odnoetazhnyj-dom",
     itemKey: "onefloor",
     showInCatalog: true,
-    catalogCategory: "modern",
     order: 30,
     previewImageFile: "дом из газобетона.png",
     cardSummary:
@@ -75,7 +71,6 @@ const items: SeedCatalogItem[] = [
     slug: "klassicheskij-dom",
     itemKey: "classic",
     showInCatalog: true,
-    catalogCategory: "classic",
     order: 40,
     previewImageFile: "каркасный дом.png",
     cardSummary:
@@ -89,7 +84,6 @@ const items: SeedCatalogItem[] = [
     slug: "dom-iz-brusa-card",
     itemKey: "timber",
     showInCatalog: false,
-    catalogCategory: "other",
     order: 50,
     previewImageFile: "дом из бруса.png",
     cardSummary:
@@ -103,7 +97,6 @@ const items: SeedCatalogItem[] = [
     slug: "dom-iz-gazobetona-card",
     itemKey: "gasbeton",
     showInCatalog: false,
-    catalogCategory: "other",
     order: 60,
     previewImageFile: "дом из газобетона.png",
     cardSummary:
@@ -117,7 +110,6 @@ const items: SeedCatalogItem[] = [
     slug: "karkasnyj-dom-card",
     itemKey: "frame",
     showInCatalog: false,
-    catalogCategory: "other",
     order: 70,
     previewImageFile: "каркасный дом.png",
     cardSummary:
@@ -131,7 +123,6 @@ const items: SeedCatalogItem[] = [
     slug: "otdelka-kommercheskogo-pomeshcheniya-card",
     itemKey: "commercial",
     showInCatalog: false,
-    catalogCategory: "other",
     order: 80,
     previewImageFile: "отделка коммерческих помещений.png",
     cardSummary:
@@ -145,7 +136,6 @@ const items: SeedCatalogItem[] = [
     slug: "remont-kvartir-card",
     itemKey: "renovation",
     showInCatalog: false,
-    catalogCategory: "other",
     order: 90,
     previewImageFile: "ремонт квартир.png",
     cardSummary:
@@ -220,7 +210,6 @@ async function main() {
     const data = {
       _status: "published" as const,
       cardSummary: item.cardSummary,
-      catalogCategory: item.catalogCategory,
       description: item.description,
       detailImage,
       order: item.order,

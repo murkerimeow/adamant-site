@@ -593,7 +593,7 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="home-section home-reviews" aria-labelledby="home-reviews-title">
+          <section id="reviews" className="home-section home-reviews" aria-labelledby="home-reviews-title">
             <div className="home-section__head home-section__head--compact">
               <div>
                 <span className="section__kicker">{sectionEyebrows.reviews || "Отзывы клиентов"}</span>

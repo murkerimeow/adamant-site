@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import {
+  getCatalogCategories,
   getCatalogItems,
   getCatalogPage,
   getCatalogCoverMedia,
@@ -11,7 +12,7 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogCardMeta } from "@/site/catalog-meta";
-import { getCatalogItemPath } from "@/site/routes";
+import { getCatalogCategoryPath, getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -75,10 +76,11 @@ function getSearchText(parts: Array<string | null | undefined>) {
 }
 
 export default async function CatalogPage() {
-  const [siteSettings, catalogPage, catalogItems] = await Promise.all([
+  const [siteSettings, catalogPage, catalogItems, catalogCategories] = await Promise.all([
     getSiteSettings(),
     getCatalogPage(),
     getCatalogItems(),
+    getCatalogCategories(),
   ]);
 
   const items = catalogItems.filter((item) => item.showInCatalog);
@@ -243,6 +245,22 @@ export default async function CatalogPage() {
             </select>
           </label>
         </form>
+
+        <nav className="catalog-category-pills" aria-label="Посадочные категории каталога">
+          <a className="catalog-category-pill" href="/catalog" data-catalog-category-pill="all">
+            Все
+          </a>
+          {catalogCategories.map((category) => (
+            <a
+              key={category.id}
+              className="catalog-category-pill"
+              href={getCatalogCategoryPath(category)}
+              data-catalog-category-pill={category.slug}
+            >
+              {category.title}
+            </a>
+          ))}
+        </nav>
 
         <div className="listing-grid listing-grid--catalog" data-filter-scope="catalog">
           {items.map((item) => {

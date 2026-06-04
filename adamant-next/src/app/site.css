@@ -19300,13 +19300,35 @@ body:has(.page.inner-page),
   display: none;
 }
 
+.nav__chevron {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3px;
+  color: currentColor;
+  opacity: 0.72;
+}
+
+.nav__chevron svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+}
+
 .nav__dropdown {
   position: absolute;
   left: 50%;
-  top: calc(100% + 16px);
+  top: calc(100% + 24px);
   z-index: 90;
   display: grid;
-  min-width: 230px;
+  min-width: 300px;
   gap: 6px;
   border: 1px solid rgba(209, 224, 247, 0.94);
   border-radius: 18px;
@@ -19323,8 +19345,8 @@ body:has(.page.inner-page),
   position: absolute;
   left: 0;
   right: 0;
-  top: -18px;
-  height: 18px;
+  top: -26px;
+  height: 26px;
   content: "";
 }
 
@@ -19355,6 +19377,44 @@ body:has(.page.inner-page),
   transform: translateX(2px);
 }
 
+.nav__dropdown .nav__dropdown-all {
+  border-top: 1px solid rgba(209, 224, 247, 0.84);
+  margin-top: 4px;
+  color: #2476ff;
+}
+
+.catalog-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: clamp(14px, 1vw, 18px) 0 clamp(22px, 1.6vw, 30px);
+}
+
+.catalog-category-pill {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(209, 224, 247, 0.96);
+  border-radius: 999px;
+  background: #fff;
+  color: #61708a;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0 18px;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.catalog-category-pill:hover,
+.catalog-category-pill.is-active {
+  border-color: #2476ff;
+  background: #2476ff;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 .about-redesign__section-head h2 {
   margin-right: auto !important;
 }
@@ -19382,6 +19442,10 @@ body:has(.page.inner-page),
 
   .nav__item .nav__link {
     min-width: 0 !important;
+  }
+
+  .nav__chevron {
+    display: none !important;
   }
 
   .nav__item:not(.nav__item--catalog) .nav__link {
@@ -19433,7 +19497,7 @@ body:has(.page.inner-page),
   }
 
   .nav__item--submenu-open .nav__dropdown {
-    max-height: 260px !important;
+    max-height: 340px !important;
     background: rgba(239, 246, 255, 0.78) !important;
     padding: 8px !important;
     pointer-events: auto !important;
@@ -19445,6 +19509,26 @@ body:has(.page.inner-page),
     background: rgba(255, 255, 255, 0.72) !important;
     font-size: 14px !important;
     padding: 0 14px !important;
+  }
+
+  .catalog-category-pills {
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin: 14px 0 20px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .catalog-category-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalog-category-pill {
+    min-height: 38px;
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 0 14px;
   }
 
   .about-redesign__section-head > a {
@@ -19461,5 +19545,211 @@ body:has(.page.inner-page),
 @media (max-width: 767px) {
   .home-page .home-portfolio-strip.projects-grid {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* Mortgage calculator and extra hero action. */
+.mortgage-redesign__hero-content > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.mortgage-redesign__hero-secondary {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0 20px;
+  box-shadow: none;
+  backdrop-filter: blur(8px);
+}
+
+.mortgage-redesign__hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+
+.mortgage-calculator {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  gap: clamp(22px, 4vw, 64px);
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid rgba(209, 224, 247, 0.95);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 5% 0%, rgba(36, 118, 255, 0.12), transparent 36%),
+    linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
+  padding: clamp(26px, 4.5vw, 64px);
+}
+
+.mortgage-calculator__intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 520px;
+}
+
+.mortgage-calculator__intro h2 {
+  margin: 16px 0 14px;
+  color: #0f1b2d;
+  font-size: clamp(32px, 4vw, 58px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.mortgage-calculator__intro p {
+  max-width: 460px;
+  color: #60708a;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.mortgage-calculator__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.mortgage-calculator__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mortgage-calculator__fields label {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(209, 224, 247, 0.96);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 16px;
+}
+
+.mortgage-calculator__fields span {
+  color: #6a7890;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.mortgage-calculator__fields input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #0f1b2d;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.mortgage-calculator__result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 24px;
+  background: #0f1b2d;
+  color: #fff;
+  padding: 22px;
+}
+
+.mortgage-calculator__result > span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.mortgage-calculator__result strong {
+  margin: 10px 0 18px;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1;
+}
+
+.mortgage-calculator__result dl {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+
+.mortgage-calculator__result div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mortgage-calculator__result dt,
+.mortgage-calculator__result dd {
+  margin: 0;
+}
+
+.mortgage-calculator__result button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: #2476ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+@media (max-width: 1120px) {
+  .mortgage-calculator,
+  .mortgage-calculator__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mortgage-calculator__intro {
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mortgage-redesign__hero-content > div {
+    width: min(100%, 280px);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mortgage-redesign__hero-secondary {
+    min-height: 40px;
+    width: 100%;
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  .mortgage-calculator {
+    border-radius: 24px;
+    padding: 22px;
+  }
+
+  .mortgage-calculator__intro h2 {
+    font-size: 30px;
+  }
+
+  .mortgage-calculator__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .mortgage-calculator__fields input {
+    font-size: 21px;
+  }
+
+  .mortgage-calculator__result {
+    border-radius: 20px;
   }
 }

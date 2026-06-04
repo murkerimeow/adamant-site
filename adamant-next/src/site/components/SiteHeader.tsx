@@ -12,7 +12,9 @@ type SiteHeaderProps = {
     | "home"
     | "mortgage"
     | "portfolio"
-    | "services";
+    | "reviews"
+    | "services"
+    | "vacancies";
   phone: string;
 };
 
@@ -23,6 +25,8 @@ const navItems = [
   { href: "/portfolio", key: "portfolio", label: "Портфолио" },
   { href: "/catalog", key: "catalog", label: "Каталог" },
   { href: "/blog", key: "blog", label: "Блог" },
+  { href: "/#reviews", key: "reviews", label: "Отзывы" },
+  { href: "/vacancies", key: "vacancies", label: "Вакансии" },
   { href: "/contacts", key: "contacts", label: "Контакты" },
   { href: "/about", key: "about", label: "О нас" },
 ] as const;
@@ -52,6 +56,7 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
               className={`nav__item${isCatalog ? " nav__item--catalog" : ""}`}
             >
               <a
+                aria-haspopup={isCatalog ? "menu" : undefined}
                 className={`nav__link${item.key === active ? " nav__link--active" : ""}`}
                 href={item.href}
               >
@@ -62,8 +67,15 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
                     <span className="nav__badge">{item.badge}</span>
                   </>
                 ) : null}
+                {isCatalog ? (
+                  <span className="nav__chevron" aria-hidden="true">
+                    <svg focusable="false" viewBox="0 0 16 16">
+                      <path d="M4.2 6.1 8 9.9l3.8-3.8" />
+                    </svg>
+                  </span>
+                ) : null}
               </a>
-              {isCatalog && catalogCategories.length ? (
+              {isCatalog ? (
                 <>
                   <button
                     className="nav__submenu-toggle"
@@ -80,6 +92,9 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
                         {category.title}
                       </a>
                     ))}
+                    <a className="nav__dropdown-all" href="/catalog">
+                      Все
+                    </a>
                   </div>
                 </>
               ) : null}

@@ -39,7 +39,7 @@ export default async function VacanciesPage() {
 
   return (
     <main className="page inner-page vacancies-page" aria-label="Вакансии Адамант Строй">
-      <SiteHeader phone={siteSettings.phonePrimary} />
+      <SiteHeader active="vacancies" phone={siteSettings.phonePrimary} />
 
       <section className="section vacancies-section" aria-labelledby="vacancies-title">
         <div className="section__intro section__intro--page vacancies-heading">

@@ -1284,8 +1284,12 @@
     link.addEventListener("click", closeMobileNav);
   });
 
-  document.querySelectorAll("[data-nav-submenu-toggle]").forEach((button) => {
-    button.addEventListener("click", (event) => {
+  document.addEventListener(
+    "click",
+    (event) => {
+      const button = event.target.closest("[data-nav-submenu-toggle]");
+      if (!button) return;
+
       const item = button.closest(".nav__item");
       if (!item) return;
 
@@ -1294,8 +1298,9 @@
 
       const isOpen = item.classList.toggle("nav__item--submenu-open");
       button.setAttribute("aria-expanded", String(isOpen));
-    });
-  });
+    },
+    true,
+  );
 
   document.querySelectorAll(".nav__dropdown a").forEach((link) => {
     link.addEventListener("click", closeMobileNav);
@@ -1433,6 +1438,12 @@
         ?.trim()
         .toLowerCase();
       const categoryFromUrl = categoryFromQuery || categoryFromPath;
+      document.querySelectorAll("[data-catalog-category-pill]").forEach((pill) => {
+        const value = (pill.dataset.catalogCategoryPill || "").toLowerCase();
+        const isActive = value === "all" ? !categoryFromUrl : value === categoryFromUrl;
+        pill.classList.toggle("is-active", isActive);
+        pill.setAttribute("aria-current", isActive ? "page" : "false");
+      });
       const query = (
         filters.querySelector("[data-listing-search]")?.value || ""
       )
@@ -1477,6 +1488,47 @@
     filters.addEventListener("change", applyListingFilters);
     filters.addEventListener("submit", (event) => event.preventDefault());
     applyListingFilters();
+  });
+
+  document.querySelectorAll("[data-mortgage-calculator]").forEach((calculator) => {
+    const priceInput = calculator.querySelector("[data-mortgage-price]");
+    const downInput = calculator.querySelector("[data-mortgage-down]");
+    const rateInput = calculator.querySelector("[data-mortgage-rate]");
+    const yearsInput = calculator.querySelector("[data-mortgage-years]");
+    const monthlyOutput = calculator.querySelector("[data-mortgage-monthly]");
+    const loanOutput = calculator.querySelector("[data-mortgage-loan]");
+    const downOutput = calculator.querySelector("[data-mortgage-down-output]");
+    const money = new Intl.NumberFormat("ru-RU", {
+      maximumFractionDigits: 0,
+      style: "currency",
+      currency: "RUB",
+    });
+
+    const updateMortgageCalculator = () => {
+      const price = Math.max(0, Number(priceInput?.value || 0));
+      const down = Math.min(price, Math.max(0, Number(downInput?.value || 0)));
+      const rate = Math.max(0, Number(rateInput?.value || 0));
+      const years = Math.max(1, Number(yearsInput?.value || 1));
+      const loan = Math.max(0, price - down);
+      const months = years * 12;
+      const monthlyRate = rate / 100 / 12;
+      const monthly =
+        monthlyRate > 0
+          ? loan * (monthlyRate / (1 - Math.pow(1 + monthlyRate, -months)))
+          : loan / months;
+
+      if (downInput && Number(downInput.value) !== down) downInput.value = String(down);
+      if (monthlyOutput) monthlyOutput.textContent = money.format(Math.round(monthly || 0));
+      if (loanOutput) loanOutput.textContent = money.format(Math.round(loan));
+      if (downOutput) downOutput.textContent = money.format(Math.round(down));
+    };
+
+    [priceInput, downInput, rateInput, yearsInput].forEach((input) => {
+      input?.addEventListener("input", updateMortgageCalculator);
+      input?.addEventListener("change", updateMortgageCalculator);
+    });
+
+    updateMortgageCalculator();
   });
 
   document.querySelectorAll("[data-catalog-mobile-tools]").forEach((tools) => {

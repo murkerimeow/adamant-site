@@ -314,7 +314,6 @@ export interface Catalog {
    * Категория посадочной страницы. Используется для выпадающего меню каталога и фильтрации карточек.
    */
   landingCategory?: (number | null) | CatalogCategory;
-  catalogCategory: 'modern' | 'classic' | 'other';
   order: number;
   previewImage?: (number | null) | Media;
   detailImage?: (number | null) | Media;
@@ -746,7 +745,6 @@ export interface CatalogSelect<T extends boolean = true> {
   showInCatalog?: T;
   isHit?: T;
   landingCategory?: T;
-  catalogCategory?: T;
   order?: T;
   previewImage?: T;
   detailImage?: T;
