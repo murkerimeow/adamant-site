@@ -114,9 +114,15 @@ export default async function CatalogPage() {
           aria-expanded="false"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 6h16" />
-            <path d="M7 12h10" />
-            <path d="M10 18h4" />
+            <path d="M4 7h8" />
+            <path d="M16 7h4" />
+            <circle cx="14" cy="7" r="2" />
+            <path d="M4 12h3" />
+            <path d="M11 12h9" />
+            <circle cx="9" cy="12" r="2" />
+            <path d="M4 17h11" />
+            <path d="M19 17h1" />
+            <circle cx="17" cy="17" r="2" />
           </svg>
         </button>
       </div>
@@ -147,14 +153,20 @@ export default async function CatalogPage() {
             type="button"
             data-mobile-filters-toggle="catalog"
             aria-label="Открыть фильтры"
-            aria-expanded="false"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16" />
-              <path d="M7 12h10" />
-              <path d="M10 18h4" />
-            </svg>
-          </button>
+          aria-expanded="false"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h8" />
+            <path d="M16 7h4" />
+            <circle cx="14" cy="7" r="2" />
+            <path d="M4 12h3" />
+            <path d="M11 12h9" />
+            <circle cx="9" cy="12" r="2" />
+            <path d="M4 17h11" />
+            <path d="M19 17h1" />
+            <circle cx="17" cy="17" r="2" />
+          </svg>
+        </button>
         </div>
 
         <form

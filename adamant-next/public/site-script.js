@@ -1260,8 +1260,35 @@
   }
 
   const mobileMenuButtons = Array.from(document.querySelectorAll(".mobile-menu-toggle"));
+  let mobileNavScrollY = 0;
+  let isMobileNavScrollLocked = false;
+
+  const lockMobileNavScroll = () => {
+    if (isMobileNavScrollLocked) return;
+    mobileNavScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${mobileNavScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    isMobileNavScrollLocked = true;
+  };
+
+  const unlockMobileNavScroll = () => {
+    if (!isMobileNavScrollLocked) return;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, mobileNavScrollY);
+    isMobileNavScrollLocked = false;
+  };
+
   const closeMobileNav = () => {
+    const wasOpen = document.body.classList.contains("mobile-nav-open");
     document.body.classList.remove("mobile-nav-open");
+    if (wasOpen) unlockMobileNavScroll();
     mobileMenuButtons.forEach((button) => {
       button.setAttribute("aria-expanded", "false");
     });
@@ -1275,8 +1302,16 @@
 
   mobileMenuButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const isOpen = document.body.classList.toggle("mobile-nav-open");
-      button.setAttribute("aria-expanded", String(isOpen));
+      if (document.body.classList.contains("mobile-nav-open")) {
+        closeMobileNav();
+        return;
+      }
+
+      document.body.classList.add("mobile-nav-open");
+      lockMobileNavScroll();
+      mobileMenuButtons.forEach((menuButton) => {
+        menuButton.setAttribute("aria-expanded", "true");
+      });
     });
   });
 

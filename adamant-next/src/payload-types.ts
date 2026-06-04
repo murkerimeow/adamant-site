@@ -945,6 +945,17 @@ export interface HomePage {
     reviews?: string | null;
     faq?: string | null;
   };
+  sectionHeadings?: {
+    about?: string | null;
+    projects?: string | null;
+    trust?: string | null;
+    process?: string | null;
+    processLead?: string | null;
+    services?: string | null;
+    portfolio?: string | null;
+    reviews?: string | null;
+    faq?: string | null;
+  };
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1100,6 +1111,19 @@ export interface HomePageSelect<T extends boolean = true> {
         projects?: T;
         trust?: T;
         process?: T;
+        services?: T;
+        portfolio?: T;
+        reviews?: T;
+        faq?: T;
+      };
+  sectionHeadings?:
+    | T
+    | {
+        about?: T;
+        projects?: T;
+        trust?: T;
+        process?: T;
+        processLead?: T;
         services?: T;
         portfolio?: T;
         reviews?: T;

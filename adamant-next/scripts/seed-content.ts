@@ -281,6 +281,17 @@ async function updateGlobals(payload: Awaited<ReturnType<typeof getPayload>>) {
         { value: "2000+", label: "Довольных клиентов" },
         { value: "15 лет", label: "Опыта в строительстве" },
       ],
+      sectionHeadings: {
+        about: "О нас",
+        projects: "Современные дома для комфортной жизни",
+        trust: "Надежность, качество и прозрачность на каждом этапе",
+        process: "Прозрачный процесс от идеи до вашего дома",
+        processLead: "Четкий план и постоянная коммуникация на каждом этапе работы.",
+        services: "Полный цикл строительства",
+        portfolio: "Реализованные проекты",
+        reviews: "Нам доверяют",
+        faq: "FAQ",
+      },
     },
     overrideAccess: true,
   });

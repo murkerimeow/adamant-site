@@ -43,6 +43,17 @@ export type HomePageGlobal = HomePage & {
     reviews?: string | null;
     faq?: string | null;
   } | null;
+  sectionHeadings?: {
+    about?: string | null;
+    projects?: string | null;
+    trust?: string | null;
+    process?: string | null;
+    processLead?: string | null;
+    services?: string | null;
+    portfolio?: string | null;
+    reviews?: string | null;
+    faq?: string | null;
+  } | null;
 };
 
 export type AboutPageGlobal = PageIntroGlobal & {

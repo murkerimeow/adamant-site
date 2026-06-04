@@ -148,7 +148,7 @@ export default async function AboutPage() {
       <section className="section about-redesign" aria-labelledby="about-title">
         <div className="about-redesign__hero">
           <img
-            src="/home-main-new.webp"
+            src="/about-banner.png"
             alt=""
             loading="eager"
             decoding="async"
@@ -166,8 +166,8 @@ export default async function AboutPage() {
               Подходим к каждому проекту как к собственному — с вниманием к
               деталям и заботой о будущем наших клиентов.
             </p>
-            <button className="js-open-estimate" type="button">
-              Получить консультацию
+            <button className="js-open-message" type="button">
+              Написать нам
             </button>
           </div>
         </div>

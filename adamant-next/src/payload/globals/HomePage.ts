@@ -100,6 +100,67 @@ export const HomePage: GlobalConfig = {
         },
       ],
     },
+    {
+      name: "sectionHeadings",
+      type: "group",
+      label: "Заголовки блоков",
+      fields: [
+        {
+          name: "about",
+          type: "text",
+          label: "О компании",
+          defaultValue: "О нас",
+        },
+        {
+          name: "projects",
+          type: "text",
+          label: "Наши проекты",
+          defaultValue: "Современные дома для комфортной жизни",
+        },
+        {
+          name: "trust",
+          type: "text",
+          label: "Почему выбирают нас",
+          defaultValue: "Надежность, качество и прозрачность на каждом этапе",
+        },
+        {
+          name: "process",
+          type: "text",
+          label: "Этапы работ",
+          defaultValue: "Прозрачный процесс от идеи до вашего дома",
+        },
+        {
+          name: "processLead",
+          type: "textarea",
+          label: "Подзаголовок этапов работ",
+          defaultValue: "Четкий план и постоянная коммуникация на каждом этапе работы.",
+        },
+        {
+          name: "services",
+          type: "text",
+          label: "Наши услуги",
+          defaultValue: "Полный цикл строительства",
+        },
+        {
+          name: "portfolio",
+          type: "text",
+          label: "Портфолио",
+          defaultValue: "Реализованные проекты",
+        },
+        {
+          name: "reviews",
+          type: "text",
+          label: "Отзывы",
+          defaultValue: "Нам доверяют",
+        },
+        {
+          name: "faq",
+          type: "text",
+          label: "FAQ",
+          defaultValue: "FAQ",
+        },
+      ],
+    },
   ],
   label: "Главная страница",
   versions: {
