@@ -107,18 +107,6 @@ for (const category of [
     description: "Дачные дома для сезонного проживания",
     order: 30,
   },
-  {
-    title: "Модульные дома",
-    slug: "modulnye-doma",
-    description: "Модульные дома для быстрого строительства",
-    order: 40,
-  },
-  {
-    title: "Бани",
-    slug: "bani",
-    description: "Проекты бань и гостевых построек",
-    order: 50,
-  },
 ]) {
   await db.execute({
     sql: `INSERT OR IGNORE INTO catalog_categories

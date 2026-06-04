@@ -255,20 +255,6 @@ const fallbackCatalogCategories: CatalogCategoryDoc[] = [
     order: 30,
     showInHeader: true,
   },
-  {
-    id: "modulnye-doma",
-    title: "Модульные дома",
-    slug: "modulnye-doma",
-    order: 40,
-    showInHeader: true,
-  },
-  {
-    id: "bani",
-    title: "Бани",
-    slug: "bani",
-    order: 50,
-    showInHeader: true,
-  },
 ];
 
 let payloadPromise: ReturnType<typeof getPayload> | null = null;
