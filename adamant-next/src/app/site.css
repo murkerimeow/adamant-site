@@ -20051,8 +20051,8 @@ body:has(.page.inner-page),
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;
-  object-position: right bottom !important;
+  object-fit: cover !important;
+  object-position: center bottom !important;
   opacity: 1 !important;
   transform: none !important;
 }
@@ -20092,7 +20092,7 @@ body:has(.page.inner-page),
   }
 
   .about-page--fresh .about-redesign__hero > img {
-    object-fit: contain !important;
+    object-fit: cover !important;
     object-position: right bottom !important;
   }
 
