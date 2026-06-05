@@ -20627,40 +20627,64 @@ body.video-stories-open {
 
 @media (max-width: 767px) {
   .about-page--fresh .about-redesign {
-    margin-top: clamp(92px, 22vw, 118px) !important;
+    width: calc(100% - 20px) !important;
+    margin: 76px auto 0 !important;
   }
 
   .about-page--fresh .about-redesign__hero {
-    height: calc(100svh - clamp(92px, 22vw, 118px) - 16px) !important;
-    min-height: 560px !important;
+    height: calc(100svh - 86px) !important;
+    min-height: 0 !important;
     border-radius: 24px !important;
   }
 
   .about-page--fresh .about-redesign__hero > img {
-    top: 0 !important;
-    height: 100% !important;
+    top: 4% !important;
+    height: 104% !important;
     object-position: right bottom !important;
-    transform: none !important;
+    transform: translateY(4%) !important;
   }
 
   .about-page--fresh .about-redesign__hero-content {
-    top: 28px !important;
+    top: 26px !important;
     left: 0 !important;
     width: 100% !important;
     padding: 0 24px !important;
+    align-items: center !important;
+    text-align: center !important;
   }
 
   .about-redesign__eyebrow {
-    min-height: 34px;
+    min-height: 30px;
     margin-bottom: 14px;
-    font-size: 12px;
+    padding: 0 14px;
+    font-size: 11px;
   }
 
   .about-page--fresh .about-redesign__hero-content h1 {
-    font-size: clamp(30px, 9vw, 42px) !important;
+    max-width: 330px !important;
+    margin-inline: auto !important;
+    font-size: clamp(25px, 7.2vw, 32px) !important;
+    line-height: 1.08 !important;
+    text-align: center !important;
   }
 
   .about-page--fresh .about-redesign__hero-content p {
-    font-size: 15px !important;
+    max-width: 320px !important;
+    margin-inline: auto !important;
+    margin-top: 12px !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    line-height: 1.42 !important;
+    text-align: center !important;
+    text-shadow: 0 2px 14px rgba(7, 24, 50, 0.35) !important;
+  }
+
+  .about-page--fresh .about-redesign__hero-content button {
+    min-width: 144px !important;
+    min-height: 42px !important;
+    margin: 18px auto 0 !important;
+    padding: 0 18px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
   }
 }
