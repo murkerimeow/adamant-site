@@ -163,6 +163,7 @@ export default async function AboutPage() {
               <span aria-hidden="true">/</span>
               <span>{aboutPage.eyebrow || "Заполните плашку в Payload"}</span>
             </nav>
+            <span className="about-redesign__eyebrow">{aboutPage.eyebrow || "Заполните плашку в Payload"}</span>
             <h1 id="about-title">{aboutPage.title || "Заполните заголовок в Payload"}</h1>
             <p>{aboutPage.subtitle || "Заполните описание в Payload"}</p>
             <button className="js-open-message" type="button">
