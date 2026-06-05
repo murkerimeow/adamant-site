@@ -20482,17 +20482,17 @@ body.video-stories-open {
 
 .home-page .home-about-stats__copy h2 {
   max-width: 720px !important;
-  font-size: clamp(44px, 4.8vw, 86px) !important;
-  line-height: 0.98 !important;
+  font-size: clamp(32px, 3.05vw, 54px) !important;
+  line-height: 1.03 !important;
 }
 
 .home-page .home-about-stat strong {
-  font-size: clamp(34px, 3.4vw, 58px) !important;
+  font-size: clamp(28px, 2.45vw, 42px) !important;
 }
 
 .home-page .home-about-stats__copy p,
 .home-page .home-about-stat > span:not(.home-about-stat__icon) {
-  font-size: clamp(14px, 1vw, 17px) !important;
+  font-size: clamp(13px, 0.85vw, 15px) !important;
 }
 
 @media (max-width: 900px) {
@@ -20548,10 +20548,10 @@ body.video-stories-open {
   }
 
   .home-page .home-about-stats__copy h2 {
-    font-size: clamp(36px, 12vw, 48px) !important;
+    font-size: clamp(30px, 9vw, 38px) !important;
   }
 
   .home-page .home-about-stat strong {
-    font-size: clamp(30px, 10vw, 44px) !important;
+    font-size: clamp(26px, 8vw, 34px) !important;
   }
 }
