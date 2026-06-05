@@ -72,6 +72,27 @@ type HomeStat = {
   value: string;
 };
 
+type HomeStatInput = {
+  id?: string | null;
+  label?: string | null;
+  value?: string | null;
+};
+
+function getHomeStats(
+  homePage: { stats?: HomeStatInput[] | null },
+  fallbackStats: HomeStat[],
+): HomeStat[] {
+  const payloadStats = (homePage.stats ?? [])
+    .filter((stat) => stat?.value?.trim() && stat?.label?.trim())
+    .map((stat, index) => ({
+      id: stat.id ?? `home-stat-${index}`,
+      label: stat.label?.trim() ?? "",
+      value: stat.value?.trim() ?? "",
+    }));
+
+  return (payloadStats.length ? payloadStats : fallbackStats).slice(0, 4);
+}
+
 const trustItems = [
   "Фиксированная смета без скрытых платежей",
   "Поэтапный контроль качества работ",
@@ -188,7 +209,7 @@ export default async function HomePage() {
     getReviews(),
   ]);
 
-  const stats: HomeStat[] = getCompanyStats(siteSettings, "home").slice(0, 4);
+  const stats: HomeStat[] = getHomeStats(homePage, getCompanyStats(siteSettings, "home"));
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);

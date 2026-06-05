@@ -78,6 +78,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
       label text,
       show_on_home integer DEFAULT true,
       show_on_about integer DEFAULT true,
+      _uuid text,
       FOREIGN KEY (_parent_id) REFERENCES _site_settings_v(id) ON DELETE cascade ON UPDATE no action
     )
   `));
