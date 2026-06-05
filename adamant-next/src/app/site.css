@@ -20638,10 +20638,10 @@ body.video-stories-open {
   }
 
   .about-page--fresh .about-redesign__hero > img {
-    top: 4% !important;
+    top: -2% !important;
     height: 104% !important;
     object-position: right bottom !important;
-    transform: translateY(4%) !important;
+    transform: none !important;
   }
 
   .about-page--fresh .about-redesign__hero-content {
