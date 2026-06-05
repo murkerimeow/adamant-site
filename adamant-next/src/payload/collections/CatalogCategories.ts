@@ -32,6 +32,27 @@ export const CatalogCategories: CollectionConfig = {
       label: "Описание посадочной",
     },
     {
+      name: "h1",
+      type: "textarea",
+      label: "H1 посадочной страницы",
+    },
+    {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
+    {
+      name: "heroImage",
+      type: "upload",
+      label: "Картинка посадочной страницы",
+      relationTo: "media",
+    },
+    {
       name: "showInHeader",
       type: "checkbox",
       admin: {

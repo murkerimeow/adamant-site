@@ -229,6 +229,15 @@ export const Catalog: CollectionConfig = {
       maxRows: 12,
     },
     {
+      name: "model3d",
+      type: "upload",
+      admin: {
+        description: "Загрузите GLB/GLTF модель дома для интерактивного 3D-просмотра в карточке проекта.",
+      },
+      label: "3D модель дома (GLB/GLTF)",
+      relationTo: "media",
+    },
+    {
       name: "tags",
       type: "array",
       label: "Теги",

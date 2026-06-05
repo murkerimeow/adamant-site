@@ -5,6 +5,7 @@ import * as migration_20260602_223500_home_section_eyebrows from './20260602_223
 import * as migration_20260603_150000_catalog_portfolio_arrays from './20260603_150000_catalog_portfolio_arrays.ts';
 import * as migration_20260603_233000_catalog_landing_categories from './20260603_233000_catalog_landing_categories.ts';
 import * as migration_20260604_150000_home_section_headings from './20260604_150000_home_section_headings.ts';
+import * as migration_20260605_010000_seo_categories_models from './20260605_010000_seo_categories_models.ts';
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20260604_150000_home_section_headings.up,
     down: migration_20260604_150000_home_section_headings.down,
     name: '20260604_150000_home_section_headings'
+  },
+  {
+    up: migration_20260605_010000_seo_categories_models.up,
+    down: migration_20260605_010000_seo_categories_models.down,
+    name: '20260605_010000_seo_categories_models'
   },
 ];

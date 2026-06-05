@@ -8,58 +8,6 @@ export type CatalogCardMeta = {
   rooms: string;
 };
 
-const fallbackByKey: Record<string, Omit<CatalogCardMeta, "photoCount">> = {
-  classic: {
-    area: "175 м²",
-    floors: "2 этажа",
-    price: 16500000,
-    rooms: "4 комнаты",
-  },
-  frame: {
-    area: "98 м²",
-    floors: "1 этаж",
-    price: 8900000,
-    rooms: "2 комнаты",
-  },
-  gasbeton: {
-    area: "150 м²",
-    floors: "2 этажа",
-    price: 15900000,
-    rooms: "4 комнаты",
-  },
-  modern: {
-    area: "216 м²",
-    floors: "2 этажа",
-    price: 18100000,
-    rooms: "5 комнат",
-  },
-  onefloor: {
-    area: "100 м²",
-    floors: "1 этаж",
-    price: 5400000,
-    rooms: "3 комнаты",
-  },
-  terrace: {
-    area: "150 м²",
-    floors: "2 этажа",
-    price: 15900000,
-    rooms: "4 комнаты",
-  },
-  timber: {
-    area: "129 м²",
-    floors: "1 этаж",
-    price: 11800000,
-    rooms: "3 комнаты",
-  },
-};
-
-const fallbackMeta: Omit<CatalogCardMeta, "photoCount"> = {
-  area: "120 м²",
-  floors: "1 этаж",
-  price: 8900000,
-  rooms: "3 комнаты",
-};
-
 function formatCount(value: number, forms: [string, string, string]) {
   const normalized = Math.abs(value) % 100;
   const lastDigit = normalized % 10;
@@ -115,12 +63,11 @@ export function getCatalogPhotoCount(item: CatalogItemDoc) {
 }
 
 export function getCatalogCardMeta(item: CatalogItemDoc): CatalogCardMeta {
-  const fallback = fallbackByKey[item.itemKey] ?? fallbackMeta;
   return {
-    area: item.area ? formatArea(item.area) : fallback.area,
-    floors: item.floors ? formatFloors(item.floors) : fallback.floors,
+    area: item.area ? formatArea(item.area) : "—",
+    floors: item.floors ? formatFloors(item.floors) : "—",
     photoCount: getCatalogPhotoCount(item),
-    price: item.price ?? fallback.price,
-    rooms: item.rooms ? formatRooms(item.rooms) : fallback.rooms,
+    price: item.price ?? 0,
+    rooms: item.rooms ? formatRooms(item.rooms) : "—",
   };
 }

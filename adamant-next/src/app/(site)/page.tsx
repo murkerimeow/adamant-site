@@ -19,11 +19,15 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "Адамант Строй | Строительство домов под ключ в Санкт-Петербурге",
-  description: "Проектируем и строим загородные дома под ключ в Санкт-Петербурге и Ленинградской области с прозрачной сметой и контролем сроков.",
-  path: "/",
-});
+export async function generateMetadata() {
+  const homePage = await getHomePage();
+
+  return createPageMetadata({
+    title: homePage.seoTitle || "Заполните SEO Title в Payload",
+    description: homePage.seoDescription || "Заполните SEO Description в Payload",
+    path: "/",
+  });
+}
 
 const statIconTypes = ["house", "clock", "clients", "award"] as const;
 const statIconPaths = [

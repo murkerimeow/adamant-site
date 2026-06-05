@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Script from "next/script";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { createElement } from "react";
 
 import {
   getCatalogCoverMedia,
@@ -58,8 +60,6 @@ const backTargets = {
   portfolio: { active: "portfolio", href: "/portfolio", label: "Портфолио" },
   services: { active: "services", href: "/services", label: "Услуги" },
 } as const;
-
-const fallbackImages = ["/home-main-new.webp"];
 
 const defaultBenefits = [
   "Панорамное остекление и много света",
@@ -250,13 +250,7 @@ export default async function CatalogItemPage({
         images.findIndex((candidate) => candidate.src === image.src) === index,
     )
     .slice(0, 8);
-  const galleryImages = projectGalleryImages.length
-    ? projectGalleryImages
-    : fallbackImages.map((src) => ({
-        alt: item.title,
-        src,
-        thumbSrc: src,
-      }));
+  const galleryImages = projectGalleryImages;
 
   const meta = getCatalogCardMeta(item);
   const productPrice = `от ${formatProjectPrice(meta.price)} ₽`;
@@ -290,6 +284,7 @@ export default async function CatalogItemPage({
         { title: "План 2 этажа", meta: "100 м²", image: "" },
         { title: "Генплан участка", meta: "12 соток", image: "" },
       ];
+  const model3dUrl = getMediaUrl(item.model3d);
   const relatedCards = relatedItems.length
     ? relatedItems
     : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 3);
@@ -326,7 +321,13 @@ export default async function CatalogItemPage({
 
         <div className="product-hero-card">
           <div className="product-hero-media-stack">
-            <ProductGallery images={galleryImages} title={item.title} />
+            {galleryImages.length ? (
+              <ProductGallery images={galleryImages} title={item.title} />
+            ) : (
+              <div className="product-gallery product-gallery--placeholder">
+                Добавьте фотографии проекта в Payload
+              </div>
+            )}
 
             {additionalImages.length ? (
               <section
@@ -417,6 +418,37 @@ export default async function CatalogItemPage({
           </article>
         </div>
 
+        {model3dUrl ? (
+          <section className="product-section product-section--model" aria-labelledby="product-model-title">
+            <Script
+              src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+              strategy="lazyOnload"
+              type="module"
+            />
+            <div className="product-model-card">
+              <div className="product-model-card__copy">
+                <span className="section__kicker">3D обзор</span>
+                <h2 id="product-model-title">Вращайте дом в 3D</h2>
+                <p>
+                  Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
+                </p>
+              </div>
+              <div className="product-model-card__viewer">
+                {createElement("model-viewer", {
+                  alt: `3D модель проекта ${item.title}`,
+                  "auto-rotate": true,
+                  "camera-controls": true,
+                  "interaction-prompt": "auto",
+                  loading: "lazy",
+                  "shadow-intensity": "0.35",
+                  src: model3dUrl,
+                  style: { height: "100%", width: "100%" },
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         <section className="product-section" aria-labelledby="product-steps-title">
           <h2 id="product-steps-title">Этапы реализации</h2>
           <div className="product-steps">
@@ -470,18 +502,22 @@ export default async function CatalogItemPage({
                 const relatedTags = related.tags?.slice(0, 3).map((tag) => tag.label).join(" · ");
                 const relatedImage =
                   getMediaUrl(relatedCoverMedia, "card") ||
-                  getMediaUrl(relatedCoverMedia) ||
-                  galleryImages[index + 1]?.src ||
-                  galleryImages[0]?.src;
+                  getMediaUrl(relatedCoverMedia);
 
                 return (
                   <article className="product-related-card" data-card-link={href} tabIndex={0} key={related.id}>
-                    <img
-                      src={relatedImage}
-                      alt={getMediaAlt(relatedCoverMedia, related.title)}
-                      loading="lazy"
-                      decoding="async"
-                    />
+                    {relatedImage ? (
+                      <img
+                        src={relatedImage}
+                        alt={getMediaAlt(relatedCoverMedia, related.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <span className="product-related-card__placeholder">
+                        Добавьте фото в Payload
+                      </span>
+                    )}
                     <div>
                       <h3>{related.title}</h3>
                       <p>{relatedTags || "Современный проект под ключ"}</p>
@@ -510,13 +546,15 @@ export default async function CatalogItemPage({
               <span>Я согласен на обработку персональных данных</span>
             </label>
           </form>
-          <img
-            src={galleryImages[0]?.src || "/home-main-new.webp"}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
+          {galleryImages[0]?.src ? (
+            <img
+              src={galleryImages[0].src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
         </section>
       </section>
     </main>

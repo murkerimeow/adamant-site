@@ -11,12 +11,15 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "Контакты Адамант Строй | Санкт-Петербург",
-  description:
-    "Контакты строительной компании Адамант Строй: телефон, адрес офиса, режим работы и реквизиты.",
-  path: "/contacts",
-});
+export async function generateMetadata() {
+  const contactsPage = await getContactsPage();
+
+  return createPageMetadata({
+    title: contactsPage.seoTitle || "Заполните SEO Title в Payload",
+    description: contactsPage.seoDescription || "Заполните SEO Description в Payload",
+    path: "/contacts",
+  });
+}
 
 const contactEmail = "stroy.178@inbox.ru";
 const contactPhone = "+7 (911) 197-04-57";

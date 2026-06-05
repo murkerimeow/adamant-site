@@ -1,16 +1,19 @@
-import { getMediaAlt, getMediaUrl, getServices, getSiteSettings } from "@/site/cms";
+import { getMediaAlt, getMediaUrl, getServices, getServicesPage, getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "Услуги Адамант Строй | Строительство домов под ключ",
-  description:
-    "Строим, проектируем и сопровождаем загородные дома под ключ в Санкт-Петербурге и Ленинградской области: проект, смета, ипотека, ремонт и инженерные системы.",
-  path: "/services",
-});
+export async function generateMetadata() {
+  const servicesPage = await getServicesPage();
+
+  return createPageMetadata({
+    title: servicesPage.seoTitle || "Заполните SEO Title в Payload",
+    description: servicesPage.seoDescription || "Заполните SEO Description в Payload",
+    path: "/services",
+  });
+}
 
 type ServicesIconType =
   | "box"
@@ -258,13 +261,12 @@ export default async function ServicesPage() {
         id,
         image:
           getMediaUrl(service.previewImage, "card") ||
-          getMediaUrl(service.previewImage) ||
-          "/request-house.jpg",
+          getMediaUrl(service.previewImage),
         imageAlt: getMediaAlt(service.previewImage, service.title),
         title: service.title,
       };
     });
-  const serviceCards = cmsServiceCards.length ? cmsServiceCards : fallbackServiceCards;
+  const serviceCards = cmsServiceCards;
 
   return (
     <main className="page inner-page services-page services-page--redesign" aria-label="Услуги Адамант">
@@ -278,7 +280,7 @@ export default async function ServicesPage() {
             <p>Комплексные решения для строительства и обустройства загородных домов под ключ.</p>
           </div>
           <div className="services-redesign__cards">
-            {serviceCards.map((card) => (
+            {serviceCards.length ? serviceCards.map((card) => (
               <article
                 className="services-redesign__service-card"
                 id={card.id}
@@ -287,7 +289,11 @@ export default async function ServicesPage() {
                 tabIndex={0}
               >
                 <Link className="services-redesign__service-media" href={card.href} aria-label={card.title}>
-                  <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
+                  {card.image ? (
+                    <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
+                  ) : (
+                    <span>Добавьте фото услуги в Payload</span>
+                  )}
                 </Link>
                 <div>
                   <span className="services-redesign__service-icon">
@@ -300,7 +306,9 @@ export default async function ServicesPage() {
                   </Link>
                 </div>
               </article>
-            ))}
+            )) : (
+              <div className="services-redesign__empty">Добавьте услуги в Payload</div>
+            )}
           </div>
         </section>
 

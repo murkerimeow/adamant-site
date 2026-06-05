@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import {
   getBlogPage,
   getMediaAlt,
@@ -9,33 +11,6 @@ import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
-
-export const metadata = createPageMetadata({
-  title: "Блог Адамант Строй | Отзывы и статьи о строительстве домов",
-  description: "Статьи, видео и разборы по строительству загородных домов, проектированию, материалам и выбору подрядчика.",
-  path: "/blog",
-});
-
-const reviewVideos = [
-  {
-    image: "/дом из бруса.png",
-    instagramUrl: "https://www.instagram.com/adamantushka/",
-    title: "Обзор реализованного проекта",
-    label: "Обзор проекта",
-  },
-  {
-    image: "/каркасный дом.png",
-    instagramUrl: "https://www.instagram.com/adamantushka/",
-    title: "Видео с готового объекта",
-    label: "Готовый объект",
-  },
-  {
-    image: "/дом из газобетона.png",
-    instagramUrl: "https://www.instagram.com/adamantushka/",
-    title: "Дом после завершения работ",
-    label: "Дом после сдачи",
-  },
-];
 
 function getSocialPermalink(url?: string | null) {
   const value = url?.trim();
@@ -73,7 +48,7 @@ function getVideoEmbed(url?: string | null) {
       return id ? `https://www.tiktok.com/embed/v2/${id}` : permalink;
     }
 
-    if (hostname === "instagram.com" || hostname === "www.instagram.com") {
+    if (hostname === "instagram.com") {
       return permalink.replace(/\/?$/, "/embed");
     }
   } catch {
@@ -83,6 +58,17 @@ function getVideoEmbed(url?: string | null) {
   return null;
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  const blogPage = await getBlogPage();
+
+  return createPageMetadata({
+    title: blogPage.seoTitle || blogPage.title || "Заполните SEO Title в Payload",
+    description:
+      blogPage.seoDescription || blogPage.subtitle || "Заполните SEO Description в Payload",
+    path: "/blog",
+  });
+}
+
 export default async function BlogPage() {
   const [siteSettings, blogPage, posts] = await Promise.all([
     getSiteSettings(),
@@ -90,22 +76,25 @@ export default async function BlogPage() {
     getPosts(),
   ]);
 
-  const cmsVideos = blogPage.instagramVideos?.filter((video) => video?.label && video?.title) ?? [];
-  const videos = (cmsVideos.length ? cmsVideos : reviewVideos).map((video, index) => {
-    const fallback = reviewVideos[index % reviewVideos.length];
-    const posterUrl =
-      "posterImage" in video
-        ? getMediaUrl(video.posterImage, "card") || getMediaUrl(video.posterImage)
-        : "";
+  const videos =
+    blogPage.instagramVideos
+      ?.map((video) => {
+        const posterUrl =
+          getMediaUrl(video.posterImage, "card") || getMediaUrl(video.posterImage);
+        const socialUrl = getSocialPermalink(video.instagramUrl);
+        const videoUrl = video.videoUrl?.trim() || "";
+        const embedUrl = getVideoEmbed(socialUrl);
 
-    return {
-      image: posterUrl || fallback.image,
-      socialUrl: getSocialPermalink(video.instagramUrl) || fallback.instagramUrl,
-      label: video.label || fallback.label,
-      title: video.title || fallback.title,
-      videoUrl: "videoUrl" in video ? video.videoUrl?.trim() || "" : "",
-    };
-  });
+        return {
+          embedUrl,
+          image: posterUrl,
+          label: video.label?.trim() || "Видео",
+          socialUrl,
+          title: video.title?.trim() || video.label?.trim() || "Видео Адамант Строй",
+          videoUrl,
+        };
+      })
+      .filter((video) => video.videoUrl || video.embedUrl || video.image || video.socialUrl) ?? [];
 
   const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
     day: "2-digit",
@@ -121,11 +110,16 @@ export default async function BlogPage() {
         <div className="blog-reviews">
           <div className="blog-reviews__copy">
             <div className="blog-reviews__headline">
-              <span className="section__kicker">{blogPage.eyebrow}</span>
-              <h1 id="blog-title">{blogPage.title}</h1>
-              <p>{blogPage.subtitle}</p>
+              <span className="section__kicker">
+                {blogPage.eyebrow || "Заполните плашку в Payload"}
+              </span>
+              <h1 id="blog-title">{blogPage.title || "Заполните заголовок в Payload"}</h1>
+              <p>{blogPage.subtitle || "Заполните описание в Payload"}</p>
             </div>
             <div className="blog-reviews__actions" aria-label="Навигация по видео">
+              <button className="blog-reviews__all" type="button" data-video-stories-open>
+                Смотреть все
+              </button>
               <button className="home-project-preview__arrow" type="button" aria-label="Предыдущие видео" data-slider-prev>
                 ‹
               </button>
@@ -136,59 +130,90 @@ export default async function BlogPage() {
           </div>
 
           <div className="blog-reviews__videos js-wheel-slider" aria-label="Видео Адамант Строй">
-            {videos.map((video, index) => {
-              const embedUrl = getVideoEmbed(video.socialUrl);
-
-              return (
-                <article
-                  className="review-video-card"
-                  key={`${index}-${video.label}`}
-                >
-                  {video.videoUrl ? (
-                    <video
-                      src={video.videoUrl}
-                      poster={video.image}
-                      preload="metadata"
-                      playsInline
-                      controls
-                    >
-                      Ваш браузер не поддерживает видео.
-                    </video>
-                  ) : embedUrl ? (
-                    <iframe
-                      className="review-video-card__embed"
-                      src={embedUrl}
-                      title={video.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <a
-                      className="review-video-card__poster"
-                      href={video.socialUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Смотреть ролик: ${video.label}`}
-                    >
+            {videos.length ? (
+              videos.map((video, index) => (
+                <article className="review-video-card" key={`${index}-${video.title}`}>
+                  <button
+                    className={`review-video-card__open${video.image ? "" : " review-video-card__open--empty"}`}
+                    type="button"
+                    data-video-story-open={index}
+                    aria-label={`Смотреть ролик: ${video.title}`}
+                  >
+                    {video.videoUrl ? (
+                      <video
+                        src={video.videoUrl}
+                        poster={video.image || undefined}
+                        preload="metadata"
+                        playsInline
+                        muted
+                      />
+                    ) : video.image ? (
                       <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
-                      <span
-                        className="review-video-card__play"
-                        aria-hidden="true"
-                      >
-                        <span />
-                      </span>
-                    </a>
-                  )}
-                  <div className="review-video-card__caption">
-                    <strong>{video.label}</strong>
-                  </div>
+                    ) : (
+                      <span>Добавьте обложку видео в Payload</span>
+                    )}
+                    <span className="review-video-card__brand">
+                      <span>Адамант Строй</span>
+                      <strong>{video.label}</strong>
+                    </span>
+                    <span className="review-video-card__play" aria-hidden="true">
+                      <span />
+                    </span>
+                  </button>
                 </article>
-              );
-            })}
+              ))
+            ) : (
+              <div className="review-video-card review-video-card--placeholder">
+                Добавьте видео в Payload
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {videos.length ? (
+        <div className="video-stories" data-video-stories hidden>
+          <button className="video-stories__backdrop" type="button" aria-label="Закрыть просмотр" data-video-stories-close />
+          <div className="video-stories__panel" role="dialog" aria-modal="true" aria-label="Видео Адамант Строй">
+            <button className="video-stories__close" type="button" aria-label="Закрыть" data-video-stories-close>
+              ×
+            </button>
+            <div className="video-stories__track" data-video-stories-track>
+              {videos.map((video, index) => (
+                <section className="video-stories__slide" data-video-story-slide={index} key={`${video.title}-story`}>
+                  <div className="video-stories__frame">
+                    {video.videoUrl ? (
+                      <video
+                        src={video.videoUrl}
+                        poster={video.image || undefined}
+                        controls
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : video.embedUrl ? (
+                      <iframe
+                        src={video.embedUrl}
+                        title={video.title}
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    ) : video.socialUrl ? (
+                      <a href={video.socialUrl} target="_blank" rel="noreferrer">
+                        Открыть видео
+                      </a>
+                    ) : null}
+                  </div>
+                  <div className="video-stories__caption">
+                    <strong>{video.label}</strong>
+                    <span>{video.title}</span>
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <section className="section section--blog blog-articles-section" aria-labelledby="blog-articles-title">
         <div className="blog-articles" id="blog-articles">
@@ -198,36 +223,41 @@ export default async function BlogPage() {
           </div>
 
           <div className="blog-grid">
-            {posts.map((post) => (
-              <article className="blog-card" key={post.id}>
-                {getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage) ? (
-                  <div className="blog-card__media">
-                    <img
-                      src={getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage)}
-                      alt={getMediaAlt(post.coverImage, post.title)}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                ) : null}
-                <div className="blog-card__body">
-                  {post.category || post.publishedAt ? (
-                    <span className="blog-card__meta">
-                      {post.category || "Статья"}
-                      {post.category && post.publishedAt ? " • " : ""}
-                      {post.publishedAt
-                        ? dateFormatter.format(new Date(post.publishedAt))
-                        : ""}
-                    </span>
+            {posts.map((post) => {
+              const coverUrl =
+                getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage);
+
+              return (
+                <article className="blog-card" key={post.id}>
+                  {coverUrl ? (
+                    <div className="blog-card__media">
+                      <img
+                        src={coverUrl}
+                        alt={getMediaAlt(post.coverImage, post.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
                   ) : null}
-                  <h2>{post.title}</h2>
-                  <p>{post.excerpt}</p>
-                </div>
-                <a href={`/blog/${post.slug}`}>
-                  Читать <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            ))}
+                  <div className="blog-card__body">
+                    {post.category || post.publishedAt ? (
+                      <span className="blog-card__meta">
+                        {post.category || "Статья"}
+                        {post.category && post.publishedAt ? " • " : ""}
+                        {post.publishedAt
+                          ? dateFormatter.format(new Date(post.publishedAt))
+                          : ""}
+                      </span>
+                    ) : null}
+                    <h2>{post.title}</h2>
+                    <p>{post.excerpt}</p>
+                  </div>
+                  <a href={`/blog/${post.slug}`}>
+                    Читать <span aria-hidden="true">→</span>
+                  </a>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

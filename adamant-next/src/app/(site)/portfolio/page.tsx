@@ -11,11 +11,15 @@ import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "Портфолио Адамант Строй | Реализованные проекты домов",
-  description: "Реализованные проекты домов и строительных работ Адамант Строй в Санкт-Петербурге и Ленинградской области.",
-  path: "/portfolio",
-});
+export async function generateMetadata() {
+  const portfolioPage = await getPortfolioPage();
+
+  return createPageMetadata({
+    title: portfolioPage.seoTitle || "Заполните SEO Title в Payload",
+    description: portfolioPage.seoDescription || "Заполните SEO Description в Payload",
+    path: "/portfolio",
+  });
+}
 
 export default async function PortfolioPage() {
   const [siteSettings, portfolioPage, portfolioItems] = await Promise.all([

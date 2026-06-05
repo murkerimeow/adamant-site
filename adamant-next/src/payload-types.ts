@@ -364,6 +364,10 @@ export interface Catalog {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Загрузите GLB/GLTF модель дома для интерактивного 3D-просмотра в карточке проекта.
+   */
+  model3d?: (number | null) | Media;
   tags?:
     | {
         label: string;
@@ -383,6 +387,10 @@ export interface CatalogCategory {
   title: string;
   slug: string;
   description?: string | null;
+  h1?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  heroImage?: (number | null) | Media;
   showInHeader?: boolean | null;
   order: number;
   updatedAt: string;
@@ -729,6 +737,10 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   description?: T;
+  h1?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  heroImage?: T;
   showInHeader?: T;
   order?: T;
   updatedAt?: T;
@@ -774,6 +786,7 @@ export interface CatalogSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  model3d?: T;
   tags?:
     | T
     | {
@@ -928,6 +941,8 @@ export interface HomePage {
   id: number;
   heroTitle: string;
   heroDescription: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   stats?:
     | {
         value: string;
@@ -969,6 +984,8 @@ export interface AboutPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   intro?: string | null;
   principles?:
     | {
@@ -997,6 +1014,8 @@ export interface ContactsPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   officeAddress: string;
   mapEmbedUrl?: string | null;
   companyDetails?: {
@@ -1018,6 +1037,8 @@ export interface ServicesPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1031,6 +1052,8 @@ export interface PortfolioPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1044,6 +1067,8 @@ export interface CatalogPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1057,6 +1082,8 @@ export interface BlogPage {
   eyebrow: string;
   title: string;
   subtitle: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   /**
    * Добавьте несколько роликов для верхнего блока блога. Можно указать прямую ссылку на видеофайл или ссылку на Instagram, TikTok, YouTube Shorts.
    */
@@ -1097,6 +1124,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 export interface HomePageSelect<T extends boolean = true> {
   heroTitle?: T;
   heroDescription?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   stats?:
     | T
     | {
@@ -1142,6 +1171,8 @@ export interface AboutPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   intro?: T;
   principles?:
     | T
@@ -1170,6 +1201,8 @@ export interface ContactsPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   officeAddress?: T;
   mapEmbedUrl?: T;
   companyDetails?:
@@ -1193,6 +1226,8 @@ export interface ServicesPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1206,6 +1241,8 @@ export interface PortfolioPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1219,6 +1256,8 @@ export interface CatalogPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1232,6 +1271,8 @@ export interface BlogPageSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   instagramVideos?:
     | T
     | {

@@ -12,12 +12,15 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = createPageMetadata({
-  title: "О компании Адамант Строй | Строительство загородных домов под ключ",
-  description:
-    "Адамант Строй проектирует и строит современные загородные дома под ключ с понятной сметой и гарантией на работы.",
-  path: "/about",
-});
+export async function generateMetadata() {
+  const aboutPage = await getAboutPage();
+
+  return createPageMetadata({
+    title: aboutPage.seoTitle || "Заполните SEO Title в Payload",
+    description: aboutPage.seoDescription || "Заполните SEO Description в Payload",
+    path: "/about",
+  });
+}
 
 function AboutIcon({ type }: { type: "care" | "eco" | "home" | "people" | "shield" | "target" }) {
   const commonProps = {
@@ -139,7 +142,7 @@ export default async function AboutPage() {
     { icon: "shield" as const, value: "5 лет", label: "гарантии на работы" },
     { icon: "people" as const, value: "Работаем", label: "по всему СЗФО" },
   ];
-  const team = teamMembers.length ? teamMembers : fallbackTeam;
+  const team = teamMembers;
 
   return (
     <main className="page inner-page about-page about-page--fresh" aria-label="О компании Адамант">
@@ -148,7 +151,7 @@ export default async function AboutPage() {
       <section className="section about-redesign" aria-labelledby="about-title">
         <div className="about-redesign__hero">
           <img
-            src="/about-banner.png"
+            src="/about-banner.webp"
             alt=""
             loading="eager"
             decoding="async"
@@ -158,14 +161,10 @@ export default async function AboutPage() {
             <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
               <Link href="/">Главная</Link>
               <span aria-hidden="true">/</span>
-              <span>О нас</span>
+              <span>{aboutPage.eyebrow || "Заполните плашку в Payload"}</span>
             </nav>
-            <h1 id="about-title">О нас</h1>
-            <p>
-              Строим современные и надежные дома для комфортной жизни.
-              Подходим к каждому проекту как к собственному — с вниманием к
-              деталям и заботой о будущем наших клиентов.
-            </p>
+            <h1 id="about-title">{aboutPage.title || "Заполните заголовок в Payload"}</h1>
+            <p>{aboutPage.subtitle || "Заполните описание в Payload"}</p>
             <button className="js-open-message" type="button">
               Написать нам
             </button>
@@ -192,16 +191,7 @@ export default async function AboutPage() {
                 <p key={`${index}-${paragraph.slice(0, 20)}`}>{paragraph}</p>
               ))
             ) : (
-              <>
-                <p>
-                  Компания «Адамант Строй» выросла из команды единомышленников,
-                  которые хотели изменить подход к строительству частных домов.
-                </p>
-                <p>
-                  Мы строим не просто дома, а пространства для жизни, в которых
-                  каждая деталь продумана заранее.
-                </p>
-              </>
+              <p>Заполните историю компании в Payload.</p>
             )}
             <a href="/contacts">
               Подробнее о компании <span aria-hidden="true">→</span>
@@ -258,7 +248,7 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="about-redesign__team-track js-wheel-slider">
-            {team.map((member) => {
+            {team.length ? team.map((member) => {
               const avatarUrl =
                 "avatar" in member
                   ? getMediaUrl(member.avatar) || getMediaUrl(member.avatar, "thumb")
@@ -291,7 +281,19 @@ export default async function AboutPage() {
                 <p>{member.description}</p>
               </article>
               );
-            })}
+            }) : (
+              <article className="about-redesign__team-empty">
+                <div className="about-redesign__avatar" aria-hidden="true">
+                  <span>?</span>
+                </div>
+                <h3>
+                  <span>Добавьте</span>
+                  <span>команду</span>
+                </h3>
+                <strong>Payload</strong>
+                <p>Создайте сотрудников в разделе команды.</p>
+              </article>
+            )}
           </div>
         </section>
 

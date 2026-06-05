@@ -32,5 +32,15 @@ export function buildPageIntroFields(
       label: "Подзаголовок",
       required: true,
     },
+    {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
   ];
 }

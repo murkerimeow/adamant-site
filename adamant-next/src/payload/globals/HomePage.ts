@@ -23,6 +23,16 @@ export const HomePage: GlobalConfig = {
       required: true,
     },
     {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
+    {
       name: "stats",
       type: "array",
       label: "Показатели",
