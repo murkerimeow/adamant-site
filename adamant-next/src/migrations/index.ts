@@ -6,6 +6,7 @@ import * as migration_20260603_150000_catalog_portfolio_arrays from './20260603_
 import * as migration_20260603_233000_catalog_landing_categories from './20260603_233000_catalog_landing_categories.ts';
 import * as migration_20260604_150000_home_section_headings from './20260604_150000_home_section_headings.ts';
 import * as migration_20260605_010000_seo_categories_models from './20260605_010000_seo_categories_models.ts';
+import * as migration_20260605_140000_site_settings_company_stats from './20260605_140000_site_settings_company_stats.ts';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20260605_010000_seo_categories_models.up,
     down: migration_20260605_010000_seo_categories_models.down,
     name: '20260605_010000_seo_categories_models'
+  },
+  {
+    up: migration_20260605_140000_site_settings_company_stats.up,
+    down: migration_20260605_140000_site_settings_company_stats.down,
+    name: '20260605_140000_site_settings_company_stats'
   },
 ];

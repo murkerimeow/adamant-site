@@ -163,6 +163,24 @@ export type TeamMemberDoc = TeamMember & {
   avatar?: number | Media | null;
 };
 
+export type CompanyStatKey =
+  | "builtHomes"
+  | "custom"
+  | "estimateDay"
+  | "happyFamilies"
+  | "marketYears"
+  | "region"
+  | "warranty";
+
+export type CompanyStatDoc = {
+  id?: string | null;
+  label?: string | null;
+  showOnAbout?: boolean | null;
+  showOnHome?: boolean | null;
+  statKey?: CompanyStatKey | null;
+  value?: string | null;
+};
+
 export type VacancyDoc = {
   id: number;
   title: string;
@@ -354,6 +372,38 @@ export function getWorkingHoursParts(workingHours?: string | null) {
   }
 
   return parts.length ? parts : [workingHours];
+}
+
+export function getCompanyStats(
+  siteSettings: Pick<SiteSetting, "companyStats">,
+  surface: "about" | "home",
+) {
+  const stats = ((siteSettings.companyStats ?? []) as CompanyStatDoc[])
+    .filter((stat) => {
+      const isEnabled =
+        surface === "home" ? stat.showOnHome !== false : stat.showOnAbout !== false;
+
+      return isEnabled && stat.value?.trim() && stat.label?.trim();
+    })
+    .map((stat) => ({
+      id: stat.id ?? `${stat.statKey ?? "custom"}-${stat.value}-${stat.label}`,
+      key: stat.statKey ?? "custom",
+      label: stat.label?.trim() ?? "",
+      value: stat.value?.trim() ?? "",
+    }));
+
+  if (stats.length) {
+    return stats;
+  }
+
+  return [
+    {
+      id: `company-stats-placeholder-${surface}`,
+      key: "custom" as const,
+      label: "заполните в настройках сайта",
+      value: "—",
+    },
+  ];
 }
 
 export async function getSiteSettings() {

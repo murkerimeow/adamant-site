@@ -14,8 +14,6 @@ const footerNavItems = [
   { href: "/vacancies", label: "Вакансии" },
 ];
 
-const footerEmail = "stroy.178@inbox.ru";
-
 export async function SiteFooter() {
   const [siteSettings, services, catalogItems] = await Promise.all([
     getSiteSettings(),
@@ -25,6 +23,7 @@ export async function SiteFooter() {
 
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const footerServices = services.slice(0, 5);
+  const footerEmail = siteSettings.email?.trim();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -75,9 +74,11 @@ export async function SiteFooter() {
           <button className="home-footer__contact-link js-open-callback" type="button">
             {siteSettings.phonePrimary}
           </button>
-          <a className="home-footer__contact-link" href={`mailto:${footerEmail}`}>
-            {footerEmail}
-          </a>
+          {footerEmail ? (
+            <a className="home-footer__contact-link" href={`mailto:${footerEmail}`}>
+              {footerEmail}
+            </a>
+          ) : null}
           {siteSettings.address ? <span>{siteSettings.address}</span> : null}
           {siteSettings.workingHours ? <span>{siteSettings.workingHours}</span> : null}
 

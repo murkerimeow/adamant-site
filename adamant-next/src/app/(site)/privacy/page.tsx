@@ -13,6 +13,7 @@ export const metadata = createPageMetadata({
 
 export default async function PrivacyPage() {
   const siteSettings = await getSiteSettings();
+  const contactEmail = siteSettings.email?.trim();
 
   return (
     <main className="page inner-page privacy-page" aria-label="Политика обработки данных">
@@ -37,7 +38,7 @@ export default async function PrivacyPage() {
         <p>
           По вопросам обработки данных можно написать на почту
           {" "}
-          <a href="mailto:stroy.178@inbox.ru">stroy.178@inbox.ru</a>.
+          {contactEmail ? <a href={`mailto:${contactEmail}`}>{contactEmail}</a> : "через форму обратной связи"}.
         </p>
       </section>
     </main>

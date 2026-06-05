@@ -21,9 +21,6 @@ export async function generateMetadata() {
   });
 }
 
-const contactEmail = "stroy.178@inbox.ru";
-const contactPhone = "+7 (911) 197-04-57";
-
 function ContactIcon({ type }: { type: "mail" | "map" | "message" | "phone" }) {
   const commonProps = {
     fill: "none",
@@ -75,6 +72,9 @@ export default async function ContactsPage() {
   ]);
 
   const workingHours = getWorkingHoursParts(siteSettings.workingHours);
+  const contactPhone = siteSettings.phonePrimary;
+  const contactEmail = siteSettings.email?.trim();
+  const officeAddress = siteSettings.address?.trim() || contactsPage.officeAddress;
   const requisites = contactsPage.companyDetails;
 
   return (
@@ -108,16 +108,18 @@ export default async function ContactsPage() {
                 </div>
               </article>
 
-              <article>
-                <span className="contact-redesign__icon">
-                  <ContactIcon type="mail" />
-                </span>
-                <div>
-                  <h2>E-mail</h2>
-                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                  <small>Ответим в течение 15 минут</small>
-                </div>
-              </article>
+              {contactEmail ? (
+                <article>
+                  <span className="contact-redesign__icon">
+                    <ContactIcon type="mail" />
+                  </span>
+                  <div>
+                    <h2>E-mail</h2>
+                    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                    <small>Ответим в течение 15 минут</small>
+                  </div>
+                </article>
+              ) : null}
 
               <article>
                 <span className="contact-redesign__icon">
@@ -125,7 +127,7 @@ export default async function ContactsPage() {
                 </span>
                 <div>
                   <h2>Офис и шоурум</h2>
-                  <p>{contactsPage.officeAddress}</p>
+                  <p>{officeAddress}</p>
                   <small>{siteSettings.workingHours || "Пн-Пт с 10:00 до 18:00"}</small>
                 </div>
               </article>
@@ -255,7 +257,7 @@ export default async function ContactsPage() {
           ) : null}
           <div>
             <h2>Наш офис</h2>
-            <p>{contactsPage.officeAddress}</p>
+            <p>{officeAddress}</p>
             <a href={contactsPage.mapEmbedUrl || "#"} target="_blank" rel="noreferrer">
               Посмотреть на карте <span aria-hidden="true">→</span>
             </a>

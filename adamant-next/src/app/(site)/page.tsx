@@ -2,6 +2,7 @@ import {
   getAboutPage,
   getCatalogCoverMedia,
   getCatalogItems,
+  getCompanyStats,
   getHomePage,
   getMediaAlt,
   getMediaUrl,
@@ -66,16 +67,10 @@ const processSteps = [
 
 type HomeStat = {
   id: string;
+  key?: string;
   label: string;
   value: string;
 };
-
-const defaultHomeStats: HomeStat[] = [
-  { id: "built-homes", value: "500+", label: "Построенных домов" },
-  { id: "estimate-day", value: "1 день", label: "На расчет сметы" },
-  { id: "happy-families", value: "450+", label: "Довольных семей" },
-  { id: "market-years", value: "12+ лет", label: "На рынке" },
-];
 
 const trustItems = [
   "Фиксированная смета без скрытых платежей",
@@ -193,7 +188,7 @@ export default async function HomePage() {
     getReviews(),
   ]);
 
-  const stats = defaultHomeStats;
+  const stats: HomeStat[] = getCompanyStats(siteSettings, "home").slice(0, 4);
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);

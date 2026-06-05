@@ -1,5 +1,6 @@
 import {
   getAboutPage,
+  getCompanyStats,
   getMediaAlt,
   getMediaUrl,
   getSiteSettings,
@@ -105,6 +106,15 @@ const approachTrustCards = [
   },
 ] as const;
 
+const aboutStatIcons: Record<string, "home" | "people" | "shield"> = {
+  builtHomes: "home",
+  estimateDay: "shield",
+  happyFamilies: "people",
+  marketYears: "home",
+  region: "people",
+  warranty: "shield",
+};
+
 const fallbackTeam = [
   { name: "Александр Петров", role: "Основатель, генеральный директор", description: "Отвечает за стратегию и развитие компании." },
   { name: "Михаил Иванов", role: "Технический директор", description: "Контролирует качество работ и внедряет новые технологии." },
@@ -135,13 +145,10 @@ export default async function AboutPage() {
   ]);
 
   const paragraphs = splitParagraphs(aboutPage.intro);
-  const stats = [
-    { icon: "home" as const, value: "12+", label: "лет на рынке" },
-    { icon: "home" as const, value: "500+", label: "построенных домов" },
-    { icon: "people" as const, value: "450+", label: "довольных семей" },
-    { icon: "shield" as const, value: "5 лет", label: "гарантии на работы" },
-    { icon: "people" as const, value: "Работаем", label: "по всему СЗФО" },
-  ];
+  const stats = getCompanyStats(siteSettings, "about").slice(0, 5).map((stat) => ({
+    ...stat,
+    icon: aboutStatIcons[stat.key] ?? "home",
+  }));
   const team = teamMembers;
 
   return (

@@ -929,6 +929,18 @@ export interface SiteSetting {
   email?: string | null;
   address?: string | null;
   workingHours?: string | null;
+  companyStats?:
+    | {
+        statKey?:
+          | ('builtHomes' | 'estimateDay' | 'happyFamilies' | 'marketYears' | 'warranty' | 'region' | 'custom')
+          | null;
+        value: string;
+        label: string;
+        showOnHome?: boolean | null;
+        showOnAbout?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1112,6 +1124,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   email?: T;
   address?: T;
   workingHours?: T;
+  companyStats?:
+    | T
+    | {
+        statKey?: T;
+        value?: T;
+        label?: T;
+        showOnHome?: T;
+        showOnAbout?: T;
+        id?: T;
+      };
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
