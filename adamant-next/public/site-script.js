@@ -1347,6 +1347,89 @@
     closeMobileNav();
   });
 
+  const initMobileHeaderAutoHide = () => {
+    const header = document.querySelector(".header");
+    if (!header || typeof window.matchMedia !== "function") return;
+
+    const mobileMedia = window.matchMedia("(max-width: 767px)");
+    const hideAfter = 120;
+    const minDelta = 8;
+    let lastScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+    let ticking = false;
+
+    const showHeader = () => {
+      document.body.classList.remove("mobile-header-hidden");
+    };
+
+    const hideHeader = () => {
+      document.body.classList.add("mobile-header-hidden");
+    };
+
+    const shouldKeepVisible = (scrollY) =>
+      !mobileMedia.matches ||
+      scrollY <= hideAfter ||
+      document.body.classList.contains("mobile-nav-open") ||
+      document.body.classList.contains("is-modal-open");
+
+    const syncHeader = () => {
+      ticking = false;
+      const currentScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+
+      if (shouldKeepVisible(currentScrollY)) {
+        showHeader();
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY > lastScrollY + minDelta) {
+        hideHeader();
+      } else if (currentScrollY < lastScrollY - minDelta) {
+        showHeader();
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    const requestSync = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(syncHeader);
+    };
+
+    const resetState = () => {
+      lastScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+      if (!mobileMedia.matches) showHeader();
+      requestSync();
+    };
+
+    window.addEventListener("scroll", requestSync, { passive: true });
+    window.addEventListener("resize", resetState, { passive: true });
+
+    if (typeof mobileMedia.addEventListener === "function") {
+      mobileMedia.addEventListener("change", resetState);
+    } else if (typeof mobileMedia.addListener === "function") {
+      mobileMedia.addListener(resetState);
+    }
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        const target = event.target;
+        if (
+          target instanceof Element &&
+          target.closest(".mobile-menu-toggle, .phone, .js-open-callback")
+        ) {
+          showHeader();
+        }
+      },
+      true
+    );
+
+    syncHeader();
+  };
+
+  initMobileHeaderAutoHide();
+
   const heroVisual = document.querySelector(".hero-visual");
   if (heroVisual) {
     const hero = heroVisual.closest(".hero");

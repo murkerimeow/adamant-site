@@ -20726,3 +20726,31 @@ body.video-stories-open {
     font-size: 13px !important;
   }
 }
+
+/* Mobile header auto-hide on downward scroll. */
+@media (max-width: 767px) {
+  .header,
+  .home-page .header,
+  .page.inner-page .header {
+    transition:
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 180ms ease !important;
+    will-change: transform;
+  }
+
+  body.mobile-header-hidden:not(.mobile-nav-open):not(.is-modal-open) .header,
+  body.mobile-header-hidden:not(.mobile-nav-open):not(.is-modal-open) .home-page .header,
+  body.mobile-header-hidden:not(.mobile-nav-open):not(.is-modal-open) .page.inner-page .header {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(-100% - 18px)) !important;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .header,
+  .home-page .header,
+  .page.inner-page .header {
+    transition: none !important;
+  }
+}
