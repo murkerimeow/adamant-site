@@ -350,32 +350,28 @@ export default async function MortgagePage() {
           </div>
         </section>
 
-        <section className="mortgage-redesign__consult" aria-labelledby="mortgage-consult-title">
-          <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
-          <form className="contact-form mortgage-redesign__form" aria-label="Заявка на ипотеку">
-            <div className="mortgage-redesign__form-main">
-              <h2 id="mortgage-consult-title">Узнайте, какая ипотека подойдет для вашего дома</h2>
-              <p>Оставьте контакты — подскажем, с чего начать и какие документы понадобятся.</p>
-              <div>
-                <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
-                <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
-              </div>
-              <textarea name="message" rows={3} placeholder="Комментарий (необязательно)" aria-label="Комментарий" />
-              <input type="hidden" name="service" value="Ипотека на строительство" />
-              <label>
-                <input type="checkbox" name="privacy" required />
-                <span>Я соглашаюсь на обработку персональных данных</span>
-              </label>
-              <button type="submit">
-                Получить консультацию <span aria-hidden="true">→</span>
-              </button>
-            </div>
-            <aside aria-label="Преимущества консультации">
-              <p><span>✓</span> Консультация бесплатная</p>
-              <p><span>✓</span> Разберем вашу ситуацию и подберем варианты</p>
-              <p><span>✓</span> Ответим на все ваши вопросы</p>
-            </aside>
+        <section className="product-consult mortgage-product-consult" aria-labelledby="mortgage-consult-title">
+          <div>
+            <h2 id="mortgage-consult-title">Хотите построить дом в ипотеку?</h2>
+            <p>Оставьте заявку на консультацию — наш менеджер подберет лучшее решение для вашего проекта.</p>
+          </div>
+          <form className="product-consult-form contact-form" aria-label="Заявка на ипотеку">
+            <input name="service" type="hidden" value="Ипотека на строительство" />
+            <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+            <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+            <button type="submit">Получить консультацию</button>
+            <label>
+              <input name="privacy" type="checkbox" required />
+              <span>Я согласен на обработку персональных данных</span>
+            </label>
           </form>
+          <img
+            src="/request-house.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
         </section>
       </section>
     </main>
