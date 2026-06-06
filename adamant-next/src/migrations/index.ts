@@ -9,6 +9,7 @@ import * as migration_20260605_010000_seo_categories_models from './20260605_010
 import * as migration_20260605_140000_site_settings_company_stats from './20260605_140000_site_settings_company_stats.ts';
 import * as migration_20260605_160000_site_settings_company_stats_uuid from './20260605_160000_site_settings_company_stats_uuid.ts';
 import * as migration_20260606_221500_catalog_item_seo_fields from './20260606_221500_catalog_item_seo_fields.ts';
+import * as migration_20260606_233000_payload_schema_repairs from './20260606_233000_payload_schema_repairs.ts';
 
 export const migrations = [
   {
@@ -65,5 +66,10 @@ export const migrations = [
     up: migration_20260606_221500_catalog_item_seo_fields.up,
     down: migration_20260606_221500_catalog_item_seo_fields.down,
     name: '20260606_221500_catalog_item_seo_fields'
+  },
+  {
+    up: migration_20260606_233000_payload_schema_repairs.up,
+    down: migration_20260606_233000_payload_schema_repairs.down,
+    name: '20260606_233000_payload_schema_repairs'
   },
 ];
