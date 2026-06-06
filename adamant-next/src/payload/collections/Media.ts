@@ -37,7 +37,15 @@ export const Media: CollectionConfig = {
       { name: "card", width: 1280, height: 720 },
       { name: "thumb", width: 600, height: 400 },
     ],
-    mimeTypes: ["image/*", "model/gltf-binary", "model/gltf+json", "application/octet-stream"],
+    mimeTypes: [
+      "image/*",
+      "model/*",
+      "model/gltf-binary",
+      "model/gltf+json",
+      "application/octet-stream",
+      ".glb",
+      ".gltf",
+    ],
     staticDir: path.resolve(process.cwd(), "media"),
   },
 };
