@@ -15,9 +15,14 @@ const noIndexHeaders = [
   },
 ];
 
+const uploadBodyLimit = "250mb";
+
 const nextConfig: NextConfig = {
   experimental: {
-    proxyClientMaxBodySize: "50mb",
+    proxyClientMaxBodySize: uploadBodyLimit,
+    serverActions: {
+      bodySizeLimit: uploadBodyLimit,
+    },
   },
   skipTrailingSlashRedirect: true,
   async headers() {

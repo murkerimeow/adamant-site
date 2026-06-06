@@ -28,6 +28,7 @@ import { SiteSettings } from "./src/payload/globals/SiteSettings.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+const uploadLimitBytes = 250 * 1024 * 1024;
 
 export default buildConfig({
   admin: {
@@ -73,6 +74,17 @@ export default buildConfig({
   routes: {
     admin: "/admin",
     api: "/api",
+  },
+  upload: {
+    abortOnLimit: true,
+    createParentPath: true,
+    limits: {
+      fileSize: uploadLimitBytes,
+    },
+    responseOnLimit: "Файл слишком большой. Максимальный размер: 250 МБ.",
+    tempFileDir: path.resolve(dirname, ".payload-tmp"),
+    uploadTimeout: 0,
+    useTempFiles: true,
   },
   i18n: {
     fallbackLanguage: "ru",
