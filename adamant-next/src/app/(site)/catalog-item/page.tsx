@@ -439,10 +439,16 @@ export default async function CatalogItemPage({
                   alt: `3D модель проекта ${item.title}`,
                   "auto-rotate": true,
                   "camera-controls": true,
+                  "camera-orbit": "35deg 64deg 105%",
+                  "environment-image": "neutral",
+                  exposure: "1.08",
+                  "field-of-view": "32deg",
                   "interaction-prompt": "auto",
                   loading: "lazy",
-                  "shadow-intensity": "0.35",
+                  "shadow-intensity": "0.78",
+                  "shadow-softness": "0.72",
                   src: model3dUrl,
+                  className: "product-model-viewer",
                   style: { height: "100%", width: "100%" },
                 })}
               </div>

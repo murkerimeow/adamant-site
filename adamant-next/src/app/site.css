@@ -20233,11 +20233,49 @@ body:has(.page.inner-page),
 }
 
 .product-model-card__viewer {
+  position: relative;
   min-height: clamp(320px, 34vw, 560px);
   overflow: hidden;
   border: 1px solid rgba(210, 224, 246, 0.96);
   border-radius: clamp(18px, 1.5vw, 28px);
-  background: linear-gradient(180deg, #eef6ff 0%, #ffffff 100%);
+  background:
+    radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.95) 0 8%, transparent 22%),
+    linear-gradient(180deg, #dff1ff 0%, #eef8ff 52%, #d3efd2 53%, #8dcc73 100%);
+  isolation: isolate;
+}
+
+.product-model-card__viewer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 16% 20%, rgba(255, 255, 255, 0.72), transparent 24%),
+    radial-gradient(ellipse at 42% 14%, rgba(255, 255, 255, 0.58), transparent 18%),
+    linear-gradient(180deg, transparent 0 50%, rgba(43, 137, 53, 0.16) 50.5%, transparent 100%);
+}
+
+.product-model-card__viewer::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  bottom: -24%;
+  left: -12%;
+  z-index: 0;
+  height: 46%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(53, 111, 39, 0.2), transparent 52%),
+    linear-gradient(180deg, rgba(165, 218, 129, 0.68), rgba(67, 144, 56, 0.78));
+  border-radius: 50% 50% 0 0;
+}
+
+.product-model-viewer {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  --poster-color: transparent;
 }
 
 .blog-page .blog-reviews-section {
