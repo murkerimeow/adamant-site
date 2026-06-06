@@ -20274,7 +20274,13 @@ body:has(.page.inner-page),
 .product-model-viewer {
   position: relative;
   z-index: 1;
-  background-color: transparent;
+  overflow: hidden;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.96) 0 7%, transparent 21%),
+    radial-gradient(ellipse at 16% 20%, rgba(255, 255, 255, 0.72), transparent 24%),
+    radial-gradient(ellipse at 42% 14%, rgba(255, 255, 255, 0.58), transparent 18%),
+    linear-gradient(180deg, #dff1ff 0%, #eef8ff 52%, #d4efd2 52.5%, #8dcc73 100%) !important;
   --poster-color: transparent;
 }
 
