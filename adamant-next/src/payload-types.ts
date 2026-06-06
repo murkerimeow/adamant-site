@@ -226,6 +226,8 @@ export interface Post {
   id: number;
   title: string;
   slug: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   category?: string | null;
   publishedAt?: string | null;
   excerpt: string;
@@ -269,6 +271,8 @@ export interface Portfolio {
   id: number;
   title: string;
   slug: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   /**
    * Свяжите карточку портфолио с проектом каталога, чтобы кнопка вела на правильную страницу.
    */
@@ -307,6 +311,8 @@ export interface Catalog {
   id: number;
   title: string;
   slug: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   itemKey: string;
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
@@ -664,6 +670,8 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   category?: T;
   publishedAt?: T;
   excerpt?: T;
@@ -705,6 +713,8 @@ export interface ServicesSelect<T extends boolean = true> {
 export interface PortfolioSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   catalogItem?: T;
   category?: T;
   order?: T;
@@ -753,6 +763,8 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
 export interface CatalogSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   itemKey?: T;
   showInCatalog?: T;
   isHit?: T;

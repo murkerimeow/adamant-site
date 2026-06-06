@@ -23,7 +23,7 @@ import {
   getCatalogCardMeta,
 } from "@/site/catalog-meta";
 import { getCatalogItemPath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -164,19 +164,20 @@ export async function generateMetadata({
 
   if (!item) {
     return createPageMetadata({
-      title: "Проект дома | Адамант Строй",
-      description:
-        "Проекты загородных домов для строительства под ключ в Санкт-Петербурге и Ленинградской области.",
+      title: `Проект не найден | ${SITE_NAME}`,
+      description: "Проект не найден или снят с публикации.",
+      index: false,
       path: "/catalog",
     });
   }
 
   return createPageMetadata({
-    title: `${item.title} | Адамант Строй`,
+    title: item.seoTitle || `${item.title} | ${SITE_NAME}`,
     description:
+      item.seoDescription ||
       item.cardSummary ||
       item.description ||
-      "Описание проекта дома, галерея, стоимость и заявка на расчет строительства под ключ.",
+      "Заполните SEO Description в Payload",
     path: getCatalogItemCanonical(item),
   });
 }

@@ -11,7 +11,7 @@ import {
   splitParagraphs,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { createPageMetadata, isIndexableLongFormText } from "@/site/seo";
+import { createPageMetadata, isIndexableLongFormText, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -28,10 +28,11 @@ export async function generateMetadata({
   const post = await getPostBySlug(slug);
 
   return createPageMetadata({
-    title: post ? `${post.title} | Адамант Строй` : "Блог | Адамант Строй",
+    title: post ? post.seoTitle || `${post.title} | ${SITE_NAME}` : `Блог | ${SITE_NAME}`,
     description:
+      post?.seoDescription ||
       post?.excerpt ||
-      "Статьи и разборы Адамант Строй о строительстве загородных домов.",
+      "Заполните SEO Description в Payload",
     index: post ? isIndexableLongFormText(post.content) : false,
     path: post ? `/blog/${post.slug}` : "/blog",
   });

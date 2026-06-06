@@ -11,7 +11,7 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getPortfolioItemPath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -26,10 +26,12 @@ export async function generateMetadata({
   const item = await getPortfolioItemBySlug(slug);
 
   return createPageMetadata({
-    title: item ? `${item.title} | Портфолио Адамант Строй` : "Портфолио Адамант Строй",
+    title: item ? item.seoTitle || `${item.title} | ${SITE_NAME}` : `Портфолио | ${SITE_NAME}`,
     description:
+      item?.seoDescription ||
       item?.summary ||
-      "Реализованный проект Адамант Строй: фото, описание работ и ключевые параметры объекта.",
+      "Заполните SEO Description в Payload",
+    index: Boolean(item),
     path: item ? getPortfolioItemPath(item) : "/portfolio",
   });
 }

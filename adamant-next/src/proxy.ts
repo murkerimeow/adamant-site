@@ -127,6 +127,10 @@ export function proxy(request: NextRequest) {
     return permanentRedirect(request, "/sitemap.xml");
   }
 
+  if (isLegacyGonePath(normalizedPathname)) {
+    return goneResponse();
+  }
+
   if (pathname !== normalizedPathname) {
     return permanentRedirect(request, normalizedPathname);
   }
@@ -145,10 +149,6 @@ export function proxy(request: NextRequest) {
     url.protocol = "https:";
 
     return NextResponse.redirect(url, 301);
-  }
-
-  if (isLegacyGonePath(normalizedPathname)) {
-    return goneResponse();
   }
 
   return NextResponse.next();

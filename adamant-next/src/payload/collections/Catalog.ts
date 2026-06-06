@@ -35,6 +35,16 @@ export const Catalog: CollectionConfig = {
     },
     slugField(),
     {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
+    {
       name: "itemKey",
       type: "text",
       admin: {

@@ -93,6 +93,8 @@ export type CatalogItemDoc = {
   id: number;
   title: string;
   slug: string;
+  seoDescription?: string | null;
+  seoTitle?: string | null;
   itemKey: string;
   showInCatalog?: boolean | null;
   isHit?: boolean | null;
@@ -671,6 +673,26 @@ export async function getCatalogCategories() {
           equals: true,
         },
       },
+    });
+
+    return result.docs;
+  } catch {
+    return [];
+  }
+}
+
+export async function getCatalogSitemapCategories() {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as CatalogCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "catalog-categories",
+      depth: 0,
+      draft: false,
+      limit: 100,
+      overrideAccess: true,
+      sort: "order",
     });
 
     return result.docs;

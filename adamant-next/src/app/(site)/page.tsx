@@ -82,6 +82,14 @@ function getHomeStats(
   homePage: { stats?: HomeStatInput[] | null },
   fallbackStats: HomeStat[],
 ): HomeStat[] {
+  const settingsStats = fallbackStats.filter(
+    (stat) => stat.value !== "—" && stat.label.trim(),
+  );
+
+  if (settingsStats.length) {
+    return settingsStats.slice(0, 4);
+  }
+
   const payloadStats = (homePage.stats ?? [])
     .filter((stat) => stat?.value?.trim() && stat?.label?.trim())
     .map((stat, index) => ({

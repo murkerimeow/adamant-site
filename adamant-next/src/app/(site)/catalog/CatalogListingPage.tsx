@@ -131,6 +131,7 @@ export async function generateCatalogCategoryMetadata(
     return createPageMetadata({
       title: DEFAULT_META_TITLE,
       description: DEFAULT_META_DESCRIPTION,
+      index: false,
       path: `/catalog/category/${categorySlug}`,
     });
   }

@@ -27,6 +27,16 @@ export const Portfolio: CollectionConfig = {
     },
     slugField(),
     {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
+    {
       name: "catalogItem",
       type: "relationship",
       admin: {

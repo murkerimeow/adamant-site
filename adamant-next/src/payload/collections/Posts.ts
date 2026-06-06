@@ -27,6 +27,16 @@ export const Posts: CollectionConfig = {
     },
     slugField(),
     {
+      name: "seoTitle",
+      type: "text",
+      label: "SEO Title / title вкладки браузера",
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      label: "SEO Description",
+    },
+    {
       name: "category",
       type: "text",
       admin: {

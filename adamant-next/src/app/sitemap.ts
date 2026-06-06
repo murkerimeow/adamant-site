@@ -1,7 +1,16 @@
 import type { MetadataRoute } from "next";
 
-import { getCatalogItems, getPortfolioItems, getPosts } from "@/site/cms";
-import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
+import {
+  getCatalogItems,
+  getCatalogSitemapCategories,
+  getPortfolioItems,
+  getPosts,
+} from "@/site/cms";
+import {
+  getCatalogCategoryPath,
+  getCatalogItemPath,
+  getPortfolioItemPath,
+} from "@/site/routes";
 import { isIndexableLongFormText, SITE_URL } from "@/site/seo";
 
 const staticPaths = [
@@ -14,6 +23,7 @@ const staticPaths = [
   "/about",
   "/mortgage",
   "/vacancies",
+  "/privacy",
 ] as const;
 
 function getLastModified(date?: string | null) {
@@ -22,14 +32,18 @@ function getLastModified(date?: string | null) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const [catalogResult, postsResult, portfolioResult] = await Promise.allSettled([
-    getCatalogItems(),
-    getPosts(),
-    getPortfolioItems(),
-  ]);
+  const [catalogResult, categoryResult, postsResult, portfolioResult] =
+    await Promise.allSettled([
+      getCatalogItems(),
+      getCatalogSitemapCategories(),
+      getPosts(),
+      getPortfolioItems(),
+    ]);
 
   const catalogItems =
     catalogResult.status === "fulfilled" ? catalogResult.value : [];
+  const catalogCategories =
+    categoryResult.status === "fulfilled" ? categoryResult.value : [];
   const posts = postsResult.status === "fulfilled" ? postsResult.value : [];
   const portfolioItems =
     portfolioResult.status === "fulfilled" ? portfolioResult.value : [];
@@ -48,6 +62,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: item.showInCatalog ? 0.7 : 0.6,
   }));
 
+  const catalogCategoryEntries = catalogCategories.map((category) => ({
+    url: `${SITE_URL}${getCatalogCategoryPath(category)}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.72,
+  }));
+
   const postEntries = posts
     .filter((post) => isIndexableLongFormText(post.content))
     .map((post) => ({
@@ -64,5 +85,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }));
 
-  return [...staticEntries, ...catalogEntries, ...portfolioEntries, ...postEntries];
+  return [
+    ...staticEntries,
+    ...catalogCategoryEntries,
+    ...catalogEntries,
+    ...portfolioEntries,
+    ...postEntries,
+  ];
 }
