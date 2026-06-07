@@ -283,12 +283,9 @@ export default async function MortgagePage() {
         <section className="mortgage-redesign__section mortgage-redesign__process" aria-labelledby="mortgage-process-title">
           <h2 id="mortgage-process-title">Как проходит оформление ипотеки</h2>
           <div>
-            {processSteps.map(([icon, title, text], index) => (
+            {processSteps.map(([, title, text], index) => (
               <article key={title}>
-                <span>
-                  <MortgageIcon type={icon} />
-                </span>
-                <strong>{index + 1}</strong>
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{title}</h3>
                 <p>{text}</p>
               </article>
