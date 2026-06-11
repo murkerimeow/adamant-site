@@ -154,6 +154,21 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         ) : null}
       </div>
 
+      {showControls ? (
+        <div className="product-gallery__dots" aria-label="Gallery navigation">
+          {images.map((image, index) => (
+            <button
+              key={`${image.src}-dot-${index}`}
+              className="product-gallery__dot"
+              type="button"
+              aria-label={`Open image ${index + 1}`}
+              aria-current={activeIndex === index ? "true" : undefined}
+              onClick={() => scrollToIndex(index)}
+            />
+          ))}
+        </div>
+      ) : null}
+
       <div className="product-gallery__side" aria-label={`${title} thumbnails`}>
         {visiblePreviewIndexes.map((index, slot) => {
           const image = images[index];

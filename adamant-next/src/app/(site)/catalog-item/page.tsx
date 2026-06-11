@@ -387,20 +387,6 @@ export default async function CatalogItemPage({
           </aside>
         </div>
 
-        <div className="product-specs" aria-label="Характеристики проекта">
-          {specs.map((spec) => (
-            <article className="product-spec-card" key={spec.label}>
-              <span className="product-spec-card__icon">
-                <DetailIconSvg type={spec.icon} />
-              </span>
-              <div>
-                <span>{spec.label}</span>
-                <strong>{spec.value}</strong>
-              </div>
-            </article>
-          ))}
-        </div>
-
         <div className="product-info-grid">
           <article className="product-info-card" data-product-description>
             <h2>О проекте</h2>

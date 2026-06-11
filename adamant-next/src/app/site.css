@@ -20779,3 +20779,55 @@ body.video-stories-open {
     transition: none !important;
   }
 }
+
+/* Catalog project gallery: compact mobile presentation. */
+.product-gallery__dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(47, 115, 255, 0.24);
+  cursor: pointer;
+  padding: 0;
+  transition: width 180ms ease, background 180ms ease;
+}
+
+.product-gallery__dot[aria-current="true"] {
+  width: 24px;
+  flex-basis: 24px;
+  background: var(--blue);
+}
+
+@media (max-width: 767px) {
+  .product-detail--catalog-card .product-hero-card .product-gallery {
+    width: 100%;
+    margin-inline: auto;
+    gap: 0;
+  }
+
+  .product-detail--catalog-card .product-hero-card .product-gallery__shell {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    border-radius: 20px;
+    box-shadow: none;
+  }
+
+  .product-detail--catalog-card .product-gallery__nav,
+  .product-detail--catalog-card .product-gallery__counter,
+  .product-detail--catalog-card .product-gallery__bars,
+  .product-detail--catalog-card .product-gallery__side,
+  .product-section--hero-photos {
+    display: none !important;
+  }
+
+  .product-detail--catalog-card .product-gallery__dots {
+    display: flex;
+    min-height: 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+}
