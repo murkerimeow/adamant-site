@@ -21199,3 +21199,88 @@ main :where(
     margin-left: 0 !important;
   }
 }
+
+/* Outrank legacy page-frame rules while keeping image heroes header-width. */
+.page.inner-page > .about-redesign,
+.page.inner-page > .mortgage-redesign--compact,
+.page.inner-page > .contact-redesign,
+.page.inner-page > .services-redesign,
+.page.inner-page > .product-detail {
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.home-page main > .stats,
+.home-page main > .home-about-stats,
+.home-page main > .home-section,
+.page.inner-page > .section:not(.about-redesign):not(.mortgage-redesign):not(.contact-redesign),
+.services-redesign > .services-redesign__section,
+.services-redesign > .services-redesign__consult,
+.mortgage-redesign > .mortgage-redesign__section,
+.mortgage-redesign > .mortgage-product-consult,
+.about-redesign > .about-redesign__stats,
+.about-redesign > .about-redesign__story,
+.about-redesign > .about-redesign__approach,
+.about-redesign > .about-redesign__team,
+.about-redesign > .about-redesign__cta,
+.contact-redesign > .contact-redesign__top,
+.contact-redesign > .contact-redesign__middle,
+.contact-redesign > .contact-redesign__map,
+.product-detail > .product-hero-card,
+.product-detail > .product-section,
+.product-detail > .product-consult,
+.site-footer-slot > .home-footer {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: max(10px, calc((100% - var(--site-frame-width)) / 2)) !important;
+  padding-left: max(10px, calc((100% - var(--site-frame-width)) / 2)) !important;
+  border: 0 !important;
+  border-radius: var(--section-radius) !important;
+  background: #fff !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.home-page .hero,
+.about-page--fresh .about-redesign__hero,
+.mortgage-redesign--compact .mortgage-redesign__hero {
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+@media (max-width: 767px) {
+  .home-page main > .stats,
+  .home-page main > .home-about-stats,
+  .home-page main > .home-section,
+  .page.inner-page > .section:not(.about-redesign):not(.mortgage-redesign):not(.contact-redesign),
+  .services-redesign > .services-redesign__section,
+  .services-redesign > .services-redesign__consult,
+  .mortgage-redesign > .mortgage-redesign__section,
+  .mortgage-redesign > .mortgage-product-consult,
+  .about-redesign > .about-redesign__stats,
+  .about-redesign > .about-redesign__story,
+  .about-redesign > .about-redesign__approach,
+  .about-redesign > .about-redesign__team,
+  .about-redesign > .about-redesign__cta,
+  .contact-redesign > .contact-redesign__top,
+  .contact-redesign > .contact-redesign__middle,
+  .contact-redesign > .contact-redesign__map,
+  .product-detail > .product-hero-card,
+  .product-detail > .product-section,
+  .product-detail > .product-consult,
+  .site-footer-slot > .home-footer {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+}
