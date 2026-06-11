@@ -101,28 +101,6 @@ function getHomeStats(
   return (payloadStats.length ? payloadStats : fallbackStats).slice(0, 4);
 }
 
-const trustItems = [
-  "Фиксированная смета без скрытых платежей",
-  "Поэтапный контроль качества работ",
-  "Гарантия на все виды работ",
-  "Соблюдение сроков по договору",
-] as const;
-
-const proofColumns = [
-  {
-    title: "Преимущества",
-    items: ["Собственное управление специалистами", "Современные технологии и материалы", "Строгое соблюдение сроков", "Прозрачное ценообразование"],
-  },
-  {
-    title: "Гарантии",
-    items: ["Гарантия до 5 лет на все работы", "Официальный договор", "Фиксированная стоимость", "Сервисное обслуживание"],
-  },
-  {
-    title: "Контроль качества",
-    items: ["Технический надзор на всех этапах", "Используем только сертифицированные материалы", "Многоступенчатый контроль качества"],
-  },
-] as const;
-
 const reviewCards = [
   {
     name: "Алексей и Мария",
@@ -456,25 +434,6 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="home-section home-trust" aria-labelledby="home-trust-title">
-            <div className="home-trust__copy">
-              <span className="section__kicker">{sectionEyebrows.trust || "Почему выбирают нас"}</span>
-              <h2 id="home-trust-title">{sectionHeadings.trust || "Надежность, качество и прозрачность на каждом этапе"}</h2>
-              <ul className="home-trust__list">
-                {trustItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <button className="home-section__link home-section__link--button js-open-estimate" type="button">
-                Узнать больше о нас
-              </button>
-            </div>
-
-            <div className="home-trust__media" aria-hidden="true">
-              <img src={trustImageUrl} alt="" loading="lazy" decoding="async" />
-            </div>
-          </section>
-
           <section className="home-section home-process" aria-labelledby="home-process-title" data-stagger-reveal>
             <div className="home-section__head home-section__head--compact">
               <div>
@@ -555,24 +514,6 @@ export default async function HomePage() {
                   </article>
                 );
               })}
-            </div>
-          </section>
-
-          <section className="home-section home-proof-section" aria-label="Преимущества, гарантии и контроль качества">
-            <div className="home-proof-strip">
-              {proofColumns.map((column) => (
-                <article key={column.title} className="home-proof-strip__item">
-                  <span className="home-proof-strip__icon" aria-hidden="true" />
-                  <div>
-                    <h3>{column.title}</h3>
-                    <ul>
-                      {column.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
             </div>
           </section>
 
