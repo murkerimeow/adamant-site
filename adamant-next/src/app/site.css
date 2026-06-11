@@ -21284,3 +21284,33 @@ main :where(
     padding-left: 10px !important;
   }
 }
+
+/* Shared eyebrow labels and a restrained header lift. */
+.section__kicker,
+.about-kicker,
+.hero__kicker,
+.product-hero-info__eyebrow,
+.home-page .home-about-stats__eyebrow,
+.about-redesign__eyebrow {
+  border-color: transparent !important;
+  background: #dce9f6 !important;
+  background-image: none !important;
+  color: #68abe7 !important;
+  box-shadow: none !important;
+}
+
+.section__kicker svg,
+.about-kicker svg,
+.hero__kicker svg,
+.product-hero-info__eyebrow svg,
+.home-page .home-about-stats__eyebrow svg,
+.about-redesign__eyebrow svg {
+  color: #68abe7 !important;
+  stroke: currentColor !important;
+}
+
+.header,
+.home-page .header,
+.page.inner-page .header {
+  box-shadow: 0 8px 24px rgba(34, 45, 65, 0.08) !important;
+}
