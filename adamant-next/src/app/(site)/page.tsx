@@ -223,10 +223,21 @@ export default async function HomePage() {
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog).slice(0, 8);
   const portfolioStripItems = portfolioItems.slice(0, 6);
+  const plotLeadProject =
+    featuredProjects.find((project) =>
+      /модуль|дач|брус|террас/i.test(project.title),
+    ) ?? featuredProjects[0];
+  const plotLeadMedia = plotLeadProject
+    ? getCatalogCoverMedia(plotLeadProject)
+    : null;
   const trustImageUrl =
     getMediaUrl(portfolioStripItems[0]?.previewImage, "card") ||
     getMediaUrl(portfolioStripItems[0]?.previewImage) ||
     "/фон.jpg";
+  const plotLeadImageUrl =
+    getMediaUrl(plotLeadMedia, "card") ||
+    getMediaUrl(plotLeadMedia) ||
+    trustImageUrl;
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
   const reviews = payloadReviews.length ? payloadReviews.slice(0, 3) : reviewCards;
   const sectionEyebrows = homePage.sectionEyebrows ?? {};
@@ -619,6 +630,69 @@ export default async function HomePage() {
                   </article>
                 );
               })}
+            </div>
+          </section>
+
+          <section className="home-plot-lead" aria-labelledby="home-plot-lead-title">
+            <div className="home-plot-lead__content">
+              <span className="home-plot-lead__eyebrow">Подбор участка</span>
+              <h2 id="home-plot-lead-title">Поможем подобрать участок</h2>
+              <p>
+                Расскажите, каким вы видите будущий участок — подберём подходящие
+                варианты под ваш дом и бюджет.
+              </p>
+
+              <form
+                className="contact-form home-plot-lead__form"
+                aria-label="Заявка на подбор участка"
+              >
+                <input name="name" type="text" placeholder="Имя" aria-label="Имя" />
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="Телефон *"
+                  aria-label="Телефон"
+                  required
+                />
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="E-mail"
+                  aria-label="E-mail"
+                />
+                <textarea
+                  name="message"
+                  rows={4}
+                  placeholder="Ваши пожелания по участку"
+                  aria-label="Ваши пожелания по участку"
+                />
+                <input type="hidden" name="service" value="Подбор участка" />
+
+                <label className="home-plot-lead__consent">
+                  <input type="checkbox" name="privacy" required />
+                  <span>
+                    Согласен на{" "}
+                    <Link href="/privacy">обработку персональных данных</Link>
+                  </span>
+                </label>
+
+                <button type="submit" disabled>
+                  Отправить заявку
+                </button>
+                <p className="contact-form__status" aria-live="polite" />
+              </form>
+            </div>
+
+            <div className="home-plot-lead__media">
+              <img
+                src={plotLeadImageUrl}
+                alt={getMediaAlt(
+                  plotLeadMedia,
+                  plotLeadProject?.title || "Загородный дом на участке",
+                )}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </section>
 
