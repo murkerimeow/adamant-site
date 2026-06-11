@@ -21054,3 +21054,148 @@ body.home-page,
     margin-inline: auto !important;
   }
 }
+
+/* 2026 full-bleed section system: gray canvas, white bands, header-aligned content. */
+:root {
+  --site-bg: #f2f3f7;
+  --section-radius: 50px;
+  --section-content-inset: 10px;
+}
+
+html,
+body,
+body.home-page,
+.home-page .viewport,
+.home-page .page,
+.page.inner-page,
+.site-footer-slot {
+  background-color: #f2f3f7 !important;
+  background-image: none !important;
+}
+
+/*
+ * These wrappers only organize inner-page sections. Keeping them transparent
+ * lets every actual content band read as a separate white block.
+ */
+:where(
+  .page.inner-page .services-redesign,
+  .page.inner-page .mortgage-redesign--compact,
+  .page.inner-page .about-redesign,
+  .page.inner-page .contact-redesign,
+  .page.inner-page .product-detail
+) {
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Large content bands span the viewport. Their horizontal padding recreates
+ * the header width, so headings, cards and forms remain on one common grid.
+ */
+:where(
+  .home-page main > .stats,
+  .home-page main > .home-about-stats,
+  .home-page main > .home-section,
+  .page.inner-page > .section:not(.about-redesign):not(.mortgage-redesign):not(.contact-redesign),
+  .services-redesign > .services-redesign__section,
+  .services-redesign > .services-redesign__consult,
+  .mortgage-redesign > .mortgage-redesign__section,
+  .mortgage-redesign > .mortgage-product-consult,
+  .about-redesign > .about-redesign__stats,
+  .about-redesign > .about-redesign__story,
+  .about-redesign > .about-redesign__approach,
+  .about-redesign > .about-redesign__team,
+  .about-redesign > .about-redesign__cta,
+  .contact-redesign > .contact-redesign__top,
+  .contact-redesign > .contact-redesign__middle,
+  .contact-redesign > .contact-redesign__map,
+  .product-detail > .product-hero-card,
+  .product-detail > .product-section,
+  .product-detail > .product-consult,
+  .home-footer
+) {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: var(--section-content-inset) !important;
+  padding-left: var(--section-content-inset) !important;
+  border: 0 !important;
+  border-radius: var(--section-radius) !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Main image banners retain the same narrower frame as the header. */
+:where(
+  .home-page .hero,
+  .about-page--fresh .about-redesign__hero,
+  .mortgage-redesign--compact .mortgage-redesign__hero
+) {
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  box-shadow: none !important;
+}
+
+/* Remove residual shadows from content blocks and their hover states. */
+main :where(
+  section,
+  article,
+  [class*="__card"],
+  [class*="-card"],
+  [class*="__panel"],
+  [class*="-panel"]
+),
+.header,
+.home-footer,
+.site-footer-slot {
+  box-shadow: none !important;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-content-inset: calc((100vw - var(--site-frame-width)) / 2);
+  }
+
+  /*
+   * The organizing wrappers must also span the viewport; their image heroes
+   * are narrowed again by the rule above.
+   */
+  :where(
+    .page.inner-page > .about-redesign,
+    .page.inner-page > .mortgage-redesign--compact,
+    .page.inner-page > .contact-redesign,
+    .page.inner-page > .services-redesign,
+    .page.inner-page > .product-detail
+  ) {
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --section-content-inset: 10px;
+  }
+
+  :where(
+    .page.inner-page > .about-redesign,
+    .page.inner-page > .mortgage-redesign--compact,
+    .page.inner-page > .contact-redesign,
+    .page.inner-page > .services-redesign,
+    .page.inner-page > .product-detail
+  ) {
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+}
