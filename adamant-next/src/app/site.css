@@ -21319,13 +21319,14 @@ main :where(
 .home-plot-lead {
   display: grid;
   grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+  gap: clamp(14px, 1.15vw, 22px);
   width: var(--site-frame-width);
   max-width: var(--site-frame-width);
   margin: var(--section-gap) auto 0;
-  overflow: hidden;
+  overflow: visible;
   border: 0;
-  border-radius: 50px;
-  background: #ffffff;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
 }
 
@@ -21335,6 +21336,9 @@ main :where(
   flex-direction: column;
   justify-content: center;
   padding: clamp(34px, 3.6vw, 68px);
+  overflow: hidden;
+  border-radius: var(--section-radius);
+  background: #ffffff;
 }
 
 .home-plot-lead__eyebrow {
@@ -21464,6 +21468,7 @@ main :where(
   min-width: 0;
   min-height: 620px;
   overflow: hidden;
+  border-radius: var(--section-radius);
   background: #e9edf1;
 }
 
@@ -21477,13 +21482,14 @@ main :where(
 @media (max-width: 767px) {
   .home-plot-lead {
     grid-template-columns: 1fr;
+    gap: 10px;
     width: calc(100% - 20px);
     max-width: calc(100% - 20px);
-    border-radius: 32px;
   }
 
   .home-plot-lead__content {
     padding: 28px 20px 24px;
+    border-radius: 32px;
   }
 
   .home-plot-lead__eyebrow {
@@ -21524,6 +21530,7 @@ main :where(
 
   .home-plot-lead__media {
     min-height: 260px;
+    border-radius: 32px;
   }
 }
 
