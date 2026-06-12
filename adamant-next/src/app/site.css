@@ -21325,9 +21325,10 @@ main :where(
   margin: var(--section-gap) auto 0;
   overflow: visible;
   border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 .home-plot-lead__content {
