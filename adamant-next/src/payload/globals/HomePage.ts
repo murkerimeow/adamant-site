@@ -100,7 +100,7 @@ export const HomePage: GlobalConfig = {
           name: "reviews",
           type: "text",
           label: "Отзывы",
-          defaultValue: "Отзывы клиентов",
+          defaultValue: "Отзывы",
         },
         {
           name: "faq",
@@ -161,7 +161,7 @@ export const HomePage: GlobalConfig = {
           name: "reviews",
           type: "text",
           label: "Отзывы",
-          defaultValue: "Нам доверяют",
+          defaultValue: "Отзывы клиентов о строительстве домов и ремонте помещений",
         },
         {
           name: "faq",

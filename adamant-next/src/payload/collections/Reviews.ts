@@ -6,7 +6,7 @@ import { anyone } from "../access/public.ts";
 export const Reviews: CollectionConfig = {
   slug: "reviews",
   admin: {
-    defaultColumns: ["name", "rating", "published", "order"],
+    defaultColumns: ["name", "video", "rating", "published", "order"],
     group: "Контент",
     useAsTitle: "name",
   },
@@ -34,6 +34,28 @@ export const Reviews: CollectionConfig = {
       type: "upload",
       label: "Аватарка",
       relationTo: "media",
+    },
+    {
+      name: "video",
+      type: "upload",
+      label: "Видеоотзыв",
+      relationTo: "media",
+      filterOptions: {
+        mimeType: {
+          contains: "video/",
+        },
+      },
+    },
+    {
+      name: "poster",
+      type: "upload",
+      label: "Обложка видео",
+      relationTo: "media",
+      filterOptions: {
+        mimeType: {
+          contains: "image/",
+        },
+      },
     },
     {
       name: "rating",

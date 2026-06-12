@@ -102,39 +102,6 @@ function getHomeStats(
   return (payloadStats.length ? payloadStats : fallbackStats).slice(0, 4);
 }
 
-const reviewCards = [
-  {
-    name: "Алексей и Мария",
-    place: "Всеволожск",
-    text: "Спасибо команде Адамант Строй за наш новый дом. Все сделали в срок, качество на высоте. Рекомендуем!",
-  },
-  {
-    name: "Дмитрий Сергеев",
-    place: "Сестрорецк",
-    text: "Профессиональный подход, прозрачная смета и отличная работа. Дом получился именно таким, как мы мечтали.",
-  },
-  {
-    name: "Екатерина Л.",
-    place: "Пушкин",
-    text: "Очень довольны сотрудничеством. Всегда на связи, все вопросы решались быстро. Отличная команда!",
-  },
-] as const;
-
-function getInitials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
-}
-
-function normalizeRating(value?: number | null) {
-  const rating = Number(value) || 5;
-  return Math.min(5, Math.max(1, Math.round(rating)));
-}
-
 type StatIconType = (typeof statIconTypes)[number];
 
 function StatIcon({ type }: { type: StatIconType }) {
@@ -219,7 +186,19 @@ export default async function HomePage() {
     getMediaUrl(plotLeadMedia) ||
     trustImageUrl;
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
-  const reviews = payloadReviews.length ? payloadReviews.slice(0, 3) : reviewCards;
+  const reviews = payloadReviews.length ? payloadReviews : [];
+  const videoReviews = reviews
+    .map((review) => ({
+      caption: review.caption?.trim() || review.text?.trim() || "",
+      name: review.name,
+      posterUrl:
+        getMediaUrl(review.poster, "card") ||
+        getMediaUrl(review.poster) ||
+        getMediaUrl(review.avatar, "card") ||
+        getMediaUrl(review.avatar),
+      videoUrl: getMediaUrl(review.video),
+    }))
+    .filter((review) => review.videoUrl);
   const sectionEyebrows = homePage.sectionEyebrows ?? {};
   const sectionHeadings = homePage.sectionHeadings ?? {};
 
@@ -650,52 +629,146 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section id="reviews" className="home-section home-reviews" aria-labelledby="home-reviews-title">
-            <div className="home-section__head home-section__head--compact">
+          <section
+            id="reviews"
+            className="home-section home-reviews home-video-reviews"
+            aria-labelledby="home-reviews-title"
+            data-home-services-carousel
+          >
+            <div className="home-video-reviews__head">
               <div>
-                <span className="section__kicker">{sectionEyebrows.reviews || "Отзывы клиентов"}</span>
-                <h2 id="home-reviews-title">{sectionHeadings.reviews || "Нам доверяют"}</h2>
+                <span className="section__kicker">{sectionEyebrows.reviews || "Отзывы"}</span>
+                <h2 id="home-reviews-title">
+                  {sectionHeadings.reviews ||
+                    "Отзывы клиентов о строительстве домов и ремонте помещений"}
+                </h2>
+              </div>
+              <div className="home-video-reviews__actions" aria-label="Навигация по отзывам">
+                <button
+                  className="home-video-reviews__all"
+                  type="button"
+                  data-video-stories-open
+                  disabled={!videoReviews.length}
+                >
+                  Перейти в отзывы <span aria-hidden="true">→</span>
+                </button>
+                <button
+                  className="home-video-reviews__arrow"
+                  type="button"
+                  aria-label="Предыдущие отзывы"
+                  data-slider-prev
+                >
+                  ‹
+                </button>
+                <button
+                  className="home-video-reviews__arrow"
+                  type="button"
+                  aria-label="Следующие отзывы"
+                  data-slider-next
+                >
+                  ›
+                </button>
               </div>
             </div>
 
-            <div className="home-reviews__grid">
-              {reviews.map((review) => {
-                const avatarUrl =
-                  "avatar" in review
-                    ? getMediaUrl(review.avatar, "thumb") || getMediaUrl(review.avatar)
-                    : "";
-                const caption =
-                  "caption" in review
-                    ? review.caption
-                    : "place" in review
-                      ? review.place
-                      : "";
-                const rating = normalizeRating("rating" in review ? review.rating : 5);
-
-                return (
-                  <article className="home-review-card" key={review.name}>
-                    <div className="home-review-card__person">
-                      <span aria-hidden="true">
-                        {avatarUrl ? (
-                          <img src={avatarUrl} alt="" loading="lazy" decoding="async" />
+            <div className="home-video-reviews__track js-wheel-slider">
+              {videoReviews.length
+                ? videoReviews.map((review, index) => (
+                    <article
+                      className="home-review-video-card"
+                      key={`${review.name}-${index}`}
+                    >
+                      <button
+                        className="home-review-video-card__open"
+                        type="button"
+                        data-video-story-open={index}
+                        aria-label={`Смотреть видеоотзыв: ${review.name}`}
+                      >
+                        {review.posterUrl ? (
+                          <img
+                            src={review.posterUrl}
+                            alt={`Видеоотзыв: ${review.name}`}
+                            loading="lazy"
+                            decoding="async"
+                          />
                         ) : (
-                          getInitials(review.name)
+                          <video
+                            src={review.videoUrl}
+                            preload="metadata"
+                            playsInline
+                            muted
+                          />
                         )}
-                      </span>
+                        <span className="home-review-video-card__play" aria-hidden="true">
+                          <span />
+                        </span>
+                      </button>
+                    </article>
+                  ))
+                : Array.from({ length: 4 }, (_, index) => (
+                    <article
+                      className="home-review-video-card home-review-video-card--placeholder"
+                      key={`review-placeholder-${index}`}
+                    >
                       <div>
-                        <strong>{review.name}</strong>
-                        {caption ? <small>{caption}</small> : null}
+                        <span className="home-review-video-card__play" aria-hidden="true">
+                          <span />
+                        </span>
+                        <small>Добавьте видеоотзыв в Payload</small>
                       </div>
-                    </div>
-                    <p>{review.text}</p>
-                    <div className="home-review-card__stars" aria-label={`Оценка ${rating} из 5`}>
-                      {"★★★★★".slice(0, rating)}
-                    </div>
-                  </article>
-                );
-              })}
+                    </article>
+                  ))}
             </div>
           </section>
+
+          {videoReviews.length ? (
+            <div className="video-stories" data-video-stories hidden>
+              <button
+                className="video-stories__backdrop"
+                type="button"
+                aria-label="Закрыть просмотр"
+                data-video-stories-close
+              />
+              <div
+                className="video-stories__panel"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Видеоотзывы клиентов"
+              >
+                <button
+                  className="video-stories__close"
+                  type="button"
+                  aria-label="Закрыть"
+                  data-video-stories-close
+                >
+                  ×
+                </button>
+                <div className="video-stories__track" data-video-stories-track>
+                  {videoReviews.map((review, index) => (
+                    <section
+                      className="video-stories__slide"
+                      data-video-story-slide={index}
+                      key={`${review.name}-story`}
+                    >
+                      <div className="video-stories__frame">
+                        <video
+                          src={review.videoUrl}
+                          poster={review.posterUrl || undefined}
+                          controls
+                          playsInline
+                          preload="metadata"
+                        />
+                      </div>
+                      <div className="video-stories__caption">
+                        <strong>{review.name}</strong>
+                        {review.caption ? <span>{review.caption}</span> : null}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
 
           {faqItems.length ? (
             <section className="home-section home-faq" aria-labelledby="home-faq-title">

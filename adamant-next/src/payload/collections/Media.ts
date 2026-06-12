@@ -39,6 +39,10 @@ export const Media: CollectionConfig = {
     ],
     mimeTypes: [
       "image/*",
+      "video/*",
+      "video/mp4",
+      "video/webm",
+      "video/quicktime",
       "model/*",
       "model/gltf-binary",
       "model/gltf+json",

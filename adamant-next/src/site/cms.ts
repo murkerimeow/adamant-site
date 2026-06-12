@@ -159,6 +159,8 @@ export type PortfolioItemDoc = Portfolio & {
 
 export type ReviewDoc = Review & {
   avatar?: number | Media | null;
+  poster?: number | Media | null;
+  video?: number | Media | null;
 };
 
 export type TeamMemberDoc = TeamMember & {

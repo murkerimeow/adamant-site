@@ -411,6 +411,8 @@ export interface Review {
   name: string;
   caption?: string | null;
   avatar?: (number | null) | Media;
+  video?: (number | null) | Media;
+  poster?: (number | null) | Media;
   rating: number;
   text: string;
   order: number;
@@ -817,6 +819,8 @@ export interface ReviewsSelect<T extends boolean = true> {
   name?: T;
   caption?: T;
   avatar?: T;
+  video?: T;
+  poster?: T;
   rating?: T;
   text?: T;
   order?: T;
