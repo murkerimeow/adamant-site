@@ -21939,7 +21939,7 @@ main :where(
   min-width: 0;
   aspect-ratio: 0.64;
   overflow: hidden;
-  border-radius: 22px;
+  border-radius: 10px;
   background: #f2f3f7;
   scroll-snap-align: start;
 }
@@ -22062,7 +22062,7 @@ main :where(
 
   .home-review-video-card {
     flex-basis: min(76vw, 260px);
-    border-radius: 18px;
+    border-radius: 8px;
   }
 
   .home-review-video-card__play {
