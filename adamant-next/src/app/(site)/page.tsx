@@ -1,5 +1,6 @@
 import {
   getAboutPage,
+  getCatalogCategories,
   getCatalogCoverMedia,
   getCatalogItems,
   getCompanyStats,
@@ -14,7 +15,7 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
-import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
+import { getCatalogCategoryPath, getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
 
@@ -185,12 +186,13 @@ function StatIcon({ type }: { type: StatIconType }) {
 }
 
 export default async function HomePage() {
-  const [siteSettings, homePage, services, portfolioItems, catalogItems, aboutPage, payloadReviews] = await Promise.all([
+  const [siteSettings, homePage, services, portfolioItems, catalogItems, catalogCategories, aboutPage, payloadReviews] = await Promise.all([
     getSiteSettings(),
     getHomePage(),
     getServices(),
     getPortfolioItems(),
     getCatalogItems(),
+    getCatalogCategories(),
     getAboutPage(),
     getReviews(),
   ]);
@@ -296,18 +298,18 @@ export default async function HomePage() {
           </section>
 
           <section
-            className="home-section home-project-preview"
+            className="home-section home-project-preview home-project-preview--catalog-style"
             aria-labelledby="home-project-preview-title"
             data-home-services-carousel
           >
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">{sectionEyebrows.projects || "Наши проекты"}</span>
-                <h2 id="home-project-preview-title">{sectionHeadings.projects || "Современные дома для комфортной жизни"}</h2>
+                <span className="section__kicker">{sectionEyebrows.projects || "Проекты"}</span>
+                <h2 id="home-project-preview-title">{sectionHeadings.projects || "Проекты компании «АДАМАНТ Строй»"}</h2>
               </div>
               <div className="home-project-preview__actions" aria-label="Навигация по проектам">
                 <Link className="home-section__link" href="/catalog">
-                  Смотреть все проекты <span aria-hidden="true">→</span>
+                  Перейти в проекты <span aria-hidden="true">→</span>
                 </Link>
                 <button
                   className="home-project-preview__arrow"
@@ -327,6 +329,17 @@ export default async function HomePage() {
                 </button>
               </div>
             </div>
+
+            <nav className="home-project-preview__categories" aria-label="Категории проектов">
+              <Link className="is-active" href="/catalog">
+                Все
+              </Link>
+              {catalogCategories.slice(0, 6).map((category) => (
+                <Link key={category.id} href={getCatalogCategoryPath(category)}>
+                  {category.title}
+                </Link>
+              ))}
+            </nav>
 
             <div className="home-project-preview__grid js-wheel-slider">
               {featuredProjects.map((project) => {
