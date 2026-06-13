@@ -21604,20 +21604,22 @@ main :where(
   display: none;
 }
 
-.home-project-preview__categories a {
+.home-project-preview__categories button {
   flex: 0 0 auto;
   padding: 9px 4px;
   border: 0;
   border-radius: 999px;
+  background: transparent;
   color: #263043;
+  font-family: inherit;
   font-size: 14px;
   line-height: 1;
   font-weight: 650;
-  text-decoration: none;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.home-project-preview__categories a.is-active {
+.home-project-preview__categories button.is-active {
   padding-right: 24px;
   padding-left: 24px;
   background: #b57240;
@@ -21649,15 +21651,19 @@ main :where(
   overflow: hidden;
   border: 0;
   border-radius: 18px;
-  background: #f2f3f7;
+  background: #F2F3F7;
   box-shadow: none;
   scroll-snap-align: start;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-card[hidden] {
+  display: none !important;
 }
 
 .home-page .home-project-preview--catalog-style .listing-card__media {
   height: 190px;
   min-height: 190px;
-  border-radius: 18px 18px 0 0;
+  border-radius: 18px;
   background: #e5eaf0;
 }
 
@@ -21822,13 +21828,13 @@ main :where(
     margin: 18px 0 22px;
   }
 
-  .home-project-preview__categories a {
+  .home-project-preview__categories button {
     padding: 8px 12px;
-    background: #f2f3f7;
+    background: #F2F3F7;
     font-size: 12px;
   }
 
-  .home-project-preview__categories a.is-active {
+  .home-project-preview__categories button.is-active {
     padding-right: 18px;
     padding-left: 18px;
   }

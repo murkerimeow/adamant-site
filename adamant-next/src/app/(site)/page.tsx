@@ -3,6 +3,7 @@ import {
   getCatalogCategories,
   getCatalogCoverMedia,
   getCatalogItems,
+  getCatalogLandingCategorySlug,
   getCompanyStats,
   getHomePage,
   getMediaAlt,
@@ -14,8 +15,9 @@ import {
   splitHighlight,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { HomeProjectCategories } from "@/site/components/HomeProjectCategories";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
-import { getCatalogCategoryPath, getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
+import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
 
@@ -168,7 +170,13 @@ export default async function HomePage() {
   const description = splitHighlight(homePage.heroDescription);
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
-  const featuredProjects = catalogItems.filter((item) => item.showInCatalog).slice(0, 8);
+  const featuredProjects = catalogItems.filter((item) => item.showInCatalog);
+  const featuredProjectCategorySlugs = new Set(
+    featuredProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
+  );
+  const featuredProjectCategories = catalogCategories
+    .filter((category) => featuredProjectCategorySlugs.has(category.slug))
+    .slice(0, 6);
   const portfolioStripItems = portfolioItems.slice(0, 6);
   const plotLeadProject =
     featuredProjects.find((project) =>
@@ -280,6 +288,7 @@ export default async function HomePage() {
             className="home-section home-project-preview home-project-preview--catalog-style"
             aria-labelledby="home-project-preview-title"
             data-home-services-carousel
+            data-home-projects
           >
             <div className="home-section__head home-section__head--compact">
               <div>
@@ -309,16 +318,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <nav className="home-project-preview__categories" aria-label="Категории проектов">
-              <Link className="is-active" href="/catalog">
-                Все
-              </Link>
-              {catalogCategories.slice(0, 6).map((category) => (
-                <Link key={category.id} href={getCatalogCategoryPath(category)}>
-                  {category.title}
-                </Link>
-              ))}
-            </nav>
+            <HomeProjectCategories categories={featuredProjectCategories} />
 
             <div className="home-project-preview__grid js-wheel-slider">
               {featuredProjects.map((project) => {
@@ -334,6 +334,7 @@ export default async function HomePage() {
                     key={project.id}
                     className="home-project-card listing-card"
                     data-card-link={href}
+                    data-home-project-category={getCatalogLandingCategorySlug(project)}
                     tabIndex={0}
                   >
                     <div className="listing-card__media">
