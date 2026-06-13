@@ -492,11 +492,13 @@ export default async function HomePage() {
                     key={service.id}
                     className={`home-cycle-card home-cycle-card--tone-${(index % 4) + 1}`}
                     data-card-link={href}
+                    data-estimate-service={service.title}
                     tabIndex={0}
                   >
                     <a
                       className="home-cycle-card__media"
                       href={href}
+                      data-estimate-service-link
                       aria-label={`Подробнее об услуге ${service.title}`}
                     >
                       {imageUrl ? (
@@ -518,6 +520,7 @@ export default async function HomePage() {
                       <a
                         className="home-cycle-card__arrow-link"
                         href={href}
+                        data-estimate-service-link
                         aria-label={`Подробнее об услуге ${service.title}`}
                       >
                         <span aria-hidden="true">→</span>

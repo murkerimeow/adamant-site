@@ -5,6 +5,7 @@ import {
   getTelegramUpdateOffset,
   setTelegramUpdateOffset,
 } from "@/site/chat-store";
+import { telegramFetch } from "@/payload/lib/telegram-fetch";
 
 type TelegramUpdate = {
   update_id: number;
@@ -43,9 +44,7 @@ async function syncTelegramRepliesFromUpdatesInner() {
     url.searchParams.set("offset", String(offset));
   }
 
-  const response = await fetch(url, {
-    cache: "no-store",
-  });
+  const response = await telegramFetch(url);
 
   if (!response.ok) {
     const errorText = await response.text();

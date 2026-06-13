@@ -286,9 +286,15 @@ export default async function ServicesPage() {
                 id={card.id}
                 key={card.title}
                 data-card-link={card.href}
+                data-estimate-service={card.title}
                 tabIndex={0}
               >
-                <Link className="services-redesign__service-media" href={card.href} aria-label={card.title}>
+                <Link
+                  className="services-redesign__service-media"
+                  href={card.href}
+                  aria-label={card.title}
+                  data-estimate-service-link
+                >
                   {card.image ? (
                     <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
                   ) : (
@@ -301,7 +307,7 @@ export default async function ServicesPage() {
                   </span>
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
-                  <Link className="services-redesign__link" href={card.href}>
+                  <Link className="services-redesign__link" href={card.href} data-estimate-service-link>
                     Подробнее <span aria-hidden="true">→</span>
                   </Link>
                 </div>

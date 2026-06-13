@@ -1,4 +1,5 @@
 import type { Request as RequestDoc } from "@/payload-types";
+import { telegramFetch } from "./telegram-fetch";
 
 export type TelegramSendResult = {
   chatId: string;
@@ -108,7 +109,7 @@ async function sendTelegramSinglePhoto(input: {
     body.append("parse_mode", "HTML");
   }
 
-  const response = await fetch(`https://api.telegram.org/bot${input.token}/sendPhoto`, {
+  const response = await telegramFetch(`https://api.telegram.org/bot${input.token}/sendPhoto`, {
     method: "POST",
     body,
   });
@@ -147,7 +148,7 @@ async function sendTelegramMessage(
 
   const results = await Promise.all(
     chatIds.map(async (chatId) => {
-      const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      const response = await telegramFetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +250,7 @@ async function sendTelegramPhotos(
       body.append("chat_id", chatId);
       body.append("media", JSON.stringify(media));
 
-      const response = await fetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
+      const response = await telegramFetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
         method: "POST",
         body,
       });
@@ -375,7 +376,7 @@ export async function sendTelegramChatPhotos(input: {
       body.append("chat_id", chatId);
       body.append("media", JSON.stringify(media));
 
-      const response = await fetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
+      const response = await telegramFetch(`https://api.telegram.org/bot${token}/sendMediaGroup`, {
         method: "POST",
         body,
       });

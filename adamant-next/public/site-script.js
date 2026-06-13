@@ -317,6 +317,7 @@
 
   document.body.insertAdjacentHTML("beforeend", modalMarkup);
   const estimateModal = document.getElementById("estimate-modal");
+  const estimateServiceStorageKey = "adamant-estimate-service";
 
   const setEstimateService = (value = "") => {
     const serviceInput = estimateModal?.querySelector('input[name="service"]');
@@ -331,6 +332,10 @@
     const explicitService = trigger.dataset?.estimateService?.trim();
     if (explicitService) return explicitService;
 
+    const serviceContainer = trigger.closest("[data-estimate-service]");
+    const containerService = serviceContainer?.dataset?.estimateService?.trim();
+    if (containerService) return containerService;
+
     const productTitle = trigger
       .closest(".product-detail__content")
       ?.querySelector("[data-product-title]");
@@ -343,7 +348,23 @@
       return serviceTitle.textContent.trim();
     }
 
-    return "";
+    try {
+      return window.sessionStorage.getItem(estimateServiceStorageKey)?.trim() || "";
+    } catch {
+      return "";
+    }
+  };
+
+  const rememberEstimateService = (trigger) => {
+    const serviceContainer = trigger.closest("[data-estimate-service]");
+    const service = serviceContainer?.dataset?.estimateService?.trim();
+    if (!service) return;
+
+    try {
+      window.sessionStorage.setItem(estimateServiceStorageKey, service);
+    } catch {
+      // The form still works when session storage is unavailable.
+    }
   };
 
   const getPhoneDigits = (value) => value.replace(/\D/g, "");
@@ -1907,6 +1928,11 @@
   };
 
   document.addEventListener("click", (event) => {
+    const serviceLink = event.target.closest("[data-estimate-service-link]");
+    if (serviceLink) {
+      rememberEstimateService(serviceLink);
+    }
+
     const messageTrigger = event.target.closest(".js-open-message");
     if (messageTrigger) {
       event.preventDefault();
@@ -1951,6 +1977,7 @@
 
     const linkedCard = event.target.closest?.("[data-card-link]");
     if (linkedCard && !event.target.closest("a, button")) {
+      rememberEstimateService(linkedCard);
       window.location.href = linkedCard.dataset.cardLink;
     }
   });
@@ -1968,6 +1995,7 @@
       (event.key === "Enter" || event.key === " ")
     ) {
       event.preventDefault();
+      rememberEstimateService(linkedCard);
       window.location.href = linkedCard.dataset.cardLink;
       return;
     }
