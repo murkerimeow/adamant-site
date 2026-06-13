@@ -1,8 +1,6 @@
 import {
   Agent,
-  fetch as undiciFetch,
   type Dispatcher,
-  type RequestInit as UndiciRequestInit,
 } from "undici";
 
 const DEFAULT_TELEGRAM_API_IPS = ["149.154.167.220"];
@@ -84,13 +82,13 @@ async function fetchWithDispatcher(
   const timeout = createTimeoutSignal(init.signal);
 
   try {
-    return await undiciFetch(
+    return await globalThis.fetch(
       input,
       {
         ...init,
         dispatcher,
         signal: timeout.signal,
-      } as UndiciRequestInit,
+      } as globalThis.RequestInit & { dispatcher?: Dispatcher },
     );
   } finally {
     timeout.dispose();
