@@ -22421,3 +22421,109 @@ main :where(
     padding: 16px !important;
   }
 }
+
+/* Service cards use the Payload image as a full-card background. */
+.home-page .home-cycle-card {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 0.66;
+  min-height: 420px !important;
+  overflow: hidden;
+  border-radius: 20px !important;
+  background: #b9d9ef;
+}
+
+.home-page .home-cycle-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  min-height: 0;
+  border-radius: inherit;
+}
+
+.home-page .home-cycle-card__media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(10, 20, 34, 0.7) 0%, rgba(10, 20, 34, 0.18) 46%, rgba(10, 20, 34, 0.5) 100%);
+  pointer-events: none;
+}
+
+.home-page .home-cycle-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-page .home-cycle-card__media-placeholder {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+}
+
+.home-page .home-cycle-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 26px 22px 18px !important;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.home-page .home-cycle-card__body h3,
+.home-page .home-cycle-card__body p {
+  max-width: 100%;
+  color: inherit;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.28);
+}
+
+.home-page .home-cycle-card__body h3 {
+  font-size: clamp(17px, 1.08vw, 21px) !important;
+  line-height: 1.12 !important;
+  font-weight: 650;
+}
+
+.home-page .home-cycle-card__body p {
+  display: -webkit-box;
+  margin-top: 4px;
+  overflow: hidden;
+  font-size: 14px !important;
+  line-height: 1.32 !important;
+  opacity: 0.94;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.home-page .home-cycle-card__arrow-link {
+  width: 56px;
+  height: 38px;
+  margin-top: auto;
+  align-self: flex-end;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111827 !important;
+  pointer-events: auto;
+}
+
+@media (max-width: 767px) {
+  .home-page .home-cycle-card {
+    aspect-ratio: 0.72;
+  }
+
+  .home-page .home-cycle-card,
+  .home-page .home-cycle-card__body {
+    min-height: 430px !important;
+  }
+
+  .home-page .home-cycle-card__body {
+    padding: 22px 18px 16px !important;
+  }
+}
