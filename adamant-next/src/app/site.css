@@ -21530,8 +21530,7 @@ main :where(
   }
 
   .home-plot-lead__media {
-    min-height: 260px;
-    border-radius: 32px;
+    display: none;
   }
 }
 
