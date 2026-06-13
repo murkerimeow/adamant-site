@@ -22535,3 +22535,31 @@ main :where(
     padding: 36px 18px 16px !important;
   }
 }
+
+/* Final home projects card surfaces: gray card, white specification pills. */
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card {
+  display: grid !important;
+  background: #f2f3f7 !important;
+  background-color: #f2f3f7 !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__body,
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__footer {
+  background: #f2f3f7 !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__spec {
+  background: #fff !important;
+  background-color: #fff !important;
+}
