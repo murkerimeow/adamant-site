@@ -22281,3 +22281,60 @@ main :where(
     padding: 26px 22px !important;
   }
 }
+
+/* Homepage services: compact two-card viewport from the approved mockup. */
+@media (min-width: 768px) {
+  .home-page .home-cycle .home-section__head {
+    align-items: center;
+    margin-bottom: 26px;
+  }
+
+  .home-page .home-cycle .home-section__head h2 {
+    font-size: clamp(25px, 1.55vw, 30px) !important;
+  }
+
+  .home-page .home-cycle__grid {
+    width: min(100%, 570px);
+    margin-right: 0;
+    padding: 0 0 2px;
+    gap: 16px !important;
+  }
+
+  .home-page .home-cycle-card {
+    flex: 0 0 calc((100% - 16px) / 2) !important;
+    width: calc((100% - 16px) / 2) !important;
+    min-height: 425px !important;
+  }
+}
+
+.home-page .home-cycle-card--tone-1,
+.home-page .home-cycle-card--tone-3 {
+  background: #71abe1;
+  color: #ffffff;
+}
+
+.home-page .home-cycle-card--tone-2,
+.home-page .home-cycle-card--tone-4 {
+  background: #b9d9ef;
+  color: #111827;
+}
+
+.home-page .home-cycle-card__body h3 {
+  font-weight: 650;
+}
+
+@media (max-width: 767px) {
+  .home-page .home-cycle .home-section__head h2 {
+    font-size: 25px !important;
+  }
+
+  .home-page .home-cycle-card--tone-1,
+  .home-page .home-cycle-card--tone-3 {
+    background: #71abe1;
+  }
+
+  .home-page .home-cycle-card--tone-2,
+  .home-page .home-cycle-card--tone-4 {
+    background: #b9d9ef;
+  }
+}
