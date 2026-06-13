@@ -94,7 +94,7 @@ export default async function SiteLayout({ children }: SiteLayoutProps) {
       <div className="site-footer-slot">
         <SiteFooter />
       </div>
-      <Script src="/site-script.js?v=20260613-telegram-service-prefill" strategy="afterInteractive" />
+      <Script src="/site-script.js?v=20260613-telegram-service-query" strategy="afterInteractive" />
     </>
   );
 }

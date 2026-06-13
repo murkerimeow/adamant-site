@@ -483,6 +483,7 @@ export default async function HomePage() {
               {cycleServices.map((service, index) => {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
+                const serviceHref = `${href}${href.includes("?") ? "&" : "?"}service=${encodeURIComponent(service.title)}`;
                 const imageUrl =
                   getMediaUrl(service.previewImage, "card") ||
                   getMediaUrl(service.previewImage);
@@ -491,13 +492,13 @@ export default async function HomePage() {
                   <article
                     key={service.id}
                     className={`home-cycle-card home-cycle-card--tone-${(index % 4) + 1}`}
-                    data-card-link={href}
+                    data-card-link={serviceHref}
                     data-estimate-service={service.title}
                     tabIndex={0}
                   >
                     <a
                       className="home-cycle-card__media"
-                      href={href}
+                      href={serviceHref}
                       data-estimate-service-link
                       aria-label={`Подробнее об услуге ${service.title}`}
                     >
@@ -519,7 +520,7 @@ export default async function HomePage() {
                       <p>{service.shortDescription}</p>
                       <a
                         className="home-cycle-card__arrow-link"
-                        href={href}
+                        href={serviceHref}
                         data-estimate-service-link
                         aria-label={`Подробнее об услуге ${service.title}`}
                       >

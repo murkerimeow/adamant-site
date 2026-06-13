@@ -280,39 +280,43 @@ export default async function ServicesPage() {
             <p>Комплексные решения для строительства и обустройства загородных домов под ключ.</p>
           </div>
           <div className="services-redesign__cards">
-            {serviceCards.length ? serviceCards.map((card) => (
-              <article
-                className="services-redesign__service-card"
-                id={card.id}
-                key={card.title}
-                data-card-link={card.href}
-                data-estimate-service={card.title}
-                tabIndex={0}
-              >
-                <Link
-                  className="services-redesign__service-media"
-                  href={card.href}
-                  aria-label={card.title}
-                  data-estimate-service-link
+            {serviceCards.length ? serviceCards.map((card) => {
+              const serviceHref = `${card.href}${card.href.includes("?") ? "&" : "?"}service=${encodeURIComponent(card.title)}`;
+
+              return (
+                <article
+                  className="services-redesign__service-card"
+                  id={card.id}
+                  key={card.title}
+                  data-card-link={serviceHref}
+                  data-estimate-service={card.title}
+                  tabIndex={0}
                 >
-                  {card.image ? (
-                    <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
-                  ) : (
-                    <span>Добавьте фото услуги в Payload</span>
-                  )}
-                </Link>
-                <div>
-                  <span className="services-redesign__service-icon">
-                    <ServicesIcon type={card.icon} />
-                  </span>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                  <Link className="services-redesign__link" href={card.href} data-estimate-service-link>
-                    Подробнее <span aria-hidden="true">→</span>
+                  <Link
+                    className="services-redesign__service-media"
+                    href={serviceHref}
+                    aria-label={card.title}
+                    data-estimate-service-link
+                  >
+                    {card.image ? (
+                      <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
+                    ) : (
+                      <span>Добавьте фото услуги в Payload</span>
+                    )}
                   </Link>
-                </div>
-              </article>
-            )) : (
+                  <div>
+                    <span className="services-redesign__service-icon">
+                      <ServicesIcon type={card.icon} />
+                    </span>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                    <Link className="services-redesign__link" href={serviceHref} data-estimate-service-link>
+                      Подробнее <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </article>
+              );
+            }) : (
               <div className="services-redesign__empty">Добавьте услуги в Payload</div>
             )}
           </div>

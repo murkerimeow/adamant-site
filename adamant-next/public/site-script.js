@@ -349,6 +349,9 @@
     }
 
     try {
+      const serviceFromUrl = new URLSearchParams(window.location.search).get("service")?.trim();
+      if (serviceFromUrl) return serviceFromUrl;
+
       return window.sessionStorage.getItem(estimateServiceStorageKey)?.trim() || "";
     } catch {
       return "";
