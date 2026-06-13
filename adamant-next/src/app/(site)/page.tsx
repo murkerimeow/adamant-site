@@ -483,6 +483,9 @@ export default async function HomePage() {
               {cycleServices.map((service, index) => {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
+                const imageUrl =
+                  getMediaUrl(service.previewImage, "card") ||
+                  getMediaUrl(service.previewImage);
 
                 return (
                   <article
@@ -491,6 +494,24 @@ export default async function HomePage() {
                     data-card-link={href}
                     tabIndex={0}
                   >
+                    <a
+                      className="home-cycle-card__media"
+                      href={href}
+                      aria-label={`Подробнее об услуге ${service.title}`}
+                    >
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={getMediaAlt(service.previewImage, service.title)}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <span className="home-cycle-card__media-placeholder">
+                          Изображение услуги не загружено
+                        </span>
+                      )}
+                    </a>
                     <div className="home-cycle-card__body">
                       <h3>{service.title}</h3>
                       <p>{service.shortDescription}</p>
