@@ -451,10 +451,15 @@ export default async function HomePage() {
           <section className="home-section home-cycle" aria-labelledby="home-cycle-title" data-home-services-carousel>
             <div className="home-section__head home-section__head--compact">
               <div>
-                <span className="section__kicker">{sectionEyebrows.services || "Наши услуги"}</span>
-                <h2 id="home-cycle-title">{sectionHeadings.services || "Полный цикл строительства"}</h2>
+                <span className="section__kicker">{sectionEyebrows.services || "Услуги"}</span>
+                <h2 id="home-cycle-title">
+                  {sectionHeadings.services || "Услуги компании «АДАМАНТ Строй»"}
+                </h2>
               </div>
               <div className="home-project-preview__actions home-cycle__actions" aria-label="Навигация по услугам">
+                <Link className="home-section__link" href="/services">
+                  Перейти в услуги <span aria-hidden="true">→</span>
+                </Link>
                 <button
                   className="home-project-preview__arrow"
                   type="button"
@@ -475,33 +480,27 @@ export default async function HomePage() {
             </div>
 
             <div className="home-cycle__grid js-wheel-slider">
-              {cycleServices.map((service) => {
+              {cycleServices.map((service, index) => {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
-                const imageUrl =
-                  getMediaUrl(service.previewImage, "card") || getMediaUrl(service.previewImage);
 
                 return (
                   <article
                     key={service.id}
-                    className="home-cycle-card"
+                    className={`home-cycle-card home-cycle-card--tone-${(index % 4) + 1}`}
                     data-card-link={href}
                     tabIndex={0}
                   >
-                    <a className="home-cycle-card__media" href={href} aria-label={`Подробнее об услуге ${service.title}`}>
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={getMediaAlt(service.previewImage, service.title)}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : null}
-                    </a>
                     <div className="home-cycle-card__body">
                       <h3>{service.title}</h3>
                       <p>{service.shortDescription}</p>
-                      <a href={href}>Подробнее <span aria-hidden="true">→</span></a>
+                      <a
+                        className="home-cycle-card__arrow-link"
+                        href={href}
+                        aria-label={`Подробнее об услуге ${service.title}`}
+                      >
+                        <span aria-hidden="true">→</span>
+                      </a>
                     </div>
                   </article>
                 );
