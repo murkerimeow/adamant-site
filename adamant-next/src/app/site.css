@@ -22725,3 +22725,14 @@ main :where(
   object-fit: cover !important;
   object-position: center bottom !important;
 }
+
+/* Keep labels on the main photographic banners neutral and readable. */
+.home-page .hero__kicker,
+.mortgage-page .mortgage-redesign__hero-content > span,
+.about-page--fresh .about-redesign__eyebrow {
+  border-color: transparent !important;
+  background: #fff !important;
+  background-image: none !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
