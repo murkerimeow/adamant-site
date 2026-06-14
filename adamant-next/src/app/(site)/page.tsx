@@ -485,9 +485,7 @@ export default async function HomePage() {
                 const catalogItem = catalogByTitle.get(service.title);
                 const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
                 const serviceHref = `${href}${href.includes("?") ? "&" : "?"}service=${encodeURIComponent(service.title)}`;
-                const imageUrl =
-                  getMediaUrl(service.previewImage, "card") ||
-                  getMediaUrl(service.previewImage);
+                const imageUrl = getMediaUrl(service.previewImage);
 
                 return (
                   <article

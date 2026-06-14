@@ -22711,7 +22711,7 @@ main :where(
   }
 }
 
-/* Final service-card image treatment: no dark overlay or forced zoom. */
+/* Final service-card image treatment: keep the full Payload image visible. */
 .home-page .home-cycle-card__media::after {
   display: none !important;
   content: none !important;
@@ -22722,8 +22722,18 @@ main :where(
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
+  object-fit: contain !important;
   object-position: center bottom !important;
+}
+
+.home-page .home-cycle-card__body {
+  padding-top: 58px !important;
+}
+
+@media (max-width: 767px) {
+  .home-page .home-cycle-card__body {
+    padding-top: 48px !important;
+  }
 }
 
 /* Keep labels on the main photographic banners neutral and readable. */
