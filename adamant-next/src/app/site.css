@@ -22740,7 +22740,7 @@ main :where(
 /* Align mobile homepage sections with the hero content line. */
 @media (max-width: 767px) {
   .home-page {
-    --home-mobile-frame-gutter: 2.5px;
+    --home-mobile-frame-gutter: 10px;
     --home-mobile-section-frame-gutter: 10px;
     --home-mobile-inner-gutter: clamp(18px, 5vw, 24px);
     --home-mobile-content-line: calc(
