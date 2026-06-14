@@ -22736,3 +22736,32 @@ main :where(
   color: #111 !important;
   box-shadow: none !important;
 }
+
+/* Align mobile homepage sections with the hero content line. */
+@media (max-width: 767px) {
+  .home-page {
+    --home-mobile-frame-gutter: 10px;
+    --home-mobile-inner-gutter: clamp(18px, 5vw, 24px);
+    --home-mobile-content-line: calc(
+      var(--home-mobile-frame-gutter) + var(--home-mobile-inner-gutter)
+    );
+  }
+
+  .home-page main > .stats,
+  .home-page main > .home-about-stats,
+  .home-page main > .home-section {
+    padding-right: var(--home-mobile-content-line) !important;
+    padding-left: var(--home-mobile-content-line) !important;
+  }
+
+  /* These sections already have the same outer frame gutter as the hero. */
+  .home-page .home-project-preview--catalog-style {
+    padding-right: var(--home-mobile-inner-gutter) !important;
+    padding-left: var(--home-mobile-inner-gutter) !important;
+  }
+
+  .home-page .home-plot-lead__content {
+    padding-right: var(--home-mobile-inner-gutter) !important;
+    padding-left: var(--home-mobile-inner-gutter) !important;
+  }
+}
