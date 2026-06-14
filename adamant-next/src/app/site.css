@@ -22740,10 +22740,14 @@ main :where(
 /* Align mobile homepage sections with the hero content line. */
 @media (max-width: 767px) {
   .home-page {
-    --home-mobile-frame-gutter: 10px;
+    --home-mobile-frame-gutter: 2.5px;
+    --home-mobile-section-frame-gutter: 10px;
     --home-mobile-inner-gutter: clamp(18px, 5vw, 24px);
     --home-mobile-content-line: calc(
       var(--home-mobile-frame-gutter) + var(--home-mobile-inner-gutter)
+    );
+    --home-mobile-inset-section-padding: calc(
+      var(--home-mobile-content-line) - var(--home-mobile-section-frame-gutter)
     );
   }
 
@@ -22756,12 +22760,12 @@ main :where(
 
   /* These sections already have the same outer frame gutter as the hero. */
   .home-page .home-project-preview--catalog-style {
-    padding-right: var(--home-mobile-inner-gutter) !important;
-    padding-left: var(--home-mobile-inner-gutter) !important;
+    padding-right: var(--home-mobile-inset-section-padding) !important;
+    padding-left: var(--home-mobile-inset-section-padding) !important;
   }
 
   .home-page .home-plot-lead__content {
-    padding-right: var(--home-mobile-inner-gutter) !important;
-    padding-left: var(--home-mobile-inner-gutter) !important;
+    padding-right: var(--home-mobile-inset-section-padding) !important;
+    padding-left: var(--home-mobile-inset-section-padding) !important;
   }
 }
