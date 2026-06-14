@@ -22719,11 +22719,14 @@ main :where(
 }
 
 .home-page .home-cycle-card__media img {
-  inset: 0 !important;
+  inset: auto 0 0 !important;
+  display: block !important;
   width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  object-position: center bottom !important;
+  height: auto !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  object-fit: initial !important;
+  object-position: initial !important;
 }
 
 .home-page .home-cycle-card__body {
