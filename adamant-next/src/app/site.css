@@ -22769,3 +22769,112 @@ main :where(
     padding-left: var(--home-mobile-inset-section-padding) !important;
   }
 }
+
+/* Video previews: slim vertical cards and one full-screen blurred viewer. */
+.home-review-video-card,
+.page.inner-page .review-video-card {
+  aspect-ratio: 9 / 16 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #f2f3f7 !important;
+  box-shadow: none !important;
+}
+
+.home-review-video-card__open,
+.review-video-card__open {
+  overflow: hidden !important;
+  border-radius: inherit !important;
+}
+
+.review-video-card::after,
+.home-review-video-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+.home-review-video-card img,
+.home-review-video-card video,
+.review-video-card__open img,
+.review-video-card__open video {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+  object-fit: cover !important;
+}
+
+.home-review-video-card__play,
+.review-video-card__play {
+  top: 50% !important;
+  left: 50% !important;
+  display: grid !important;
+  width: clamp(54px, 4vw, 68px) !important;
+  height: clamp(54px, 4vw, 68px) !important;
+  place-items: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  border-radius: 50% !important;
+  background: rgba(16, 24, 38, 0.58) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transform: translate(-50%, -50%) !important;
+}
+
+.home-review-video-card__play span,
+.review-video-card__play span {
+  width: 0 !important;
+  height: 0 !important;
+  margin-left: 5px !important;
+  border-top: 10px solid transparent !important;
+  border-bottom: 10px solid transparent !important;
+  border-left: 16px solid #fff !important;
+}
+
+.video-stories {
+  background: transparent !important;
+}
+
+.video-stories__backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(255, 255, 255, 0.01) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(0.86) !important;
+  backdrop-filter: blur(22px) saturate(0.86) !important;
+}
+
+.video-stories__panel,
+.video-stories__track,
+.video-stories__slide {
+  background: transparent !important;
+}
+
+.video-stories__panel {
+  border-radius: 16px !important;
+  box-shadow: none !important;
+}
+
+.video-stories__frame {
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  background: #090d14 !important;
+}
+
+@media (max-width: 767px) {
+  .home-review-video-card,
+  .page.inner-page .review-video-card {
+    border-radius: 12px !important;
+  }
+
+  .home-review-video-card {
+    flex-basis: min(70vw, 248px) !important;
+  }
+
+  .page.inner-page .review-video-card {
+    flex-basis: min(70vw, 248px) !important;
+  }
+
+  .video-stories__panel,
+  .video-stories__frame {
+    border-radius: 12px !important;
+  }
+}
