@@ -22731,6 +22731,13 @@ main :where(
 
 .home-page .home-cycle-card__body {
   padding-top: 58px !important;
+  color: #111827 !important;
+}
+
+.home-page .home-cycle-card__body h3,
+.home-page .home-cycle-card__body p {
+  color: #111827 !important;
+  text-shadow: none !important;
 }
 
 @media (max-width: 767px) {
