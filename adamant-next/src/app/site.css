@@ -22710,3 +22710,18 @@ main :where(
     font-size: 11px !important;
   }
 }
+
+/* Final service-card image treatment: no dark overlay or forced zoom. */
+.home-page .home-cycle-card__media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+.home-page .home-cycle-card__media img {
+  inset: auto 0 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+}
