@@ -22719,9 +22719,9 @@ main :where(
 }
 
 .home-page .home-cycle-card__media img {
-  inset: auto 0 0 !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;
+  object-fit: cover !important;
   object-position: center bottom !important;
 }
