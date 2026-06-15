@@ -23612,6 +23612,11 @@ main :where(
   border-radius: 26px !important;
 }
 
+.home-page .home-review-video-card,
+.page.inner-page .review-video-card {
+  border-radius: 18px !important;
+}
+
 .home-page .home-review-video-card__open,
 .page.inner-page .review-video-card__open {
   position: relative !important;
@@ -23624,7 +23629,12 @@ main :where(
 .page.inner-page .review-video-card img,
 .page.inner-page .review-video-card video {
   position: absolute !important;
-  inset: 0 !important;
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover !important;
   object-position: center bottom !important;
 }
