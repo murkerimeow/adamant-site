@@ -553,6 +553,42 @@ export default async function HomePage() {
             </Link>
           </section>
 
+          <aside
+            className="home-social-banner home-mortgage-banner"
+            aria-labelledby="home-mortgage-banner-title"
+          >
+            <div className="home-social-banner__content home-mortgage-banner__content">
+              <span className="home-social-banner__eyebrow">Будьте в курсе</span>
+              <h2 id="home-mortgage-banner-title">Постройте дом в ипотеку</h2>
+              <p>
+                Поможем подобрать банк, подготовить документы и пройти согласование
+                для строительства дома под ключ
+              </p>
+              <div className="home-mortgage-banner__actions">
+                <Link className="home-mortgage-banner__primary" href="/mortgage">
+                  Перейти в раздел
+                </Link>
+                <Link
+                  className="home-mortgage-banner__secondary"
+                  href="/mortgage#mortgage-calculator"
+                >
+                  Ипотечный калькулятор
+                </Link>
+              </div>
+              <div className="home-mortgage-banner__banks" aria-label="Банки-партнеры">
+                <span className="home-mortgage-banner__bank home-mortgage-banner__bank--sber">
+                  СБЕР
+                </span>
+                <span className="home-mortgage-banner__bank home-mortgage-banner__bank--vtb">
+                  ВТБ
+                </span>
+                <span className="home-mortgage-banner__bank home-mortgage-banner__bank--tbank">
+                  Т-БАНК
+                </span>
+              </div>
+            </div>
+          </aside>
+
           <section
             className="home-section home-portfolio-showcase"
             aria-labelledby="home-portfolio-title"

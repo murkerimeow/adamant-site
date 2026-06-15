@@ -23785,6 +23785,68 @@ main :where(
   height: 40px;
 }
 
+.home-mortgage-banner__content {
+  width: min(100%, 620px);
+}
+
+.home-mortgage-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 34px;
+}
+
+.home-mortgage-banner__actions a {
+  display: inline-flex;
+  min-height: 44px;
+  padding: 10px 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+}
+
+.home-mortgage-banner__primary {
+  background: #df9965;
+  color: #ffffff;
+}
+
+.home-mortgage-banner__secondary {
+  background: rgba(255, 255, 255, 0.92);
+  color: #171a20;
+}
+
+.home-mortgage-banner__banks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-top: 36px;
+  align-items: center;
+}
+
+.home-mortgage-banner__bank {
+  color: #17233a;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.home-mortgage-banner__bank--sber {
+  color: #00a94f;
+}
+
+.home-mortgage-banner__bank--vtb {
+  color: #163d8f;
+}
+
+.home-mortgage-banner__bank--tbank {
+  color: #252a31;
+}
+
 @media (max-width: 767px) {
   .home-page .home-about-stats__cta,
   .home-page .home-project-preview__actions .home-section__link,
@@ -23867,5 +23929,25 @@ main :where(
 
   .home-social-banner__links {
     margin-top: 30px;
+  }
+
+  .home-mortgage-banner__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+  }
+
+  .home-mortgage-banner__actions a {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .home-mortgage-banner__banks {
+    gap: 20px;
+    margin-top: 34px;
+  }
+
+  .home-mortgage-banner__bank {
+    font-size: 16px;
   }
 }
