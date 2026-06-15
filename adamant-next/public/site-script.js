@@ -1789,7 +1789,7 @@
     const nextButton = sliderRoot?.querySelector("[data-slider-next]");
 
     const getSlideStep = () => {
-      const firstCard = slider.querySelector(".home-card, .home-project-card:not([hidden]), .home-cycle-card, .review-video-card, .home-review-video-card, .about-redesign__team article");
+      const firstCard = slider.querySelector(".home-card, .home-project-card:not([hidden]), .home-cycle-card, .home-portfolio-card:not([hidden]), .review-video-card, .home-review-video-card, .about-redesign__team article");
       if (!firstCard) return Math.max(260, slider.clientWidth * 0.78);
 
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
@@ -1834,7 +1834,7 @@
       const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
       if (maxScroll <= 2) return;
 
-      const firstCard = slider.querySelector(".home-card, .home-project-card:not([hidden]), .home-cycle-card, .review-video-card, .home-review-video-card, .about-redesign__team article");
+      const firstCard = slider.querySelector(".home-card, .home-project-card:not([hidden]), .home-cycle-card, .home-portfolio-card:not([hidden]), .review-video-card, .home-review-video-card, .about-redesign__team article");
       const gap = parseFloat(window.getComputedStyle(slider).columnGap || "0") || 0;
       const step = firstCard
         ? firstCard.getBoundingClientRect().width + gap

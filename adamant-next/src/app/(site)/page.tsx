@@ -16,6 +16,7 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { HomeProjectCategories } from "@/site/components/HomeProjectCategories";
+import { HomePortfolioCategories } from "@/site/components/HomePortfolioCategories";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
@@ -60,6 +61,61 @@ const processSteps = [
     text: "Сдаем готовый дом в срок и предоставляем гарантию на все работы.",
   },
 ];
+
+const homePortfolioCategories = [
+  { label: "Построенные дома", value: "built-houses" },
+  {
+    label: "Построенные коммерческие объекты",
+    value: "commercial-buildings",
+  },
+  { label: "Ремонт квартир", value: "apartment-renovation" },
+  {
+    label: "Отделка коммерческих помещений",
+    value: "commercial-finishing",
+  },
+];
+
+function getHomePortfolioCategory(project: {
+  category?: string | null;
+  description?: string | null;
+  summary: string;
+  tags?: { label: string }[] | null;
+  title: string;
+}) {
+  const searchText = [
+    project.title,
+    project.summary,
+    project.description,
+    ...(project.tags?.map((tag) => tag.label) ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLocaleLowerCase("ru");
+
+  if (/ремонт\W*квартир|квартир\W*ремонт/.test(searchText)) {
+    return "apartment-renovation";
+  }
+
+  if (
+    /отделк.*коммерч|коммерч.*отделк|музей|офис|торгов.*помещ/.test(
+      searchText,
+    )
+  ) {
+    return "commercial-finishing";
+  }
+
+  if (/коммерческ.*объект|склад|производственн.*здан/.test(searchText)) {
+    return "commercial-buildings";
+  }
+
+  if (/дом|коттедж|каркас|газобетон|брус/.test(searchText)) {
+    return "built-houses";
+  }
+
+  return project.category === "classic" || project.category === "modern"
+    ? "built-houses"
+    : "commercial-buildings";
+}
 
 type HomeStat = {
   id: string;
@@ -120,7 +176,7 @@ export default async function HomePage() {
   const featuredProjectCategories = catalogCategories
     .filter((category) => featuredProjectCategorySlugs.has(category.slug))
     .slice(0, 6);
-  const portfolioStripItems = portfolioItems.slice(0, 6);
+  const portfolioStripItems = portfolioItems;
   const plotLeadProject =
     featuredProjects.find((project) =>
       /модуль|дач|брус|террас/i.test(project.title),
@@ -488,34 +544,68 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="home-section home-portfolio-showcase" aria-labelledby="home-portfolio-title">
+          <section
+            className="home-section home-portfolio-showcase"
+            aria-labelledby="home-portfolio-title"
+            data-home-services-carousel
+            data-home-portfolio
+          >
             <div className="home-section__head home-section__head--compact">
               <div>
                 <span className="section__kicker">{sectionEyebrows.portfolio || "Портфолио"}</span>
-                <h2 id="home-portfolio-title">{sectionHeadings.portfolio || "Реализованные проекты"}</h2>
+                <h2 id="home-portfolio-title">
+                  {sectionHeadings.portfolio &&
+                  sectionHeadings.portfolio !== "Реализованные проекты"
+                    ? sectionHeadings.portfolio
+                    : "Выполненные работы компании «АДАМАНТ Строй»"}
+                </h2>
               </div>
-              <a className="home-section__link" href="/portfolio">
-                Смотреть все проекты <span aria-hidden="true">→</span>
-              </a>
+              <div className="home-portfolio-showcase__actions" aria-label="Навигация по портфолио">
+                <Link className="home-section__link" href="/portfolio">
+                  Перейти в проекты <span aria-hidden="true">→</span>
+                </Link>
+                <button
+                  className="home-project-preview__arrow"
+                  type="button"
+                  aria-label="Предыдущие работы"
+                  data-slider-prev
+                >
+                  ‹
+                </button>
+                <button
+                  className="home-project-preview__arrow"
+                  type="button"
+                  aria-label="Следующие работы"
+                  data-slider-next
+                >
+                  ›
+                </button>
+              </div>
             </div>
 
-            <div className="projects-grid home-portfolio-strip">
+            <HomePortfolioCategories categories={homePortfolioCategories} />
+
+            <div className="home-portfolio-strip js-wheel-slider">
               {portfolioStripItems.map((project) => {
                 const href = getPortfolioItemPath(project);
                 const imageUrl =
                   getMediaUrl(project.previewImage, "card") ||
                   getMediaUrl(project.previewImage);
-                const visibleTags = project.tags?.slice(0, 2) || [];
+                const category = getHomePortfolioCategory(project);
 
                 return (
                   <article
                     key={project.id}
-                    className="blog-card project-card-blog home-portfolio-card"
+                    className="home-portfolio-card"
                     data-card-link={href}
+                    data-portfolio-category={category}
                     tabIndex={0}
-                    data-category={project.category}
                   >
-                    <div className="blog-card__media">
+                    <a
+                      className="home-portfolio-card__media"
+                      href={href}
+                      aria-label={project.title}
+                    >
                       {imageUrl ? (
                         <img
                           src={imageUrl}
@@ -524,25 +614,26 @@ export default async function HomePage() {
                           decoding="async"
                         />
                       ) : null}
-                    </div>
-                    <div className="blog-card__body">
-                      <h2>{project.title}</h2>
-                      <p>{project.summary}</p>
-                      {visibleTags.length ? (
-                        <div className="project-card-blog__tags">
-                          {visibleTags.map((tag) => (
-                            <span key={tag.id ?? tag.label}>{tag.label}</span>
-                          ))}
-                        </div>
+                      {project.location ? (
+                        <span className="home-portfolio-card__location">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" />
+                            <circle cx="12" cy="10" r="2" />
+                          </svg>
+                          {project.location}
+                        </span>
                       ) : null}
-                    </div>
-                    <a href={href}>
-                      Подробнее <span aria-hidden="true">→</span>
                     </a>
+                    <h3>
+                      <a href={href}>{project.title}</a>
+                    </h3>
                   </article>
                 );
               })}
             </div>
+            <p className="home-portfolio-empty" data-portfolio-empty hidden>
+              В этой категории пока нет опубликованных работ.
+            </p>
           </section>
 
           <section className="home-plot-lead" aria-labelledby="home-plot-lead-title">
