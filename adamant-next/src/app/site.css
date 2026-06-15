@@ -22711,6 +22711,181 @@ main :where(
   }
 }
 
+/* Home process: alternating construction-stage cards. */
+.home-page main > .home-process {
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: clamp(46px, 4.6vw, 82px) clamp(24px, 4vw, 64px)
+    clamp(50px, 4.4vw, 78px) !important;
+}
+
+.home-page .home-process .home-section__head {
+  display: block !important;
+  max-width: 620px !important;
+  margin: 0 !important;
+}
+
+.home-page .home-process .section__kicker {
+  min-height: 26px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #dcecfb !important;
+  color: #68abe7 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 7px 14px !important;
+}
+
+.home-page .home-process .home-section__head h2 {
+  max-width: 560px !important;
+  margin-top: 18px !important;
+  color: #0d0f12 !important;
+  font-size: clamp(28px, 2.15vw, 40px) !important;
+  line-height: 1.12 !important;
+  font-weight: 700 !important;
+}
+
+.home-page .home-process__lead {
+  max-width: 590px !important;
+  margin-top: 14px !important;
+  color: #858585 !important;
+  font-size: clamp(14px, 0.94vw, 17px) !important;
+  line-height: 1.22 !important;
+  font-weight: 400 !important;
+}
+
+.home-page .home-process__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  gap: clamp(12px, 1.1vw, 20px) !important;
+  margin-top: clamp(58px, 6vw, 100px) !important;
+  padding: 10px 6px 14px !important;
+}
+
+.home-page .home-process__item {
+  min-height: clamp(178px, 13vw, 222px) !important;
+  align-content: end !important;
+  gap: 8px !important;
+  border: 0 !important;
+  border-radius: clamp(20px, 1.55vw, 28px) !important;
+  background: linear-gradient(to top, #eaeaea 0%, #f2f3f7 100%) !important;
+  box-shadow: none !important;
+  padding: clamp(72px, 5.8vw, 104px) clamp(18px, 1.55vw, 28px)
+    clamp(18px, 1.45vw, 26px) !important;
+}
+
+.home-page .home-process__item:nth-child(1),
+.home-page .home-process__item:nth-child(3) {
+  color: #0d0f12 !important;
+}
+
+.home-page .home-process__item:nth-child(1) {
+  --process-tilt: -3.4deg;
+}
+
+.home-page .home-process__item:nth-child(2) {
+  --process-tilt: 2.8deg;
+}
+
+.home-page .home-process__item:nth-child(3) {
+  --process-tilt: -3deg;
+}
+
+.home-page .home-process__item:nth-child(4) {
+  --process-tilt: 3.2deg;
+}
+
+.home-page .home-process__item:nth-child(2),
+.home-page .home-process__item:nth-child(4) {
+  border: 0 !important;
+  background: linear-gradient(to top, #68abe7 0%, #95c9f8 100%) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-process__item:hover {
+  box-shadow: none !important;
+  transform: translateY(-4px) rotate(var(--process-tilt)) !important;
+}
+
+.home-page .home-process__item > span {
+  top: clamp(14px, 1.3vw, 24px) !important;
+  right: clamp(16px, 1.7vw, 32px) !important;
+  color: rgba(27, 34, 44, 0.1) !important;
+  font-size: clamp(66px, 5.6vw, 104px) !important;
+  line-height: 0.82 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+
+.home-page .home-process__item:nth-child(2) > span,
+.home-page .home-process__item:nth-child(4) > span {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.home-page .home-process__item h3 {
+  max-width: 250px !important;
+  color: inherit !important;
+  font-size: clamp(15px, 1vw, 18px) !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+}
+
+.home-page .home-process__item p {
+  max-width: 280px !important;
+  color: #7d7d7d !important;
+  font-size: clamp(12px, 0.8vw, 14px) !important;
+  line-height: 1.28 !important;
+  font-weight: 400 !important;
+}
+
+.home-page .home-process__item:nth-child(2) p,
+.home-page .home-process__item:nth-child(4) p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+@media (max-width: 1050px) {
+  .home-page .home-process__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    row-gap: 26px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page main > .home-process {
+    padding: 36px 30px 42px !important;
+  }
+
+  .home-page .home-process .home-section__head {
+    margin-bottom: 0 !important;
+  }
+
+  .home-page .home-process .home-section__head h2 {
+    margin-top: 14px !important;
+    font-size: 28px !important;
+  }
+
+  .home-page .home-process__lead {
+    font-size: 14px !important;
+    line-height: 1.32 !important;
+  }
+
+  .home-page .home-process__grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    margin-top: 42px !important;
+    padding: 8px 4px 12px !important;
+  }
+
+  .home-page .home-process__item {
+    min-height: 174px !important;
+    padding: 70px 20px 20px !important;
+  }
+}
+
 /* Final service-card image treatment: keep the full Payload image visible. */
 .home-page .home-cycle-card__media::after {
   display: none !important;
