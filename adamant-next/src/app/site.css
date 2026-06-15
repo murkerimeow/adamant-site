@@ -23951,3 +23951,53 @@ main :where(
     font-size: 16px;
   }
 }
+
+/* Homepage section rhythm and inline mobile video reviews. */
+body:has(.home-page),
+.home-page {
+  --home-section-radius: 36px;
+}
+
+.home-page main > .stats,
+.home-page main > .home-about-stats,
+.home-page main > .home-section,
+.home-page .home-plot-lead__content,
+.home-page .home-plot-lead__media {
+  border-radius: var(--home-section-radius) !important;
+}
+
+body:has(.home-page) .home-footer {
+  border-radius: var(--home-section-radius) !important;
+}
+
+.home-page main > .home-social-banner:last-child {
+  margin-bottom: var(--section-gap) !important;
+}
+
+body:has(.home-page) > .site-footer-slot {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.home-page .home-video-reviews__all {
+  text-decoration: none;
+}
+
+.home-page .home-review-video-card__media {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  body:has(.home-page),
+  .home-page {
+    --home-section-radius: 28px;
+  }
+
+  .home-page .home-video-reviews__actions {
+    display: none !important;
+  }
+
+  .home-page .home-review-video-card {
+    flex-basis: min(84vw, 320px) !important;
+  }
+}
