@@ -321,10 +321,11 @@ export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "itemKe
 
   const legacyByItemKey: Record<string, string> = {
     frame: "karkasnye-doma",
-    gasbeton: "dom-iz-gazobetona",
+    gasbeton: "doma-iz-gazobetona",
+    "modulnij-dom": "modulnye-doma",
     onefloor: "dachnye-doma",
     terrace: "dachnye-doma",
-    timber: "dachnye-doma",
+    timber: "doma-iz-brusa",
   };
 
   if (item.itemKey && legacyByItemKey[item.itemKey]) {
