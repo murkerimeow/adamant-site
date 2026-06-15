@@ -294,6 +294,9 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+            <Link className="home-mobile-section-link" href="/about">
+              Подробнее о нас
+            </Link>
           </section>
 
           <section
@@ -437,6 +440,9 @@ export default async function HomePage() {
                 );
               })}
             </div>
+            <Link className="home-mobile-section-link" href="/catalog">
+              Перейти в проекты
+            </Link>
           </section>
 
           <section className="home-section home-process" aria-labelledby="home-process-title" data-stagger-reveal>
@@ -542,6 +548,9 @@ export default async function HomePage() {
                 );
               })}
             </div>
+            <Link className="home-mobile-section-link" href="/services">
+              Перейти в услуги
+            </Link>
           </section>
 
           <section
@@ -634,6 +643,9 @@ export default async function HomePage() {
             <p className="home-portfolio-empty" data-portfolio-empty hidden>
               В этой категории пока нет опубликованных работ.
             </p>
+            <Link className="home-mobile-section-link" href="/portfolio">
+              Перейти в проекты
+            </Link>
           </section>
 
           <section className="home-plot-lead" aria-labelledby="home-plot-lead-title">
@@ -789,6 +801,14 @@ export default async function HomePage() {
                     </article>
                   ))}
             </div>
+            <button
+              className="home-mobile-section-link"
+              type="button"
+              data-video-stories-open
+              disabled={!videoReviews.length}
+            >
+              Перейти в отзывы
+            </button>
           </section>
 
           {videoReviews.length ? (
@@ -847,6 +867,9 @@ export default async function HomePage() {
                   <span className="section__kicker">{sectionEyebrows.faq || "Ответы на частые вопросы"}</span>
                   <h2 id="home-faq-title">{sectionHeadings.faq || "FAQ"}</h2>
                 </div>
+                <Link className="home-faq__head-link" href="/about">
+                  Перейти в FAQ <span aria-hidden="true">→</span>
+                </Link>
               </div>
 
               <div className="home-faq__list">
@@ -861,8 +884,37 @@ export default async function HomePage() {
                   </details>
                 ))}
               </div>
+              <Link className="home-mobile-section-link" href="/about">
+                Перейти в FAQ
+              </Link>
             </section>
           ) : null}
+
+          <aside className="home-social-banner" aria-labelledby="home-social-banner-title">
+            <div className="home-social-banner__content">
+              <span className="home-social-banner__eyebrow">Будьте в курсе</span>
+              <h2 id="home-social-banner-title">
+                Подписывайтесь на
+                <br />
+                наши социальные сети
+              </h2>
+              <p>Мы есть практически во всех популярных социальных сетях</p>
+              <div className="home-social-banner__links" aria-label="Социальные сети">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.key}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    title={social.label}
+                  >
+                    <SocialIcon name={social.key} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </aside>
         </main>
       </div>
     </div>

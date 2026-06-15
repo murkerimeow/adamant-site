@@ -25,8 +25,11 @@ export function HomeProjectCategories({ categories }: HomeProjectCategoriesProps
     section
       ?.querySelectorAll<HTMLElement>("[data-home-project-category]")
       .forEach((card) => {
-        card.hidden =
+        const isFilteredOut =
           category !== "all" && card.dataset.homeProjectCategory !== category;
+
+        card.hidden = isFilteredOut;
+        card.classList.toggle("is-filtered-out", isFilteredOut);
       });
 
     slider?.scrollTo({ left: 0, behavior: "smooth" });

@@ -23581,3 +23581,279 @@ main :where(
     flex-basis: min(78vw, 300px) !important;
   }
 }
+
+/* Homepage interaction and section finishing pass */
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card[hidden],
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.is-filtered-out {
+  display: none !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-preview__categories
+  button:not(.is-active) {
+  color: #7d828b !important;
+  font-weight: 500 !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-preview__categories
+  button.is-active {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.home-page .home-cycle-card {
+  border-radius: 26px !important;
+}
+
+.home-page .home-review-video-card__open,
+.page.inner-page .review-video-card__open {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.home-page .home-review-video-card img,
+.home-page .home-review-video-card video,
+.page.inner-page .review-video-card img,
+.page.inner-page .review-video-card video {
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover !important;
+  object-position: center bottom !important;
+}
+
+.home-mobile-section-link {
+  display: none;
+}
+
+.home-page main > .home-faq {
+  padding-top: 46px !important;
+  padding-bottom: 58px !important;
+}
+
+.home-page .home-faq .home-section__head {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: end !important;
+  gap: 28px !important;
+  margin: 0 0 38px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.home-page .home-faq__head-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #68abe7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.home-page .home-faq__head-link span {
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.home-page .home-faq__list {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: start;
+  gap: 16px !important;
+}
+
+.home-page .home-faq__item {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: #f2f3f7 !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  transform: none !important;
+}
+
+.home-page .home-faq__item summary {
+  min-height: 52px;
+  padding: 17px 54px 17px 24px !important;
+  color: #111318 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+.home-page .home-faq__item summary::after {
+  right: 22px !important;
+  color: #1f2937 !important;
+  font-size: 26px !important;
+  font-weight: 300 !important;
+}
+
+.home-page .home-faq__item p {
+  margin: 0 !important;
+  padding: 0 24px 18px !important;
+  color: #85888e !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+
+.home-social-banner {
+  display: flex;
+  width: min(1070px, calc(100% - 40px));
+  min-height: 305px;
+  margin: 30px auto 70px;
+  padding: 34px 40px;
+  align-items: center;
+  border-radius: 28px;
+  background: linear-gradient(90deg, #86bbeb 0%, #d9e7f6 100%);
+  overflow: hidden;
+}
+
+.home-social-banner__content {
+  width: min(100%, 620px);
+}
+
+.home-social-banner__eyebrow {
+  display: inline-flex;
+  min-height: 26px;
+  padding: 5px 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #20242b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.home-social-banner h2 {
+  margin: 25px 0 14px;
+  color: #0f1319;
+  font-size: 32px;
+  font-weight: 650;
+  line-height: 1.08;
+}
+
+.home-social-banner p {
+  margin: 0;
+  color: #3f4a57;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.home-social-banner__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.home-social-banner__links a {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-social-banner__links svg,
+.home-social-banner__links img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 767px) {
+  .home-page .home-about-stats__cta,
+  .home-page .home-project-preview__actions .home-section__link,
+  .home-page .home-portfolio-showcase__actions .home-section__link,
+  .home-page .home-video-reviews__all,
+  .home-page .home-faq__head-link {
+    display: none !important;
+  }
+
+  .home-page .home-mobile-section-link {
+    display: flex !important;
+    width: 100%;
+    min-height: 68px;
+    margin: 26px 0 0;
+    padding: 14px 20px;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 24px;
+    background: #f2f3f7;
+    color: #111318;
+    font: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .home-page .home-mobile-section-link:disabled {
+    color: #7d828b;
+    cursor: default;
+  }
+
+  .home-page main > .home-faq {
+    padding-top: 38px !important;
+    padding-bottom: 42px !important;
+  }
+
+  .home-page .home-faq .home-section__head {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    margin-bottom: 26px !important;
+  }
+
+  .home-page .home-faq__list {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .home-page .home-faq__item summary {
+    min-height: 58px;
+    padding: 17px 48px 17px 18px !important;
+    font-size: 13px !important;
+  }
+
+  .home-page .home-faq__item summary::after {
+    right: 18px !important;
+  }
+
+  .home-page .home-faq__item p {
+    padding: 0 18px 17px !important;
+    font-size: 13px !important;
+  }
+
+  .home-social-banner {
+    width: calc(100% - 20px);
+    min-height: 0;
+    margin: 20px auto 42px;
+    padding: 30px 20px 34px;
+    border-radius: 24px;
+  }
+
+  .home-social-banner h2 {
+    margin-top: 22px;
+    font-size: 28px;
+  }
+
+  .home-social-banner__links {
+    margin-top: 30px;
+  }
+}
