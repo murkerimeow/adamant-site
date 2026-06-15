@@ -19,6 +19,7 @@ import { HomeProjectCategories } from "@/site/components/HomeProjectCategories";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
+import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -32,14 +33,6 @@ export async function generateMetadata() {
     path: "/",
   });
 }
-
-const statIconTypes = ["house", "clock", "clients", "award"] as const;
-const statIconPaths = [
-  "/new-icons/homes.png",
-  "/new-icons/estimate-day.png",
-  "/new-icons/happy-clients.png",
-  "/new-icons/experience.png",
-] as const;
 
 const servicePrices: Record<string, string> = {
   "Дом из бруса": "от 5 000 000 ₽",
@@ -102,56 +95,6 @@ function getHomeStats(
     }));
 
   return (payloadStats.length ? payloadStats : fallbackStats).slice(0, 4);
-}
-
-type StatIconType = (typeof statIconTypes)[number];
-
-function StatIcon({ type }: { type: StatIconType }) {
-  const commonProps = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    strokeWidth: 1.65,
-  };
-
-  if (type === "clock") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="7" {...commonProps} />
-        <path d="M12 8.4v4.05l2.85 1.72" {...commonProps} />
-      </svg>
-    );
-  }
-
-  if (type === "clients") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="9.2" cy="8.8" r="2.75" {...commonProps} />
-        <path d="M4.65 18.65c.48-3.08 2.08-4.78 4.55-4.78s4.08 1.7 4.55 4.78" {...commonProps} />
-        <path d="M15.25 9.95a2.35 2.35 0 1 0 0-4.7" {...commonProps} />
-        <path d="M15.6 13.75c2.2.34 3.56 1.98 3.96 4.82" {...commonProps} />
-      </svg>
-    );
-  }
-
-  if (type === "award") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 4.15 14.05 5.4l2.38-.15.98 2.18 1.82 1.55-.54 2.36.54 2.34-1.82 1.56-.98 2.18-2.38-.15L12 18.5l-2.05-1.23-2.38.15-.98-2.18-1.82-1.56.54-2.34-.54-2.36 1.82-1.55.98-2.18 2.38.15L12 4.15Z" {...commonProps} />
-        <path d="m9.65 11.18 1.55 1.55 3.15-3.28" {...commonProps} />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4.7 11.25 12 5.1l7.3 6.15" {...commonProps} />
-      <path d="M6.75 10.25v8.25h10.5v-8.25" {...commonProps} />
-      <path d="M10.15 18.5v-4.85h3.7v4.85" {...commonProps} />
-      <path d="M15.8 7.28V5.35h2.08v3.7" {...commonProps} />
-    </svg>
-  );
 }
 
 export default async function HomePage() {
@@ -265,20 +208,33 @@ export default async function HomePage() {
                 и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
                 сметы до строительства под ключ.
               </p>
+              <div className="home-about-stats__socials">
+                <strong>Наши соцсети</strong>
+                <div aria-label="Социальные сети">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.key}
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={social.label}
+                      title={social.label}
+                    >
+                      <SocialIcon name={social.key} />
+                    </a>
+                  ))}
+                </div>
+              </div>
               <div className="home-about-stats__cta">
                 <Link href="/about">Подробнее о нас</Link>
               </div>
             </div>
 
             <div className="home-about-stats__grid" aria-label="Показатели компании">
-              {stats.slice(0, 4).map((stat, index) => (
+              {stats.slice(0, 4).map((stat) => (
                 <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
-                  <span className="home-about-stat__icon" aria-hidden="true">
-                    <StatIcon type={statIconTypes[index] ?? "house"} />
-                  </span>
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
-                  <i aria-hidden="true" />
                 </div>
               ))}
             </div>
