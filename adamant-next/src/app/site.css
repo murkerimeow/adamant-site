@@ -24001,3 +24001,12 @@ body:has(.home-page) > .site-footer-slot {
     flex-basis: min(84vw, 320px) !important;
   }
 }
+
+/* Mobile about statistics: quieter labels inside the gray tiles. */
+@media (max-width: 767px) {
+  .home-page .home-about-stat span {
+    max-width: 100px !important;
+    font-size: 9px !important;
+    line-height: 1.14 !important;
+  }
+}
