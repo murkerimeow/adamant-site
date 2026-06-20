@@ -217,10 +217,7 @@ export default async function MortgagePage() {
             fetchPriority="high"
           />
           <div className="mortgage-redesign__hero-content">
-            <span>Поддержка надежных банков</span>
-            <h1 id="mortgage-title">
-              Постройте дом <strong>в ипотеку</strong>
-            </h1>
+            <h1 id="mortgage-title">Постройте дом в ипотеку</h1>
             <p>
               Поможем подобрать банк, подготовить документы и пройти согласование для строительства дома под ключ.
             </p>
@@ -228,62 +225,32 @@ export default async function MortgagePage() {
               <button className="js-open-estimate" type="button">
                 Получить консультацию
               </button>
-              <a className="mortgage-redesign__hero-secondary" href="#mortgage-calculator">
-                Ипотечный калькулятор
-              </a>
             </div>
           </div>
         </section>
 
-        <section className="mortgage-redesign__section mortgage-redesign__services" aria-labelledby="mortgage-services-title">
-          <h2 id="mortgage-services-title">Что мы делаем для вас</h2>
-          <div>
-            {serviceCards.map(([icon, title, text]) => (
-              <article key={title}>
-                <span>
-                  <MortgageIcon type={icon} />
-                </span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section className="mortgage-redesign__section mortgage-redesign__banks" aria-labelledby="mortgage-banks-title">
-          <h2 id="mortgage-banks-title">Работаем с ипотечными программами крупных банков</h2>
+          <h2 id="mortgage-banks-title">Банки партнеры</h2>
           <div>
             <article className="mortgage-redesign__bank mortgage-redesign__bank--sber">
               <BankLogo bank="sber" />
+              <a href="/contacts">Смотреть сертификат <span aria-hidden="true">→</span></a>
             </article>
             <article className="mortgage-redesign__bank mortgage-redesign__bank--tbank">
               <BankLogo bank="tbank" />
+              <a href="/contacts">Смотреть сертификат <span aria-hidden="true">→</span></a>
             </article>
             <article className="mortgage-redesign__bank mortgage-redesign__bank--vtb">
               <BankLogo bank="vtb" />
+              <a href="/contacts">Смотреть сертификат <span aria-hidden="true">→</span></a>
             </article>
-          </div>
-          <p>Сотрудничаем и с другими банками. Подберем лучший вариант именно для вас.</p>
-        </section>
-
-        <section className="mortgage-redesign__section mortgage-redesign__fit" aria-labelledby="mortgage-fit-title">
-          <h2 id="mortgage-fit-title">Ипотека подходит, если вы:</h2>
-          <div>
-            {fitCards.map(([icon, title]) => (
-              <article key={title}>
-                <span>
-                  <MortgageIcon type={icon} />
-                </span>
-                <h3>{title}</h3>
-              </article>
-            ))}
           </div>
         </section>
 
         <section className="mortgage-redesign__section mortgage-redesign__process" aria-labelledby="mortgage-process-title">
-          <h2 id="mortgage-process-title">Как проходит оформление ипотеки</h2>
+          <h2 id="mortgage-process-title">Как мы помогаем с ипотекой</h2>
           <div>
-            {processSteps.map(([, title, text], index) => (
+            {serviceCards.map(([, title, text], index) => (
               <article key={title}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{title}</h3>

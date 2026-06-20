@@ -24754,3 +24754,563 @@ body:has(.product-page--catalog),
     gap: 10px;
   }
 }
+
+/* Mortgage page: visual structure matching the shared page composition. */
+.page.inner-page.mortgage-page .mortgage-redesign--compact {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero {
+  position: relative !important;
+  isolation: isolate;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  height: clamp(320px, 28vw, 390px) !important;
+  min-height: clamp(320px, 28vw, 420px) !important;
+  max-height: 390px !important;
+  aspect-ratio: auto !important;
+  margin: 14px auto 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #b7d7f3 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero::before {
+  display: none !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero::after {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  background: linear-gradient(90deg, #bfdcf5 0%, #bfdcf5 37%, rgba(191, 220, 245, 0.92) 48%, rgba(191, 220, 245, 0.18) 68%, rgba(191, 220, 245, 0) 100%) !important;
+  content: "" !important;
+  pointer-events: none;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero > img {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center 70% !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero-content {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  width: min(47%, 560px) !important;
+  min-height: inherit !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: clamp(34px, 4vw, 58px) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero-content h1 {
+  max-width: 520px !important;
+  margin: 0 !important;
+  color: #111318 !important;
+  font-size: clamp(34px, 3.2vw, 52px) !important;
+  font-weight: 600 !important;
+  line-height: 1.04 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero-content p {
+  max-width: 490px !important;
+  margin: 22px 0 0 !important;
+  color: #424b55 !important;
+  font-size: clamp(14px, 1.05vw, 17px) !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero-content > div {
+  margin-top: 34px !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__hero-content button {
+  display: inline-flex !important;
+  min-width: 196px !important;
+  min-height: 48px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #171a1f !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 0 24px !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__banks {
+  display: block !important;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  margin: 18px auto 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__banks > h2 {
+  margin: 0 0 16px !important;
+  color: #111318 !important;
+  font-size: clamp(25px, 2vw, 34px) !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__banks > div {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__bank {
+  display: flex !important;
+  min-height: 166px !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: 28px 30px 22px !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__bank .mortgage-bank-logo {
+  width: auto !important;
+  max-width: 205px !important;
+  height: 54px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__bank a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: #111318;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__bank a span {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process {
+  display: block !important;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  margin: var(--section-gap) auto 0 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: clamp(34px, 4vw, 56px) clamp(24px, 4.5vw, 64px) clamp(42px, 5vw, 72px) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process > h2 {
+  margin: 0 !important;
+  color: #111318 !important;
+  font-size: clamp(28px, 2.4vw, 40px) !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process > div {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: clamp(52px, 6vw, 86px) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article {
+  position: relative !important;
+  display: flex !important;
+  min-height: 188px !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+  padding: 24px !important;
+  transform: rotate(-3deg) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(odd) {
+  background: linear-gradient(0deg, #eaeaea 0%, #f2f3f7 100%) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) {
+  background: linear-gradient(0deg, #68abe7 0%, #95c9f8 100%) !important;
+  color: #ffffff !important;
+  transform: rotate(3deg) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article > span {
+  position: absolute !important;
+  top: 12px !important;
+  right: 18px !important;
+  color: rgba(18, 22, 28, 0.1) !important;
+  font-size: clamp(58px, 6vw, 92px) !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) > span {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article h3,
+.page.inner-page.mortgage-page .mortgage-redesign__process article p {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article h3 {
+  margin: 0 !important;
+  color: inherit !important;
+  font-size: 15px !important;
+  font-weight: 650 !important;
+  line-height: 1.12 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article p {
+  margin: 9px 0 0 !important;
+  color: #72767d !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Portfolio object: summary metrics and a full-width photo grid. */
+.page.inner-page.portfolio-detail-page .portfolio-detail--object {
+  display: grid !important;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  gap: 14px !important;
+  margin: 14px auto var(--section-gap) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.portfolio-detail--object .portfolio-detail__object-summary {
+  display: grid;
+  min-height: 230px;
+  grid-template-columns: minmax(0, 1.3fr) minmax(360px, 0.7fr);
+  gap: clamp(30px, 5vw, 78px);
+  align-items: center;
+  border-radius: 22px;
+  background: #ffffff;
+  padding: clamp(28px, 3vw, 38px) clamp(30px, 5vw, 64px);
+}
+
+.portfolio-detail--object .portfolio-detail__object-copy {
+  display: flex;
+  max-width: 570px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.portfolio-detail--object .portfolio-detail__object-copy h1 {
+  margin: 0;
+  color: #111318;
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.portfolio-detail--object .portfolio-detail__location {
+  margin-top: 9px;
+  color: #777c84;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.portfolio-detail--object .portfolio-detail__location::first-letter {
+  color: #ff5963;
+}
+
+.portfolio-detail--object .portfolio-detail__object-copy p {
+  max-width: 560px;
+  margin: 18px 0 0;
+  color: #777c84;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.portfolio-detail--object .portfolio-detail__object-copy button {
+  display: inline-flex;
+  min-width: 190px;
+  min-height: 48px;
+  margin-top: 22px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: #df9965;
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 24px;
+}
+
+.portfolio-detail--object .portfolio-detail__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+
+.portfolio-detail--object .portfolio-detail__metrics > div {
+  display: flex;
+  min-height: 92px;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 16px;
+  background: #e8f2fc;
+  padding: 17px 20px;
+}
+
+.portfolio-detail--object .portfolio-detail__metrics dt,
+.portfolio-detail--object .portfolio-detail__metrics dd {
+  margin: 0;
+}
+
+.portfolio-detail--object .portfolio-detail__metrics dt {
+  color: #718096;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.portfolio-detail--object .portfolio-detail__metrics dd {
+  margin-top: 7px;
+  color: #111318;
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.1;
+}
+
+.portfolio-detail--object .portfolio-detail__photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.portfolio-detail--object .portfolio-detail__photo-grid figure {
+  aspect-ratio: 3 / 2;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #e8f2fc;
+}
+
+.portfolio-detail--object .portfolio-detail__photo-grid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-detail--object .portfolio-detail__content,
+.portfolio-detail--object .portfolio-detail__similar {
+  margin-top: calc(var(--section-gap) - 14px);
+}
+
+@media (max-width: 980px) {
+  .page.inner-page.mortgage-page .mortgage-redesign__hero,
+  .page.inner-page.mortgage-page .mortgage-redesign__banks,
+  .page.inner-page.mortgage-page .mortgage-redesign__process,
+  .page.inner-page.portfolio-detail-page .portfolio-detail--object {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content {
+    width: 58% !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .portfolio-detail--object .portfolio-detail__object-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .page.inner-page.mortgage-page .mortgage-redesign__hero {
+    height: 510px !important;
+    min-height: 510px !important;
+    max-height: 510px !important;
+    border-radius: 24px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero::after {
+    background: linear-gradient(180deg, #bfdcf5 0%, #bfdcf5 46%, rgba(191, 220, 245, 0.86) 62%, rgba(191, 220, 245, 0.08) 100%) !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero > img {
+    object-position: 70% bottom !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content {
+    width: 100% !important;
+    min-height: 510px !important;
+    justify-content: flex-start !important;
+    padding: 34px 22px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content h1 {
+    max-width: 300px !important;
+    font-size: 34px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content p {
+    max-width: 310px !important;
+    margin-top: 15px !important;
+    font-size: 13px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content > div {
+    margin-top: 20px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content button {
+    min-width: 0 !important;
+    min-height: 44px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__banks {
+    margin-top: 20px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__banks > h2 {
+    margin-left: 6px !important;
+    font-size: 27px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__banks > div {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__bank {
+    min-height: 144px !important;
+    border-radius: 24px !important;
+    padding: 24px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process {
+    border-radius: 24px !important;
+    padding: 32px 18px 42px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process > h2 {
+    font-size: 28px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process > div {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 36px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article,
+  .page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) {
+    min-height: 170px !important;
+    border-radius: 22px !important;
+    transform: rotate(0) !important;
+  }
+
+  .portfolio-detail--object .portfolio-detail__object-summary {
+    min-height: 0;
+    gap: 30px;
+    border-radius: 24px;
+    padding: 32px 20px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__object-copy h1 {
+    font-size: 31px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__object-copy p {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__object-copy button {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__metrics {
+    gap: 10px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__metrics > div {
+    min-height: 92px;
+    border-radius: 16px;
+    padding: 15px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__metrics dd {
+    font-size: 15px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__photo-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .portfolio-detail--object .portfolio-detail__photo-grid figure {
+    border-radius: 20px;
+  }
+}

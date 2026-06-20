@@ -9,6 +9,7 @@ import {
   getSiteSettings,
   splitParagraphs,
 } from "@/site/cms";
+import { formatArea, formatFloors } from "@/site/catalog-meta";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata, SITE_NAME } from "@/site/seo";
@@ -49,6 +50,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
   }
 
   const imageUrl = getMediaUrl(item.previewImage) || getMediaUrl(item.previewImage, "card");
+  const catalogItem = typeof item.catalogItem === "object" ? item.catalogItem : null;
   const galleryImages = [
     {
       alt: getMediaAlt(item.previewImage, item.title),
@@ -58,12 +60,46 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
       alt: getMediaAlt(entry.image, item.title),
       src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
     })) ?? []),
+    ...(catalogItem
+      ? [catalogItem.previewImage, catalogItem.detailImage, ...(catalogItem.gallery?.map((entry) => entry.image) ?? [])]
+          .map((media) => ({
+            alt: getMediaAlt(media, item.title),
+            src: getMediaUrl(media) || getMediaUrl(media, "card"),
+          }))
+      : []),
   ]
     .filter((image) => image.src)
     .filter(
       (image, index, images) =>
         images.findIndex((candidate) => candidate.src === image.src) === index,
     );
+  const galleryGridImages = galleryImages.length
+    ? Array.from({ length: Math.max(6, galleryImages.length) }, (_, index) => galleryImages[index % galleryImages.length]).slice(0, 6)
+    : [];
+  const floorTag = item.tags?.find((tag) => /\d+\s*этаж/i.test(tag.label))?.label;
+  const formatTag = item.tags?.find((tag) => /ключ|готов|отдел/i.test(tag.label))?.label;
+  const metrics = [
+    {
+      label: "Площадь",
+      value: item.projectArea
+        ? formatArea(item.projectArea)
+        : catalogItem?.area
+          ? formatArea(catalogItem.area)
+          : "Уточняется",
+    },
+    {
+      label: "Этажность",
+      value: catalogItem?.floors ? formatFloors(catalogItem.floors) : floorTag || "По проекту",
+    },
+    {
+      label: "Формат",
+      value: formatTag || "Готовый объект",
+    },
+    {
+      label: "Категория",
+      value: item.category === "classic" ? "Классический дом" : "Современный дом",
+    },
+  ];
   const paragraphs = splitParagraphs(item.description || item.summary);
   const similarItems = portfolioItems
     .filter((candidate) => candidate.id !== item.id)
@@ -73,72 +109,42 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
-      <section className="section portfolio-detail" aria-labelledby="portfolio-detail-title">
-        <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
-          <a href="/">Главная</a>
-          <span aria-hidden="true">/</span>
-          <a href="/portfolio">Портфолио</a>
-          <span aria-hidden="true">/</span>
-          <span>{item.title}</span>
-        </nav>
-
-        <div className="portfolio-detail__hero">
-          <div className="portfolio-detail__gallery" data-portfolio-gallery-size={galleryImages.length}>
-            {galleryImages.length ? (
-              <div className="portfolio-detail__gallery-track">
-                {galleryImages.map((image, index) => (
-                  <figure key={`${image.src}-${index}`}>
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                      fetchPriority={index === 0 ? "high" : "auto"}
-                    />
-                  </figure>
-                ))}
-              </div>
-            ) : null}
-            {galleryImages.length > 1 ? (
-              <div className="portfolio-detail__dots" aria-label="Фотографии проекта">
-                {galleryImages.map((image, index) => (
-                  <span key={`${image.src}-dot-${index}`} />
-                ))}
-              </div>
-            ) : null}
+      <section className="section portfolio-detail portfolio-detail--object" aria-labelledby="portfolio-detail-title">
+        <div className="portfolio-detail__object-summary">
+          <div className="portfolio-detail__object-copy">
+            <h1 id="portfolio-detail-title">{item.title}</h1>
+            {item.location ? <span className="portfolio-detail__location">● {item.location}</span> : null}
+            <p>{item.summary}</p>
+            <button className="js-open-estimate" type="button" data-estimate-service={item.title}>
+              Хочу такой же дом
+            </button>
           </div>
 
-          <aside className="portfolio-detail__summary">
-            <span className="section__kicker">{item.category === "classic" ? "Классический проект" : "Современный проект"}</span>
-            <h1 id="portfolio-detail-title">{item.title}</h1>
-            <p>{item.summary}</p>
-
-            <dl>
-              {item.location ? (
-                <div>
-                  <dt>Локация</dt>
-                  <dd>{item.location}</dd>
-                </div>
-              ) : null}
-              {item.projectArea ? (
-                <div>
-                  <dt>Площадь</dt>
-                  <dd>{item.projectArea} м²</dd>
-                </div>
-              ) : null}
-              {item.tags?.slice(0, 4).map((tag) => (
-                <div key={tag.id ?? tag.label}>
-                  <dt>Особенность</dt>
-                  <dd>{tag.label}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <button className="js-open-estimate" type="button">
-              Оставить заявку
-            </button>
-          </aside>
+          <dl className="portfolio-detail__metrics">
+            {metrics.map((metric) => (
+              <div key={metric.label}>
+                <dt>{metric.label}</dt>
+                <dd>{metric.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
+
+        {galleryGridImages.length ? (
+          <div className="portfolio-detail__photo-grid" aria-label="Фотографии объекта">
+            {galleryGridImages.map((image, index) => (
+              <figure key={`${image.src}-grid-${index}`}>
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading={index < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
+              </figure>
+            ))}
+          </div>
+        ) : null}
 
         <div className="portfolio-detail__content">
           <article>
