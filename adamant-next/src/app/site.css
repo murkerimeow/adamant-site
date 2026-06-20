@@ -25315,6 +25315,530 @@ body:has(.product-page--catalog),
   }
 }
 
+/* Homepage reference: split about block, project grid and one lower-section rhythm. */
+.home-page main > .home-about-stats {
+  display: grid !important;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  grid-template-columns: minmax(280px, 0.39fr) minmax(480px, 0.61fr) !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.home-page .home-about-stats__visual {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #dfe8ee;
+}
+
+.home-page .home-about-stats__visual > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 76% center;
+}
+
+.home-page .home-about-stats__content {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: minmax(178px, auto) minmax(0, 1fr);
+  gap: 14px;
+}
+
+.home-page .home-about-stats__copy {
+  position: relative;
+  display: block;
+  max-width: none !important;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #df9965;
+  color: #ffffff;
+  padding: 24px 30px;
+}
+
+.home-page .home-about-stats__eyebrow {
+  min-height: 24px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #26282d !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  padding: 0 12px !important;
+}
+
+.home-page .home-about-stats__copy h2 {
+  max-width: 72% !important;
+  margin: 15px 0 0 !important;
+  color: #ffffff !important;
+  font-size: clamp(24px, 2vw, 34px) !important;
+  font-weight: 600 !important;
+  line-height: 1.06 !important;
+}
+
+.home-page .home-about-stats__copy p {
+  max-width: 72% !important;
+  margin: 12px 0 0 !important;
+  color: rgba(255, 255, 255, 0.94) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.32 !important;
+}
+
+.home-page .home-about-stats__copy .home-about-stats__cta {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  display: block !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.home-page .home-about-stats__copy .home-about-stats__cta > a {
+  display: inline-flex;
+  min-width: 132px;
+  min-height: 40px !important;
+  align-items: center;
+  justify-content: center;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #24272d !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+  padding: 0 18px !important;
+}
+
+.home-page .home-about-stats__visual .home-about-stats__socials {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 2;
+  min-width: 172px;
+  margin: 0 !important;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 14px 16px;
+}
+
+.home-page .home-about-stats__visual .home-about-stats__socials > strong {
+  margin: 0 0 9px !important;
+  color: #15171b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.home-page .home-about-stats__visual .home-about-stats__socials > div {
+  gap: 6px;
+}
+
+.home-page .home-about-stats__visual .home-about-stats__socials a,
+.home-page .home-about-stats__visual .home-about-stats__socials svg {
+  width: 24px;
+  height: 24px;
+}
+
+.home-page .home-about-stats__grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-content: stretch !important;
+}
+
+.home-page .home-about-stat {
+  position: relative;
+  display: flex !important;
+  min-height: 0 !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  justify-content: center;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: 24px 46% 24px 28px !important;
+}
+
+.home-page .home-about-stat strong {
+  position: relative;
+  z-index: 1;
+  margin: 0 !important;
+  color: #3e4147 !important;
+  font-size: clamp(30px, 2.6vw, 44px) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.home-page .home-about-stat span {
+  position: relative;
+  z-index: 1;
+  max-width: 110px !important;
+  margin-top: 9px !important;
+  color: #74777d !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+}
+
+.home-page .home-about-stat > img {
+  position: absolute;
+  right: 24px;
+  bottom: 50%;
+  display: block;
+  width: clamp(58px, 6vw, 96px);
+  height: clamp(58px, 6vw, 96px);
+  object-fit: contain;
+  opacity: 0.82;
+  transform: translateY(50%);
+}
+
+.home-page .home-project-preview--catalog-style {
+  width: 100% !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  border-radius: 30px !important;
+  background: #ffffff !important;
+  padding: clamp(38px, 4vw, 58px)
+    max(24px, calc((100vw - var(--site-frame-width)) / 2)) !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-section__head {
+  align-items: flex-end !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-section__head h2 {
+  margin-top: 14px !important;
+  font-size: clamp(25px, 2vw, 34px) !important;
+  font-weight: 600 !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-preview__arrow {
+  display: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-section__link {
+  margin: 0 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-preview__categories {
+  gap: clamp(16px, 2vw, 34px);
+  margin: 18px 0 26px;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-preview__categories button {
+  color: #7a7f87;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-preview__categories button.is-active {
+  background: #df9965;
+  color: #ffffff;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-preview__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card {
+  position: relative;
+  display: grid !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 388px !important;
+  min-height: 388px !important;
+  grid-template-rows: minmax(0, 1fr) 46% !important;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, #95c9f8 0%, #68abe7 100%) !important;
+  box-shadow: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__footer {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 4;
+  display: flex;
+  min-height: 38px !important;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__footer > strong {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111318 !important;
+  font-size: 11px !important;
+  font-weight: 650 !important;
+  padding: 0 14px;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__footer > strong span {
+  color: #111318 !important;
+  font-size: 9px !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__button {
+  display: grid;
+  width: 40px;
+  min-width: 40px;
+  height: 34px;
+  min-height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  background: #df9965;
+  color: transparent !important;
+  font-size: 0 !important;
+  padding: 0 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__button::after {
+  color: #ffffff;
+  content: "→";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__body {
+  z-index: 2;
+  grid-row: 1;
+  background: transparent !important;
+  padding: 68px 18px 14px !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__body h2 {
+  color: #111318 !important;
+  font-size: 17px !important;
+  font-weight: 650 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__description {
+  min-height: 34px !important;
+  margin: 8px 0 12px !important;
+  color: #334b60 !important;
+  font-size: 10px !important;
+  font-weight: 400;
+  line-height: 1.3 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__specs {
+  margin-top: auto;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__spec {
+  min-height: 38px !important;
+  gap: 4px !important;
+  border-radius: 7px !important;
+  padding: 5px 7px !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__spec-icon {
+  width: 15px !important;
+  height: 15px !important;
+  flex-basis: 15px !important;
+  color: #111318 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__spec strong {
+  color: #111318 !important;
+  font-size: 9px !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__spec small {
+  color: #757b83 !important;
+  font-size: 6px !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__media {
+  grid-row: 2;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px !important;
+  background: #dfe8ee;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__media img {
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__badge,
+.home-page .home-project-preview--catalog-style .listing-card__photos {
+  display: none !important;
+}
+
+.home-page .home-project-preview__more {
+  display: inline-flex;
+  min-width: 210px;
+  min-height: 44px;
+  margin: 34px auto 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #df9965;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0 24px;
+}
+
+/* The main hero is intentionally excluded; only lower homepage blocks share this rhythm. */
+.home-page main > :is(.home-about-stats, .home-section, .home-social-banner, .home-plot-lead)
+  + :is(.home-about-stats, .home-section, .home-social-banner, .home-plot-lead) {
+  margin-top: var(--section-gap) !important;
+}
+
+.home-page main > :is(.home-social-banner, .home-plot-lead) {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 980px) {
+  .home-page main > .home-about-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .home-page .home-about-stats__visual {
+    min-height: 430px;
+  }
+
+  .home-page .home-project-preview--catalog-style .home-project-preview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page main > .home-about-stats {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    gap: 10px !important;
+  }
+
+  .home-page .home-about-stats__visual {
+    min-height: 410px;
+    border-radius: 24px;
+  }
+
+  .home-page .home-about-stats__content {
+    gap: 10px;
+  }
+
+  .home-page .home-about-stats__copy {
+    min-height: 270px;
+    border-radius: 24px;
+    padding: 28px 20px;
+  }
+
+  .home-page .home-about-stats__copy h2,
+  .home-page .home-about-stats__copy p {
+    max-width: 100% !important;
+  }
+
+  .home-page .home-about-stats__copy h2 {
+    margin-top: 16px !important;
+    font-size: 26px !important;
+  }
+
+  .home-page .home-about-stats__copy p {
+    font-size: 13px !important;
+  }
+
+  .home-page .home-about-stats__copy .home-about-stats__cta {
+    display: none !important;
+  }
+
+  .home-page .home-about-stats__grid {
+    gap: 10px !important;
+  }
+
+  .home-page .home-about-stat {
+    min-height: 142px !important;
+    border-radius: 22px !important;
+    padding: 18px 42% 18px 16px !important;
+  }
+
+  .home-page .home-about-stat strong {
+    font-size: 28px !important;
+  }
+
+  .home-page .home-about-stat span {
+    font-size: 9px !important;
+  }
+
+  .home-page .home-about-stat > img {
+    right: 12px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .home-page .home-project-preview--catalog-style {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    border-radius: 24px !important;
+    padding: 30px 18px !important;
+  }
+
+  .home-page .home-project-preview--catalog-style .home-project-preview__grid {
+    display: flex !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+  }
+
+  .home-page .home-project-preview--catalog-style .home-project-card.listing-card {
+    flex: 0 0 min(90%, 340px) !important;
+    width: min(90%, 340px) !important;
+    height: 420px !important;
+    min-height: 420px !important;
+    scroll-snap-align: start;
+  }
+
+  .home-page .home-project-preview__more {
+    display: none;
+  }
+
+  .home-page main > .home-project-preview--catalog-style {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+}
+
 /* Mortgage reference alignment: neutralize legacy offsets and process badges. */
 .page.inner-page.mortgage-page .mortgage-redesign__hero-content {
   top: 0 !important;

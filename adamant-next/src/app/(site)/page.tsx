@@ -170,8 +170,11 @@ export default async function HomePage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog);
+  const homeProjects = featuredProjects.length
+    ? Array.from({ length: 6 }, (_, index) => featuredProjects[index % featuredProjects.length])
+    : [];
   const featuredProjectCategorySlugs = new Set(
-    featuredProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
+    homeProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
   );
   const featuredProjectCategories = catalogCategories
     .filter((category) => featuredProjectCategorySlugs.has(category.slug))
@@ -255,15 +258,8 @@ export default async function HomePage() {
           </section>
 
           <section className="home-about-stats" aria-labelledby="home-about-stats-title">
-            <div className="home-about-stats__copy">
-              <span className="home-about-stats__eyebrow">{sectionEyebrows.about || "О компании"}</span>
-              <h2 id="home-about-stats-title">{sectionHeadings.about || "О нас"}</h2>
-              <span className="home-about-stats__line" aria-hidden="true" />
-              <p>
-                Проектируем и строим современные загородные дома в Санкт-Петербурге
-                и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
-                сметы до строительства под ключ.
-              </p>
+            <div className="home-about-stats__visual">
+              <img src="/main1.jpg" alt="Современный загородный дом компании АДАМАНТ Строй" />
               <div className="home-about-stats__socials">
                 <strong>Наши соцсети</strong>
                 <div aria-label="Социальные сети">
@@ -281,18 +277,37 @@ export default async function HomePage() {
                   ))}
                 </div>
               </div>
-              <div className="home-about-stats__cta">
-                <Link href="/about">Подробнее о нас</Link>
-              </div>
             </div>
 
-            <div className="home-about-stats__grid" aria-label="Показатели компании">
-              {stats.slice(0, 4).map((stat) => (
-                <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
+            <div className="home-about-stats__content">
+              <div className="home-about-stats__copy">
+                <span className="home-about-stats__eyebrow">{sectionEyebrows.about || "О нас"}</span>
+                <h2 id="home-about-stats-title">
+                  {sectionHeadings.about || "О компании «АДАМАНТ Строй»"}
+                </h2>
+                <p>
+                  Проектируем и строим современные загородные дома в Санкт-Петербурге
+                  и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
+                  сметы до строительства под ключ.
+                </p>
+                <div className="home-about-stats__cta">
+                  <Link href="/about">Подробнее о нас</Link>
                 </div>
-              ))}
+              </div>
+
+              <div className="home-about-stats__grid" aria-label="Показатели компании">
+                {stats.slice(0, 4).map((stat, index) => (
+                  <div className="home-about-stat" key={stat.id ?? `${stat.value}-${stat.label}`}>
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label}</span>
+                    <img
+                      src={["/500+.png", "/1 день.png", "/2000+.png", "/15 лет.png"][index]}
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <Link className="home-mobile-section-link" href="/about">
               Подробнее о нас
@@ -336,7 +351,7 @@ export default async function HomePage() {
             <HomeProjectCategories categories={featuredProjectCategories} />
 
             <div className="home-project-preview__grid js-wheel-slider">
-              {featuredProjects.map((project) => {
+              {homeProjects.map((project, projectIndex) => {
                 const href = getCatalogItemPath(project);
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
@@ -346,7 +361,7 @@ export default async function HomePage() {
 
                 return (
                   <article
-                    key={project.id}
+                    key={`${project.id}-${projectIndex}`}
                     className="home-project-card listing-card"
                     data-card-link={href}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
@@ -429,8 +444,14 @@ export default async function HomePage() {
 
                     <div className="listing-card__footer">
                       <strong>
-                        <span>от</span>
-                        {formatProjectPrice(meta.price)} ₽
+                        {meta.price > 0 ? (
+                          <>
+                            <span>от</span>
+                            {formatProjectPrice(meta.price)} ₽
+                          </>
+                        ) : (
+                          "Цена по запросу"
+                        )}
                       </strong>
                       <a className="listing-card__button" href={href} aria-label={`Подробнее: ${project.title}`}>
                         Подробнее
@@ -440,6 +461,9 @@ export default async function HomePage() {
                 );
               })}
             </div>
+            <Link className="home-project-preview__more" href="/catalog">
+              Показать больше
+            </Link>
             <Link className="home-mobile-section-link" href="/catalog">
               Перейти в проекты
             </Link>
