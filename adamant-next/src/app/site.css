@@ -24077,7 +24077,8 @@ body:has(.product-page--catalog),
 .product-page--catalog .product-hero-media-stack {
   position: relative !important;
   min-width: 0 !important;
-  height: var(--project-hero-height) !important;
+  min-height: var(--project-hero-height) !important;
+  height: auto !important;
 }
 
 .product-page--catalog .product-section--hero-photos {
@@ -24102,8 +24103,9 @@ body:has(.product-page--catalog),
   padding: 0 17px;
 }
 
-.product-page--catalog .product-hero-hit::first-letter {
+.product-page--catalog .product-hero-hit > span {
   color: #f2b500;
+  font-size: 17px;
 }
 
 .product-page--catalog .product-detail--catalog-card .product-hero-card .product-gallery {

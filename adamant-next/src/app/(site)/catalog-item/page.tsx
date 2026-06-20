@@ -323,7 +323,11 @@ export default async function CatalogItemPage({
 
         <div className="product-hero-card">
           <div className="product-hero-media-stack">
-            {item.isHit ? <span className="product-hero-hit">★ Хит проект</span> : null}
+            {item.isHit ? (
+              <span className="product-hero-hit">
+                <span aria-hidden="true">★</span> Хит проект
+              </span>
+            ) : null}
             {galleryImages.length ? (
               <ProductGallery images={galleryImages} title={item.title} />
             ) : (
