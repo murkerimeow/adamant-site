@@ -255,6 +255,7 @@ export default async function CatalogItemPage({
 
   const meta = getCatalogCardMeta(item);
   const productPrice = `от ${formatProjectPrice(meta.price)} ₽`;
+  const productPriceValue = productPrice.replace(/^от\s*/i, "");
   const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean) ?? [];
   const area = item.area ? formatArea(item.area) : findTag(tagLabels, /(м²|м2|м\^2|кв)/i, meta.area);
   const floors = item.floors ? formatFloors(item.floors) : findTag(tagLabels, /этаж/i, meta.floors);
@@ -322,6 +323,7 @@ export default async function CatalogItemPage({
 
         <div className="product-hero-card">
           <div className="product-hero-media-stack">
+            {item.isHit ? <span className="product-hero-hit">★ Хит проект</span> : null}
             {galleryImages.length ? (
               <ProductGallery images={galleryImages} title={item.title} />
             ) : (
@@ -354,14 +356,14 @@ export default async function CatalogItemPage({
             </h1>
             <p className="product-hero-info__location">
               <DetailIconSvg type="location" />
-              Ленинградская область
+              Санкт-Петербург и Ленинградская область
             </p>
             <p className="product-hero-info__summary">{heroSummary}</p>
-
-            <div className="product-hero-info__price">
-              <span>Стоимость строительства</span>
-              <strong>{productPrice}</strong>
-            </div>
+            {descriptionParagraphs[0] !== heroSummary ? (
+              <p className="product-hero-info__summary product-hero-info__summary--secondary">
+                {descriptionParagraphs[0]}
+              </p>
+            ) : null}
 
             <div className="product-hero-info__specs" aria-label="Главные характеристики">
               {specs.slice(0, 4).map((spec) => (
@@ -377,13 +379,31 @@ export default async function CatalogItemPage({
               ))}
             </div>
 
-            <button
-              className="product-hero-info__button js-open-estimate"
-              type="button"
-              data-estimate-service={item.title}
-            >
-              Оставить заявку
-            </button>
+            <div className="product-hero-info__price">
+              <span>Стоимость строительства</span>
+              <div className="product-hero-info__price-row">
+                <span>от</span>
+                <strong>{productPriceValue}</strong>
+                <em aria-hidden="true">*</em>
+              </div>
+            </div>
+
+            <div className="product-hero-info__actions">
+              <button
+                className="product-hero-info__button js-open-estimate"
+                type="button"
+                data-estimate-service={item.title}
+              >
+                Хочу такой дом
+              </button>
+              <Link className="product-hero-info__mortgage" href="/mortgage#mortgage-calculator">
+                Рассчитать ипотеку
+              </Link>
+            </div>
+
+            <p className="product-hero-info__notice">
+              <span aria-hidden="true">*</span> Стоимость приблизительная. Стоимость Вашего проекта может значительно отличаться от указанной.
+            </p>
           </aside>
         </div>
 
