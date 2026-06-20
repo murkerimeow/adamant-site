@@ -25321,6 +25321,10 @@ body:has(.product-page--catalog),
   left: 0 !important;
 }
 
+.page.inner-page.mortgage-page .mortgage-redesign__hero {
+  margin-top: clamp(78px, 5.833vw, 112px) !important;
+}
+
 .page.inner-page.mortgage-page .mortgage-redesign__hero-content h1 {
   font-size: clamp(29px, 2.65vw, 40px) !important;
   white-space: nowrap;
@@ -25395,6 +25399,10 @@ body:has(.product-page--catalog),
 }
 
 @media (max-width: 680px) {
+  .page.inner-page.mortgage-page .mortgage-redesign__hero {
+    margin-top: 76px !important;
+  }
+
   .page.inner-page.mortgage-page .mortgage-redesign__hero-content h1 {
     font-size: 34px !important;
     white-space: normal;
