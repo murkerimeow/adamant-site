@@ -24011,6 +24011,174 @@ body:has(.home-page) > .site-footer-slot {
   }
 }
 
+/* Desktop project navigation: a full-width category bar below the header. */
+@media (min-width: 768px) {
+  .home-page .nav__item--catalog .nav__dropdown,
+  .page.inner-page .nav__item--catalog .nav__dropdown {
+    position: fixed !important;
+    top: calc(clamp(6px, 0.625vw, 12px) + clamp(62px, 4.271vw, 82px) + 10px) !important;
+    left: 50% !important;
+    z-index: 90 !important;
+    display: grid !important;
+    width: var(--site-frame-width) !important;
+    min-width: 0 !important;
+    max-width: var(--site-frame-width) !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: clamp(16px, 1.35vw, 24px) !important;
+    background: #ffffff !important;
+    box-shadow: 0 10px 26px rgba(34, 45, 65, 0.1) !important;
+    opacity: 0 !important;
+    padding: 8px 18px !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -8px) !important;
+    transition: opacity 160ms ease, transform 160ms ease !important;
+  }
+
+  .home-page .nav__item--catalog .nav__dropdown::before,
+  .page.inner-page .nav__item--catalog .nav__dropdown::before {
+    position: absolute !important;
+    top: -12px !important;
+    right: 0 !important;
+    left: 0 !important;
+    display: block !important;
+    height: 12px !important;
+    content: "" !important;
+  }
+
+  .home-page .nav__item--catalog:hover .nav__dropdown,
+  .home-page .nav__item--catalog:focus-within .nav__dropdown,
+  .page.inner-page .nav__item--catalog:hover .nav__dropdown,
+  .page.inner-page .nav__item--catalog:focus-within .nav__dropdown {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, 0) !important;
+  }
+
+  .home-page .nav__item--catalog .nav__dropdown a,
+  .page.inner-page .nav__item--catalog .nav__dropdown a {
+    display: flex !important;
+    min-width: 0 !important;
+    min-height: 46px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    color: #181b20 !important;
+    font-size: clamp(11px, 0.8vw, 14px) !important;
+    font-weight: 400 !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    padding: 0 10px !important;
+    transform: none !important;
+  }
+
+  .home-page .nav__item--catalog .nav__dropdown a:hover,
+  .home-page .nav__item--catalog .nav__dropdown a:focus-visible,
+  .page.inner-page .nav__item--catalog .nav__dropdown a:hover,
+  .page.inner-page .nav__item--catalog .nav__dropdown a:focus-visible {
+    background: #f2f3f7 !important;
+    color: #111318 !important;
+  }
+
+  .home-page .nav__item--catalog .nav__dropdown .nav__dropdown-all,
+  .page.inner-page .nav__item--catalog .nav__dropdown .nav__dropdown-all {
+    margin: 0 !important;
+    color: #111318 !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* The desktop bar belongs to the header itself so its width and offset stay exact. */
+.header-projects-dropdown {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .home-page .nav__item--catalog > .nav__dropdown,
+  .page.inner-page .nav__item--catalog > .nav__dropdown {
+    display: none !important;
+  }
+
+  .home-page .header > .header-projects-dropdown,
+  .page.inner-page .header > .header-projects-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    z-index: 90;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0;
+    border-radius: clamp(16px, 1.35vw, 24px);
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(34, 45, 65, 0.1);
+    opacity: 0;
+    padding: 8px 18px;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .home-page .header > .header-projects-dropdown::before,
+  .page.inner-page .header > .header-projects-dropdown::before {
+    position: absolute;
+    top: -12px;
+    right: 0;
+    left: 0;
+    height: 12px;
+    content: "";
+  }
+
+  .home-page .header:has(.nav__item--catalog:hover) > .header-projects-dropdown,
+  .home-page .header:has(.nav__item--catalog:focus-within) > .header-projects-dropdown,
+  .home-page .header:has(.header-projects-dropdown:focus-within) > .header-projects-dropdown,
+  .home-page .header > .header-projects-dropdown:hover,
+  .page.inner-page .header:has(.nav__item--catalog:hover) > .header-projects-dropdown,
+  .page.inner-page .header:has(.nav__item--catalog:focus-within) > .header-projects-dropdown,
+  .page.inner-page .header:has(.header-projects-dropdown:focus-within) > .header-projects-dropdown,
+  .page.inner-page .header > .header-projects-dropdown:hover {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
+
+  .home-page .header > .header-projects-dropdown a,
+  .page.inner-page .header > .header-projects-dropdown a {
+    display: flex;
+    min-width: 0;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #181b20;
+    font-size: clamp(11px, 0.8vw, 14px);
+    font-weight: 400;
+    line-height: 1.15;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0 10px;
+  }
+
+  .home-page .header > .header-projects-dropdown a:hover,
+  .home-page .header > .header-projects-dropdown a:focus-visible,
+  .page.inner-page .header > .header-projects-dropdown a:hover,
+  .page.inner-page .header > .header-projects-dropdown a:focus-visible {
+    background: #f2f3f7;
+  }
+
+  .home-page .header > .header-projects-dropdown .header-projects-dropdown__all,
+  .page.inner-page .header > .header-projects-dropdown .header-projects-dropdown__all {
+    font-weight: 600;
+  }
+}
+
 /* Video review covers fit the frame width and stay pinned to its bottom edge. */
 .home-page .home-review-video-card > .home-review-video-card__media {
   position: absolute !important;

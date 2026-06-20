@@ -23,7 +23,7 @@ const navItems = [
   { href: "/services", key: "services", label: "Услуги" },
   { href: "/mortgage", key: "mortgage", label: "Ипотека", badge: "NEW" },
   { href: "/portfolio", key: "portfolio", label: "Портфолио" },
-  { href: "/catalog", key: "catalog", label: "Каталог" },
+  { href: "/catalog", key: "catalog", label: "Проекты" },
   { href: "/blog", key: "blog", label: "Блог" },
   { href: "/#reviews", key: "reviews", label: "Отзывы" },
   { href: "/vacancies", key: "vacancies", label: "Вакансии" },
@@ -80,21 +80,21 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
                   <button
                     className="nav__submenu-toggle"
                     type="button"
-                    aria-label="Показать категории каталога"
+                    aria-label="Показать категории проектов"
                     aria-expanded="false"
                     data-nav-submenu-toggle="catalog"
                   >
                     +
                   </button>
-                  <div className="nav__dropdown" aria-label="Категории каталога">
+                  <div className="nav__dropdown" aria-label="Категории проектов">
+                    <a className="nav__dropdown-all" href="/catalog">
+                      Все
+                    </a>
                     {catalogCategories.map((category) => (
                       <a key={category.id} href={getCatalogCategoryPath(category)}>
                         {category.title}
                       </a>
                     ))}
-                    <a className="nav__dropdown-all" href="/catalog">
-                      Все
-                    </a>
                   </div>
                 </>
               ) : null}
@@ -123,6 +123,17 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
           </div>
         </div>
       </nav>
+
+      <div className="header-projects-dropdown" aria-label="Категории проектов">
+        <a className="header-projects-dropdown__all" href="/catalog">
+          Все
+        </a>
+        {catalogCategories.map((category) => (
+          <a key={`header-${category.id}`} href={getCatalogCategoryPath(category)}>
+            {category.title}
+          </a>
+        ))}
+      </div>
 
       <button className="phone js-open-callback" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
         {phone}
