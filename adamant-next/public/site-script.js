@@ -1640,6 +1640,9 @@
     const monthlyOutput = calculator.querySelector("[data-mortgage-monthly]");
     const loanOutput = calculator.querySelector("[data-mortgage-loan]");
     const downOutput = calculator.querySelector("[data-mortgage-down-output]");
+    const totalOutput = calculator.querySelector("[data-mortgage-total]");
+    const overpaymentOutput = calculator.querySelector("[data-mortgage-overpayment]");
+    const taxOutput = calculator.querySelector("[data-mortgage-tax]");
     const money = new Intl.NumberFormat("ru-RU", {
       maximumFractionDigits: 0,
       style: "currency",
@@ -1658,11 +1661,19 @@
         monthlyRate > 0
           ? loan * (monthlyRate / (1 - Math.pow(1 + monthlyRate, -months)))
           : loan / months;
+      const total = Math.max(0, monthly * months);
+      const overpayment = Math.max(0, total - loan);
+      const taxDeduction =
+        Math.min(price, 2000000) * 0.13 +
+        Math.min(overpayment, 3000000) * 0.13;
 
       if (downInput && Number(downInput.value) !== down) downInput.value = String(down);
       if (monthlyOutput) monthlyOutput.textContent = money.format(Math.round(monthly || 0));
       if (loanOutput) loanOutput.textContent = money.format(Math.round(loan));
       if (downOutput) downOutput.textContent = money.format(Math.round(down));
+      if (totalOutput) totalOutput.textContent = money.format(Math.round(total));
+      if (overpaymentOutput) overpaymentOutput.textContent = money.format(Math.round(overpayment));
+      if (taxOutput) taxOutput.textContent = money.format(Math.round(taxDeduction));
     };
 
     [priceInput, downInput, rateInput, yearsInput].forEach((input) => {

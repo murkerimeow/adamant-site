@@ -297,17 +297,16 @@ export default async function MortgagePage() {
           className="mortgage-redesign__section mortgage-calculator"
           id="mortgage-calculator"
           aria-labelledby="mortgage-calculator-title"
+          data-mortgage-calculator
         >
-          <div className="mortgage-calculator__intro">
-            <span className="section__kicker">Ипотечный калькулятор</span>
-            <h2 id="mortgage-calculator-title">Рассчитайте ориентировочный платеж</h2>
-            <p>
-              Укажите стоимость дома, первоначальный взнос, ставку и срок. Расчет предварительный,
-              точные условия подберем после заявки.
-            </p>
-          </div>
+          <div className="mortgage-calculator__form-card">
+            <div className="mortgage-calculator__intro">
+              <h2 id="mortgage-calculator-title">Ипотечный калькулятор</h2>
+              <p>
+                Проектируем и строим современные загородные дома в Санкт-Петербурге и Ленинградской области. Берем на себя весь процесс — от идеи и расчета сметы до строительства под ключ.
+              </p>
+            </div>
 
-          <div className="mortgage-calculator__grid" data-mortgage-calculator>
             <div className="mortgage-calculator__fields">
               <label>
                 <span>Стоимость дома</span>
@@ -318,32 +317,47 @@ export default async function MortgagePage() {
                 <input type="number" min={0} step={100000} defaultValue={2400000} data-mortgage-down />
               </label>
               <label>
-                <span>Ставка, %</span>
-                <input type="number" min={0.1} step={0.1} defaultValue={6} data-mortgage-rate />
+                <span>Срок в годах</span>
+                <input type="number" min={1} max={30} step={1} defaultValue={20} data-mortgage-years />
               </label>
               <label>
-                <span>Срок, лет</span>
-                <input type="number" min={1} max={30} step={1} defaultValue={20} data-mortgage-years />
+                <span>Процентная ставка</span>
+                <input type="number" min={0.1} step={0.1} defaultValue={6} data-mortgage-rate />
               </label>
             </div>
 
-            <aside className="mortgage-calculator__result" aria-live="polite">
-              <span>Ежемесячный платеж</span>
+            <button className="mortgage-calculator__consult js-open-estimate" type="button">
+              Получить консультацию
+            </button>
+          </div>
+
+          <div className="mortgage-calculator__middle" aria-live="polite">
+            <aside className="mortgage-calculator__monthly">
               <strong data-mortgage-monthly>0 ₽</strong>
-              <dl>
-                <div>
-                  <dt>Сумма кредита</dt>
-                  <dd data-mortgage-loan>0 ₽</dd>
-                </div>
-                <div>
-                  <dt>Первоначальный взнос</dt>
-                  <dd data-mortgage-down-output>0 ₽</dd>
-                </div>
-              </dl>
-              <button className="js-open-estimate" type="button">
-                Получить консультацию
-              </button>
+              <span>Ежемесячный платеж</span>
             </aside>
+
+            <aside className="mortgage-calculator__tax">
+              <p>
+                Также согласно законодательству Российской Федерации у Вас может быть возможность получить имущественный налоговый вычет.
+              </p>
+              <strong data-mortgage-tax>0 ₽</strong>
+            </aside>
+          </div>
+
+          <div className="mortgage-calculator__totals" aria-live="polite">
+            <article>
+              <strong data-mortgage-loan>0 ₽</strong>
+              <span>Сумма кредита</span>
+            </article>
+            <article>
+              <strong data-mortgage-total>0 ₽</strong>
+              <span>Общая выплата</span>
+            </article>
+            <article>
+              <strong data-mortgage-overpayment>0 ₽</strong>
+              <span>Переплата по кредиту</span>
+            </article>
           </div>
         </section>
 
