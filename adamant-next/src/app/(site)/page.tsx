@@ -199,8 +199,8 @@ export default async function HomePage() {
       caption: review.caption?.trim() || review.text?.trim() || "",
       name: review.name,
       posterUrl:
-        getMediaUrl(review.poster, "card") ||
         getMediaUrl(review.poster) ||
+        getMediaUrl(review.poster, "card") ||
         getMediaUrl(review.avatar, "card") ||
         getMediaUrl(review.avatar),
       videoUrl: getMediaUrl(review.video),
