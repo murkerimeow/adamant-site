@@ -24024,3 +24024,20 @@ body:has(.home-page) > .site-footer-slot {
   object-fit: contain !important;
   object-position: center bottom !important;
 }
+
+/* Align mobile review content to the shared homepage content line. */
+@media (max-width: 767px) {
+  .home-page .home-video-reviews__head,
+  .home-page .home-video-reviews__track,
+  .home-page .home-video-reviews > .home-mobile-section-link {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .home-page .home-review-video-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}
