@@ -26615,3 +26615,57 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     padding-left: var(--inner-section-inset) !important;
   }
 }
+
+/* Match the homepage header gap and section rhythm on every inner page. */
+.page.inner-page {
+  --inner-page-content-top: clamp(78px, 5.833vw, 112px);
+  --inner-page-section-gap: var(--section-gap);
+}
+
+:where(
+  .page.inner-page > .section--projects,
+  .page.inner-page > .blog-reviews-section,
+  .page.inner-page > .about-section,
+  .page.inner-page > .privacy-content,
+  .page.inner-page > .vacancies-section,
+  .page.inner-page > .about-redesign,
+  .page.inner-page > .contact-redesign,
+  .page.inner-page > .product-detail--catalog-card,
+  .page.inner-page > .portfolio-detail--object,
+  .page.inner-page .services-redesign > .services-redesign__section:first-child,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__hero
+) {
+  margin-top: var(--inner-page-content-top) !important;
+}
+
+:where(
+  .page.inner-page > .blog-articles-section,
+  .page.inner-page .services-redesign > .services-redesign__section:not(:first-child),
+  .page.inner-page .services-redesign > .services-redesign__consult,
+  .page.inner-page .about-redesign > .about-redesign__stats,
+  .page.inner-page .about-redesign > .about-redesign__story,
+  .page.inner-page .about-redesign > .about-redesign__approach,
+  .page.inner-page .about-redesign > .about-redesign__team,
+  .page.inner-page .about-redesign > .about-redesign__cta,
+  .page.inner-page .contact-redesign > .contact-redesign__top,
+  .page.inner-page .contact-redesign > .contact-redesign__middle,
+  .page.inner-page .contact-redesign > .contact-redesign__map,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__banks,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__process,
+  .page.inner-page .mortgage-redesign > .mortgage-calculator,
+  .page.inner-page .mortgage-redesign > .mortgage-product-consult,
+  .page.inner-page .product-detail > .product-info-grid,
+  .page.inner-page .product-detail > .product-section,
+  .page.inner-page .product-detail > .product-consult,
+  .page.inner-page .portfolio-detail--object > .portfolio-detail__content,
+  .page.inner-page .portfolio-detail--object > .portfolio-detail__similar
+) {
+  margin-top: var(--inner-page-section-gap) !important;
+}
+
+@media (max-width: 767px) {
+  .page.inner-page {
+    --inner-page-content-top: 76px;
+    --inner-page-section-gap: 18px;
+  }
+}
