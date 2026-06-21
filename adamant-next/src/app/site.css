@@ -26798,7 +26798,10 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   min-height: 0 !important;
   aspect-ratio: 1 / 1 !important;
   background: #f2f3f7 !important;
-  background-image: none !important;
+  background-image: var(--home-project-image, none) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
   isolation: isolate;
 }
 
@@ -26812,13 +26815,7 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   .home-project-preview--catalog-style
   .home-project-card.listing-card
   .listing-card__media {
-  position: absolute !important;
-  z-index: 0;
-  inset: 0 !important;
-  grid-row: auto !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: inherit !important;
+  display: none !important;
 }
 
 .home-page
@@ -26898,5 +26895,61 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     .home-project-preview--catalog-style
     .home-project-preview__more {
     display: none;
+  }
+}
+
+/* Mobile About content stays inside the brown panel; desktop is unchanged. */
+.home-page .home-about-stats__mobile-socials {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .home-page .home-about-stats__visual {
+    display: none !important;
+  }
+
+  .home-page .home-about-stats__copy {
+    min-height: 0 !important;
+    padding: 28px 20px !important;
+  }
+
+  .home-page .home-about-stats__mobile-socials {
+    display: block;
+    margin-top: 22px;
+  }
+
+  .home-page .home-about-stats__mobile-socials > strong {
+    display: block;
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .home-page .home-about-stats__mobile-socials > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .home-page .home-about-stats__mobile-socials a,
+  .home-page .home-about-stats__mobile-socials svg {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+
+  .home-page .home-about-stats__copy .home-about-stats__cta {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 22px 0 0 !important;
+  }
+
+  .home-page .home-about-stats__copy .home-about-stats__cta > a {
+    width: 100% !important;
+    min-height: 54px !important;
+    border-radius: 14px !important;
   }
 }

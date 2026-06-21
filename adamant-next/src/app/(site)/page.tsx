@@ -22,6 +22,7 @@ import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -290,6 +291,23 @@ export default async function HomePage() {
                   и Ленинградской области. Берем на себя весь процесс — от идеи и расчета
                   сметы до строительства под ключ.
                 </p>
+                <div className="home-about-stats__mobile-socials">
+                  <strong>Наши соцсети</strong>
+                  <div aria-label="Социальные сети">
+                    {socialLinks.map((social) => (
+                      <a
+                        key={`mobile-${social.key}`}
+                        href={social.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={social.label}
+                        title={social.label}
+                      >
+                        <SocialIcon name={social.key} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
                 <div className="home-about-stats__cta">
                   <Link href="/about">Подробнее о нас</Link>
                 </div>
@@ -309,9 +327,6 @@ export default async function HomePage() {
                 ))}
               </div>
             </div>
-            <Link className="home-mobile-section-link" href="/about">
-              Подробнее о нас
-            </Link>
           </section>
 
           <section
@@ -358,6 +373,9 @@ export default async function HomePage() {
                   getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
+                const cardStyle = imageUrl
+                  ? ({ "--home-project-image": `url(${JSON.stringify(imageUrl)})` } as CSSProperties)
+                  : undefined;
 
                 return (
                   <article
@@ -365,6 +383,7 @@ export default async function HomePage() {
                     className="home-project-card listing-card"
                     data-card-link={href}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
+                    style={cardStyle}
                     tabIndex={0}
                   >
                     <div className="listing-card__media">
