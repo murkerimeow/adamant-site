@@ -26669,3 +26669,44 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     --inner-page-section-gap: 18px;
   }
 }
+
+/* All homepage eyebrow labels follow the "How we work" pill. */
+.home-page .page .hero__kicker,
+.home-page .page .home-about-stats__eyebrow,
+.home-page .page .section__kicker,
+.home-page .page .home-social-banner__eyebrow,
+.home-page .page .home-plot-lead__eyebrow {
+  display: inline-flex !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  min-height: 26px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 7px 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #dcecfb !important;
+  background-image: none !important;
+  color: #68abe7 !important;
+  box-shadow: none !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Homepage section titles follow the projects section heading. */
+.home-page .page .home-about-stats__copy > h2,
+.home-page .page .home-section__head h2,
+.home-page .page .home-video-reviews__head h2,
+.home-page .page .home-plot-lead__content h2,
+.home-page .page .home-social-banner__content > h2 {
+  margin-top: 14px !important;
+  color: #0d0f12 !important;
+  font-size: clamp(25px, 2vw, 34px) !important;
+  font-weight: 600 !important;
+  line-height: 1.14 !important;
+  letter-spacing: 0 !important;
+}
