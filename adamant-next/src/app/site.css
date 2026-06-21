@@ -26414,3 +26414,82 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     max-width: 100% !important;
   }
 }
+
+/* Final home projects layout: edge-to-edge media and a vertical mobile list. */
+.home-page .home-project-preview--catalog-style .home-project-preview__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  overflow: visible !important;
+  scroll-snap-type: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1;
+  grid-template-rows: 54% 46% !important;
+  scroll-snap-align: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__media {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  align-self: stretch !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__media {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__media-link,
+.home-page .home-project-preview--catalog-style .listing-card__media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__media img {
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+@media (max-width: 980px) and (min-width: 768px) {
+  .home-page .home-project-preview--catalog-style .home-project-preview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page .home-project-preview--catalog-style .home-project-preview__grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+
+  .home-page .home-project-preview--catalog-style .home-project-card.listing-card {
+    width: 100% !important;
+    max-width: none !important;
+    height: 420px !important;
+    min-height: 420px !important;
+    aspect-ratio: auto;
+    flex: none !important;
+    grid-template-rows: 54% 46% !important;
+    scroll-snap-align: none !important;
+  }
+}
