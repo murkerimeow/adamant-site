@@ -181,21 +181,6 @@ export default async function HomePage() {
     .filter((category) => featuredProjectCategorySlugs.has(category.slug))
     .slice(0, 6);
   const portfolioStripItems = portfolioItems;
-  const plotLeadProject =
-    featuredProjects.find((project) =>
-      /модуль|дач|брус|террас/i.test(project.title),
-    ) ?? featuredProjects[0];
-  const plotLeadMedia = plotLeadProject
-    ? getCatalogCoverMedia(plotLeadProject)
-    : null;
-  const trustImageUrl =
-    getMediaUrl(portfolioStripItems[0]?.previewImage, "card") ||
-    getMediaUrl(portfolioStripItems[0]?.previewImage) ||
-    "/фон.jpg";
-  const plotLeadImageUrl =
-    getMediaUrl(plotLeadMedia, "card") ||
-    getMediaUrl(plotLeadMedia) ||
-    trustImageUrl;
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
   const reviews = payloadReviews.length ? payloadReviews : [];
   const videoReviews = reviews
@@ -779,11 +764,8 @@ export default async function HomePage() {
 
             <div className="home-plot-lead__media">
               <img
-                src={plotLeadImageUrl}
-                alt={getMediaAlt(
-                  plotLeadMedia,
-                  plotLeadProject?.title || "Загородный дом на участке",
-                )}
+                src="/plot-selection.png"
+                alt="Загородный участок для строительства дома"
                 loading="lazy"
                 decoding="async"
               />
