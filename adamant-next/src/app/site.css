@@ -26770,6 +26770,12 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   color: #111318 !important;
 }
 
+.home-page .page .hero__kicker,
+.home-page .page .home-about-stats__eyebrow {
+  background: #ffffff !important;
+  color: #111318 !important;
+}
+
 /* The heading stays readable on the brown About panel. */
 .home-page .page .home-about-stats__copy > h2 {
   color: #ffffff !important;
