@@ -26513,3 +26513,105 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 ) {
   margin-top: 0 !important;
 }
+
+/* Final inner-page section grid. The home page remains intentionally untouched. */
+.page.inner-page {
+  --inner-section-radius: 36px;
+  --inner-section-inset: max(10px, calc((100vw - var(--site-frame-width)) / 2));
+}
+
+:where(
+  .page.inner-page > .section--projects,
+  .page.inner-page > .section--blog,
+  .page.inner-page > .about-section,
+  .page.inner-page > .privacy-content,
+  .page.inner-page > .vacancies-section,
+  .page.inner-page .services-redesign > .services-redesign__section,
+  .page.inner-page .services-redesign > .services-redesign__consult,
+  .page.inner-page .about-redesign > .about-redesign__stats,
+  .page.inner-page .about-redesign > .about-redesign__story,
+  .page.inner-page .about-redesign > .about-redesign__approach,
+  .page.inner-page .about-redesign > .about-redesign__team,
+  .page.inner-page .about-redesign > .about-redesign__cta,
+  .page.inner-page .contact-redesign > .contact-redesign__top,
+  .page.inner-page .contact-redesign > .contact-redesign__middle,
+  .page.inner-page .contact-redesign > .contact-redesign__map,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__process,
+  .page.inner-page .mortgage-redesign > .mortgage-calculator,
+  .page.inner-page .mortgage-redesign > .mortgage-product-consult,
+  .page.inner-page .product-detail > .product-info-grid,
+  .page.inner-page .product-detail > .product-section,
+  .page.inner-page .product-detail > .product-consult
+) {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: var(--inner-section-inset) !important;
+  padding-left: var(--inner-section-inset) !important;
+  border-radius: var(--inner-section-radius) !important;
+}
+
+:where(
+  .page.inner-page > .section--blog + .section--blog,
+  .page.inner-page .services-redesign > .services-redesign__section + .services-redesign__section,
+  .page.inner-page .services-redesign > .services-redesign__section + .services-redesign__consult,
+  .page.inner-page .services-redesign > .services-redesign__consult + .services-redesign__section,
+  .page.inner-page .about-redesign > .about-redesign__hero + .about-redesign__stats,
+  .page.inner-page .about-redesign > .about-redesign__stats + .about-redesign__story,
+  .page.inner-page .about-redesign > .about-redesign__story + .about-redesign__approach,
+  .page.inner-page .about-redesign > .about-redesign__approach + .about-redesign__team,
+  .page.inner-page .about-redesign > .about-redesign__team + .about-redesign__cta,
+  .page.inner-page .contact-redesign > .contact-redesign__top,
+  .page.inner-page .contact-redesign > .contact-redesign__top + .contact-redesign__middle,
+  .page.inner-page .contact-redesign > .contact-redesign__middle + .contact-redesign__map,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__hero + .mortgage-redesign__banks,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__banks + .mortgage-redesign__process,
+  .page.inner-page .mortgage-redesign > .mortgage-redesign__process + .mortgage-calculator,
+  .page.inner-page .mortgage-redesign > .mortgage-calculator + .mortgage-product-consult,
+  .page.inner-page .product-detail > .product-hero-card + .product-info-grid,
+  .page.inner-page .product-detail > .product-info-grid + .product-section,
+  .page.inner-page .product-detail > .product-section + .product-section,
+  .page.inner-page .product-detail > .product-section + .product-consult
+) {
+  margin-top: var(--section-gap) !important;
+}
+
+@media (max-width: 767px) {
+  .page.inner-page {
+    --inner-section-radius: 28px;
+    --inner-section-inset: 18px;
+  }
+
+  :where(
+    .page.inner-page > .section--projects,
+    .page.inner-page > .section--blog,
+    .page.inner-page > .about-section,
+    .page.inner-page > .privacy-content,
+    .page.inner-page > .vacancies-section,
+    .page.inner-page .services-redesign > .services-redesign__section,
+    .page.inner-page .services-redesign > .services-redesign__consult,
+    .page.inner-page .about-redesign > .about-redesign__stats,
+    .page.inner-page .about-redesign > .about-redesign__story,
+    .page.inner-page .about-redesign > .about-redesign__approach,
+    .page.inner-page .about-redesign > .about-redesign__team,
+    .page.inner-page .about-redesign > .about-redesign__cta,
+    .page.inner-page .contact-redesign > .contact-redesign__top,
+    .page.inner-page .contact-redesign > .contact-redesign__middle,
+    .page.inner-page .contact-redesign > .contact-redesign__map,
+    .page.inner-page .mortgage-redesign > .mortgage-redesign__process,
+    .page.inner-page .mortgage-redesign > .mortgage-calculator,
+    .page.inner-page .mortgage-redesign > .mortgage-product-consult,
+    .page.inner-page .product-detail > .product-info-grid,
+    .page.inner-page .product-detail > .product-section,
+    .page.inner-page .product-detail > .product-consult
+  ) {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    padding-right: var(--inner-section-inset) !important;
+    padding-left: var(--inner-section-inset) !important;
+  }
+}
