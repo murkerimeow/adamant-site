@@ -45,12 +45,12 @@ export default async function PortfolioPage() {
             const visibleTags = item.tags?.slice(0, 2) || [];
 
             return (
-              <article
+              <a
                 key={item.id}
                 className="blog-card project-card-blog"
-                data-card-link={href}
-                tabIndex={0}
+                href={href}
                 data-category={item.category}
+                aria-label={`Открыть проект: ${item.title}`}
               >
                 <div className="blog-card__media">
                   <img
@@ -71,10 +71,10 @@ export default async function PortfolioPage() {
                     </div>
                   ) : null}
                 </div>
-                <a href={href}>
+                <span className="project-card-blog__more">
                   Подробнее <span aria-hidden="true">→</span>
-                </a>
-              </article>
+                </span>
+              </a>
             );
           })}
         </div>

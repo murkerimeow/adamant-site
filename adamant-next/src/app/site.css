@@ -25483,6 +25483,279 @@ body:has(.product-page--catalog),
   }
 }
 
+/* Projects page toolbar and reliable full-card portfolio links. */
+.catalog-page .catalog-projects-intro h1 {
+  margin-top: 0 !important;
+  color: #111318 !important;
+  font-size: clamp(27px, 2.1vw, 40px) !important;
+  font-weight: 600 !important;
+  line-height: 1.12 !important;
+}
+
+.catalog-page .catalog-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 2.2vw, 38px);
+  margin: 18px 0 22px;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0;
+}
+
+.catalog-page .catalog-category-pill {
+  min-height: 32px;
+  border: 0 !important;
+  border-radius: 999px;
+  background: transparent !important;
+  color: #555a62;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 0;
+  transform: none !important;
+}
+
+.catalog-page .catalog-category-pill:hover {
+  color: #b9703f;
+}
+
+.catalog-page .catalog-category-pill.is-active {
+  min-width: 64px;
+  background: #bf7847 !important;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0 20px;
+}
+
+.catalog-projects-toolbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(220px, 0.48fr) 132px;
+  gap: 14px;
+  align-items: stretch;
+  margin: 0;
+}
+
+.catalog-projects-toolbar .catalog-mobile-tools__search {
+  position: relative;
+  display: block;
+  min-height: 48px;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f2f5;
+  box-shadow: none;
+}
+
+.catalog-projects-toolbar .catalog-mobile-tools__search > span,
+.catalog-projects-toolbar__sort > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.catalog-projects-toolbar .catalog-mobile-tools__search input {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: #24272d;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  padding: 0 18px 0 48px;
+}
+
+.catalog-projects-toolbar .catalog-mobile-tools__search svg {
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: #7c838c;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.catalog-projects-toolbar__sort {
+  position: relative;
+  display: block;
+}
+
+.catalog-projects-toolbar__sort select {
+  width: 100%;
+  height: 48px;
+  appearance: none;
+  border: 1px solid #d3d5d9;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #282b30;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  outline: none;
+  padding: 0 42px 0 16px;
+}
+
+.catalog-projects-toolbar__sort::after {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid #1f2227;
+  border-bottom: 1.5px solid #1f2227;
+  content: "";
+  pointer-events: none;
+  transform: translateY(-65%) rotate(45deg);
+}
+
+.catalog-projects-toolbar__filter {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 8px;
+  background: #e2effb;
+  color: #20242a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 14px;
+}
+
+.catalog-projects-toolbar__filter > svg:first-child {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.catalog-projects-toolbar__chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 160ms ease;
+}
+
+body.catalog-mobile-filters-open .catalog-projects-toolbar__chevron {
+  transform: rotate(180deg);
+}
+
+.catalog-page .listing-filters--catalog {
+  display: none !important;
+  grid-template-columns: minmax(300px, 1fr) repeat(3, minmax(150px, 0.52fr)) !important;
+  gap: 12px !important;
+  margin-top: 12px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  padding: 14px !important;
+}
+
+.catalog-page .listing-filters--catalog .listing-filters__field--search {
+  display: none !important;
+}
+
+body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
+  display: grid !important;
+}
+
+.portfolio-page .project-card-blog {
+  color: inherit;
+  text-decoration: none;
+}
+
+.portfolio-page .project-card-blog__more {
+  display: inline-flex;
+  width: max-content;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 18px 20px 20px;
+  border-radius: 999px;
+  background: #f8f2ed;
+  color: #d99868;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  padding: 0 18px;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.portfolio-page .project-card-blog:hover .project-card-blog__more {
+  background: #d99868;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .catalog-page .catalog-projects-intro h1 {
+    font-size: 27px !important;
+  }
+
+  .catalog-page .catalog-category-pills {
+    flex-wrap: nowrap;
+    gap: 18px;
+    overflow-x: auto;
+    margin: 16px 0 18px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .catalog-page .catalog-category-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalog-page .catalog-category-pill {
+    flex: 0 0 auto;
+    font-size: 12px;
+  }
+
+  .catalog-projects-toolbar {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 8px;
+  }
+
+  .catalog-projects-toolbar__sort {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .catalog-projects-toolbar__filter {
+    width: 48px;
+    min-height: 48px;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .catalog-projects-toolbar__filter > span,
+  .catalog-projects-toolbar__chevron {
+    display: none;
+  }
+
+  .catalog-page .listing-filters--catalog,
+  body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Homepage reference: split about block, project grid and one lower-section rhythm. */
 .home-page main > .home-about-stats {
   display: grid !important;

@@ -12,7 +12,6 @@ import {
   getMediaAlt,
   getMediaUrl,
   getSiteSettings,
-  type CatalogCategoryDoc,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogCardMeta } from "@/site/catalog-meta";
@@ -24,6 +23,15 @@ export const dynamic = "force-dynamic";
 const DEFAULT_META_TITLE = "Заполните SEO Title в Payload";
 const DEFAULT_META_DESCRIPTION = "Заполните SEO Description в Payload";
 const PAGE_PLACEHOLDER = "Заполните этот блок в Payload";
+
+const PROJECT_CATEGORY_LINKS = [
+  { title: "Каркасные дома", slug: "karkasnye-doma" },
+  { title: "Дома из газобетона", slug: "dom-iz-gazobetona" },
+  { title: "Дома из бруса", slug: "doma-iz-brusa" },
+  { title: "Модульные дома", slug: "modulnye-doma" },
+  { title: "Дачные дома", slug: "dachnye-doma" },
+  { title: "Бани и сауны", slug: "bani-i-sauny" },
+] as const;
 
 function textOrPlaceholder(value?: string | null, placeholder = PAGE_PLACEHOLDER) {
   const normalized = value?.trim();
@@ -168,51 +176,34 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
     getMediaUrl(selectedCategory?.heroImage, "card") ||
     getMediaUrl(selectedCategory?.heroImage);
   const categoryImageAlt = getMediaAlt(selectedCategory?.heroImage, pageTitle);
+  const projectCategoryLinks = PROJECT_CATEGORY_LINKS.map((item) => {
+    const category = catalogCategories.find(
+      (entry) => entry.slug === item.slug || entry.title === item.title,
+    );
+
+    return {
+      ...item,
+      href: category
+        ? getCatalogCategoryPath(category)
+        : `/catalog?category=${encodeURIComponent(item.slug)}`,
+    };
+  });
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
       <SiteHeader active="catalog" phone={siteSettings.phonePrimary} />
 
-      <div className="catalog-mobile-tools" data-catalog-mobile-tools>
-        <label className="catalog-mobile-tools__search">
-          <span>Поиск</span>
-          <input
-            type="search"
-            placeholder="Поиск по проектам..."
-            data-mobile-listing-search="catalog"
-            aria-label="Поиск по проектам"
-          />
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.7" cy="10.7" r="5.6" />
-            <path d="m15.1 15.1 4.2 4.2" />
-          </svg>
-        </label>
-        <button
-          className="catalog-mobile-tools__filter"
-          type="button"
-          data-mobile-filters-toggle="catalog"
-          aria-label="Открыть фильтры"
-          aria-expanded="false"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 7h8" />
-            <path d="M16 7h4" />
-            <circle cx="14" cy="7" r="2" />
-            <path d="M4 12h3" />
-            <path d="M11 12h9" />
-            <circle cx="9" cy="12" r="2" />
-            <path d="M4 17h11" />
-            <path d="M19 17h1" />
-            <circle cx="17" cy="17" r="2" />
-          </svg>
-        </button>
-      </div>
-
       <section className="section section--projects" aria-labelledby="catalog-title">
-        <div className="section__intro section__intro--page section__intro--projects">
-          <span className="section__kicker">{pageEyebrow}</span>
-          <h1 id="catalog-title">{pageTitle}</h1>
-          <p>{pageSubtitle}</p>
+        <div
+          className={`section__intro section__intro--page section__intro--projects${
+            selectedCategory ? "" : " catalog-projects-intro"
+          }`}
+        >
+          {selectedCategory ? <span className="section__kicker">{pageEyebrow}</span> : null}
+          <h1 id="catalog-title">
+            {selectedCategory ? pageTitle : "Проекты компании “АДАМАНТ Строй”"}
+          </h1>
+          {selectedCategory ? <p>{pageSubtitle}</p> : null}
         </div>
 
         {categoryImageUrl ? (
@@ -225,12 +216,37 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
           </div>
         ) : null}
 
-        <div className="catalog-mobile-tools catalog-mobile-tools--inline" data-catalog-mobile-tools>
+        <nav className="catalog-category-pills" aria-label="Категории проектов">
+          <a
+            className={`catalog-category-pill${!selectedCategory ? " is-active" : ""}`}
+            href="/catalog"
+            data-catalog-category-pill="all"
+          >
+            Все
+          </a>
+          {projectCategoryLinks.map((category) => (
+            <a
+              key={category.slug}
+              className={`catalog-category-pill${
+                selectedCategory?.slug === category.slug ? " is-active" : ""
+              }`}
+              href={category.href}
+              data-catalog-category-pill={category.slug}
+            >
+              {category.title}
+            </a>
+          ))}
+        </nav>
+
+        <div
+          className="catalog-projects-toolbar catalog-mobile-tools--inline"
+          data-catalog-mobile-tools
+        >
           <label className="catalog-mobile-tools__search">
             <span>Поиск</span>
             <input
               type="search"
-              placeholder="Поиск по проектам..."
+              placeholder="Поиск"
               data-mobile-listing-search="catalog"
               aria-label="Поиск по проектам"
             />
@@ -239,8 +255,17 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
               <path d="m15.1 15.1 4.2 4.2" />
             </svg>
           </label>
+          <label className="catalog-projects-toolbar__sort">
+            <span>Сортировка</span>
+            <select data-listing-sort="catalog" aria-label="Сортировка проектов">
+              <option value="popular">По популярности</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="area-desc">Сначала просторнее</option>
+            </select>
+          </label>
           <button
-            className="catalog-mobile-tools__filter"
+            className="catalog-projects-toolbar__filter"
             type="button"
             data-mobile-filters-toggle="catalog"
             aria-label="Открыть фильтры"
@@ -256,6 +281,14 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
               <path d="M4 17h11" />
               <path d="M19 17h1" />
               <circle cx="17" cy="17" r="2" />
+            </svg>
+            <span>Фильтры</span>
+            <svg
+              className="catalog-projects-toolbar__chevron"
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+            >
+              <path d="m4 6 4 4 4-4" />
             </svg>
           </button>
         </div>
@@ -349,28 +382,6 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
           </label>
         </form>
 
-        <nav className="catalog-category-pills" aria-label="Посадочные категории каталога">
-          <a
-            className={`catalog-category-pill${!selectedCategory ? " is-active" : ""}`}
-            href="/catalog"
-            data-catalog-category-pill="all"
-          >
-            Все
-          </a>
-          {catalogCategories.map((category: CatalogCategoryDoc) => (
-            <a
-              key={category.id}
-              className={`catalog-category-pill${
-                selectedCategory?.slug === category.slug ? " is-active" : ""
-              }`}
-              href={getCatalogCategoryPath(category)}
-              data-catalog-category-pill={category.slug}
-            >
-              {category.title}
-            </a>
-          ))}
-        </nav>
-
         <div className="listing-grid listing-grid--catalog" data-filter-scope="catalog">
           {items.map((item) => {
             const href = getCatalogItemPath(item);
@@ -389,6 +400,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                 data-area={getAreaGroup(meta.area)}
                 data-budget={getBudgetGroup(meta.price)}
                 data-price={meta.price}
+                data-area-value={meta.area}
                 data-category={getCatalogLandingCategorySlug(item)}
                 data-floors={getFloorsGroup(meta.floors)}
                 data-rooms={getRoomsGroup(meta.rooms)}

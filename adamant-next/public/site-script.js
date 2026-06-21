@@ -1518,8 +1518,13 @@
     const emptyState =
       section.querySelector(`[data-listing-empty="${filterKey}"]`) ||
       section.querySelector("[data-listing-empty]");
+    const sortControl = section.querySelector(`[data-listing-sort="${filterKey}"]`);
 
     if (!scope || !cards.length) return;
+
+    cards.forEach((card, index) => {
+      card.dataset.listingOrder = String(index);
+    });
 
     const formatRangePrice = (value) => {
       const parsed = Number(value);
@@ -1621,6 +1626,30 @@
         if (isVisible) visibleCount += 1;
       });
 
+      const sortValue = sortControl?.value || "popular";
+      const sortedCards = [...cards].sort((left, right) => {
+        const leftPrice = Number(left.dataset.price || 0);
+        const rightPrice = Number(right.dataset.price || 0);
+        const leftArea = Number(
+          (left.dataset.areaValue || "").replace(/[^0-9.,]/g, "").replace(",", "."),
+        );
+        const rightArea = Number(
+          (right.dataset.areaValue || "").replace(/[^0-9.,]/g, "").replace(",", "."),
+        );
+
+        if (sortValue === "price-asc") {
+          return (
+            (leftPrice || Number.MAX_SAFE_INTEGER) -
+            (rightPrice || Number.MAX_SAFE_INTEGER)
+          );
+        }
+        if (sortValue === "price-desc") return rightPrice - leftPrice;
+        if (sortValue === "area-desc") return rightArea - leftArea;
+        return Number(left.dataset.listingOrder || 0) - Number(right.dataset.listingOrder || 0);
+      });
+
+      sortedCards.forEach((card) => scope.appendChild(card));
+
       if (emptyState) {
         emptyState.hidden = visibleCount > 0;
       }
@@ -1628,6 +1657,7 @@
 
     filters.addEventListener("input", applyListingFilters);
     filters.addEventListener("change", applyListingFilters);
+    sortControl?.addEventListener("change", applyListingFilters);
     filters.addEventListener("submit", (event) => event.preventDefault());
     applyListingFilters();
   });
