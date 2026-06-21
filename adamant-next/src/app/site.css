@@ -26493,3 +26493,23 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     scroll-snap-align: none !important;
   }
 }
+
+/* Inner pages use clean headings; eyebrow pills remain exclusive to the home page. */
+.page.inner-page :where(
+  .section__kicker,
+  .about-kicker,
+  .about-redesign__eyebrow,
+  .product-hero-info__eyebrow
+) {
+  display: none !important;
+}
+
+.page.inner-page :where(
+  .section__intro--page h1,
+  .about-copy h1,
+  .about-redesign__hero-content h1,
+  .blog-reviews__headline h1,
+  .product-hero-info h1
+) {
+  margin-top: 0 !important;
+}
