@@ -26797,25 +26797,15 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   height: auto !important;
   min-height: 0 !important;
   aspect-ratio: 1 / 1 !important;
+  background: #f2f3f7 !important;
+  background-image: none !important;
   isolation: isolate;
 }
 
 .home-page
   .home-project-preview--catalog-style
   .home-project-card.listing-card::after {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(242, 243, 247, 0.9) 0%,
-    rgba(242, 243, 247, 0.72) 48%,
-    rgba(242, 243, 247, 0.08) 72%,
-    rgba(242, 243, 247, 0) 100%
-  );
-  content: "";
-  pointer-events: none;
+  display: none !important;
 }
 
 .home-page
@@ -26885,6 +26875,16 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   text-align: center;
 }
 
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-preview__more {
+  display: flex;
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 12px;
+}
+
 @media (max-width: 767px) {
   .home-page
     .home-project-preview--catalog-style
@@ -26892,5 +26892,11 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     height: auto !important;
     min-height: 0 !important;
     aspect-ratio: 1 / 1 !important;
+  }
+
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-preview__more {
+    display: none;
   }
 }
