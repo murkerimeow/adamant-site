@@ -26788,3 +26788,109 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     padding-left: calc(10px + clamp(18px, 5vw, 24px)) !important;
   }
 }
+
+/* Homepage project cards use a square, edge-to-edge image background. */
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card {
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  isolation: isolate;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 243, 247, 0.9) 0%,
+    rgba(242, 243, 247, 0.72) 48%,
+    rgba(242, 243, 247, 0.08) 72%,
+    rgba(242, 243, 247, 0) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__media {
+  position: absolute !important;
+  z-index: 0;
+  inset: 0 !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__media-link,
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__media
+  img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  .listing-card__media
+  img {
+  object-fit: cover !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card:hover
+  .listing-card__media
+  img {
+  transform: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__body {
+  position: relative;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+.home-page .home-project-preview--catalog-style .listing-card__button::after {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  content: "\2192" !important;
+  line-height: 1 !important;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}
