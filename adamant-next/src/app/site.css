@@ -26710,3 +26710,75 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   line-height: 1.14 !important;
   letter-spacing: 0 !important;
 }
+
+/* One section rhythm for Services, Contacts and About. */
+.page.inner-page.services-page > .services-redesign,
+.page.inner-page.contacts-page > .contact-redesign,
+.page.inner-page.about-page--fresh > .about-redesign {
+  margin-top: var(--inner-page-content-top) !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.page.inner-page.services-page > .services-redesign,
+.page.inner-page.contacts-page > .contact-redesign {
+  row-gap: var(--inner-page-section-gap) !important;
+  padding-bottom: 0 !important;
+}
+
+.page.inner-page.services-page .services-redesign > .services-redesign__section,
+.page.inner-page.services-page .services-redesign > .services-redesign__consult,
+.page.inner-page.contacts-page .contact-redesign > .contact-redesign__top,
+.page.inner-page.contacts-page .contact-redesign > .contact-redesign__middle,
+.page.inner-page.contacts-page .contact-redesign > .contact-redesign__map {
+  margin-top: 0 !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign > .about-redesign__stats,
+.page.inner-page.about-page--fresh .about-redesign > .about-redesign__story,
+.page.inner-page.about-page--fresh .about-redesign > .about-redesign__approach,
+.page.inner-page.about-page--fresh .about-redesign > .about-redesign__team,
+.page.inner-page.about-page--fresh .about-redesign > .about-redesign__cta {
+  margin-top: var(--inner-page-section-gap) !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Portfolio objects use the same header and section spacing. */
+.page.inner-page.portfolio-detail-page > .portfolio-detail--object {
+  gap: var(--inner-page-section-gap) !important;
+  margin-top: var(--inner-page-content-top) !important;
+  margin-right: auto !important;
+  margin-bottom: var(--inner-page-section-gap) !important;
+  margin-left: auto !important;
+}
+
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__content,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__similar {
+  margin-top: 0 !important;
+}
+
+/* Colored homepage banners use neutral white labels. */
+.home-page .page .home-social-banner__eyebrow {
+  background: #ffffff !important;
+  color: #111318 !important;
+}
+
+/* The heading stays readable on the brown About panel. */
+.home-page .page .home-about-stats__copy > h2 {
+  color: #ffffff !important;
+}
+
+@media (max-width: 767px) {
+  /* Align footer copy with the text inside the inset homepage hero. */
+  .site-footer-slot > .home-footer {
+    padding-right: calc(10px + clamp(18px, 5vw, 24px)) !important;
+    padding-left: calc(10px + clamp(18px, 5vw, 24px)) !important;
+  }
+}
