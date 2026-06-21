@@ -26953,3 +26953,37 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     border-radius: 14px !important;
   }
 }
+
+/* On mobile the homepage menu covers the hero using the exact same frame. */
+@media (max-width: 767px) {
+  .home-page .nav {
+    position: fixed !important;
+    top: 76px !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    height: calc(100svh - 86px) !important;
+    max-height: calc(100svh - 86px) !important;
+    border-radius: 24px !important;
+    padding: 18px !important;
+    transform: translate(-50%, -8px) scale(0.98) !important;
+  }
+
+  body.mobile-nav-open .home-page .nav {
+    transform: translate(-50%, 0) scale(1) !important;
+  }
+
+  .home-page .nav__mobile-phone {
+    border: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    color: #111318 !important;
+  }
+
+  .home-page .nav__mobile-phone::before {
+    filter: none !important;
+  }
+}
