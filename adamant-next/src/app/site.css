@@ -27149,3 +27149,12 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   background-image: none !important;
   box-shadow: none !important;
 }
+
+@media (max-width: 767px) {
+  .home-page main > .home-project-preview--catalog-style {
+    width: 100vw !important;
+    max-width: none !important;
+    margin-right: calc(50% - 50vw) !important;
+    margin-left: calc(50% - 50vw) !important;
+  }
+}
