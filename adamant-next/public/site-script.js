@@ -2288,9 +2288,11 @@
 
   initVideoStories();
 
-  const initMortgageProcessParallax = () => {
+  const initProcessCardParallax = () => {
     const cards = Array.from(
-      document.querySelectorAll(".mortgage-redesign__process article")
+      document.querySelectorAll(
+        ".mortgage-redesign__process article, .home-page .home-process__item"
+      )
     );
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2301,7 +2303,14 @@
     const resetCard = new Map();
 
     cards.forEach((card) => {
-      const baseTilt = card.matches(":nth-child(even)") ? 3 : -3;
+      const configuredTilt = Number.parseFloat(
+        window.getComputedStyle(card).getPropertyValue("--process-tilt")
+      );
+      const baseTilt = Number.isFinite(configuredTilt)
+        ? configuredTilt
+        : card.matches(":nth-child(even)")
+          ? 3
+          : -3;
       const copyLayers = Array.from(card.querySelectorAll("h3, p"));
       const numberLayer = card.querySelector(":scope > span");
       let animationFrame = 0;
@@ -2400,7 +2409,7 @@
     });
   };
 
-  initMortgageProcessParallax();
+  initProcessCardParallax();
 
   const cookieConsentKey = "adamant_cookie_consent_v1";
   const cookieConsentName = "adamant_cookie_consent";
