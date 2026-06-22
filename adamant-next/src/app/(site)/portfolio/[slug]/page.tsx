@@ -10,7 +10,7 @@ import {
   getSiteSettings,
   splitParagraphs,
 } from "@/site/cms";
-import { formatArea, formatFloors } from "@/site/catalog-meta";
+import { formatArea, formatFloors, formatProjectPrice } from "@/site/catalog-meta";
 import { PortfolioGallery } from "@/site/components/PortfolioGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getPortfolioItemPath } from "@/site/routes";
@@ -103,7 +103,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
   const paragraphs = splitParagraphs(item.description || item.summary);
   const similarItems = portfolioItems
     .filter((candidate) => candidate.id !== item.id)
-    .slice(0, 3);
+    .slice(0, 4);
 
   return (
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
@@ -133,42 +133,93 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
         <PortfolioGallery images={galleryGridImages} />
 
         <section className="portfolio-detail__content" aria-labelledby="portfolio-about-title">
-          <h2 id="portfolio-about-title">О проекте</h2>
+          <h2 id="portfolio-about-title">Описание</h2>
           {paragraphs.map((paragraph, index) => (
             <p key={`${index}-${paragraph.slice(0, 24)}`}>{paragraph}</p>
           ))}
         </section>
 
+        <section className="portfolio-detail__consult" aria-labelledby="portfolio-consult-title">
+          <div className="portfolio-detail__consult-copy">
+            <h2 id="portfolio-consult-title">Хотите такой же дом?</h2>
+            <p>
+              Оставьте заявку на консультацию — мы подберем лучшее решение для вашего проекта.
+            </p>
+          </div>
+
+          <form
+            className="portfolio-detail__consult-form contact-form"
+            aria-label={`Заявка по проекту ${item.title}`}
+          >
+            <input name="service" type="hidden" value={item.title} />
+            <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+            <input
+              name="phone"
+              type="tel"
+              placeholder="Телефон *"
+              aria-label="Телефон"
+              required
+            />
+            <button type="submit">Получить консультацию</button>
+            <label>
+              <input name="privacy" type="checkbox" required />
+              <span>
+                Согласен на <Link href="/privacy">обработку персональных данных</Link>
+              </span>
+            </label>
+            <p className="contact-form__status" aria-live="polite" />
+          </form>
+        </section>
+
         {similarItems.length ? (
           <section className="portfolio-detail__similar" aria-labelledby="portfolio-similar-title">
-            <div className="home-section__head home-section__head--compact">
-              <div>
-                <span className="section__kicker">Похожие работы</span>
-                <h2 id="portfolio-similar-title">Другие проекты</h2>
-              </div>
-              <Link className="home-section__link" href="/portfolio">
-                Все проекты <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-            <div>
+            <h2 id="portfolio-similar-title">
+              Похожие проекты, которые мы можем для вас построить
+            </h2>
+            <div className="portfolio-detail__related-grid">
               {similarItems.map((similar) => {
+                const similarCatalogItem =
+                  typeof similar.catalogItem === "object" ? similar.catalogItem : null;
                 const similarImage =
-                  getMediaUrl(similar.previewImage, "thumb") ||
+                  getMediaUrl(similar.previewImage) ||
                   getMediaUrl(similar.previewImage, "card") ||
-                  getMediaUrl(similar.previewImage);
+                  getMediaUrl(similar.previewImage, "thumb");
+                const similarHref = getPortfolioItemPath(similar);
+                const similarPrice = similarCatalogItem?.price ?? 0;
 
                 return (
-                  <Link key={similar.id} className="home-portfolio-thumb" href={getPortfolioItemPath(similar)}>
-                    {similarImage ? (
-                      <img
-                        src={similarImage}
-                        alt={getMediaAlt(similar.previewImage, similar.title)}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : null}
-                    <span>{similar.title}</span>
-                  </Link>
+                  <article
+                    key={similar.id}
+                    className="portfolio-related-card"
+                    data-card-link={similarHref}
+                    tabIndex={0}
+                  >
+                    <div className="portfolio-related-card__media">
+                      {similarImage ? (
+                        <img
+                          src={similarImage}
+                          alt={getMediaAlt(similar.previewImage, similar.title)}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : null}
+                      {similarCatalogItem?.isHit ? (
+                        <span className="portfolio-related-card__badge">★ Хит проект</span>
+                      ) : null}
+                    </div>
+                    <div className="portfolio-related-card__body">
+                      <h3>{similar.title}</h3>
+                      <p>{similar.summary}</p>
+                      <div>
+                        <strong>
+                          {similarPrice
+                            ? `от ${formatProjectPrice(similarPrice)} ₽`
+                            : "Цена по запросу"}
+                        </strong>
+                        <Link href={similarHref}>Подробнее</Link>
+                      </div>
+                    </div>
+                  </article>
                 );
               })}
             </div>

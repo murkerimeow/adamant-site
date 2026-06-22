@@ -60,9 +60,8 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
     <>
       <section
         className="portfolio-detail__gallery-section"
-        aria-labelledby="portfolio-gallery-title"
+        aria-label="Фотографии объекта"
       >
-        <h2 id="portfolio-gallery-title">Фотографии объекта</h2>
         <div className="portfolio-detail__photo-grid">
           {images.map((image, index) => (
             <button
