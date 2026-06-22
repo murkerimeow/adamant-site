@@ -170,9 +170,7 @@ export default async function HomePage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog);
-  const homeProjects = featuredProjects.length
-    ? Array.from({ length: 6 }, (_, index) => featuredProjects[index % featuredProjects.length])
-    : [];
+  const homeProjects = featuredProjects.slice(0, 6);
   const featuredProjectCategorySlugs = new Set(
     homeProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
   );
@@ -350,7 +348,7 @@ export default async function HomePage() {
             <HomeProjectCategories categories={featuredProjectCategories} />
 
             <div className="home-project-preview__grid js-wheel-slider">
-              {homeProjects.map((project, projectIndex) => {
+              {homeProjects.map((project) => {
                 const href = getCatalogItemPath(project);
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
@@ -360,7 +358,7 @@ export default async function HomePage() {
 
                 return (
                   <article
-                    key={`${project.id}-${projectIndex}`}
+                    key={project.id}
                     className="home-project-card listing-card"
                     data-card-link={href}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
