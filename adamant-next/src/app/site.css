@@ -27723,9 +27723,13 @@ body:has(.page.inner-page.portfolio-detail-page) {
 .page.inner-page.portfolio-detail-page
   .portfolio-detail--object
   > .portfolio-detail__content {
+  width: 100vw !important;
+  max-width: none !important;
+  justify-self: start;
+  margin-left: calc((var(--site-frame-width) - 100vw) / 2) !important;
   min-height: 320px;
   border-radius: 30px !important;
-  padding: clamp(38px, 4vw, 58px) clamp(34px, 5vw, 64px) !important;
+  padding: clamp(38px, 4vw, 58px) var(--inner-section-inset) !important;
 }
 
 .page.inner-page.portfolio-detail-page .portfolio-detail__content > h2 {
@@ -27853,15 +27857,19 @@ body:has(.page.inner-page.portfolio-detail-page) {
 .page.inner-page.portfolio-detail-page
   .portfolio-detail--object
   > .portfolio-detail__similar {
+  width: 100vw !important;
+  max-width: none !important;
+  justify-self: start;
+  margin-left: calc((var(--site-frame-width) - 100vw) / 2) !important;
   border-radius: 30px !important;
-  padding: clamp(38px, 4vw, 54px) clamp(34px, 5vw, 64px)
+  padding: clamp(38px, 4vw, 54px) var(--inner-section-inset)
     clamp(44px, 5vw, 68px) !important;
 }
 
 .page.inner-page.portfolio-detail-page .portfolio-detail__similar > h2 {
   margin: 0;
   color: #111318;
-  font-size: clamp(25px, 2vw, 33px);
+  font-size: clamp(25px, 2vw, 34px);
   font-weight: 650;
   line-height: 1.15;
 }
@@ -27876,10 +27884,10 @@ body:has(.page.inner-page.portfolio-detail-page) {
 .page.inner-page.portfolio-detail-page .portfolio-related-card {
   display: flex;
   min-width: 0;
-  min-height: 330px;
+  min-height: 0;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 12px;
   background: #f2f3f7;
   cursor: pointer;
 }
@@ -27915,10 +27923,10 @@ body:has(.page.inner-page.portfolio-detail-page) {
 
 .page.inner-page.portfolio-detail-page .portfolio-related-card__body {
   display: flex;
-  min-height: 0;
+  min-height: 142px;
   flex: 1;
   flex-direction: column;
-  padding: 14px 16px 16px;
+  padding: 13px 16px 14px;
 }
 
 .page.inner-page.portfolio-detail-page .portfolio-related-card__body h3 {
@@ -27931,8 +27939,8 @@ body:has(.page.inner-page.portfolio-detail-page) {
 
 .page.inner-page.portfolio-detail-page .portfolio-related-card__body > p {
   display: -webkit-box;
-  min-height: 48px;
-  margin: 9px 0 0;
+  min-height: 43px;
+  margin: 7px 0 0;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -27963,7 +27971,7 @@ body:has(.page.inner-page.portfolio-detail-page) {
   min-height: 34px;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 17px;
   background: #df9965;
   color: #ffffff;
   font-size: 11px;

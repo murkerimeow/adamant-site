@@ -5,15 +5,21 @@ import { notFound } from "next/navigation";
 import {
   getMediaAlt,
   getMediaUrl,
+  getCatalogItems,
+  getCatalogCoverMedia,
   getPortfolioItemBySlug,
-  getPortfolioItems,
   getSiteSettings,
   splitParagraphs,
 } from "@/site/cms";
-import { formatArea, formatFloors, formatProjectPrice } from "@/site/catalog-meta";
+import {
+  formatArea,
+  formatFloors,
+  formatProjectPrice,
+  getCatalogCardMeta,
+} from "@/site/catalog-meta";
 import { PortfolioGallery } from "@/site/components/PortfolioGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { getPortfolioItemPath } from "@/site/routes";
+import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
@@ -41,10 +47,10 @@ export async function generateMetadata({
 
 export default async function PortfolioDetailPage({ params }: PortfolioDetailPageProps) {
   const { slug } = await params;
-  const [siteSettings, item, portfolioItems] = await Promise.all([
+  const [siteSettings, item, catalogItems] = await Promise.all([
     getSiteSettings(),
     getPortfolioItemBySlug(slug),
-    getPortfolioItems(),
+    getCatalogItems(),
   ]);
 
   if (!item) {
@@ -101,8 +107,15 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     },
   ];
   const paragraphs = splitParagraphs(item.description || item.summary);
-  const similarItems = portfolioItems
-    .filter((candidate) => candidate.id !== item.id)
+  const linkedCatalogItemId =
+    item.catalogItem && typeof item.catalogItem === "object"
+      ? item.catalogItem.id
+      : item.catalogItem;
+  const similarItems = catalogItems
+    .filter(
+      (candidate) =>
+        candidate.showInCatalog && candidate.id !== linkedCatalogItemId,
+    )
     .slice(0, 4);
 
   return (
@@ -178,14 +191,16 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
             </h2>
             <div className="portfolio-detail__related-grid">
               {similarItems.map((similar) => {
-                const similarCatalogItem =
-                  typeof similar.catalogItem === "object" ? similar.catalogItem : null;
+                const similarMeta = getCatalogCardMeta(similar);
+                const similarCoverMedia = getCatalogCoverMedia(similar);
                 const similarImage =
-                  getMediaUrl(similar.previewImage) ||
-                  getMediaUrl(similar.previewImage, "card") ||
-                  getMediaUrl(similar.previewImage, "thumb");
-                const similarHref = getPortfolioItemPath(similar);
-                const similarPrice = similarCatalogItem?.price ?? 0;
+                  getMediaUrl(similarCoverMedia, "card") ||
+                  getMediaUrl(similarCoverMedia);
+                const similarHref = getCatalogItemPath(similar);
+                const similarDescription =
+                  similar.cardSummary ||
+                  similar.description ||
+                  "Современный проект загородного дома под ключ";
 
                 return (
                   <article
@@ -198,22 +213,22 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
                       {similarImage ? (
                         <img
                           src={similarImage}
-                          alt={getMediaAlt(similar.previewImage, similar.title)}
+                          alt={getMediaAlt(similarCoverMedia, similar.title)}
                           loading="lazy"
                           decoding="async"
                         />
                       ) : null}
-                      {similarCatalogItem?.isHit ? (
+                      {similar.isHit ? (
                         <span className="portfolio-related-card__badge">★ Хит проект</span>
                       ) : null}
                     </div>
                     <div className="portfolio-related-card__body">
                       <h3>{similar.title}</h3>
-                      <p>{similar.summary}</p>
+                      <p>{similarDescription}</p>
                       <div>
                         <strong>
-                          {similarPrice
-                            ? `от ${formatProjectPrice(similarPrice)} ₽`
+                          {similarMeta.price
+                            ? `от ${formatProjectPrice(similarMeta.price)} ₽`
                             : "Цена по запросу"}
                         </strong>
                         <Link href={similarHref}>Подробнее</Link>
