@@ -24942,7 +24942,7 @@ body:has(.product-page--catalog),
   width: var(--site-frame-width) !important;
   max-width: var(--site-frame-width) !important;
   height: clamp(320px, 28vw, 390px) !important;
-  min-height: clamp(320px, 28vw, 420px) !important;
+  min-height: clamp(320px, 28vw, 390px) !important;
   max-height: 390px !important;
   aspect-ratio: auto !important;
   margin: 14px auto 0 !important;
