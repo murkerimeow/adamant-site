@@ -387,15 +387,14 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
             const href = getCatalogItemPath(item);
             const meta = getCatalogCardMeta(item);
             const coverMedia = getCatalogCoverMedia(item);
-            const coverSrc = getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
+            const coverSrc = getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description || "";
-            const priceLabel = meta.price ? `от ${formatPrice(meta.price)} ₽` : "Цена по запросу";
 
             return (
               <article
                 key={item.id}
-                className="listing-card"
+                className="listing-card catalog-project-card"
                 data-card-link={href}
                 data-area={getAreaGroup(meta.area)}
                 data-budget={getBudgetGroup(meta.price)}
@@ -407,37 +406,21 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                 data-search={getSearchText([item.title, description, tagLabels])}
                 tabIndex={0}
               >
-                <div className={`listing-card__media${coverSrc ? "" : " listing-card__media--empty"}`}>
-                  <a className="listing-card__media-link" href={href} aria-label={item.title}>
-                    {coverSrc ? (
-                      <img
-                        src={coverSrc}
-                        alt={getMediaAlt(coverMedia, item.title)}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <span>Добавьте изображение в Payload</span>
-                    )}
-                  </a>
-                  {item.isHit ? (
-                    <span className="listing-card__badge">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
-                      </svg>
-                      Хит проект
-                    </span>
-                  ) : null}
-                  <span className="listing-card__photos">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
-                      <circle cx="12" cy="13" r="3.2" />
-                    </svg>
-                    1/{meta.photoCount}
-                  </span>
-                </div>
+                {coverSrc ? (
+                  <img
+                    className="catalog-project-card__background"
+                    src={coverSrc}
+                    alt={getMediaAlt(coverMedia, item.title)}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="catalog-project-card__background-placeholder">
+                    Добавьте изображение в Payload
+                  </div>
+                )}
 
-                <div className="listing-card__body">
+                <div className="listing-card__body catalog-project-card__content-overlay">
                   <h2>{item.title}</h2>
                   <p className="listing-card__description">
                     {description || "Добавьте описание карточки в Payload"}
@@ -487,7 +470,16 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                 </div>
 
                 <div className="listing-card__footer">
-                  <strong>{priceLabel}</strong>
+                  <strong>
+                    {meta.price ? (
+                      <>
+                        <span>от</span>
+                        {formatPrice(meta.price)} ₽
+                      </>
+                    ) : (
+                      "Цена по запросу"
+                    )}
+                  </strong>
                   <a className="listing-card__button" href={href} aria-label={`Подробнее: ${item.title}`}>
                     Подробнее
                   </a>
