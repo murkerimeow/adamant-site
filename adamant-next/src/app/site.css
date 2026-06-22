@@ -24139,10 +24139,12 @@ body:has(.home-page) > .site-footer-slot {
   .home-page .header:has(.nav__item--catalog:focus-within) > .header-projects-dropdown,
   .home-page .header:has(.header-projects-dropdown:focus-within) > .header-projects-dropdown,
   .home-page .header > .header-projects-dropdown:hover,
+  .home-page .header.is-projects-dropdown-open > .header-projects-dropdown,
   .page.inner-page .header:has(.nav__item--catalog:hover) > .header-projects-dropdown,
   .page.inner-page .header:has(.nav__item--catalog:focus-within) > .header-projects-dropdown,
   .page.inner-page .header:has(.header-projects-dropdown:focus-within) > .header-projects-dropdown,
-  .page.inner-page .header > .header-projects-dropdown:hover {
+  .page.inner-page .header > .header-projects-dropdown:hover,
+  .page.inner-page .header.is-projects-dropdown-open > .header-projects-dropdown {
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: translateY(0) !important;
@@ -24156,10 +24158,11 @@ body:has(.home-page) > .site-footer-slot {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    color: #181b20;
-    font-size: clamp(11px, 0.8vw, 14px);
-    font-weight: 400;
-    line-height: 1.15;
+    color: rgba(39, 52, 75, 0.68);
+    font-family: inherit;
+    font-size: clamp(12px, 0.781vw, 15px);
+    font-weight: 700;
+    line-height: 1.2;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
@@ -24175,7 +24178,8 @@ body:has(.home-page) > .site-footer-slot {
 
   .home-page .header > .header-projects-dropdown .header-projects-dropdown__all,
   .page.inner-page .header > .header-projects-dropdown .header-projects-dropdown__all {
-    font-weight: 600;
+    color: #142033;
+    font-weight: 700;
   }
 }
 

@@ -1371,6 +1371,80 @@
     closeMobileNav();
   });
 
+  const initDesktopProjectsDropdown = () => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+
+    document.querySelectorAll(".header").forEach((header) => {
+      const trigger = header.querySelector(".nav__item--catalog");
+      const dropdown = header.querySelector(".header-projects-dropdown");
+      if (!trigger || !dropdown) return;
+
+      let closeTimer = 0;
+
+      const cancelClose = () => {
+        if (!closeTimer) return;
+        window.clearTimeout(closeTimer);
+        closeTimer = 0;
+      };
+
+      const openDropdown = () => {
+        if (!desktopMedia.matches) return;
+        cancelClose();
+        header.classList.add("is-projects-dropdown-open");
+      };
+
+      const scheduleClose = () => {
+        cancelClose();
+        closeTimer = window.setTimeout(() => {
+          header.classList.remove("is-projects-dropdown-open");
+          closeTimer = 0;
+        }, 220);
+      };
+
+      trigger.addEventListener("pointerenter", openDropdown);
+      trigger.addEventListener("pointermove", openDropdown);
+      trigger.addEventListener("pointerleave", scheduleClose);
+      dropdown.addEventListener("pointerenter", openDropdown);
+      dropdown.addEventListener("pointermove", openDropdown);
+      dropdown.addEventListener("pointerleave", scheduleClose);
+      dropdown.addEventListener("focusin", openDropdown);
+      dropdown.addEventListener("focusout", scheduleClose);
+
+      document.addEventListener(
+        "pointermove",
+        (event) => {
+          if (!desktopMedia.matches || !header.classList.contains("is-projects-dropdown-open")) {
+            return;
+          }
+
+          const triggerRect = trigger.getBoundingClientRect();
+          const dropdownRect = dropdown.getBoundingClientRect();
+          const isInside = [triggerRect, dropdownRect].some(
+            (rect) =>
+              event.clientX >= rect.left &&
+              event.clientX <= rect.right &&
+              event.clientY >= rect.top &&
+              event.clientY <= rect.bottom
+          );
+
+          if (isInside) {
+            cancelClose();
+          } else if (!closeTimer) {
+            scheduleClose();
+          }
+        },
+        { passive: true }
+      );
+
+      desktopMedia.addEventListener("change", () => {
+        cancelClose();
+        header.classList.remove("is-projects-dropdown-open");
+      });
+    });
+  };
+
+  initDesktopProjectsDropdown();
+
   const initMobileHeaderAutoHide = () => {
     const header = document.querySelector(".header");
     if (!header || typeof window.matchMedia !== "function") return;
