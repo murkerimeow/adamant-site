@@ -2377,14 +2377,7 @@
     const resetCard = new Map();
 
     cards.forEach((card) => {
-      const configuredTilt = Number.parseFloat(
-        window.getComputedStyle(card).getPropertyValue("--process-tilt")
-      );
-      const baseTilt = Number.isFinite(configuredTilt)
-        ? configuredTilt
-        : card.matches(":nth-child(even)")
-          ? 3
-          : -3;
+      const baseTilt = card.matches(":nth-child(even)") ? 3 : -3;
       const copyLayers = Array.from(card.querySelectorAll("h3, p"));
       const numberLayer = card.querySelector(":scope > span");
       let animationFrame = 0;

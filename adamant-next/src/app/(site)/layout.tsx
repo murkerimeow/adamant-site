@@ -94,7 +94,7 @@ export default async function SiteLayout({ children }: SiteLayoutProps) {
       <div className="site-footer-slot">
         <SiteFooter />
       </div>
-      <Script src="/site-script.js?v=20260623-projects-dropdown" strategy="afterInteractive" />
+      <Script src="/site-script.js?v=20260623-process-parallax" strategy="afterInteractive" />
     </>
   );
 }

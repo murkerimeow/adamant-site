@@ -28090,11 +28090,15 @@ body:has(.page.inner-page.portfolio-detail-page) {
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .page.inner-page.mortgage-page .mortgage-redesign__process article {
+  .page.inner-page.mortgage-page .mortgage-redesign__process article,
+  .home-page .home-process__item {
     --mortgage-card-base-tilt: -3deg;
     --mortgage-card-glare-x: 50%;
     --mortgage-card-glare-y: 50%;
     --mortgage-card-glare-opacity: 0;
+    --process-tilt: -3deg;
+    --process-card-glare-strong: rgba(104, 171, 231, 0.3);
+    --process-card-glare-soft: rgba(149, 201, 248, 0.14);
     transform:
       perspective(900px)
       rotateZ(var(--mortgage-card-base-tilt)) !important;
@@ -28104,22 +28108,37 @@ body:has(.page.inner-page.portfolio-detail-page) {
     will-change: transform;
   }
 
-  .page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) {
+  .page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even),
+  .home-page .home-process__item:nth-child(even) {
     --mortgage-card-base-tilt: 3deg;
+    --process-tilt: 3deg;
+    --process-card-glare-strong: rgba(255, 255, 255, 0.3);
+    --process-card-glare-soft: rgba(255, 255, 255, 0.11);
   }
 
-  .page.inner-page.mortgage-page .mortgage-redesign__process article::before {
+  .page.inner-page.mortgage-page .mortgage-redesign__process article::before,
+  .home-page .home-process__item::before {
     position: absolute;
     z-index: 0;
     inset: 0;
+    display: block !important;
+    box-sizing: border-box;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    border: 0 !important;
     border-radius: inherit;
     background: radial-gradient(
       circle at var(--mortgage-card-glare-x) var(--mortgage-card-glare-y),
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.11) 14%,
+      var(--process-card-glare-strong),
+      var(--process-card-glare-soft) 14%,
       transparent 42%
-    );
-    content: "";
+    ) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    transform: none !important;
+    content: "" !important;
     opacity: var(--mortgage-card-glare-opacity);
     pointer-events: none;
     transition: opacity 180ms ease;
@@ -28138,34 +28157,6 @@ body:has(.page.inner-page.portfolio-detail-page) {
 
   .page.inner-page.mortgage-page .mortgage-redesign__process article.is-mortgage-parallax-active {
     filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16));
-  }
-
-  .home-page .home-process__item {
-    --mortgage-card-glare-x: 50%;
-    --mortgage-card-glare-y: 50%;
-    --mortgage-card-glare-opacity: 0;
-    transform-style: preserve-3d;
-    transform-origin: center;
-    transition: transform 180ms ease, filter 180ms ease !important;
-    will-change: transform;
-  }
-
-  .home-page .home-process__item::before {
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    display: block !important;
-    border-radius: inherit;
-    background: radial-gradient(
-      circle at var(--mortgage-card-glare-x) var(--mortgage-card-glare-y),
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.11) 14%,
-      transparent 42%
-    ) !important;
-    content: "" !important;
-    opacity: var(--mortgage-card-glare-opacity);
-    pointer-events: none;
-    transition: opacity 180ms ease;
   }
 
   .home-page .home-process__item h3,
