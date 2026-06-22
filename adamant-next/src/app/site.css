@@ -28097,8 +28097,8 @@ body:has(.page.inner-page.portfolio-detail-page) {
     --mortgage-card-glare-y: 50%;
     --mortgage-card-glare-opacity: 0;
     --process-tilt: -3deg;
-    --process-card-glare-strong: rgba(104, 171, 231, 0.3);
-    --process-card-glare-soft: rgba(149, 201, 248, 0.14);
+    --process-card-glare-strong: rgba(255, 255, 255, 0.52);
+    --process-card-glare-soft: rgba(255, 255, 255, 0.2);
     transform:
       perspective(900px)
       rotateZ(var(--mortgage-card-base-tilt)) !important;
@@ -28155,10 +28155,6 @@ body:has(.page.inner-page.portfolio-detail-page) {
     transition: transform 180ms ease;
   }
 
-  .page.inner-page.mortgage-page .mortgage-redesign__process article.is-mortgage-parallax-active {
-    filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16));
-  }
-
   .home-page .home-process__item h3,
   .home-page .home-process__item p {
     transform: translate3d(0, 0, 24px) !important;
@@ -28170,7 +28166,8 @@ body:has(.page.inner-page.portfolio-detail-page) {
     transition: transform 180ms ease;
   }
 
+  .page.inner-page.mortgage-page .mortgage-redesign__process article.is-mortgage-parallax-active,
   .home-page .home-process__item.is-mortgage-parallax-active {
-    filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16));
+    filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16)) !important;
   }
 }
