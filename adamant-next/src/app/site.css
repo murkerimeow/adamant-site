@@ -27438,3 +27438,247 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     aspect-ratio: 1 / 1 !important;
   }
 }
+
+/* Portfolio object content is split into independent white sections. */
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__object-summary,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__gallery-section,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__content,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__similar {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__gallery-section,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__content,
+.page.inner-page.portfolio-detail-page
+  .portfolio-detail--object
+  > .portfolio-detail__similar {
+  padding: clamp(26px, 3vw, 42px) clamp(24px, 4.5vw, 58px) !important;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__gallery-section > h2,
+.page.inner-page.portfolio-detail-page .portfolio-detail__content > h2 {
+  margin: 0 0 clamp(18px, 2vw, 28px) !important;
+  color: #111318 !important;
+  font-size: clamp(24px, 1.65vw, 32px) !important;
+  font-weight: 600 !important;
+  line-height: 1.14 !important;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__content {
+  display: block !important;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__content > p {
+  max-width: 920px;
+  margin: 0;
+  color: #586984;
+  font-size: clamp(15px, 0.95vw, 18px);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__content > p + p {
+  margin-top: 14px;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid > button {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  background: #e8f2fc;
+  cursor: zoom-in;
+  padding: 0;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid > button:focus-visible {
+  outline: 3px solid #68abe7;
+  outline-offset: 3px;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid > button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 180ms ease;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid > button:hover img {
+  transform: scale(1.02);
+}
+
+.portfolio-lightbox {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 12, 17, 0.92);
+  padding: clamp(18px, 4vw, 56px);
+}
+
+.portfolio-lightbox__figure {
+  display: grid;
+  max-width: min(1320px, calc(100vw - 140px));
+  max-height: calc(100vh - 80px);
+  gap: 12px;
+  justify-items: center;
+  margin: 0;
+}
+
+.portfolio-lightbox__figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100vh - 128px);
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.portfolio-lightbox__figure figcaption {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.portfolio-lightbox__close,
+.portfolio-lightbox__nav {
+  position: fixed;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  background: rgba(17, 19, 24, 0.82);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.portfolio-lightbox__close:focus-visible,
+.portfolio-lightbox__nav:focus-visible {
+  outline: 3px solid #68abe7;
+  outline-offset: 3px;
+}
+
+.portfolio-lightbox__close {
+  top: 18px;
+  right: 18px;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.portfolio-lightbox__nav {
+  top: 50%;
+  font-size: 23px;
+  transform: translateY(-50%);
+}
+
+.portfolio-lightbox__nav--prev {
+  left: 18px;
+}
+
+.portfolio-lightbox__nav--next {
+  right: 18px;
+}
+
+@media (max-width: 767px) {
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__object-summary,
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__gallery-section,
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__content,
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__similar {
+    border-radius: 20px !important;
+  }
+
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__gallery-section,
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__content,
+  .page.inner-page.portfolio-detail-page
+    .portfolio-detail--object
+    > .portfolio-detail__similar {
+    padding: 26px 18px !important;
+  }
+
+  .page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .page.inner-page.portfolio-detail-page .portfolio-detail__photo-grid > button {
+    border-radius: 16px;
+  }
+
+  .portfolio-lightbox {
+    padding: 64px 12px 72px;
+  }
+
+  .portfolio-lightbox__figure {
+    max-width: 100%;
+    max-height: calc(100vh - 136px);
+  }
+
+  .portfolio-lightbox__figure img {
+    max-height: calc(100vh - 178px);
+    border-radius: 8px;
+  }
+
+  .portfolio-lightbox__close,
+  .portfolio-lightbox__nav {
+    width: 42px;
+    height: 42px;
+  }
+
+  .portfolio-lightbox__nav {
+    top: auto;
+    bottom: 14px;
+    transform: none;
+  }
+
+  .portfolio-lightbox__nav--prev {
+    left: calc(50% - 52px);
+  }
+
+  .portfolio-lightbox__nav--next {
+    right: calc(50% - 52px);
+  }
+}
