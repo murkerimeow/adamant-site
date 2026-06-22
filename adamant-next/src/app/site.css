@@ -27095,3 +27095,57 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
     font-size: 0 !important;
   }
 }
+
+/* Final homepage project image layer: square, proportional, and panel-free. */
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card {
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  > .home-project-card__background {
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: inherit !important;
+  transform: none !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  > .listing-card__body.home-project-card__content-overlay {
+  position: relative !important;
+  z-index: 2 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  > .listing-card__footer {
+  z-index: 3 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}

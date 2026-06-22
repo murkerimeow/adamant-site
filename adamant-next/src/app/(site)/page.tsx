@@ -22,7 +22,6 @@ import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
-import type { CSSProperties } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -355,12 +354,9 @@ export default async function HomePage() {
                 const href = getCatalogItemPath(project);
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
-                  getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
+                  getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
-                const cardStyle = imageUrl
-                  ? ({ "--home-project-image": `url(${JSON.stringify(imageUrl)})` } as CSSProperties)
-                  : undefined;
 
                 return (
                   <article
@@ -368,38 +364,19 @@ export default async function HomePage() {
                     className="home-project-card listing-card"
                     data-card-link={href}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
-                    style={cardStyle}
                     tabIndex={0}
                   >
-                    <div className="listing-card__media">
-                      <a className="listing-card__media-link" href={href} aria-label={project.title}>
-                        {imageUrl ? (
-                          <img
-                            src={imageUrl}
-                            alt={getMediaAlt(coverMedia, project.title)}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        ) : null}
-                      </a>
-                      {project.isHit ? (
-                        <span className="listing-card__badge">
-                          <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="m12 2.8 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4-5.7-3-5.7 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z" />
-                          </svg>
-                          Хит проект
-                        </span>
-                      ) : null}
-                      <span className="listing-card__photos">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M4 8h3l1.7-2h6.6L17 8h3v10H4V8Z" />
-                          <circle cx="12" cy="13" r="3.2" />
-                        </svg>
-                        1/{meta.photoCount}
-                      </span>
-                    </div>
+                    {imageUrl ? (
+                      <img
+                        className="home-project-card__background"
+                        src={imageUrl}
+                        alt={getMediaAlt(coverMedia, project.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
 
-                    <div className="listing-card__body">
+                    <div className="listing-card__body home-project-card__content-overlay">
                       <h2>{project.title}</h2>
                       <p className="listing-card__description">{description}</p>
                       <ul className="listing-card__specs" aria-label="Характеристики проекта">
