@@ -2288,6 +2288,120 @@
 
   initVideoStories();
 
+  const initMortgageProcessParallax = () => {
+    const cards = Array.from(
+      document.querySelectorAll(".mortgage-redesign__process article")
+    );
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!cards.length || !finePointer || reduceMotion) return;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const resetCard = new Map();
+
+    cards.forEach((card) => {
+      const baseTilt = card.matches(":nth-child(even)") ? 3 : -3;
+      const copyLayers = Array.from(card.querySelectorAll("h3, p"));
+      const numberLayer = card.querySelector(":scope > span");
+      let animationFrame = 0;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      const render = () => {
+        animationFrame = 0;
+        const rect = card.getBoundingClientRect();
+        const normalizedX = clamp((pointerX - rect.left) / rect.width, 0, 1);
+        const normalizedY = clamp((pointerY - rect.top) / rect.height, 0, 1);
+        const moveX = normalizedX * 2 - 1;
+        const moveY = normalizedY * 2 - 1;
+
+        card.style.setProperty(
+          "transform",
+          `perspective(900px) translateY(-5px) rotateX(${moveY * -5}deg) rotateY(${moveX * 6}deg) rotateZ(${baseTilt}deg)`,
+          "important"
+        );
+        copyLayers.forEach((layer) => {
+          layer.style.setProperty(
+            "transform",
+            `translate3d(${moveX * 5}px, ${moveY * 4}px, 24px)`,
+            "important"
+          );
+        });
+        numberLayer?.style.setProperty(
+          "transform",
+          `translate3d(${moveX * 10}px, ${moveY * 8}px, 38px)`,
+          "important"
+        );
+        card.style.setProperty("--mortgage-card-glare-x", `${normalizedX * 100}%`);
+        card.style.setProperty("--mortgage-card-glare-y", `${normalizedY * 100}%`);
+        card.style.setProperty("--mortgage-card-glare-opacity", "1");
+        card.classList.add("is-mortgage-parallax-active");
+      };
+
+      const reset = () => {
+        if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = 0;
+        }
+
+        card.style.setProperty(
+          "transform",
+          `perspective(900px) translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(${baseTilt}deg)`,
+          "important"
+        );
+        copyLayers.forEach((layer) => {
+          layer.style.setProperty("transform", "translate3d(0, 0, 24px)", "important");
+        });
+        numberLayer?.style.setProperty(
+          "transform",
+          "translate3d(0, 0, 38px)",
+          "important"
+        );
+        card.style.setProperty("--mortgage-card-glare-opacity", "0");
+        card.classList.remove("is-mortgage-parallax-active");
+      };
+
+      resetCard.set(card, reset);
+
+      card.addEventListener("pointermove", (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+
+        if (!animationFrame) {
+          animationFrame = window.requestAnimationFrame(render);
+        }
+      });
+      card.addEventListener("pointerleave", reset);
+      card.addEventListener("pointercancel", reset);
+    });
+
+    document.addEventListener(
+      "pointermove",
+      (event) => {
+        cards.forEach((card) => {
+          if (!card.classList.contains("is-mortgage-parallax-active")) return;
+
+          const rect = card.getBoundingClientRect();
+          const isInside =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+
+          if (!isInside) resetCard.get(card)?.();
+        });
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("blur", () => {
+      resetCard.forEach((reset) => reset());
+    });
+  };
+
+  initMortgageProcessParallax();
+
   const cookieConsentKey = "adamant_cookie_consent_v1";
   const cookieConsentName = "adamant_cookie_consent";
 

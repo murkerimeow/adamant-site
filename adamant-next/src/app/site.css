@@ -24941,9 +24941,9 @@ body:has(.product-page--catalog),
   isolation: isolate;
   width: var(--site-frame-width) !important;
   max-width: var(--site-frame-width) !important;
-  height: clamp(320px, 28vw, 390px) !important;
-  min-height: clamp(320px, 28vw, 390px) !important;
-  max-height: 390px !important;
+  height: clamp(320px, 28vw, 360px) !important;
+  min-height: clamp(320px, 28vw, 360px) !important;
+  max-height: 360px !important;
   aspect-ratio: auto !important;
   margin: 14px auto 0 !important;
   overflow: hidden !important;
@@ -28041,5 +28041,70 @@ body:has(.page.inner-page.portfolio-detail-page) {
 
   .page.inner-page.portfolio-detail-page .portfolio-related-card {
     min-height: 0;
+  }
+}
+
+/* Mortgage process cards: left-aligned copy with a restrained pointer parallax. */
+.page.inner-page.mortgage-page .mortgage-redesign__process article {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.page.inner-page.mortgage-page .mortgage-redesign__process article h3,
+.page.inner-page.mortgage-page .mortgage-redesign__process article p {
+  width: 100%;
+  align-self: stretch;
+  text-align: left !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .page.inner-page.mortgage-page .mortgage-redesign__process article {
+    --mortgage-card-base-tilt: -3deg;
+    --mortgage-card-glare-x: 50%;
+    --mortgage-card-glare-y: 50%;
+    --mortgage-card-glare-opacity: 0;
+    transform:
+      perspective(900px)
+      rotateZ(var(--mortgage-card-base-tilt)) !important;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    transition: transform 180ms ease, filter 180ms ease !important;
+    will-change: transform;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article:nth-child(even) {
+    --mortgage-card-base-tilt: 3deg;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article::before {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--mortgage-card-glare-x) var(--mortgage-card-glare-y),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.11) 14%,
+      transparent 42%
+    );
+    content: "";
+    opacity: var(--mortgage-card-glare-opacity);
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article h3,
+  .page.inner-page.mortgage-page .mortgage-redesign__process article p {
+    transform: translate3d(0, 0, 24px) !important;
+    transition: transform 180ms ease;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article > span {
+    transform: translate3d(0, 0, 38px) !important;
+    transition: transform 180ms ease;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__process article.is-mortgage-parallax-active {
+    filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16));
   }
 }
