@@ -27684,6 +27684,17 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 }
 
 /* Portfolio object page follows the approved portfolio composition. */
+.page.inner-page.portfolio-detail-page,
+body:has(.page.inner-page.portfolio-detail-page) {
+  background: #f2f3f7 !important;
+}
+
+.page.inner-page.portfolio-detail-page .portfolio-detail--object {
+  gap: clamp(18px, 1.55vw, 30px) !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 .page.inner-page.portfolio-detail-page
   .portfolio-detail--object
   > .portfolio-detail__object-summary {

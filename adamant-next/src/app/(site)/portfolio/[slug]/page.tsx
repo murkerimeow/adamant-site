@@ -109,7 +109,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
-      <div className="section portfolio-detail portfolio-detail--object">
+      <div className="portfolio-detail portfolio-detail--object">
         <section className="portfolio-detail__object-summary" aria-labelledby="portfolio-detail-title">
           <div className="portfolio-detail__object-copy">
             <h1 id="portfolio-detail-title">{item.title}</h1>
