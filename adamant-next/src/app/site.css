@@ -28269,3 +28269,39 @@ body:has(.page.inner-page.portfolio-detail-page) {
     filter: drop-shadow(0 18px 20px rgba(36, 62, 91, 0.16)) !important;
   }
 }
+
+/* Mobile homepage hero: keep the new banner grounded in the bottom-right corner. */
+@media (max-width: 767px) {
+  .home-page .hero {
+    overflow: hidden !important;
+  }
+
+  .home-page .hero .visual-panel {
+    inset: 0 !important;
+  }
+
+  .home-page .hero .visual-panel__image {
+    object-fit: cover !important;
+    object-position: right bottom !important;
+    transform: none !important;
+  }
+
+  .home-page .hero__content {
+    left: clamp(18px, 5vw, 24px) !important;
+    right: auto !important;
+    top: clamp(28px, 8vw, 46px) !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .home-page .hero h1,
+  .home-page .hero p {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+    text-align: left !important;
+  }
+
+  .home-page .hero__actions {
+    justify-content: flex-start !important;
+  }
+}

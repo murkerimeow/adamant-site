@@ -260,7 +260,7 @@ export default async function HomePage() {
             <div className="visual-panel hero-visual" aria-hidden="true">
               <img
                 className="visual-panel__image visual-panel__image--base"
-                src="/home-main-new.webp"
+                src="/home-main-2.png"
                 alt=""
                 loading="eager"
                 decoding="async"
@@ -268,7 +268,7 @@ export default async function HomePage() {
               />
               <img
                 className="visual-panel__image visual-panel__image--lit"
-                src="/home-main-new.webp"
+                src="/home-main-2.png"
                 alt=""
                 loading="eager"
                 decoding="async"
