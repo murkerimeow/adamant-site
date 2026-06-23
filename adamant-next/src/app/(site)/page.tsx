@@ -196,11 +196,17 @@ export default async function HomePage() {
     }
   });
 
-  const homeProjectIds = new Set(homeProjectsByCategory.map((project) => project.id));
-  const homeProjects = [
+  const balancedHomeProjects = [
     ...homeProjectsByCategory,
-    ...featuredProjects.filter((project) => !homeProjectIds.has(project.id)),
+    ...featuredProjects.filter(
+      (project) => !homeProjectsByCategory.some((homeProject) => homeProject.id === project.id),
+    ),
   ].slice(0, 6);
+
+  const defaultHomeProjectIds = new Set(balancedHomeProjects.map((project) => project.id));
+  const homeProjects = featuredProjects.filter((project) =>
+    Boolean(getCatalogLandingCategorySlug(project)),
+  );
   const featuredProjectCategorySlugs = new Set(
     homeProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
   );
@@ -391,7 +397,9 @@ export default async function HomePage() {
                     key={project.id}
                     className="home-project-card listing-card"
                     data-card-link={href}
+                    data-home-project-default={defaultHomeProjectIds.has(project.id) ? "true" : "false"}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
+                    hidden={!defaultHomeProjectIds.has(project.id)}
                     tabIndex={0}
                   >
                     {imageUrl ? (
