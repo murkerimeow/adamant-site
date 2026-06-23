@@ -26674,6 +26674,32 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 }
 
+@media (min-width: 681px) {
+  .page.inner-page.mortgage-page .mortgage-redesign__hero {
+    height: clamp(270px, 22vw, 300px) !important;
+    min-height: clamp(270px, 22vw, 300px) !important;
+    max-height: 300px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content {
+    min-height: inherit !important;
+    padding-top: clamp(26px, 2.5vw, 36px) !important;
+    padding-bottom: clamp(26px, 2.5vw, 36px) !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content p {
+    margin-top: 14px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content > div {
+    margin-top: 22px !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero-content button {
+    min-height: 46px !important;
+  }
+}
+
 /* All homepage eyebrow labels follow the "How we work" pill. */
 .home-page .page .hero__kicker,
 .home-page .page .home-about-stats__eyebrow,
