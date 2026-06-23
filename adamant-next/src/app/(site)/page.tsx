@@ -170,7 +170,37 @@ export default async function HomePage() {
   const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog);
-  const homeProjects = featuredProjects.slice(0, 6);
+  const projectsByCategorySlug = new Map<string, typeof featuredProjects>();
+
+  featuredProjects.forEach((project) => {
+    const categorySlug = getCatalogLandingCategorySlug(project);
+
+    if (!categorySlug) return;
+
+    const projects = projectsByCategorySlug.get(categorySlug);
+
+    if (projects) {
+      projects.push(project);
+    } else {
+      projectsByCategorySlug.set(categorySlug, [project]);
+    }
+  });
+
+  const homeProjectsByCategory: typeof featuredProjects = [];
+
+  catalogCategories.forEach((category) => {
+    const project = projectsByCategorySlug.get(category.slug)?.[0];
+
+    if (project) {
+      homeProjectsByCategory.push(project);
+    }
+  });
+
+  const homeProjectIds = new Set(homeProjectsByCategory.map((project) => project.id));
+  const homeProjects = [
+    ...homeProjectsByCategory,
+    ...featuredProjects.filter((project) => !homeProjectIds.has(project.id)),
+  ].slice(0, 6);
   const featuredProjectCategorySlugs = new Set(
     homeProjects.map((project) => getCatalogLandingCategorySlug(project)).filter(Boolean),
   );
