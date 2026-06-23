@@ -1,5 +1,5 @@
 import type { Request as RequestDoc } from "@/payload-types";
-import { telegramFetch } from "./telegram-fetch";
+import { telegramFetch } from "./telegram-fetch.ts";
 
 export type TelegramSendResult = {
   chatId: string;
