@@ -28438,3 +28438,20 @@ body:has(.page.inner-page.portfolio-detail-page) {
     transform: translate(-50%, 0) scale(1) !important;
   }
 }
+
+/* Desktop about hero: keep the cat lower-right without heavy zoom or hard crops. */
+@media (min-width: 768px) {
+  .about-page--fresh .about-redesign__hero {
+    background: #c5c3c4 !important;
+  }
+
+  .about-page--fresh .about-redesign__hero > img {
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: contain !important;
+    object-position: right bottom !important;
+    transform: none !important;
+  }
+}
