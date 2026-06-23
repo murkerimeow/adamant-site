@@ -2,7 +2,7 @@ import Script from "next/script";
 
 import { getSiteSettings } from "@/site/cms";
 import { SiteFooter } from "@/site/components/SiteFooter";
-import { SITE_NAME, SITE_URL } from "@/site/seo";
+import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/site/seo";
 import { socialLinks } from "@/site/socials";
 
 import "../site.css";
@@ -32,7 +32,7 @@ function buildStructuredData(siteSettings: Awaited<ReturnType<typeof getSiteSett
           },
         ],
         email: siteSettings.email || undefined,
-        image: `${SITE_URL}/home-main-new.webp`,
+        image: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
         logo: `${SITE_URL}/logo-new.PNG`,
         name: siteSettings.companyName || SITE_NAME,
         openingHours: siteSettings.workingHours || undefined,
