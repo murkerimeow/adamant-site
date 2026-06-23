@@ -26988,7 +26988,7 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 @media (max-width: 767px) {
   .home-page .nav {
     position: fixed !important;
-    top: 76px !important;
+    top: 68px !important;
     right: auto !important;
     bottom: auto !important;
     left: 50% !important;
@@ -28406,5 +28406,35 @@ body:has(.page.inner-page.portfolio-detail-page) {
     margin-right: 0 !important;
     margin-left: 0 !important;
     align-self: flex-start !important;
+  }
+}
+
+/* Mobile burger menu: match the main hero frame exactly. */
+@media (max-width: 767px) {
+  .nav,
+  .home-page .nav,
+  .page.inner-page .nav {
+    position: fixed !important;
+    top: 68px !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    width: var(--site-frame-width) !important;
+    max-width: var(--site-frame-width) !important;
+    height: calc(100svh - 86px) !important;
+    max-height: calc(100svh - 86px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border-radius: 24px !important;
+    transform: translate(-50%, -8px) scale(0.98) !important;
+    transform-origin: top center !important;
+  }
+
+  body.mobile-nav-open .nav,
+  body.mobile-nav-open .home-page .nav,
+  body.mobile-nav-open .page.inner-page .nav {
+    transform: translate(-50%, 0) scale(1) !important;
   }
 }
