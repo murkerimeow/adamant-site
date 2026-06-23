@@ -18,6 +18,16 @@ export const AboutPage: GlobalConfig = {
       "Сильный заголовок страницы",
     ),
     {
+      name: "heroImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Главный баннер",
+      admin: {
+        description:
+          "Изображение для первого экрана страницы «О нас». Если поле пустое, используется текущая картинка.",
+      },
+    },
+    {
       name: "intro",
       type: "textarea",
       label: "Основной текст о компании",

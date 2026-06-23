@@ -35,6 +35,7 @@ export type BlogPageGlobal = PageIntroGlobal & {
 };
 
 export type HomePageGlobal = HomePage & {
+  heroImage?: number | Media | null;
   seoDescription?: string | null;
   seoTitle?: string | null;
   sectionEyebrows?: {
@@ -68,6 +69,7 @@ export type AboutPageGlobal = PageIntroGlobal & {
         question: string;
       }[]
     | null;
+  heroImage?: number | Media | null;
   intro?: string | null;
   principles?:
     | {

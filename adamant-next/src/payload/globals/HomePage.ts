@@ -23,6 +23,16 @@ export const HomePage: GlobalConfig = {
       required: true,
     },
     {
+      name: "heroImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Главный баннер",
+      admin: {
+        description:
+          "Изображение для первого экрана на главной. Если поле пустое, используется текущая картинка.",
+      },
+    },
+    {
       name: "seoTitle",
       type: "text",
       label: "SEO Title / title вкладки браузера",

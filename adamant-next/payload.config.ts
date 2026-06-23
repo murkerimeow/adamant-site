@@ -59,7 +59,7 @@ export default buildConfig({
         process.env.DATABASE_URI ??
         `file:${path.resolve(dirname, "adamant.db")}`,
     },
-    push: true,
+    push: process.env.NODE_ENV !== "production",
   }),
   globals: [
     SiteSettings,

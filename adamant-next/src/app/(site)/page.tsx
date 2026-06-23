@@ -216,6 +216,10 @@ export default async function HomePage() {
   const portfolioStripItems = portfolioItems;
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
   const reviews = payloadReviews.length ? payloadReviews : [];
+  const homeHeroImageUrl =
+    getMediaUrl(homePage.heroImage) ||
+    getMediaUrl(homePage.heroImage, "card") ||
+    "/home-main-2.png";
   const videoReviews = reviews
     .map((review) => ({
       caption: review.caption?.trim() || review.text?.trim() || "",
@@ -260,7 +264,7 @@ export default async function HomePage() {
             <div className="visual-panel hero-visual" aria-hidden="true">
               <img
                 className="visual-panel__image visual-panel__image--base"
-                src="/home-main-2.png"
+                src={homeHeroImageUrl}
                 alt=""
                 loading="eager"
                 decoding="async"
@@ -268,7 +272,7 @@ export default async function HomePage() {
               />
               <img
                 className="visual-panel__image visual-panel__image--lit"
-                src="/home-main-2.png"
+                src={homeHeroImageUrl}
                 alt=""
                 loading="eager"
                 decoding="async"

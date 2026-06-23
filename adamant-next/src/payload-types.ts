@@ -969,6 +969,10 @@ export interface HomePage {
   id: number;
   heroTitle: string;
   heroDescription: string;
+  /**
+   * Изображение для первого экрана на главной. Если поле пустое, используется текущая картинка.
+   */
+  heroImage?: (number | null) | Media;
   seoTitle?: string | null;
   seoDescription?: string | null;
   stats?:
@@ -1014,6 +1018,10 @@ export interface AboutPage {
   subtitle: string;
   seoTitle?: string | null;
   seoDescription?: string | null;
+  /**
+   * Изображение для первого экрана страницы «О нас». Если поле пустое, используется текущая картинка.
+   */
+  heroImage?: (number | null) | Media;
   intro?: string | null;
   principles?:
     | {
@@ -1162,6 +1170,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 export interface HomePageSelect<T extends boolean = true> {
   heroTitle?: T;
   heroDescription?: T;
+  heroImage?: T;
   seoTitle?: T;
   seoDescription?: T;
   stats?:
@@ -1211,6 +1220,7 @@ export interface AboutPageSelect<T extends boolean = true> {
   subtitle?: T;
   seoTitle?: T;
   seoDescription?: T;
+  heroImage?: T;
   intro?: T;
   principles?:
     | T

@@ -145,6 +145,10 @@ export default async function AboutPage() {
   ]);
 
   const paragraphs = splitParagraphs(aboutPage.intro);
+  const heroImageUrl =
+    getMediaUrl(aboutPage.heroImage) ||
+    getMediaUrl(aboutPage.heroImage, "card") ||
+    "/about-banner.webp";
   const stats = getCompanyStats(siteSettings, "about").slice(0, 5).map((stat) => ({
     ...stat,
     icon: aboutStatIcons[stat.key] ?? "home",
@@ -158,7 +162,7 @@ export default async function AboutPage() {
       <section className="section about-redesign" aria-labelledby="about-title">
         <div className="about-redesign__hero">
           <img
-            src="/about-banner.webp"
+            src={heroImageUrl}
             alt=""
             loading="eager"
             decoding="async"

@@ -12,6 +12,7 @@ import * as migration_20260606_221500_catalog_item_seo_fields from './20260606_2
 import * as migration_20260606_233000_payload_schema_repairs from './20260606_233000_payload_schema_repairs.ts';
 import * as migration_20260607_000000_posts_seo_schema_repair from './20260607_000000_posts_seo_schema_repair.ts';
 import * as migration_20260612_120000_review_videos from './20260612_120000_review_videos.ts';
+import * as migration_20260623_220000_global_hero_images from './20260623_220000_global_hero_images.ts';
 
 export const migrations = [
   {
@@ -83,5 +84,10 @@ export const migrations = [
     up: migration_20260612_120000_review_videos.up,
     down: migration_20260612_120000_review_videos.down,
     name: '20260612_120000_review_videos'
+  },
+  {
+    up: migration_20260623_220000_global_hero_images.up,
+    down: migration_20260623_220000_global_hero_images.down,
+    name: '20260623_220000_global_hero_images'
   },
 ];
