@@ -27252,6 +27252,15 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   padding: 0 22px !important;
 }
 
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-preview__categories
+  button:not(.is-active) {
+  color: #17191d !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
 /* Catalog cards mirror the square project cards used on the homepage. */
 .page.inner-page.catalog-page .listing-grid--catalog {
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
