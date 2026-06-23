@@ -321,7 +321,7 @@ export default async function HomePage() {
                         aria-label={social.label}
                         title={social.label}
                       >
-                        <SocialIcon name={social.key} />
+                        <SocialIcon name={social.key} tone="white" />
                       </a>
                     ))}
                   </div>
