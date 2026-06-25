@@ -8,6 +8,8 @@ import {
   getHomePage,
   getMediaAlt,
   getMediaUrl,
+  getPortfolioCategories,
+  getPortfolioCategorySlug,
   getPortfolioItems,
   getReviews,
   getServices,
@@ -76,12 +78,18 @@ const homePortfolioCategories = [
 ];
 
 function getHomePortfolioCategory(project: {
-  category?: string | null;
+  category?: unknown;
   description?: string | null;
   summary: string;
   tags?: { label: string }[] | null;
   title: string;
 }) {
+  const payloadCategory = getPortfolioCategorySlug(project);
+
+  if (payloadCategory) {
+    return payloadCategory;
+  }
+
   const searchText = [
     project.title,
     project.summary,
@@ -112,9 +120,7 @@ function getHomePortfolioCategory(project: {
     return "built-houses";
   }
 
-  return project.category === "classic" || project.category === "modern"
-    ? "built-houses"
-    : "commercial-buildings";
+  return "built-houses";
 }
 
 type HomeStat = {
@@ -154,11 +160,12 @@ function getHomeStats(
 }
 
 export default async function HomePage() {
-  const [siteSettings, homePage, services, portfolioItems, catalogItems, catalogCategories, aboutPage, payloadReviews] = await Promise.all([
+  const [siteSettings, homePage, services, portfolioItems, portfolioCategories, catalogItems, catalogCategories, aboutPage, payloadReviews] = await Promise.all([
     getSiteSettings(),
     getHomePage(),
     getServices(),
     getPortfolioItems(),
+    getPortfolioCategories(),
     getCatalogItems(),
     getCatalogCategories(),
     getAboutPage(),
@@ -214,6 +221,12 @@ export default async function HomePage() {
     .filter((category) => featuredProjectCategorySlugs.has(category.slug))
     .slice(0, 6);
   const portfolioStripItems = portfolioItems;
+  const portfolioTabs = portfolioCategories.length
+    ? portfolioCategories.map((category) => ({
+        label: category.title,
+        value: category.slug,
+      }))
+    : homePortfolioCategories;
   const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
   const reviews = payloadReviews.length ? payloadReviews : [];
   const homeHeroImageUrl =
@@ -673,7 +686,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <HomePortfolioCategories categories={homePortfolioCategories} />
+            <HomePortfolioCategories categories={portfolioTabs} />
 
             <div className="home-portfolio-strip js-wheel-slider">
               {portfolioStripItems.map((project) => {

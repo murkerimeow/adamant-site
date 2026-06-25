@@ -49,16 +49,14 @@ export const Portfolio: CollectionConfig = {
     },
     {
       name: "category",
-      type: "select",
+      type: "relationship",
       admin: {
+        description:
+          "Посадочная категория портфолио. Используется для вкладок на главной и страниц /portfolio/category/...",
         position: "sidebar",
       },
-      defaultValue: "modern",
       label: "Категория",
-      options: [
-        { label: "Современные", value: "modern" },
-        { label: "Классические", value: "classic" },
-      ],
+      relationTo: "portfolio-categories",
       required: true,
     },
     {

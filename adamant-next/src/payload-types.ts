@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     posts: Post;
     services: Service;
+    'portfolio-categories': PortfolioCategory;
     portfolio: Portfolio;
     'catalog-categories': CatalogCategory;
     catalog: Catalog;
@@ -89,6 +90,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    'portfolio-categories': PortfolioCategoriesSelect<false> | PortfolioCategoriesSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     'catalog-categories': CatalogCategoriesSelect<false> | CatalogCategoriesSelect<true>;
     catalog: CatalogSelect<false> | CatalogSelect<true>;
@@ -265,6 +267,24 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-categories".
+ */
+export interface PortfolioCategory {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string | null;
+  h1?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  heroImage?: (number | null) | Media;
+  showInNavigation?: boolean | null;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "portfolio".
  */
 export interface Portfolio {
@@ -277,7 +297,10 @@ export interface Portfolio {
    * Свяжите карточку портфолио с проектом каталога, чтобы кнопка вела на правильную страницу.
    */
   catalogItem?: (number | null) | Catalog;
-  category: 'modern' | 'classic';
+  /**
+   * Посадочная категория портфолио. Используется для вкладок на главной и страниц /portfolio/category/...
+   */
+  category: number | PortfolioCategory;
   order: number;
   location?: string | null;
   projectArea?: number | null;
@@ -529,6 +552,10 @@ export interface PayloadLockedDocument {
         value: number | Service;
       } | null)
     | ({
+        relationTo: 'portfolio-categories';
+        value: number | PortfolioCategory;
+      } | null)
+    | ({
         relationTo: 'portfolio';
         value: number | Portfolio;
       } | null)
@@ -707,6 +734,23 @@ export interface ServicesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-categories_select".
+ */
+export interface PortfolioCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  h1?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  heroImage?: T;
+  showInNavigation?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

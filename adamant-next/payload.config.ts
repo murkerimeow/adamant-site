@@ -10,6 +10,7 @@ import { Catalog } from "./src/payload/collections/Catalog.ts";
 import { CatalogCategories } from "./src/payload/collections/CatalogCategories.ts";
 import { Media } from "./src/payload/collections/Media.ts";
 import { Portfolio } from "./src/payload/collections/Portfolio.ts";
+import { PortfolioCategories } from "./src/payload/collections/PortfolioCategories.ts";
 import { Posts } from "./src/payload/collections/Posts.ts";
 import { Requests } from "./src/payload/collections/Requests.ts";
 import { Reviews } from "./src/payload/collections/Reviews.ts";
@@ -45,6 +46,7 @@ export default buildConfig({
     Media,
     Posts,
     Services,
+    PortfolioCategories,
     Portfolio,
     CatalogCategories,
     Catalog,

@@ -3,12 +3,14 @@ import type { MetadataRoute } from "next";
 import {
   getCatalogItems,
   getCatalogSitemapCategories,
+  getPortfolioSitemapCategories,
   getPortfolioItems,
   getPosts,
 } from "@/site/cms";
 import {
   getCatalogCategoryPath,
   getCatalogItemPath,
+  getPortfolioCategoryPath,
   getPortfolioItemPath,
 } from "@/site/routes";
 import { isIndexableLongFormText, SITE_URL } from "@/site/seo";
@@ -32,12 +34,13 @@ function getLastModified(date?: string | null) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const [catalogResult, categoryResult, postsResult, portfolioResult] =
+  const [catalogResult, categoryResult, postsResult, portfolioResult, portfolioCategoryResult] =
     await Promise.allSettled([
       getCatalogItems(),
       getCatalogSitemapCategories(),
       getPosts(),
       getPortfolioItems(),
+      getPortfolioSitemapCategories(),
     ]);
 
   const catalogItems =
@@ -47,6 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = postsResult.status === "fulfilled" ? postsResult.value : [];
   const portfolioItems =
     portfolioResult.status === "fulfilled" ? portfolioResult.value : [];
+  const portfolioCategories =
+    portfolioCategoryResult.status === "fulfilled" ? portfolioCategoryResult.value : [];
 
   const staticEntries = staticPaths.map((path) => ({
     url: `${SITE_URL}${path}`,
@@ -85,10 +90,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }));
 
+  const portfolioCategoryEntries = portfolioCategories.map((category) => ({
+    url: `${SITE_URL}${getPortfolioCategoryPath(category)}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     ...staticEntries,
     ...catalogCategoryEntries,
     ...catalogEntries,
+    ...portfolioCategoryEntries,
     ...portfolioEntries,
     ...postEntries,
   ];

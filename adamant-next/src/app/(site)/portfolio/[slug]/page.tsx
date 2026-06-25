@@ -84,6 +84,10 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
   const galleryGridImages = galleryImages.slice(0, 6);
   const floorTag = item.tags?.find((tag) => /\d+\s*этаж/i.test(tag.label))?.label;
   const formatTag = item.tags?.find((tag) => /ключ|готов|отдел/i.test(tag.label))?.label;
+  const categoryTitle =
+    item.category && typeof item.category === "object"
+      ? item.category.title
+      : "Построенные дома";
   const metrics = [
     {
       label: "Площадь",
@@ -103,7 +107,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     },
     {
       label: "Категория",
-      value: item.category === "classic" ? "Классический дом" : "Современный дом",
+      value: categoryTitle,
     },
   ];
   const paragraphs = splitParagraphs(item.description || item.summary);

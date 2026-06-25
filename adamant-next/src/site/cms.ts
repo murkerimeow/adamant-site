@@ -5,6 +5,7 @@ import type {
   HomePage,
   Media,
   Portfolio,
+  PortfolioCategory,
   Post,
   Review,
   Service,
@@ -151,12 +152,17 @@ export type ServiceCardDoc = Service & {
 
 export type PortfolioItemDoc = Portfolio & {
   catalogItem?: number | CatalogItemDoc | null;
+  category?: number | PortfolioCategoryDoc | null;
   gallery?:
     | {
         id?: string | null;
         image?: number | Media | null;
       }[]
     | null;
+};
+
+export type PortfolioCategoryDoc = PortfolioCategory & {
+  heroImage?: number | Media | null;
 };
 
 export type ReviewDoc = Review & {
@@ -224,6 +230,18 @@ type CatalogCategoriesCollectionClient = {
     sort?: string;
     where?: unknown;
   }): Promise<{ docs: CatalogCategoryDoc[] }>;
+};
+
+type PortfolioCategoriesCollectionClient = {
+  find(args: {
+    collection: string;
+    depth?: number;
+    draft?: boolean;
+    limit?: number;
+    overrideAccess?: boolean;
+    sort?: string;
+    where?: unknown;
+  }): Promise<{ docs: PortfolioCategoryDoc[] }>;
 };
 
 type VacanciesCollectionClient = {
@@ -332,6 +350,27 @@ export function getCatalogLandingCategorySlug(item: Pick<CatalogItemDoc, "itemKe
 
   if (item.itemKey && legacyByItemKey[item.itemKey]) {
     return legacyByItemKey[item.itemKey];
+  }
+
+  return "";
+}
+
+export function getPortfolioCategorySlug(item: { category?: unknown }) {
+  const category = item.category as unknown;
+
+  if (category && typeof category === "object" && "slug" in category) {
+    const slug = (category as { slug?: string | null }).slug?.trim();
+
+    return slug || "";
+  }
+
+  if (typeof category === "string") {
+    const legacyByCategory: Record<string, string> = {
+      classic: "built-houses",
+      modern: "built-houses",
+    };
+
+    return legacyByCategory[category] ?? category;
   }
 
   return "";
@@ -528,6 +567,72 @@ export async function getPortfolioItems() {
   });
 
   return result.docs as PortfolioItemDoc[];
+}
+
+export async function getPortfolioCategories() {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as PortfolioCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "portfolio-categories",
+      depth: 1,
+      limit: 100,
+      overrideAccess: true,
+      sort: "order",
+      where: {
+        showInNavigation: {
+          equals: true,
+        },
+      },
+    });
+
+    return result.docs;
+  } catch {
+    return [];
+  }
+}
+
+export async function getPortfolioSitemapCategories() {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as PortfolioCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "portfolio-categories",
+      depth: 0,
+      limit: 100,
+      overrideAccess: true,
+      sort: "order",
+    });
+
+    return result.docs;
+  } catch {
+    return [];
+  }
+}
+
+export async function getPortfolioCategoryBySlug(slug: string) {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as PortfolioCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "portfolio-categories",
+      depth: 1,
+      limit: 1,
+      overrideAccess: true,
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+    });
+
+    return result.docs[0] ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function getPortfolioItemBySlug(slug: string) {
