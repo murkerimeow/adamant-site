@@ -50,50 +50,6 @@ export const SiteSettings: GlobalConfig = {
         plural: "Показатели компании",
         singular: "Показатель",
       },
-      defaultValue: [
-        {
-          statKey: "builtHomes",
-          value: "500+",
-          label: "построенных домов",
-          showOnHome: true,
-          showOnAbout: true,
-        },
-        {
-          statKey: "estimateDay",
-          value: "1 день",
-          label: "на расчет сметы",
-          showOnHome: true,
-          showOnAbout: false,
-        },
-        {
-          statKey: "happyFamilies",
-          value: "450+",
-          label: "довольных семей",
-          showOnHome: true,
-          showOnAbout: true,
-        },
-        {
-          statKey: "marketYears",
-          value: "12+ лет",
-          label: "на рынке",
-          showOnHome: true,
-          showOnAbout: true,
-        },
-        {
-          statKey: "warranty",
-          value: "5 лет",
-          label: "гарантии на работы",
-          showOnHome: false,
-          showOnAbout: true,
-        },
-        {
-          statKey: "region",
-          value: "Работаем",
-          label: "по всему СЗФО",
-          showOnHome: false,
-          showOnAbout: true,
-        },
-      ],
       fields: [
         {
           name: "statKey",

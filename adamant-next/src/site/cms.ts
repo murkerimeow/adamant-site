@@ -399,18 +399,7 @@ export function getCompanyStats(
       value: stat.value?.trim() ?? "",
     }));
 
-  if (stats.length) {
-    return stats;
-  }
-
-  return [
-    {
-      id: `company-stats-placeholder-${surface}`,
-      key: "custom" as const,
-      label: "заполните в настройках сайта",
-      value: "—",
-    },
-  ];
+  return stats;
 }
 
 export async function getSiteSettings() {
