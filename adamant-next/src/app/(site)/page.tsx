@@ -406,6 +406,9 @@ export default async function HomePage() {
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
                   getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
+                const nightImageUrl =
+                  getMediaUrl(project.nightImage) ||
+                  getMediaUrl(project.nightImage, "card");
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
 
@@ -421,9 +424,19 @@ export default async function HomePage() {
                   >
                     {imageUrl ? (
                       <img
-                        className="home-project-card__background"
+                        className="home-project-card__background home-project-card__background--day"
                         src={imageUrl}
                         alt={getMediaAlt(coverMedia, project.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                    {nightImageUrl ? (
+                      <img
+                        className="home-project-card__background home-project-card__background--night"
+                        src={nightImageUrl}
+                        alt=""
+                        aria-hidden="true"
                         loading="lazy"
                         decoding="async"
                       />

@@ -104,6 +104,17 @@ export const Catalog: CollectionConfig = {
       relationTo: "media",
     },
     {
+      name: "nightImage",
+      type: "upload",
+      admin: {
+        description:
+          "Ночная версия изображения для карточки на главной. Показывается при наведении курсора.",
+        position: "sidebar",
+      },
+      label: "Ночная картинка карточки",
+      relationTo: "media",
+    },
+    {
       name: "detailImage",
       type: "upload",
       admin: {

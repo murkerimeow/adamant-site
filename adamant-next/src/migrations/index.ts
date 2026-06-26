@@ -15,6 +15,7 @@ import * as migration_20260612_120000_review_videos from './20260612_120000_revi
 import * as migration_20260623_220000_global_hero_images from './20260623_220000_global_hero_images.ts';
 import * as migration_20260626_120000_seed_site_settings_company_stats from './20260626_120000_seed_site_settings_company_stats.ts';
 import * as migration_20260626_130000_portfolio_landing_categories from './20260626_130000_portfolio_landing_categories.ts';
+import * as migration_20260626_140000_catalog_night_card_image from './20260626_140000_catalog_night_card_image.ts';
 
 export const migrations = [
   {
@@ -101,5 +102,10 @@ export const migrations = [
     up: migration_20260626_130000_portfolio_landing_categories.up,
     down: migration_20260626_130000_portfolio_landing_categories.down,
     name: '20260626_130000_portfolio_landing_categories'
+  },
+  {
+    up: migration_20260626_140000_catalog_night_card_image.up,
+    down: migration_20260626_140000_catalog_night_card_image.down,
+    name: '20260626_140000_catalog_night_card_image'
   },
 ];

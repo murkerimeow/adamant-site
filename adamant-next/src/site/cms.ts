@@ -104,6 +104,7 @@ export type CatalogItemDoc = {
   landingCategory?: number | CatalogCategoryDoc | null;
   order: number;
   previewImage?: number | Media | null;
+  nightImage?: number | Media | null;
   detailImage?: number | Media | null;
   gallery?:
     | {

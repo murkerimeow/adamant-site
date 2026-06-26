@@ -345,6 +345,10 @@ export interface Catalog {
   landingCategory?: (number | null) | CatalogCategory;
   order: number;
   previewImage?: (number | null) | Media;
+  /**
+   * Ночная версия изображения для карточки на главной. Показывается при наведении курсора.
+   */
+  nightImage?: (number | null) | Media;
   detailImage?: (number | null) | Media;
   /**
    * Добавляйте сюда все фотографии проекта. Количество фото в карточке каталога считается по этому списку.
@@ -817,6 +821,7 @@ export interface CatalogSelect<T extends boolean = true> {
   landingCategory?: T;
   order?: T;
   previewImage?: T;
+  nightImage?: T;
   detailImage?: T;
   gallery?:
     | T

@@ -27156,6 +27156,42 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   object-position: center !important;
   border-radius: inherit !important;
   transform: none !important;
+  transition: opacity 0.36s ease;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  > .home-project-card__background--day {
+  opacity: 1;
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card
+  > .home-project-card__background--night {
+  z-index: 1 !important;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card:hover
+    > .home-project-card__background--night {
+    opacity: 1;
+  }
+}
+
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card:focus-visible
+  > .home-project-card__background--night,
+.home-page
+  .home-project-preview--catalog-style
+  .home-project-card.listing-card:focus-within
+  > .home-project-card__background--night {
+  opacity: 1;
 }
 
 .home-page
