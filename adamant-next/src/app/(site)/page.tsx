@@ -419,6 +419,7 @@ export default async function HomePage() {
                     data-card-link={href}
                     data-home-project-default={defaultHomeProjectIds.has(project.id) ? "true" : "false"}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
+                    data-has-night-image={nightImageUrl ? "true" : "false"}
                     hidden={!defaultHomeProjectIds.has(project.id)}
                     tabIndex={0}
                   >
