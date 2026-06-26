@@ -28554,3 +28554,276 @@ body:has(.page.inner-page.portfolio-detail-page) {
     transform: none !important;
   }
 }
+
+/* Final inner-page rhythm. The homepage stays untouched and is used only as the spacing/heading reference. */
+body:has(.page.inner-page),
+.page.inner-page {
+  --inner-page-content-top: clamp(78px, 5.833vw, 112px);
+  --inner-page-section-gap: var(--section-gap, clamp(18px, 1.45vw, 28px));
+  --inner-page-heading-size: clamp(25px, 2vw, 34px);
+  --inner-page-heading-line: 1.14;
+  --inner-page-section-radius: 36px;
+}
+
+.page.inner-page {
+  min-height: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.page.inner-page
+  > :is(
+    .section,
+    .services-redesign,
+    .contact-redesign,
+    .about-redesign,
+    .mortgage-redesign,
+    .mortgage-redesign--compact,
+    .product-detail,
+    .product-detail--catalog-card,
+    .portfolio-detail--object,
+    .privacy-content,
+    .vacancies-section
+  ) {
+  margin-top: var(--inner-page-content-top) !important;
+  margin-bottom: 0 !important;
+}
+
+.page.inner-page.mortgage-page > :is(.mortgage-redesign, .mortgage-redesign--compact) {
+  margin-top: var(--inner-page-content-top) !important;
+  margin-bottom: 0 !important;
+}
+
+.page.inner-page.product-page > .product-detail--catalog-card,
+.page.inner-page.product-page--catalog > .product-detail--catalog-card {
+  margin-top: var(--inner-page-content-top) !important;
+  margin-bottom: 0 !important;
+}
+
+.page.inner-page
+  > :is(
+    .section,
+    .services-redesign,
+    .contact-redesign,
+    .about-redesign,
+    .mortgage-redesign,
+    .mortgage-redesign--compact,
+    .product-detail,
+    .product-detail--catalog-card,
+    .portfolio-detail--object,
+    .privacy-content,
+    .vacancies-section
+  )
+  + :is(
+    .section,
+    .services-redesign,
+    .contact-redesign,
+    .about-redesign,
+    .mortgage-redesign,
+    .mortgage-redesign--compact,
+    .product-detail,
+    .product-detail--catalog-card,
+    .portfolio-detail--object,
+    .privacy-content,
+    .vacancies-section
+  ) {
+  margin-top: var(--inner-page-section-gap) !important;
+}
+
+.page.inner-page > :is(
+  .services-redesign,
+  .contact-redesign,
+  .about-redesign,
+  .mortgage-redesign,
+  .mortgage-redesign--compact,
+  .product-detail,
+  .product-detail--catalog-card,
+  .portfolio-detail--object
+) {
+  row-gap: 0 !important;
+  gap: 0 !important;
+}
+
+.page.inner-page.services-page > .services-redesign,
+.page.inner-page.contacts-page > .contact-redesign,
+.page.inner-page.about-page--fresh > .about-redesign,
+.page.inner-page.mortgage-page > :is(.mortgage-redesign, .mortgage-redesign--compact) {
+  row-gap: 0 !important;
+  gap: 0 !important;
+}
+
+.page.inner-page > .services-redesign > :is(.services-redesign__section, .services-redesign__consult),
+.page.inner-page > .contact-redesign > :is(.contact-redesign__top, .contact-redesign__middle, .contact-redesign__map),
+.page.inner-page > .about-redesign > :is(
+  .about-redesign__hero,
+  .about-redesign__stats,
+  .about-redesign__story,
+  .about-redesign__approach,
+  .about-redesign__team,
+  .about-redesign__cta
+),
+.page.inner-page
+  > :is(.mortgage-redesign, .mortgage-redesign--compact)
+  > :is(
+    .mortgage-redesign__hero,
+    .mortgage-redesign__section,
+    .mortgage-redesign__banks,
+    .mortgage-redesign__process,
+    .mortgage-calculator,
+    .mortgage-product-consult,
+    .product-consult
+  ),
+.page.inner-page
+  > :is(.product-detail, .product-detail--catalog-card)
+  > :is(.product-hero-card, .product-info-grid, .product-section, .product-consult),
+.page.inner-page
+  > .portfolio-detail--object
+  > :is(
+    .portfolio-detail__object-summary,
+    .portfolio-detail__gallery-section,
+    .portfolio-detail__content,
+    .portfolio-detail__consult,
+    .portfolio-detail__similar
+  ) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.page.inner-page.mortgage-page
+  > :is(.mortgage-redesign, .mortgage-redesign--compact)
+  > .mortgage-redesign__hero {
+  margin-top: 0 !important;
+}
+
+.page.inner-page
+  > .services-redesign
+  > :is(.services-redesign__section, .services-redesign__consult)
+  + :is(.services-redesign__section, .services-redesign__consult),
+.page.inner-page
+  > .contact-redesign
+  > :is(.contact-redesign__top, .contact-redesign__middle, .contact-redesign__map)
+  + :is(.contact-redesign__top, .contact-redesign__middle, .contact-redesign__map),
+.page.inner-page
+  > .about-redesign
+  > :is(
+    .about-redesign__hero,
+    .about-redesign__stats,
+    .about-redesign__story,
+    .about-redesign__approach,
+    .about-redesign__team,
+    .about-redesign__cta
+  )
+  + :is(
+    .about-redesign__hero,
+    .about-redesign__stats,
+    .about-redesign__story,
+    .about-redesign__approach,
+    .about-redesign__team,
+    .about-redesign__cta
+  ),
+.page.inner-page
+  > :is(.mortgage-redesign, .mortgage-redesign--compact)
+  > :is(
+    .mortgage-redesign__hero,
+    .mortgage-redesign__section,
+    .mortgage-redesign__banks,
+    .mortgage-redesign__process,
+    .mortgage-calculator,
+    .mortgage-product-consult,
+    .product-consult
+  )
+  + :is(
+    .mortgage-redesign__hero,
+    .mortgage-redesign__section,
+    .mortgage-redesign__banks,
+    .mortgage-redesign__process,
+    .mortgage-calculator,
+    .mortgage-product-consult,
+    .product-consult
+  ),
+.page.inner-page
+  > :is(.product-detail, .product-detail--catalog-card)
+  > :is(.product-hero-card, .product-info-grid, .product-section, .product-consult)
+  + :is(.product-hero-card, .product-info-grid, .product-section, .product-consult),
+.page.inner-page
+  > .portfolio-detail--object
+  > :is(
+    .portfolio-detail__object-summary,
+    .portfolio-detail__gallery-section,
+    .portfolio-detail__content,
+    .portfolio-detail__consult,
+    .portfolio-detail__similar
+  )
+  + :is(
+    .portfolio-detail__object-summary,
+    .portfolio-detail__gallery-section,
+    .portfolio-detail__content,
+    .portfolio-detail__consult,
+    .portfolio-detail__similar
+  ) {
+  margin-top: var(--inner-page-section-gap) !important;
+}
+
+.page.inner-page :is(
+  .section__intro--page > h1,
+  .section__intro--page > h2,
+  .blog-reviews__headline > h1,
+  .blog-articles__intro > h2,
+  .blog-post .section__intro > h1,
+  .services-redesign__section-head > h2,
+  .services-redesign__section > h2,
+  .services-redesign__form > h2,
+  .contact-redesign__info > h1,
+  .contact-redesign__form > h2,
+  .contact-redesign__consult h2,
+  .contact-redesign__map > h2,
+  .about-redesign__hero-content > h1,
+  .about-redesign__story h2,
+  .about-approach-intro > h2,
+  .about-redesign__section-head > h2,
+  .about-redesign__cta h2,
+  .mortgage-redesign__hero-content > h1,
+  .mortgage-redesign__banks > h2,
+  .mortgage-redesign__process > h2,
+  .mortgage-calculator h2,
+  .mortgage-product-consult h2,
+  .product-hero-info > h1,
+  .product-section > h2,
+  .product-consult > h2,
+  .product-info-card h2,
+  .portfolio-detail__object-copy > h1,
+  .portfolio-detail__gallery-section > h2,
+  .portfolio-detail__content > h2,
+  .portfolio-detail__consult-copy > h2,
+  .portfolio-detail__similar > h2,
+  .privacy-content > h1,
+  .privacy-content > h2,
+  .vacancies-empty > h2
+) {
+  margin-top: 0 !important;
+  color: #0d0f12 !important;
+  font-size: var(--inner-page-heading-size) !important;
+  font-weight: 600 !important;
+  line-height: var(--inner-page-heading-line) !important;
+  letter-spacing: 0 !important;
+}
+
+body:has(.page.inner-page) > .site-footer-slot {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  background-color: #f2f3f7 !important;
+}
+
+body:has(.page.inner-page) > .site-footer-slot > .home-footer {
+  margin-top: var(--inner-page-section-gap) !important;
+  border-radius: var(--inner-page-section-radius) var(--inner-page-section-radius) 0 0 !important;
+}
+
+@media (max-width: 767px) {
+  body:has(.page.inner-page),
+  .page.inner-page {
+    --inner-page-content-top: 76px;
+    --inner-page-section-gap: 18px;
+    --inner-page-heading-size: clamp(25px, 7vw, 30px);
+    --inner-page-section-radius: 28px;
+  }
+}
