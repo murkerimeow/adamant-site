@@ -24319,7 +24319,7 @@ body:has(.product-page--catalog),
 
 .product-page--catalog .product-gallery__slide img {
   object-fit: cover !important;
-  object-position: center !important;
+  object-position: center bottom !important;
 }
 
 .product-page--catalog .product-gallery__side,
