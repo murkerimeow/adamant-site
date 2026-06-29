@@ -268,9 +268,6 @@ export default async function HomePage() {
                 <a className="button js-open-estimate" href="/contacts">
                   Оставить заявку
                 </a>
-                <Link className="projects-link" href="/catalog">
-                  Смотреть проекты <span aria-hidden="true">→</span>
-                </Link>
               </div>
             </div>
 
