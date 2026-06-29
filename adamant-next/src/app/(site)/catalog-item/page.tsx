@@ -285,8 +285,6 @@ export default async function CatalogItemPage({
         { title: "2 этаж", meta: "", image: "" },
       ];
   const model3dUrl = getMediaUrl(item.model3d);
-  const tourImage = galleryImages[1]?.src || galleryImages[0]?.src || "/plot-selection.png";
-  const tourImageAlt = galleryImages[1]?.alt || galleryImages[0]?.alt || "";
   const relatedCards = relatedItems.length
     ? relatedItems
     : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 4);
@@ -490,45 +488,41 @@ export default async function CatalogItemPage({
           />
         </section>
 
-        <section className="product-section product-section--tour" aria-labelledby="product-tour-title">
-          {model3dUrl ? (
+        {model3dUrl ? (
+          <section className="product-section product-section--tour" aria-labelledby="product-tour-title">
             <Script
               src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
               strategy="lazyOnload"
               type="module"
             />
-          ) : null}
-          <div className="product-tour-card">
-            <div className="product-tour-card__copy">
-              <h2 id="product-tour-title">3D обзор каркасного дома</h2>
-              <p>
-                Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
-              </p>
+            <div className="product-tour-card">
+              <div className="product-tour-card__copy">
+                <h2 id="product-tour-title">3D обзор каркасного дома</h2>
+                <p>
+                  Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
+                </p>
+              </div>
+              <div className="product-tour-card__media">
+                {createElement("model-viewer", {
+                  alt: `3D модель проекта ${item.title}`,
+                  "auto-rotate": true,
+                  "camera-controls": true,
+                  "camera-orbit": "35deg 64deg 105%",
+                  "environment-image": "neutral",
+                  exposure: "1.08",
+                  "field-of-view": "32deg",
+                  "interaction-prompt": "auto",
+                  loading: "lazy",
+                  "shadow-intensity": "0.78",
+                  "shadow-softness": "0.72",
+                  src: model3dUrl,
+                  className: "product-model-viewer",
+                  style: { height: "100%", width: "100%" },
+                })}
+              </div>
             </div>
-            <div className="product-tour-card__media">
-              {model3dUrl
-                ? createElement("model-viewer", {
-                    alt: `3D модель проекта ${item.title}`,
-                    "auto-rotate": true,
-                    "camera-controls": true,
-                    "camera-orbit": "35deg 64deg 105%",
-                    "environment-image": "neutral",
-                    exposure: "1.08",
-                    "field-of-view": "32deg",
-                    "interaction-prompt": "auto",
-                    loading: "lazy",
-                    "shadow-intensity": "0.78",
-                    "shadow-softness": "0.72",
-                    src: model3dUrl,
-                    className: "product-model-viewer",
-                    style: { height: "100%", width: "100%" },
-                  })
-                : (
-                    <img src={tourImage} alt={tourImageAlt} loading="lazy" decoding="async" />
-                  )}
-            </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         <aside className="product-section product-mortgage-banner" aria-labelledby="product-mortgage-title">
           <div className="product-mortgage-banner__content">
