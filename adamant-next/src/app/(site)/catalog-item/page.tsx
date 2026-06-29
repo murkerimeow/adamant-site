@@ -270,7 +270,6 @@ export default async function CatalogItemPage({
     .filter((label, index, labels) => labels.indexOf(label) === index)
     .slice(0, 5);
   const descriptionParagraphs = getParagraphs(item.description);
-  const additionalImages = galleryImages.length > 1 ? galleryImages.slice(1, 6) : [];
   const customPlanCards =
     item.layouts
       ?.map((plan, index) => ({
@@ -282,14 +281,18 @@ export default async function CatalogItemPage({
   const planCards = customPlanCards.length
     ? customPlanCards
     : [
-        { title: "План 1 этажа", meta: area, image: "" },
-        { title: "План 2 этажа", meta: "100 м²", image: "" },
-        { title: "Генплан участка", meta: "12 соток", image: "" },
+        { title: "1 этаж", meta: "", image: "" },
+        { title: "2 этаж", meta: "", image: "" },
       ];
   const model3dUrl = getMediaUrl(item.model3d);
+  const tourImage = galleryImages[1]?.src || galleryImages[0]?.src || "/plot-selection.png";
+  const tourImageAlt = galleryImages[1]?.alt || galleryImages[0]?.alt || "";
   const relatedCards = relatedItems.length
     ? relatedItems
-    : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 3);
+    : catalogItems.filter((candidate) => candidate.id !== item.id).slice(0, 4);
+  const visibleRelatedCards = relatedCards.length
+    ? Array.from({ length: Math.min(4, Math.max(relatedCards.length, 4)) }, (_, index) => relatedCards[index % relatedCards.length])
+    : [];
   const specs = [
     { icon: "area" as const, label: "Площадь", value: area },
     { icon: "floors" as const, label: "Этажность", value: floors },
@@ -335,22 +338,6 @@ export default async function CatalogItemPage({
                 Добавьте фотографии проекта в Payload
               </div>
             )}
-
-            {additionalImages.length ? (
-              <section
-                className="product-section product-section--photos product-section--hero-photos"
-                aria-labelledby="product-photos-title"
-              >
-                <h2 id="product-photos-title">Дополнительные фото</h2>
-                <div className="product-photo-strip">
-                  {additionalImages.map((image, index) => (
-                    <figure key={`${image.src}-additional-${index}`}>
-                      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-                    </figure>
-                  ))}
-                </div>
-              </section>
-            ) : null}
           </div>
 
           <aside className="product-hero-info">
@@ -420,7 +407,7 @@ export default async function CatalogItemPage({
           </article>
 
           <article className="product-info-card product-info-card--benefits">
-            <h2>Преимущества проекта</h2>
+            <h2>Преимущества</h2>
             <ul>
               {benefits.map((benefit) => (
                 <li key={benefit}>{benefit}</li>
@@ -428,43 +415,6 @@ export default async function CatalogItemPage({
             </ul>
           </article>
         </div>
-
-        {model3dUrl ? (
-          <section className="product-section product-section--model" aria-labelledby="product-model-title">
-            <Script
-              src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-              strategy="lazyOnload"
-              type="module"
-            />
-            <div className="product-model-card">
-              <div className="product-model-card__copy">
-                <span className="section__kicker">3D обзор</span>
-                <h2 id="product-model-title">Вращайте дом в 3D</h2>
-                <p>
-                  Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
-                </p>
-              </div>
-              <div className="product-model-card__viewer">
-                {createElement("model-viewer", {
-                  alt: `3D модель проекта ${item.title}`,
-                  "auto-rotate": true,
-                  "camera-controls": true,
-                  "camera-orbit": "35deg 64deg 105%",
-                  "environment-image": "neutral",
-                  exposure: "1.08",
-                  "field-of-view": "32deg",
-                  "interaction-prompt": "auto",
-                  loading: "lazy",
-                  "shadow-intensity": "0.78",
-                  "shadow-softness": "0.72",
-                  src: model3dUrl,
-                  className: "product-model-viewer",
-                  style: { height: "100%", width: "100%" },
-                })}
-              </div>
-            </div>
-          </section>
-        ) : null}
 
         <section className="product-section" aria-labelledby="product-steps-title">
           <h2 id="product-steps-title">Этапы реализации</h2>
@@ -484,6 +434,9 @@ export default async function CatalogItemPage({
 
         <section className="product-section" aria-labelledby="product-plans-title">
           <h2 id="product-plans-title">Планировка</h2>
+          <p className="product-section__lead">
+            Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома
+          </p>
           <div className="product-plans">
             {planCards.map((plan, index) => (
               <article className="product-plan-card" key={plan.title}>
@@ -508,11 +461,109 @@ export default async function CatalogItemPage({
           </div>
         </section>
 
-        {relatedCards.length ? (
-          <section className="product-section" aria-labelledby="product-related-title">
+        <section className="product-section product-plot-lead" aria-labelledby="product-plot-title">
+          <div className="product-plot-lead__form-card">
+            <h2 id="product-plot-title">Поможем подобрать участок</h2>
+            <p>
+              Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
+            </p>
+            <form className="product-plot-form contact-form">
+              <input name="service" type="hidden" value={`Подбор участка: ${item.title}`} />
+              <input name="name" type="text" placeholder="Имя" />
+              <input name="phone" type="tel" placeholder="Телефон *" required />
+              <input name="email" type="email" placeholder="E-mail" />
+              <textarea name="message" placeholder="Ваши пожелания по участку" />
+              <label>
+                <input name="privacy" type="checkbox" required />
+                <span>Согласен на обработку персональных данных</span>
+              </label>
+              <button type="submit">Отправить заявку</button>
+            </form>
+          </div>
+          <img
+            className="product-plot-lead__image"
+            src="/plot-selection.png"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+        </section>
+
+        <section className="product-section product-section--tour" aria-labelledby="product-tour-title">
+          {model3dUrl ? (
+            <Script
+              src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+              strategy="lazyOnload"
+              type="module"
+            />
+          ) : null}
+          <div className="product-tour-card">
+            <div className="product-tour-card__copy">
+              <h2 id="product-tour-title">3D обзор каркасного дома</h2>
+              <p>
+                Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
+              </p>
+            </div>
+            <div className="product-tour-card__media">
+              {model3dUrl
+                ? createElement("model-viewer", {
+                    alt: `3D модель проекта ${item.title}`,
+                    "auto-rotate": true,
+                    "camera-controls": true,
+                    "camera-orbit": "35deg 64deg 105%",
+                    "environment-image": "neutral",
+                    exposure: "1.08",
+                    "field-of-view": "32deg",
+                    "interaction-prompt": "auto",
+                    loading: "lazy",
+                    "shadow-intensity": "0.78",
+                    "shadow-softness": "0.72",
+                    src: model3dUrl,
+                    className: "product-model-viewer",
+                    style: { height: "100%", width: "100%" },
+                  })
+                : (
+                    <img src={tourImage} alt={tourImageAlt} loading="lazy" decoding="async" />
+                  )}
+            </div>
+          </div>
+        </section>
+
+        <aside className="product-section product-mortgage-banner" aria-labelledby="product-mortgage-title">
+          <div className="product-mortgage-banner__content">
+            <h2 id="product-mortgage-title">Постройте дом в ипотеку</h2>
+            <p>
+              Поможем подобрать банк, подготовить документы и пройти согласование для строительства дома под ключ
+            </p>
+            <div className="product-mortgage-banner__actions">
+              <Link className="product-mortgage-banner__primary" href="/mortgage">
+                Получить консультацию
+              </Link>
+              <Link className="product-mortgage-banner__secondary" href="/mortgage#mortgage-calculator">
+                Перейти в раздел
+              </Link>
+            </div>
+            <div className="product-mortgage-banner__banks" aria-label="Банки-партнеры">
+              <span className="product-mortgage-banner__bank product-mortgage-banner__bank--sber">СБЕР</span>
+              <span className="product-mortgage-banner__bank product-mortgage-banner__bank--vtb">ВТБ</span>
+              <span className="product-mortgage-banner__bank product-mortgage-banner__bank--tbank">Т-БАНК</span>
+            </div>
+          </div>
+          <img
+            src="/mortgage-banner-new.png"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+        </aside>
+
+        {visibleRelatedCards.length ? (
+          <section className="product-section product-section--related" aria-labelledby="product-related-title">
             <h2 id="product-related-title">Похожие проекты</h2>
             <div className="product-related">
-              {relatedCards.slice(0, 3).map((related, index) => {
+              {visibleRelatedCards.map((related, index) => {
                 const href = getCatalogItemPath(related);
                 const relatedMeta = getCatalogCardMeta(related);
                 const relatedCoverMedia = getCatalogCoverMedia(related);
@@ -522,7 +573,7 @@ export default async function CatalogItemPage({
                   getMediaUrl(relatedCoverMedia);
 
                 return (
-                  <article className="product-related-card" data-card-link={href} tabIndex={0} key={related.id}>
+                  <article className="product-related-card" data-card-link={href} tabIndex={0} key={`${related.id}-${index}`}>
                     {relatedImage ? (
                       <img
                         src={relatedImage}
@@ -540,39 +591,13 @@ export default async function CatalogItemPage({
                       <p>{relatedTags || "Современный проект под ключ"}</p>
                       <strong>от {formatProjectPrice(relatedMeta.price)} ₽</strong>
                     </div>
-                    <a href={href} aria-label={`Смотреть проект ${related.title}`}>→</a>
+                    <a href={href} aria-label={`Смотреть проект ${related.title}`}>Подробнее</a>
                   </article>
                 );
               })}
             </div>
           </section>
         ) : null}
-
-        <section className="product-consult" aria-labelledby="product-consult-title">
-          <div>
-            <h2 id="product-consult-title">Хотите такой же дом?</h2>
-            <p>Оставьте заявку на консультацию — наш менеджер подберет лучшее решение для вашего проекта.</p>
-          </div>
-          <form className="product-consult-form contact-form">
-            <input name="service" type="hidden" value={item.title} />
-            <input name="name" type="text" placeholder="Ваше имя" />
-            <input name="phone" type="tel" placeholder="Телефон" required />
-            <button type="submit">Получить консультацию</button>
-            <label>
-              <input name="privacy" type="checkbox" required />
-              <span>Я согласен на обработку персональных данных</span>
-            </label>
-          </form>
-          {galleryImages[0]?.src ? (
-            <img
-              src={galleryImages[0].src}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-            />
-          ) : null}
-        </section>
       </section>
     </main>
   );
