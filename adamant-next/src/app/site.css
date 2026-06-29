@@ -23718,6 +23718,7 @@ main :where(
 }
 
 .home-social-banner {
+  position: relative;
   display: flex;
   width: var(--site-frame-width);
   max-width: var(--site-frame-width);
@@ -23727,11 +23728,18 @@ main :where(
   align-items: center;
   border-radius: 28px;
   background: linear-gradient(90deg, #86bbeb 0%, #d9e7f6 100%);
+  isolation: isolate;
   overflow: hidden;
 }
 
 .home-social-banner__content {
+  position: relative;
+  z-index: 2;
   width: min(100%, 620px);
+}
+
+.home-social-banner:not(.home-mortgage-banner) .home-social-banner__content {
+  width: min(52%, 620px);
 }
 
 .home-social-banner__eyebrow {
@@ -23783,6 +23791,20 @@ main :where(
   display: block;
   width: 40px;
   height: 40px;
+}
+
+.home-social-banner__image {
+  position: absolute;
+  right: clamp(22px, 5vw, 86px);
+  bottom: 0;
+  z-index: 1;
+  width: clamp(290px, 35vw, 570px);
+  height: auto;
+  max-height: 112%;
+  object-fit: contain;
+  object-position: right bottom;
+  pointer-events: none;
+  user-select: none;
 }
 
 .home-mortgage-banner__content {
@@ -23919,7 +23941,12 @@ main :where(
     height: calc(100svh - 86px);
     margin: 20px auto 42px;
     padding: 30px 20px 34px;
+    align-items: flex-start;
     border-radius: 24px;
+  }
+
+  .home-social-banner:not(.home-mortgage-banner) .home-social-banner__content {
+    width: min(100%, 360px);
   }
 
   .home-social-banner h2 {
@@ -23929,6 +23956,13 @@ main :where(
 
   .home-social-banner__links {
     margin-top: 30px;
+  }
+
+  .home-social-banner__image {
+    right: -22px;
+    bottom: -6px;
+    width: min(78vw, 330px);
+    max-height: 52%;
   }
 
   .home-mortgage-banner__actions {

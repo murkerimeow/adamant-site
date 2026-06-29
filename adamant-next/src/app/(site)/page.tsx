@@ -947,6 +947,13 @@ export default async function HomePage() {
                 ))}
               </div>
             </div>
+            <img
+              className="home-social-banner__image"
+              src="/social-banner.png"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
           </aside>
         </main>
       </div>
