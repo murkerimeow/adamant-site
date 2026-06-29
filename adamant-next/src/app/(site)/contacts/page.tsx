@@ -7,7 +7,6 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
-import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -73,7 +72,7 @@ export default async function ContactsPage() {
 
   const workingHours = getWorkingHoursParts(siteSettings.workingHours);
   const contactPhone = siteSettings.phonePrimary;
-  const contactEmail = siteSettings.email?.trim();
+  const contactEmail = siteSettings.email?.trim() || "info@adamant-stroy.com";
   const officeAddress = siteSettings.address?.trim() || contactsPage.officeAddress;
   const requisites = contactsPage.companyDetails;
 
@@ -81,20 +80,10 @@ export default async function ContactsPage() {
     <main className="page inner-page contacts-page contacts-page--fresh" aria-label="Контакты Адамант">
       <SiteHeader active="contacts" phone={siteSettings.phonePrimary} />
 
-      <section className="section contact-redesign" aria-labelledby="contacts-title">
-        <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
-          <Link href="/">Главная</Link>
-          <span aria-hidden="true">/</span>
-          <span>Контакты</span>
-        </nav>
-
+      <section className="section contact-redesign contact-redesign--reference" aria-labelledby="contacts-title">
         <div className="contact-redesign__top">
-          <div className="contact-redesign__info">
+          <section className="contact-redesign__info contact-redesign__card">
             <h1 id="contacts-title">Контакты</h1>
-            <p>
-              Мы всегда на связи и готовы ответить на ваши вопросы, помочь с
-              выбором проекта и рассчитать стоимость строительства.
-            </p>
 
             <div className="contact-redesign__list">
               <article>
@@ -104,107 +93,60 @@ export default async function ContactsPage() {
                 <div>
                   <h2>Телефон</h2>
                   <a href={getPhoneHref(contactPhone)}>{contactPhone}</a>
-                  <small>{workingHours.join(", ") || "Ежедневно с 9:00 до 20:00"}</small>
+                  <small>На связи 24/7</small>
                 </div>
               </article>
 
-              {contactEmail ? (
-                <article>
-                  <span className="contact-redesign__icon">
-                    <ContactIcon type="mail" />
-                  </span>
-                  <div>
-                    <h2>E-mail</h2>
-                    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                    <small>Ответим в течение 15 минут</small>
-                  </div>
-                </article>
-              ) : null}
+              <article>
+                <span className="contact-redesign__icon">
+                  <ContactIcon type="mail" />
+                </span>
+                <div>
+                  <h2>E-mail</h2>
+                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                  <small>Ответим в самое ближайшее время</small>
+                </div>
+              </article>
 
               <article>
                 <span className="contact-redesign__icon">
                   <ContactIcon type="map" />
                 </span>
                 <div>
-                  <h2>Офис и шоурум</h2>
+                  <h2>Наш офис</h2>
                   <p>{officeAddress}</p>
-                  <small>{siteSettings.workingHours || "Пн-Пт с 10:00 до 18:00"}</small>
-                </div>
-              </article>
-
-              <article>
-                <span className="contact-redesign__icon">
-                  <ContactIcon type="message" />
-                </span>
-                <div>
-                  <h2>Мессенджеры</h2>
-                  <small>Напишите нам в удобном мессенджере</small>
-                  <div className="contact-redesign__messengers">
-                    {socialLinks.slice(0, 3).map((social) => (
-                      <a
-                        key={social.key}
-                        href={social.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={social.label}
-                        title={social.label}
-                      >
-                        <SocialIcon name={social.key} />
-                      </a>
-                    ))}
-                  </div>
+                  <small>{workingHours.join(", ") || siteSettings.workingHours || "ПН-ПТ, 10:00 - 16:00"}</small>
                 </div>
               </article>
             </div>
-          </div>
-
-          <form className="contact-form contact-redesign__form" aria-label="Форма заявки">
-            <h2>Напишите нам</h2>
-            <p>Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы.</p>
-
-            <div className="contact-redesign__form-row">
-              <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
-              <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
-            </div>
-            <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
-            <textarea name="message" rows={5} placeholder="Расскажите о вашем проекте" aria-label="Сообщение" />
-
-            <label className="contact-redesign__consent">
-              <input type="checkbox" name="privacy" required />
-              <span>Согласен на <span>обработку персональных данных</span></span>
-            </label>
-
-            <button type="submit">Отправить заявку</button>
-          </form>
-        </div>
-
-        <div className="contact-redesign__middle">
-          <section className="contact-redesign__consult" aria-labelledby="contacts-consult-title">
-            <div>
-              <span className="contact-redesign__icon">
-                <ContactIcon type="message" />
-              </span>
-              <h2 id="contacts-consult-title">Бесплатная консультация и расчёт сметы</h2>
-              <p>
-                Оставьте заявку и получите предварительный расчёт стоимости вашего дома уже сегодня.
-              </p>
-              <ul>
-                <li>Проконсультируем по проекту и этапам работ</li>
-                <li>Рассчитаем стоимость строительства</li>
-                <li>Подберём оптимальные материалы</li>
-                <li>Ответим на все ваши вопросы</li>
-              </ul>
-              <button className="js-open-estimate" type="button">
-                Получить консультацию <span aria-hidden="true">→</span>
-              </button>
-            </div>
-            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async" />
           </section>
 
-          <aside className="contact-redesign__aside">
-            <section>
-              <h2>Мы в социальных сетях</h2>
-              <p>Подписывайтесь и следите за нашими проектами и новостями.</p>
+          <div className="contact-redesign__side">
+            <section className="contact-redesign__card contact-redesign__requisites">
+              <h2>Реквизиты компании</h2>
+              <dl>
+                <div>
+                  <dt>Наименование:</dt>
+                  <dd>{requisites?.legalName || siteSettings.companyName}</dd>
+                </div>
+                <div>
+                  <dt>ИНН:</dt>
+                  <dd>{requisites?.inn}</dd>
+                </div>
+                <div>
+                  <dt>КПП:</dt>
+                  <dd>{requisites?.kpp}</dd>
+                </div>
+                <div>
+                  <dt>ОГРН:</dt>
+                  <dd>{requisites?.ogrn}</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section className="contact-redesign__card contact-redesign__social-card">
+              <h2>Наши соцсети</h2>
+              <p>Подписывайтесь и следите за нашими проектами и новостями</p>
               <div className="contact-redesign__socials">
                 {socialLinks.map((social) => (
                   <a
@@ -220,29 +162,7 @@ export default async function ContactsPage() {
                 ))}
               </div>
             </section>
-
-            <section>
-              <h2>Реквизиты компании</h2>
-              <dl>
-                <div>
-                  <dt>Компания</dt>
-                  <dd>{requisites?.legalName || siteSettings.companyName}</dd>
-                </div>
-                <div>
-                  <dt>ИНН</dt>
-                  <dd>{requisites?.inn}</dd>
-                </div>
-                <div>
-                  <dt>КПП</dt>
-                  <dd>{requisites?.kpp}</dd>
-                </div>
-                <div>
-                  <dt>ОГРН</dt>
-                  <dd>{requisites?.ogrn}</dd>
-                </div>
-              </dl>
-            </section>
-          </aside>
+          </div>
         </div>
 
         <section className="contact-redesign__map" aria-label="Карта расположения офиса">
@@ -255,15 +175,29 @@ export default async function ContactsPage() {
               allowFullScreen
             />
           ) : null}
-          <div>
-            <h2>Наш офис</h2>
-            <p>{officeAddress}</p>
-            <a href={contactsPage.mapEmbedUrl || "#"} target="_blank" rel="noreferrer">
-              Посмотреть на карте <span aria-hidden="true">→</span>
-            </a>
-          </div>
         </section>
 
+        <section className="contact-redesign__message">
+          <form className="contact-form contact-redesign__form" aria-label="Форма заявки">
+            <h2>Напишите нам</h2>
+            <p>Мы свяжемся с вами, ответим на вопросы и подготовим бесплатный расчёт сметы</p>
+
+            <input name="name" type="text" placeholder="Имя" aria-label="Имя" />
+            <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+            <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
+            <textarea name="message" rows={5} placeholder="Ваши пожелания по участку" aria-label="Сообщение" />
+
+            <label className="contact-redesign__consent">
+              <input type="checkbox" name="privacy" required />
+              <span>Согласен на <span>обработку персональных данных</span></span>
+            </label>
+
+            <button type="submit">Отправить</button>
+            <p className="contact-form__status" aria-live="polite" />
+          </form>
+
+          <img src="/plot-selection.png" alt="" loading="lazy" decoding="async" />
+        </section>
       </section>
     </main>
   );
