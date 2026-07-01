@@ -260,8 +260,8 @@ export default async function ServicesPage() {
         icon: getServiceIcon(service.icon),
         id,
         image:
-          getMediaUrl(service.previewImage, "card") ||
-          getMediaUrl(service.previewImage),
+          getMediaUrl(service.previewImage) ||
+          getMediaUrl(service.previewImage, "card"),
         imageAlt: getMediaAlt(service.previewImage, service.title),
         title: service.title,
       };
@@ -279,12 +279,12 @@ export default async function ServicesPage() {
             <p>Комплексные решения для строительства и обустройства загородных домов под ключ.</p>
           </div>
           <div className="services-catalog-grid">
-            {serviceCards.length ? serviceCards.map((card) => {
+            {serviceCards.length ? serviceCards.map((card, index) => {
               const serviceHref = `${card.href}${card.href.includes("?") ? "&" : "?"}service=${encodeURIComponent(card.title)}`;
 
               return (
                 <article
-                  className="services-catalog-card"
+                  className={`services-catalog-card home-cycle-card home-cycle-card--tone-${(index % 4) + 1}`}
                   id={card.id}
                   key={card.title}
                   data-card-link={serviceHref}
@@ -292,7 +292,7 @@ export default async function ServicesPage() {
                   tabIndex={0}
                 >
                   <Link
-                    className="services-catalog-card__media"
+                    className="services-catalog-card__media home-cycle-card__media"
                     href={serviceHref}
                     aria-label={card.title}
                     data-estimate-service-link
@@ -303,11 +303,11 @@ export default async function ServicesPage() {
                       <span className="services-catalog-card__empty">Добавьте фото услуги в Payload</span>
                     )}
                   </Link>
-                  <div className="services-catalog-card__content">
+                  <div className="services-catalog-card__content home-cycle-card__body">
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
                     <Link
-                      className="services-catalog-card__arrow"
+                      className="services-catalog-card__arrow home-cycle-card__arrow-link"
                       href={serviceHref}
                       data-estimate-service-link
                       aria-label={card.title}
