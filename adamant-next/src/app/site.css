@@ -30134,33 +30134,44 @@ body:has(.contacts-page),
 
 .contact-redesign--reference .contact-redesign__message {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-  gap: var(--inner-page-section-gap) !important;
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr) !important;
+  gap: clamp(14px, 1.15vw, 22px) !important;
   align-items: stretch !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 .contact-redesign--reference .contact-redesign__form {
   display: grid !important;
   gap: clamp(14px, 1.05vw, 18px) !important;
-  align-content: start !important;
-  padding: clamp(38px, 4vw, 64px) clamp(38px, 4.25vw, 70px) !important;
+  min-width: 0 !important;
+  min-height: clamp(520px, 36vw, 620px) !important;
+  align-content: center !important;
+  justify-content: stretch !important;
+  padding: clamp(34px, 3.6vw, 68px) !important;
+  overflow: hidden !important;
+  border-radius: var(--section-radius) !important;
 }
 
 .contact-redesign--reference .contact-redesign__form input:not([type="checkbox"]),
 .contact-redesign--reference .contact-redesign__form textarea {
-  min-height: 50px !important;
+  min-height: 54px !important;
   border: 0 !important;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
   background: #f2f3f7 !important;
   color: #0d0f12 !important;
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 500 !important;
-  padding: 0 22px !important;
+  padding: 15px 20px !important;
 }
 
 .contact-redesign--reference .contact-redesign__form textarea {
-  min-height: 118px !important;
-  padding-top: 18px !important;
+  min-height: 96px !important;
+  resize: vertical !important;
 }
 
 .contact-redesign--reference .contact-redesign__consent {
@@ -30184,8 +30195,8 @@ body:has(.contacts-page),
 
 .contact-redesign--reference .contact-redesign__form button {
   width: max-content !important;
-  min-width: 118px !important;
-  min-height: 44px !important;
+  min-width: 176px !important;
+  min-height: 48px !important;
   border-radius: 999px !important;
   background: #df9965 !important;
   color: #ffffff !important;
@@ -30199,8 +30210,9 @@ body:has(.contacts-page),
   display: block;
   width: 100%;
   height: 100%;
-  min-height: clamp(420px, 33vw, 620px);
-  border-radius: var(--inner-page-section-radius);
+  min-height: clamp(520px, 36vw, 620px);
+  overflow: hidden;
+  border-radius: var(--section-radius);
   object-fit: cover;
   object-position: center;
 }
@@ -30223,6 +30235,12 @@ body:has(.contacts-page),
   .contact-redesign--reference .contact-redesign__social-card,
   .contact-redesign--reference .contact-redesign__form {
     padding: 28px 22px !important;
+  }
+
+  .contact-redesign--reference .contact-redesign__form {
+    min-height: 0 !important;
+    padding: 28px 20px !important;
+    border-radius: 32px !important;
   }
 
   .contact-redesign--reference .contact-redesign__info {
@@ -30254,7 +30272,7 @@ body:has(.contacts-page),
   }
 
   .contact-redesign--reference .contact-redesign__message > img {
-    min-height: 290px;
+    display: none;
   }
 }
 

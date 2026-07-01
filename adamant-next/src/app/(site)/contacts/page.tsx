@@ -196,7 +196,12 @@ export default async function ContactsPage() {
             <p className="contact-form__status" aria-live="polite" />
           </form>
 
-          <img src="/plot-selection.png" alt="" loading="lazy" decoding="async" />
+          <img
+            src="/plot-selection.webp"
+            alt="Модульный загородный дом на участке"
+            loading="lazy"
+            decoding="async"
+          />
         </section>
       </section>
     </main>
