@@ -30684,15 +30684,15 @@ body:has(.contacts-page),
 
 .page.inner-page.services-page .services-catalog-card__media img {
   position: absolute !important;
-  inset: auto 0 0 !important;
+  inset: 0 !important;
   z-index: 0 !important;
   display: block !important;
   width: 100% !important;
   min-width: 100% !important;
   max-width: none !important;
-  height: auto !important;
-  object-fit: initial !important;
-  object-position: initial !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center bottom !important;
   transform: none !important;
   transition: transform 0.45s ease !important;
 }
