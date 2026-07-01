@@ -26003,14 +26003,15 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 
 .home-page .home-about-stat > img {
   position: absolute;
-  right: 24px;
-  bottom: 50%;
+  right: -6px;
+  bottom: -12px;
   display: block;
-  width: clamp(58px, 6vw, 96px);
-  height: clamp(58px, 6vw, 96px);
+  width: clamp(112px, 11vw, 190px);
+  height: clamp(112px, 11vw, 190px);
   object-fit: contain;
   opacity: 0.82;
-  transform: translateY(50%);
+  transform: none;
+  transform-origin: right bottom;
 }
 
 .home-page .home-project-preview--catalog-style {
@@ -26294,8 +26295,9 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 
   .home-page .home-about-stat {
     min-height: 142px !important;
+    justify-content: flex-start !important;
     border-radius: 22px !important;
-    padding: 18px 42% 18px 16px !important;
+    padding: 18px 38% 18px 16px !important;
   }
 
   .home-page .home-about-stat strong {
@@ -26307,9 +26309,10 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 
   .home-page .home-about-stat > img {
-    right: 12px;
-    width: 54px;
-    height: 54px;
+    right: -8px;
+    bottom: -10px;
+    width: clamp(86px, 30vw, 132px);
+    height: clamp(86px, 30vw, 132px);
   }
 
   .home-page .home-project-preview--catalog-style {
