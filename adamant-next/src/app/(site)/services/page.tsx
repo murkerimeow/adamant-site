@@ -184,16 +184,16 @@ const fallbackServiceCards: ServiceCardView[] = [
     title: "Строительство домов",
     description: "Строим загородные дома под ключ из надёжных материалов и в срок.",
     href: "/catalog",
-    image: "/request-house.jpg",
-    imageAlt: "",
+    image: "/request-house.webp",
+    imageAlt: "Современный загородный дом под ключ",
   },
   {
     icon: "plan",
     title: "Проектирование",
     description: "Индивидуальные и типовые проекты домов с учётом ваших пожеланий.",
     href: "/contacts",
-    image: "/Picture.PNG",
-    imageAlt: "",
+    image: "/picture.webp",
+    imageAlt: "Проектирование загородного дома",
   },
   {
     icon: "shield",
@@ -201,31 +201,31 @@ const fallbackServiceCards: ServiceCardView[] = [
     description: "Подберём выгодные условия и поможем оформить ипотеку.",
     href: "/mortgage",
     image: "/home-main-new.webp",
-    imageAlt: "",
+    imageAlt: "Дом для строительства в ипотеку",
   },
   {
     icon: "wrench",
     title: "Ремонт и отделка",
     description: "Выполняем внутреннюю и наружную отделку любой сложности.",
     href: "/catalog/remont-kvartir-card",
-    image: "/ремонт квартир.png",
-    imageAlt: "",
+    image: "/remont-kvartir.webp",
+    imageAlt: "Ремонт и отделка квартиры",
   },
   {
     icon: "box",
     title: "Инженерные системы",
     description: "Проектируем и монтируем все необходимые инженерные сети.",
     href: "/contacts",
-    image: "/строительство.png",
-    imageAlt: "",
+    image: "/stroitelstvo.webp",
+    imageAlt: "Инженерные системы для загородного дома",
   },
   {
     icon: "doc",
     title: "Каталог проектов",
     description: "Готовые проекты домов на любой вкус и бюджет.",
     href: "/catalog",
-    image: "/main2.jpg",
-    imageAlt: "",
+    image: "/main2.webp",
+    imageAlt: "Каталог проектов загородных домов",
   },
 ] as const;
 
@@ -273,19 +273,18 @@ export default async function ServicesPage() {
       <SiteHeader active="services" phone={siteSettings.phonePrimary} />
 
       <section className="services-redesign" aria-labelledby="services-title">
-        <section className="services-redesign__section services-redesign__section--cards" aria-labelledby="services-main-title">
-          <div className="services-redesign__section-head">
-            <span>Наши возможности</span>
-            <h2 id="services-main-title">Основные услуги</h2>
+        <section className="services-redesign__section services-catalog-section" aria-labelledby="services-main-title">
+          <div className="services-catalog-head">
+            <h1 id="services-main-title">Основные услуги</h1>
             <p>Комплексные решения для строительства и обустройства загородных домов под ключ.</p>
           </div>
-          <div className="services-redesign__cards">
+          <div className="services-catalog-grid">
             {serviceCards.length ? serviceCards.map((card) => {
               const serviceHref = `${card.href}${card.href.includes("?") ? "&" : "?"}service=${encodeURIComponent(card.title)}`;
 
               return (
                 <article
-                  className="services-redesign__service-card"
+                  className="services-catalog-card"
                   id={card.id}
                   key={card.title}
                   data-card-link={serviceHref}
@@ -293,7 +292,7 @@ export default async function ServicesPage() {
                   tabIndex={0}
                 >
                   <Link
-                    className="services-redesign__service-media"
+                    className="services-catalog-card__media"
                     href={serviceHref}
                     aria-label={card.title}
                     data-estimate-service-link
@@ -301,23 +300,25 @@ export default async function ServicesPage() {
                     {card.image ? (
                       <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
                     ) : (
-                      <span>Добавьте фото услуги в Payload</span>
+                      <span className="services-catalog-card__empty">Добавьте фото услуги в Payload</span>
                     )}
                   </Link>
-                  <div>
-                    <span className="services-redesign__service-icon">
-                      <ServicesIcon type={card.icon} />
-                    </span>
+                  <div className="services-catalog-card__content">
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
-                    <Link className="services-redesign__link" href={serviceHref} data-estimate-service-link>
-                      Подробнее <span aria-hidden="true">→</span>
+                    <Link
+                      className="services-catalog-card__arrow"
+                      href={serviceHref}
+                      data-estimate-service-link
+                      aria-label={card.title}
+                    >
+                      <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </article>
               );
             }) : (
-              <div className="services-redesign__empty">Добавьте услуги в Payload</div>
+              <div className="services-catalog-empty">Добавьте услуги в Payload</div>
             )}
           </div>
         </section>
@@ -340,7 +341,12 @@ export default async function ServicesPage() {
         </section>
 
         <section className="services-redesign__consult" aria-labelledby="services-consult-title">
-          <img src="/home-main-new.webp" alt="" loading="lazy" decoding="async" />
+          <img
+            src="/home-main-new.webp"
+            alt="Современный загородный дом для обсуждения проекта"
+            loading="lazy"
+            decoding="async"
+          />
           <form className="contact-form services-redesign__form" aria-label="Обсудить проект">
             <h2 id="services-consult-title">Обсудим ваш проект</h2>
             <p>Оставьте заявку — мы свяжемся с вами и ответим на все вопросы.</p>
