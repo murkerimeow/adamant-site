@@ -1001,6 +1001,7 @@ export interface SiteSetting {
           | null;
         value: string;
         label: string;
+        iconImage?: (number | null) | Media;
         showOnHome?: boolean | null;
         showOnAbout?: boolean | null;
         id?: string | null;
@@ -1203,6 +1204,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         statKey?: T;
         value?: T;
         label?: T;
+        iconImage?: T;
         showOnHome?: T;
         showOnAbout?: T;
         id?: T;

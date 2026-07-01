@@ -79,6 +79,12 @@ export const SiteSettings: GlobalConfig = {
           required: true,
         },
         {
+          name: "iconImage",
+          type: "upload",
+          label: "Image",
+          relationTo: "media",
+        },
+        {
           name: "showOnHome",
           type: "checkbox",
           defaultValue: true,

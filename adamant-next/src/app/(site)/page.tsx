@@ -125,6 +125,8 @@ function getHomePortfolioCategory(project: {
 
 type HomeStat = {
   id: string;
+  imageAlt?: string;
+  imageUrl?: string;
   key?: string;
   label: string;
   value: string;
@@ -351,9 +353,16 @@ export default async function HomePage() {
                     <strong>{stat.value}</strong>
                     <span>{stat.label}</span>
                     <img
-                      src={["/500+.png", "/1 день.png", "/2000+.png", "/15 лет.png"][index]}
-                      alt=""
-                      aria-hidden="true"
+                      src={stat.imageUrl || [
+                        "/500+.png",
+                        "/1 день.png",
+                        "/2000+.png",
+                        "/15 лет.png",
+                      ][index]}
+                      alt={stat.imageAlt || ""}
+                      aria-hidden={stat.imageAlt ? undefined : "true"}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}

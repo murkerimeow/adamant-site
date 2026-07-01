@@ -187,6 +187,7 @@ export type CompanyStatKey =
 
 export type CompanyStatDoc = {
   id?: string | null;
+  iconImage?: number | Media | null;
   label?: string | null;
   showOnAbout?: boolean | null;
   showOnHome?: boolean | null;
@@ -434,6 +435,8 @@ export function getCompanyStats(
     })
     .map((stat) => ({
       id: stat.id ?? `${stat.statKey ?? "custom"}-${stat.value}-${stat.label}`,
+      imageAlt: getMediaAlt(stat.iconImage, ""),
+      imageUrl: getMediaUrl(stat.iconImage) || getMediaUrl(stat.iconImage, "card"),
       key: stat.statKey ?? "custom",
       label: stat.label?.trim() ?? "",
       value: stat.value?.trim() ?? "",
