@@ -27432,6 +27432,74 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   > .catalog-project-card__background {
   object-fit: contain !important;
   object-position: center !important;
+  transition: opacity 0.36s ease !important;
+}
+
+.page.inner-page.catalog-page
+  .catalog-project-card
+  > .catalog-project-card__background--day {
+  opacity: 1;
+}
+
+.page.inner-page.catalog-page
+  .catalog-project-card
+  > .catalog-project-card__background--night {
+  z-index: 1 !important;
+  opacity: 0;
+}
+
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]
+  .listing-card__body
+  h2,
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]
+  .listing-card__description {
+  transition: color 0.36s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .page.inner-page.catalog-page
+    .catalog-project-card:hover
+    > .catalog-project-card__background--night {
+    opacity: 1;
+  }
+
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"]:hover
+    .listing-card__body
+    h2,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"]:hover
+    .listing-card__description {
+    color: #ffffff !important;
+  }
+}
+
+.page.inner-page.catalog-page
+  .catalog-project-card:focus-visible
+  > .catalog-project-card__background--night,
+.page.inner-page.catalog-page
+  .catalog-project-card:focus-within
+  > .catalog-project-card__background--night {
+  opacity: 1;
+}
+
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]:focus-visible
+  .listing-card__body
+  h2,
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]:focus-visible
+  .listing-card__description,
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]:focus-within
+  .listing-card__body
+  h2,
+.page.inner-page.catalog-page
+  .catalog-project-card[data-has-night-image="true"]:focus-within
+  .listing-card__description {
+  color: #ffffff !important;
 }
 
 .page.inner-page.catalog-page
