@@ -26003,11 +26003,11 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 
 .home-page .home-about-stat > img {
   position: absolute;
-  right: -6px;
-  bottom: -12px;
+  right: -42px;
+  bottom: -76px;
   display: block;
-  width: clamp(150px, 14vw, 260px);
-  height: clamp(150px, 14vw, 260px);
+  width: clamp(300px, 28vw, 520px);
+  height: clamp(300px, 28vw, 520px);
   object-fit: contain;
   opacity: 0.82;
   transform: none;
@@ -26309,10 +26309,10 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 
   .home-page .home-about-stat > img {
-    right: -8px;
-    bottom: -10px;
-    width: clamp(118px, 42vw, 180px);
-    height: clamp(118px, 42vw, 180px);
+    right: -34px;
+    bottom: -62px;
+    width: clamp(236px, 84vw, 360px);
+    height: clamp(236px, 84vw, 360px);
   }
 
   .home-page .home-project-preview--catalog-style {
