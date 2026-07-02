@@ -26262,7 +26262,18 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 
   .home-page .home-about-stats__content {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    grid-template-rows: none;
+  }
+
+  .home-page .home-about-stats__grid {
+    order: 1;
+  }
+
+  .home-page .home-about-stats__copy {
+    order: 2;
   }
 
   .home-page .home-about-stats__copy {
