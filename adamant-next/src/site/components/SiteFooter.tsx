@@ -1,5 +1,5 @@
-import { getCatalogItems, getServices, getSiteSettings } from "@/site/cms";
-import { getCatalogItemPath } from "@/site/routes";
+import { getServices, getSiteSettings } from "@/site/cms";
+import { getServicePath } from "@/site/routes";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
 
@@ -15,13 +15,11 @@ const footerNavItems = [
 ];
 
 export async function SiteFooter() {
-  const [siteSettings, services, catalogItems] = await Promise.all([
+  const [siteSettings, services] = await Promise.all([
     getSiteSettings(),
     getServices(),
-    getCatalogItems(),
   ]);
 
-  const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const footerServices = services.slice(0, 5);
   const footerEmail = siteSettings.email?.trim();
   const currentYear = new Date().getFullYear();
@@ -56,16 +54,11 @@ export async function SiteFooter() {
         <div className="home-footer__column">
           <h2>Услуги</h2>
           <div className="home-footer__links">
-            {footerServices.map((service) => {
-              const catalogItem = catalogByTitle.get(service.title);
-              const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
-
-              return (
-                <a key={service.id} href={href}>
-                  {service.title}
-                </a>
-              );
-            })}
+            {footerServices.map((service) => (
+              <a key={service.id} href={getServicePath(service)}>
+                {service.title}
+              </a>
+            ))}
           </div>
         </div>
 

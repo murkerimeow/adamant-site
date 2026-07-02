@@ -557,6 +557,33 @@ export async function getServices() {
   return result.docs as ServiceCardDoc[];
 }
 
+export async function getServiceBySlug(slug: string) {
+  noStore();
+
+  try {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "services",
+      depth: 1,
+      draft: false,
+      limit: 1,
+      overrideAccess: true,
+      where: {
+        _status: {
+          equals: "published",
+        },
+        slug: {
+          equals: slug,
+        },
+      },
+    });
+
+    return (result.docs[0] ?? null) as ServiceCardDoc | null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getPortfolioItems() {
   noStore();
   const payload = await getPayloadClient();

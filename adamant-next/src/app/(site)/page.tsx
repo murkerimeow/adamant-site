@@ -20,7 +20,7 @@ import { SiteHeader } from "@/site/components/SiteHeader";
 import { HomeProjectCategories } from "@/site/components/HomeProjectCategories";
 import { HomePortfolioCategories } from "@/site/components/HomePortfolioCategories";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
-import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
+import { getCatalogItemPath, getPortfolioItemPath, getServicePath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
@@ -176,7 +176,6 @@ export default async function HomePage() {
 
   const stats: HomeStat[] = getHomeStats(homePage, getCompanyStats(siteSettings, "home"));
   const description = splitHighlight(homePage.heroDescription);
-  const catalogByTitle = new Map(catalogItems.map((item) => [item.title, item]));
   const cycleServices = services.filter((service) => service.showOnServicesPage !== false);
   const featuredProjects = catalogItems.filter((item) => item.showInCatalog);
   const projectsByCategorySlug = new Map<string, typeof featuredProjects>();
@@ -578,9 +577,7 @@ export default async function HomePage() {
 
             <div className="home-cycle__grid js-wheel-slider">
               {cycleServices.map((service, index) => {
-                const catalogItem = catalogByTitle.get(service.title);
-                const href = service.href || (catalogItem ? getCatalogItemPath(catalogItem) : "/services");
-                const serviceHref = `${href}${href.includes("?") ? "&" : "?"}service=${encodeURIComponent(service.title)}`;
+                const serviceHref = getServicePath(service);
                 const imageUrl = getMediaUrl(service.previewImage);
 
                 return (

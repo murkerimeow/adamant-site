@@ -43,3 +43,7 @@ export function getLegacyCatalogItemPath(itemKey?: string | null) {
 export function getPortfolioItemPath(item: { slug?: string | null }) {
   return item.slug ? `/portfolio/${encodeURIComponent(item.slug)}` : "/portfolio";
 }
+
+export function getServicePath(service: { slug?: string | null }) {
+  return service.slug ? `/services/${encodeURIComponent(service.slug)}` : "/services";
+}

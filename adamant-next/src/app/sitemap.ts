@@ -6,12 +6,14 @@ import {
   getPortfolioSitemapCategories,
   getPortfolioItems,
   getPosts,
+  getServices,
 } from "@/site/cms";
 import {
   getCatalogCategoryPath,
   getCatalogItemPath,
   getPortfolioCategoryPath,
   getPortfolioItemPath,
+  getServicePath,
 } from "@/site/routes";
 import { isIndexableLongFormText, SITE_URL } from "@/site/seo";
 
@@ -34,13 +36,21 @@ function getLastModified(date?: string | null) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const [catalogResult, categoryResult, postsResult, portfolioResult, portfolioCategoryResult] =
+  const [
+    catalogResult,
+    categoryResult,
+    postsResult,
+    portfolioResult,
+    portfolioCategoryResult,
+    serviceResult,
+  ] =
     await Promise.allSettled([
       getCatalogItems(),
       getCatalogSitemapCategories(),
       getPosts(),
       getPortfolioItems(),
       getPortfolioSitemapCategories(),
+      getServices(),
     ]);
 
   const catalogItems =
@@ -52,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     portfolioResult.status === "fulfilled" ? portfolioResult.value : [];
   const portfolioCategories =
     portfolioCategoryResult.status === "fulfilled" ? portfolioCategoryResult.value : [];
+  const services = serviceResult.status === "fulfilled" ? serviceResult.value : [];
 
   const staticEntries = staticPaths.map((path) => ({
     url: `${SITE_URL}${path}`,
@@ -97,8 +108,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const serviceEntries = [
+    ...services.map((service) => ({
+      url: `${SITE_URL}${getServicePath(service)}`,
+      lastModified: getLastModified(service.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...(services.some((service) => service.slug === "landshaftnyy-dizayn")
+      ? []
+      : [
+          {
+            url: `${SITE_URL}/services/landshaftnyy-dizayn`,
+            lastModified: now,
+            changeFrequency: "monthly" as const,
+            priority: 0.68,
+          },
+        ]),
+  ];
+
   return [
     ...staticEntries,
+    ...serviceEntries,
     ...catalogCategoryEntries,
     ...catalogEntries,
     ...portfolioCategoryEntries,

@@ -1,5 +1,6 @@
 import { getMediaAlt, getMediaUrl, getServices, getServicesPage, getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
+import { getServicePath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
 import Link from "next/link";
 
@@ -256,7 +257,7 @@ export default async function ServicesPage() {
 
       return {
         description: service.shortDescription,
-        href: service.href || `#${id}`,
+        href: getServicePath(service),
         icon: getServiceIcon(service.icon),
         id,
         image:
@@ -280,7 +281,7 @@ export default async function ServicesPage() {
           </div>
           <div className="services-catalog-grid">
             {serviceCards.length ? serviceCards.map((card, index) => {
-              const serviceHref = `${card.href}${card.href.includes("?") ? "&" : "?"}service=${encodeURIComponent(card.title)}`;
+              const serviceHref = card.href;
 
               return (
                 <article
