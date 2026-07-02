@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import {
   getMediaAlt,
+  getMediaCardUrl,
   getMediaUrl,
   getCatalogItems,
   getCatalogCoverMedia,
@@ -57,7 +58,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     notFound();
   }
 
-  const imageUrl = getMediaUrl(item.previewImage) || getMediaUrl(item.previewImage, "card");
+  const imageUrl = getMediaCardUrl(item.previewImage);
   const catalogItem = typeof item.catalogItem === "object" ? item.catalogItem : null;
   const galleryImages = [
     {
@@ -66,13 +67,13 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     },
     ...(item.gallery?.map((entry) => ({
       alt: getMediaAlt(entry.image, item.title),
-      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
+      src: getMediaCardUrl(entry.image),
     })) ?? []),
     ...(catalogItem
       ? [catalogItem.previewImage, catalogItem.detailImage, ...(catalogItem.gallery?.map((entry) => entry.image) ?? [])]
           .map((media) => ({
             alt: getMediaAlt(media, item.title),
-            src: getMediaUrl(media) || getMediaUrl(media, "card"),
+            src: getMediaCardUrl(media),
           }))
       : []),
   ]

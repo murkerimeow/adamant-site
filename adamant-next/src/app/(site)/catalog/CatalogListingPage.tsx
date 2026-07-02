@@ -10,6 +10,7 @@ import {
   getCatalogCoverMedia,
   getCatalogLandingCategorySlug,
   getMediaAlt,
+  getMediaCardUrl,
   getMediaUrl,
   getSiteSettings,
 } from "@/site/cms";
@@ -389,9 +390,8 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
             const href = getCatalogItemPath(item);
             const meta = getCatalogCardMeta(item);
             const coverMedia = getCatalogCoverMedia(item);
-            const coverSrc = getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
-            const nightSrc =
-              getMediaUrl(item.nightImage) || getMediaUrl(item.nightImage, "card");
+            const coverSrc = getMediaCardUrl(coverMedia);
+            const nightSrc = getMediaCardUrl(item.nightImage);
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description || "";
 

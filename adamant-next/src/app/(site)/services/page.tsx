@@ -1,4 +1,4 @@
-import { getMediaAlt, getMediaUrl, getServices, getServicesPage, getSiteSettings } from "@/site/cms";
+import { getMediaAlt, getMediaCardUrl, getServices, getServicesPage, getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getServicePath } from "@/site/routes";
 import { createPageMetadata } from "@/site/seo";
@@ -260,9 +260,7 @@ export default async function ServicesPage() {
         href: getServicePath(service),
         icon: getServiceIcon(service.icon),
         id,
-        image:
-          getMediaUrl(service.previewImage) ||
-          getMediaUrl(service.previewImage, "card"),
+        image: getMediaCardUrl(service.previewImage),
         imageAlt: getMediaAlt(service.previewImage, service.title),
         title: service.title,
       };

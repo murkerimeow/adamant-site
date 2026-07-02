@@ -320,6 +320,14 @@ export function getMediaUrl(
   return media.url ?? media.thumbnailURL ?? "";
 }
 
+export function getMediaCardUrl(media?: number | Media | null) {
+  return getMediaUrl(media, "card") || getMediaUrl(media);
+}
+
+export function getMediaThumbUrl(media?: number | Media | null) {
+  return getMediaUrl(media, "thumb") || getMediaUrl(media, "card") || getMediaUrl(media);
+}
+
 export function getMediaAlt(media?: number | Media | null, fallback = "") {
   if (!media || typeof media === "number") return fallback;
   return media.alt || fallback;
@@ -436,7 +444,7 @@ export function getCompanyStats(
     .map((stat) => ({
       id: stat.id ?? `${stat.statKey ?? "custom"}-${stat.value}-${stat.label}`,
       imageAlt: getMediaAlt(stat.iconImage, ""),
-      imageUrl: getMediaUrl(stat.iconImage) || getMediaUrl(stat.iconImage, "card"),
+      imageUrl: getMediaThumbUrl(stat.iconImage),
       key: stat.statKey ?? "custom",
       label: stat.label?.trim() ?? "",
       value: stat.value?.trim() ?? "",

@@ -9,6 +9,8 @@ import {
   getCatalogItem,
   getCatalogItems,
   getMediaAlt,
+  getMediaCardUrl,
+  getMediaThumbUrl,
   getMediaUrl,
   getSiteSettings,
   splitParagraphs,
@@ -212,36 +214,27 @@ export default async function CatalogItemPage({
   const arrayGalleryImages =
     item.gallery?.map((entry) => ({
       alt: getMediaAlt(entry.image, item.title),
-      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
-      thumbSrc:
-        getMediaUrl(entry.image, "thumb") ||
-        getMediaUrl(entry.image, "card") ||
-        getMediaUrl(entry.image),
+      src: getMediaCardUrl(entry.image),
+      thumbSrc: getMediaThumbUrl(entry.image),
     })) ?? [];
   const projectGalleryImages = [
     {
       alt: getMediaAlt(coverMedia, item.title),
       src:
-        getMediaUrl(coverMedia) ||
-        getMediaUrl(coverMedia, "card") ||
-        getMediaUrl(item.detailImage) ||
-        getMediaUrl(item.detailImage, "card"),
+        getMediaCardUrl(coverMedia) ||
+        getMediaCardUrl(item.detailImage),
       thumbSrc:
-        getMediaUrl(coverMedia, "thumb") ||
-        getMediaUrl(coverMedia, "card") ||
-        getMediaUrl(coverMedia),
+        getMediaThumbUrl(coverMedia) ||
+        getMediaThumbUrl(item.detailImage),
     },
     {
       alt: getMediaAlt(item.detailImage, item.title),
       src:
-        getMediaUrl(item.detailImage) ||
-        getMediaUrl(item.detailImage, "card") ||
-        getMediaUrl(item.previewImage) ||
-        getMediaUrl(item.previewImage, "card"),
+        getMediaCardUrl(item.detailImage) ||
+        getMediaCardUrl(item.previewImage),
       thumbSrc:
-        getMediaUrl(item.detailImage, "thumb") ||
-        getMediaUrl(item.detailImage, "card") ||
-        getMediaUrl(item.detailImage),
+        getMediaThumbUrl(item.detailImage) ||
+        getMediaThumbUrl(item.previewImage),
     },
     ...arrayGalleryImages,
   ]
