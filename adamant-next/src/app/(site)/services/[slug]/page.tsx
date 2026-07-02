@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import {
   getMediaAlt,
-  getMediaCardUrl,
+  getMediaUrl,
   getServiceBySlug,
   getSiteSettings,
   splitParagraphs,
@@ -113,7 +113,8 @@ export default async function ServiceSlugPage({ params }: ServiceSlugPageProps) 
 
   const isLandscape = isLandscapeService(service);
   const heroImageUrl =
-    getMediaCardUrl(service.previewImage) ||
+    getMediaUrl(service.previewImage) ||
+    getMediaUrl(service.previewImage, "card") ||
     (isLandscape ? "/plot-selection.webp" : "/request-house.webp");
   const heroImageAlt = getMediaAlt(service.previewImage, service.title);
   const paragraphs = splitParagraphs(service.description).length

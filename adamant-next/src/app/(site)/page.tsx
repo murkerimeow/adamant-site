@@ -7,8 +7,6 @@ import {
   getCompanyStats,
   getHomePage,
   getMediaAlt,
-  getMediaCardUrl,
-  getMediaThumbUrl,
   getMediaUrl,
   getPortfolioCategories,
   getPortfolioCategorySlug,
@@ -241,8 +239,10 @@ export default async function HomePage() {
       caption: review.caption?.trim() || review.text?.trim() || "",
       name: review.name,
       posterUrl:
-        getMediaCardUrl(review.poster) ||
-        getMediaThumbUrl(review.avatar),
+        getMediaUrl(review.poster) ||
+        getMediaUrl(review.poster, "card") ||
+        getMediaUrl(review.avatar, "card") ||
+        getMediaUrl(review.avatar),
       videoUrl: getMediaUrl(review.video),
     }))
     .filter((review) => review.videoUrl);
@@ -409,8 +409,11 @@ export default async function HomePage() {
               {homeProjects.map((project) => {
                 const href = getCatalogItemPath(project);
                 const coverMedia = getCatalogCoverMedia(project);
-                const imageUrl = getMediaCardUrl(coverMedia);
-                const nightImageUrl = getMediaCardUrl(project.nightImage);
+                const imageUrl =
+                  getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
+                const nightImageUrl =
+                  getMediaUrl(project.nightImage) ||
+                  getMediaUrl(project.nightImage, "card");
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
 
@@ -575,7 +578,7 @@ export default async function HomePage() {
             <div className="home-cycle__grid js-wheel-slider">
               {cycleServices.map((service, index) => {
                 const serviceHref = getServicePath(service);
-                const imageUrl = getMediaCardUrl(service.previewImage);
+                const imageUrl = getMediaUrl(service.previewImage);
 
                 return (
                   <article

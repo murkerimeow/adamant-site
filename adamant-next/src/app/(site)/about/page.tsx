@@ -2,7 +2,6 @@ import {
   getAboutPage,
   getCompanyStats,
   getMediaAlt,
-  getMediaThumbUrl,
   getMediaUrl,
   getSiteSettings,
   getTeamMembers,
@@ -264,7 +263,7 @@ export default async function AboutPage() {
             {team.length ? team.map((member) => {
               const avatarUrl =
                 "avatar" in member
-                  ? getMediaThumbUrl(member.avatar)
+                  ? getMediaUrl(member.avatar) || getMediaUrl(member.avatar, "thumb")
                   : "";
               const nameParts = member.name.split(/\s+/).filter(Boolean);
 
