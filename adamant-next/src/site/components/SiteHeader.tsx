@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { getCatalogCategories } from "@/site/cms";
+import { getHeaderCatalogCategories } from "@/site/cms";
 import { getCatalogCategoryPath } from "@/site/routes";
 import { SocialIcon, socialLinks } from "@/site/socials";
 
@@ -32,7 +32,7 @@ const navItems = [
 ] as const;
 
 export async function SiteHeader({ active, phone }: SiteHeaderProps) {
-  const catalogCategories = await getCatalogCategories();
+  const catalogCategories = await getHeaderCatalogCategories();
 
   return (
     <header className="header">

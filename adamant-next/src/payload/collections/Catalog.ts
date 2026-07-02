@@ -61,7 +61,7 @@ export const Catalog: CollectionConfig = {
       admin: {
         position: "sidebar",
       },
-      defaultValue: false,
+      defaultValue: true,
       label: "Показывать в каталоге",
     },
     {

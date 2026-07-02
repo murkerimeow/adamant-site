@@ -771,6 +771,26 @@ export async function getCatalogCategories() {
       limit: 100,
       overrideAccess: true,
       sort: "order",
+    });
+
+    return result.docs;
+  } catch {
+    return [];
+  }
+}
+
+export async function getHeaderCatalogCategories() {
+  noStore();
+
+  try {
+    const payload = (await getPayloadClient()) as unknown as CatalogCategoriesCollectionClient;
+    const result = await payload.find({
+      collection: "catalog-categories",
+      depth: 0,
+      draft: false,
+      limit: 100,
+      overrideAccess: true,
+      sort: "order",
       where: {
         showInHeader: {
           equals: true,

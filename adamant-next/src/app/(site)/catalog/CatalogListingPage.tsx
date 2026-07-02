@@ -30,7 +30,7 @@ const PROJECT_CATEGORY_LINKS = [
   { title: "Дома из бруса", slug: "doma-iz-brusa" },
   { title: "Модульные дома", slug: "modulnye-doma" },
   { title: "Дачные дома", slug: "dachnye-doma" },
-  { title: "Бани и сауны", slug: "bani-i-sauny" },
+  { title: "Бани и сауны", slug: "bani" },
 ] as const;
 
 function textOrPlaceholder(value?: string | null, placeholder = PAGE_PLACEHOLDER) {
@@ -90,6 +90,10 @@ function getSearchText(parts: Array<string | null | undefined>) {
   return parts.filter(Boolean).join(" ").toLowerCase();
 }
 
+function shouldShowCatalogItem(item: { landingCategory?: unknown; showInCatalog?: boolean | null }) {
+  return item.showInCatalog === true || Boolean(item.landingCategory);
+}
+
 async function resolveCatalogContext(categorySlug?: string) {
   const [siteSettings, catalogPage, catalogItems, catalogCategories, selectedCategory] =
     await Promise.all([
@@ -105,7 +109,7 @@ async function resolveCatalogContext(categorySlug?: string) {
   }
 
   const items = catalogItems
-    .filter((item) => item.showInCatalog)
+    .filter(shouldShowCatalogItem)
     .filter((item) =>
       selectedCategory ? getCatalogLandingCategorySlug(item) === selectedCategory.slug : true,
     );
@@ -176,18 +180,16 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
     getMediaUrl(selectedCategory?.heroImage, "card") ||
     getMediaUrl(selectedCategory?.heroImage);
   const categoryImageAlt = getMediaAlt(selectedCategory?.heroImage, pageTitle);
-  const projectCategoryLinks = PROJECT_CATEGORY_LINKS.map((item) => {
-    const category = catalogCategories.find(
-      (entry) => entry.slug === item.slug || entry.title === item.title,
-    );
-
-    return {
-      ...item,
-      href: category
-        ? getCatalogCategoryPath(category)
-        : `/catalog?category=${encodeURIComponent(item.slug)}`,
-    };
-  });
+  const projectCategoryLinks = catalogCategories.length
+    ? catalogCategories.map((category) => ({
+        href: getCatalogCategoryPath(category),
+        slug: category.slug,
+        title: category.title,
+      }))
+    : PROJECT_CATEGORY_LINKS.map((category) => ({
+        ...category,
+        href: `/catalog/category/${encodeURIComponent(category.slug)}`,
+      }));
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
