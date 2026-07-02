@@ -26003,8 +26003,8 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
 
 .home-page .home-about-stat > img {
   position: absolute;
-  right: -42px;
-  bottom: -76px;
+  right: -74px;
+  bottom: -178px;
   display: block;
   width: clamp(300px, 28vw, 520px);
   height: clamp(300px, 28vw, 520px);
@@ -26309,8 +26309,8 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 
   .home-page .home-about-stat > img {
-    right: -34px;
-    bottom: -62px;
+    right: -54px;
+    bottom: -128px;
     width: clamp(236px, 84vw, 360px);
     height: clamp(236px, 84vw, 360px);
   }
