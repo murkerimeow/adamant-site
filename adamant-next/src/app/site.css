@@ -27727,6 +27727,69 @@ body.catalog-mobile-filters-open .catalog-page .listing-filters--catalog {
   }
 }
 
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    > .home-project-card__background--night,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    > .catalog-project-card__background--night {
+    opacity: 1 !important;
+  }
+
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"].is-fully-in-view
+    > .home-project-card__background--night,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"].is-fully-in-view
+    > .catalog-project-card__background--night {
+    opacity: 0 !important;
+  }
+
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    .listing-card__body
+    h2,
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    .listing-card__description,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    .listing-card__body
+    h2,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"]:not(.is-fully-in-view)
+    .listing-card__description {
+    color: #ffffff !important;
+  }
+
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"].is-fully-in-view
+    .listing-card__body
+    h2,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"].is-fully-in-view
+    .listing-card__body
+    h2 {
+    color: #111318 !important;
+  }
+
+  .home-page
+    .home-project-preview--catalog-style
+    .home-project-card.listing-card[data-has-night-image="true"].is-fully-in-view
+    .listing-card__description,
+  .page.inner-page.catalog-page
+    .catalog-project-card[data-has-night-image="true"].is-fully-in-view
+    .listing-card__description {
+    color: #61718a !important;
+  }
+}
+
 /* Portfolio object content is split into independent white sections. */
 .page.inner-page.portfolio-detail-page
   .portfolio-detail--object

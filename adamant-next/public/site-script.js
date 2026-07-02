@@ -2478,6 +2478,88 @@
 
   initProcessCardParallax();
 
+  const initMobileProjectNightMode = () => {
+    const cards = Array.from(
+      document.querySelectorAll(
+        ".home-project-card.listing-card[data-has-night-image='true'], .catalog-project-card.listing-card[data-has-night-image='true']"
+      )
+    );
+
+    if (!cards.length || typeof window.matchMedia !== "function") return;
+
+    const mobileMedia = window.matchMedia(
+      "(max-width: 767px), (hover: none) and (pointer: coarse)"
+    );
+    let animationFrame = 0;
+
+    const resetCards = () => {
+      cards.forEach((card) => {
+        card.classList.remove("is-fully-in-view");
+      });
+    };
+
+    const isFullyInViewport = (card) => {
+      const rect = card.getBoundingClientRect();
+      const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const tolerance = 2;
+
+      return (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        rect.top >= -tolerance &&
+        rect.left >= -tolerance &&
+        rect.bottom <= viewportHeight + tolerance &&
+        rect.right <= viewportWidth + tolerance
+      );
+    };
+
+    const syncCards = () => {
+      animationFrame = 0;
+
+      if (!mobileMedia.matches) {
+        resetCards();
+        return;
+      }
+
+      cards.forEach((card) => {
+        card.classList.toggle("is-fully-in-view", isFullyInViewport(card));
+      });
+    };
+
+    const requestSync = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(syncCards);
+    };
+
+    window.addEventListener("scroll", requestSync, { passive: true });
+    window.addEventListener("resize", requestSync, { passive: true });
+
+    if (typeof mobileMedia.addEventListener === "function") {
+      mobileMedia.addEventListener("change", requestSync);
+    } else if (typeof mobileMedia.addListener === "function") {
+      mobileMedia.addListener(requestSync);
+    }
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        const target = event.target;
+        if (
+          target instanceof Element &&
+          target.closest(".home-project-preview__categories button, .project-tabs__button")
+        ) {
+          window.setTimeout(requestSync, 0);
+        }
+      },
+      true
+    );
+
+    syncCards();
+  };
+
+  initMobileProjectNightMode();
+
   const cookieConsentKey = "adamant_cookie_consent_v1";
   const cookieConsentName = "adamant_cookie_consent";
 
