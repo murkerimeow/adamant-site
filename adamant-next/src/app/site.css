@@ -23796,11 +23796,11 @@ main :where(
 .home-social-banner__image {
   position: absolute;
   right: clamp(110px, 11vw, 210px);
-  bottom: -38px;
+  bottom: -58px;
   z-index: 1;
-  width: clamp(290px, 35vw, 570px);
+  width: clamp(580px, 70vw, 1140px);
   height: auto;
-  max-height: 112%;
+  max-height: 224%;
   object-fit: contain;
   object-position: right bottom;
   pointer-events: none;
