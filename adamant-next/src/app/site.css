@@ -23795,10 +23795,10 @@ main :where(
 
 .home-social-banner__image {
   position: absolute;
-  right: clamp(110px, 11vw, 210px);
-  bottom: clamp(-560px, -29vw, -390px);
+  right: clamp(-90px, -4vw, -40px);
+  bottom: clamp(-450px, -24vw, -320px);
   z-index: 1;
-  width: clamp(580px, 70vw, 1140px);
+  width: clamp(620px, 50vw, 900px);
   height: auto;
   max-height: none;
   object-fit: contain;
