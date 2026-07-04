@@ -23796,7 +23796,7 @@ main :where(
 .home-social-banner__image {
   position: absolute;
   right: clamp(110px, 11vw, 210px);
-  bottom: -58px;
+  bottom: clamp(-560px, -29vw, -390px);
   z-index: 1;
   width: clamp(580px, 70vw, 1140px);
   height: auto;
