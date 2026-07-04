@@ -1,4 +1,9 @@
 (() => {
+  const siteContacts = window.__ADAMANT_SITE_CONTACTS__ || {};
+  const sitePhoneHref =
+    typeof siteContacts.phoneHref === "string" && siteContacts.phoneHref
+      ? siteContacts.phoneHref
+      : "#";
   const modalMarkup = `
     <div class="modal" id="estimate-modal" role="dialog" aria-modal="true" aria-labelledby="estimate-modal-title" hidden>
       <div class="modal__dialog modal__dialog--lead">
@@ -91,7 +96,7 @@
             </div>
           </div>
           <button class="modal-submit" type="button" data-modal-retry>Попробовать снова</button>
-          <a class="modal-submit modal-submit--secondary" href="tel:+79111970457">Позвонить нам</a>
+          <a class="modal-submit modal-submit--secondary" href="${sitePhoneHref}">Позвонить нам</a>
         </section>
       </div>
     </div>
@@ -176,7 +181,7 @@
             </div>
           </div>
           <button class="modal-submit" type="button" data-modal-retry>Попробовать снова</button>
-          <a class="modal-submit modal-submit--secondary" href="tel:+79111970457">Позвонить нам</a>
+          <a class="modal-submit modal-submit--secondary" href="${sitePhoneHref}">Позвонить нам</a>
         </section>
       </div>
     </div>
@@ -267,7 +272,7 @@
             </div>
           </div>
           <button class="modal-submit" type="button" data-modal-retry>Попробовать снова</button>
-          <a class="modal-submit modal-submit--secondary" href="tel:+79111970457">Позвонить нам</a>
+          <a class="modal-submit modal-submit--secondary" href="${sitePhoneHref}">Позвонить нам</a>
         </section>
       </div>
     </div>

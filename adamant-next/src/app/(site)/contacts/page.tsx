@@ -71,8 +71,9 @@ export default async function ContactsPage() {
   ]);
 
   const workingHours = getWorkingHoursParts(siteSettings.workingHours);
+  const workingHoursLabel = workingHours.join(", ") || siteSettings.workingHours?.trim();
   const contactPhone = siteSettings.phonePrimary;
-  const contactEmail = siteSettings.email?.trim() || "info@adamant-stroy.com";
+  const contactEmail = siteSettings.email?.trim();
   const officeAddress = siteSettings.address?.trim() || contactsPage.officeAddress;
   const requisites = contactsPage.companyDetails;
 
@@ -97,16 +98,18 @@ export default async function ContactsPage() {
                 </div>
               </article>
 
-              <article>
-                <span className="contact-redesign__icon">
-                  <ContactIcon type="mail" />
-                </span>
-                <div>
-                  <h2>E-mail</h2>
-                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                  <small>Ответим в самое ближайшее время</small>
-                </div>
-              </article>
+              {contactEmail ? (
+                <article>
+                  <span className="contact-redesign__icon">
+                    <ContactIcon type="mail" />
+                  </span>
+                  <div>
+                    <h2>E-mail</h2>
+                    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                    <small>Ответим в самое ближайшее время</small>
+                  </div>
+                </article>
+              ) : null}
 
               <article>
                 <span className="contact-redesign__icon">
@@ -115,7 +118,7 @@ export default async function ContactsPage() {
                 <div>
                   <h2>Наш офис</h2>
                   <p>{officeAddress}</p>
-                  <small>{workingHours.join(", ") || siteSettings.workingHours || "ПН-ПТ, 10:00 - 16:00"}</small>
+                  {workingHoursLabel ? <small>{workingHoursLabel}</small> : null}
                 </div>
               </article>
             </div>

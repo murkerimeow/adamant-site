@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-import { getSiteSettings } from "@/site/cms";
+import { getPhoneHref, getSiteSettings } from "@/site/cms";
 import { SiteFooter } from "@/site/components/SiteFooter";
 import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/site/seo";
 import { socialLinks } from "@/site/socials";
@@ -80,15 +80,27 @@ function stringifyStructuredData(data: ReturnType<typeof buildStructuredData>) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
+function stringifySiteContacts(data: { phoneHref?: string }) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
 export default async function SiteLayout({ children }: SiteLayoutProps) {
   const siteSettings = await getSiteSettings();
   const structuredData = buildStructuredData(siteSettings);
+  const siteContacts = {
+    phoneHref: siteSettings.phonePrimary ? getPhoneHref(siteSettings.phonePrimary) : undefined,
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `window.__ADAMANT_SITE_CONTACTS__=${stringifySiteContacts(siteContacts)};`,
+        }}
       />
       {children}
       <div className="site-footer-slot">

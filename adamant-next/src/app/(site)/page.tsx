@@ -955,7 +955,7 @@ export default async function HomePage() {
             </div>
             <img
               className="home-social-banner__image"
-              src="/social-banner.png"
+              src="/social-banner.webp?v=20260704-social"
               alt=""
               loading="lazy"
               decoding="async"

@@ -23795,8 +23795,8 @@ main :where(
 
 .home-social-banner__image {
   position: absolute;
-  right: clamp(22px, 5vw, 86px);
-  bottom: 0;
+  right: clamp(110px, 11vw, 210px);
+  bottom: -38px;
   z-index: 1;
   width: clamp(290px, 35vw, 570px);
   height: auto;
@@ -23959,8 +23959,8 @@ main :where(
   }
 
   .home-social-banner__image {
-    right: -22px;
-    bottom: -6px;
+    right: 6px;
+    bottom: -24px;
     width: min(78vw, 330px);
     max-height: 52%;
   }
