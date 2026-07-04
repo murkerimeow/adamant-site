@@ -23795,8 +23795,8 @@ main :where(
 
 .home-social-banner__image {
   position: absolute;
-  right: clamp(-90px, -4vw, -40px);
-  bottom: clamp(-450px, -24vw, -320px);
+  right: clamp(-42px, -2vw, 0px);
+  bottom: clamp(-410px, -22vw, -290px);
   z-index: 1;
   width: clamp(620px, 50vw, 900px);
   height: auto;
@@ -23959,10 +23959,12 @@ main :where(
   }
 
   .home-social-banner__image {
-    right: 6px;
+    right: auto;
+    left: 50%;
     bottom: -24px;
-    width: min(78vw, 330px);
+    width: min(82vw, 360px);
     max-height: 52%;
+    transform: translateX(-50%);
   }
 
   .home-mortgage-banner__actions {
