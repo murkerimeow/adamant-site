@@ -23800,7 +23800,7 @@ main :where(
   z-index: 1;
   width: clamp(580px, 70vw, 1140px);
   height: auto;
-  max-height: 224%;
+  max-height: none;
   object-fit: contain;
   object-position: right bottom;
   pointer-events: none;
