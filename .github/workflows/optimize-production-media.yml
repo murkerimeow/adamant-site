@@ -68,6 +68,18 @@ jobs:
               node scripts/optimize-media-assets.mjs
               pm2 restart adamant-site --update-env
               pm2 save
-              curl --fail --silent --show-error http://127.0.0.1:3000/ >/dev/null
+
+              for _ in {1..30}; do
+                if curl --fail --silent --show-error http://127.0.0.1:3000/ >/dev/null; then
+                  echo "Production media optimization completed successfully."
+                  exit 0
+                fi
+
+                sleep 2
+              done
+
+              echo "Health check failed after media optimization." >&2
+              pm2 logs adamant-site --lines 80 --nostream >&2
+              exit 1
             fi
           REMOTE
