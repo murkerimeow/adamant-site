@@ -39,7 +39,7 @@ jobs:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          ssh -o BatchMode=yes "$DEPLOY_USER@$DEPLOY_HOST" "
+          ssh -o BatchMode=yes "$DEPLOY_USER@$DEPLOY_HOST" "DRY_RUN='$DRY_RUN' bash -s" <<'REMOTE'
             set -Eeuo pipefail
 
             readonly REPO_DIR='/var/www/adamant-site'
@@ -76,4 +76,4 @@ jobs:
               pm2 save
               curl --fail --silent --show-error http://127.0.0.1:3000/ >/dev/null
             fi
-          "
+          REMOTE
