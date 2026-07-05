@@ -27,7 +27,6 @@ const staticPaths = [
   "/about",
   "/mortgage",
   "/vacancies",
-  "/privacy",
 ] as const;
 
 function getLastModified(date?: string | null) {
@@ -109,12 +108,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const serviceEntries = [
-    ...services.map((service) => ({
-      url: `${SITE_URL}${getServicePath(service)}`,
-      lastModified: getLastModified(service.updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...services
+      .filter((service) => service.slug !== "landshaftnij-dizayn")
+      .map((service) => ({
+        url: `${SITE_URL}${getServicePath(service)}`,
+        lastModified: getLastModified(service.updatedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
     ...(services.some((service) => service.slug === "landshaftnyy-dizayn")
       ? []
       : [
