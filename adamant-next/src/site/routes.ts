@@ -1,13 +1,13 @@
 const legacyCatalogItemPaths: Record<string, string> = {
-  classic: "/catalog/klassicheskij-dom",
-  commercial: "/catalog/otdelka-kommercheskogo-pomeshcheniya-card",
-  frame: "/catalog/karkasnyj-dom-card",
-  gasbeton: "/catalog/dom-iz-gazobetona-card",
-  modern: "/catalog/sovremennyj-dom",
-  onefloor: "/catalog/odnoetazhnyj-dom",
-  renovation: "/catalog/remont-kvartir-card",
-  terrace: "/catalog/dom-s-terrasoj",
-  timber: "/catalog/dom-iz-brusa-card",
+  classic: "/catalog/category/kamennye-doma",
+  commercial: "/services/otdelka-kommercheskogo-pomeshcheniya",
+  frame: "/catalog/category/karkasnye-doma",
+  gasbeton: "/services/dom-iz-gazobetona",
+  modern: "/catalog",
+  onefloor: "/catalog/category/dachnye-doma",
+  renovation: "/services/remont-kvartir",
+  terrace: "/catalog",
+  timber: "/catalog/category/doma-iz-brusa",
 };
 
 export function getCatalogItemPath(item: {
