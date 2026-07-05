@@ -10,6 +10,7 @@
     "payload:generate:types": "payload generate:types",
     "payload:generate:importmap": "payload generate:importmap",
     "payload:generate": "npm run payload:generate:types && npm run payload:generate:importmap",
+    "media:optimize": "node scripts/optimize-media-assets.mjs",
     "db:ensure-catalog-categories": "node scripts/ensure-catalog-categories-db.mjs"
   },
   "dependencies": {
