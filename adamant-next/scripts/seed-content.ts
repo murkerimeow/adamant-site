@@ -5,18 +5,6 @@ import { getPayload } from "payload";
 
 import config from "../payload.config.ts";
 
-type SeedPortfolio = {
-  category: "classic" | "modern";
-  description: string;
-  imageFile: string;
-  itemKey: string;
-  order: number;
-  slug: string;
-  summary: string;
-  tags: string[];
-  title: string;
-};
-
 type SeedPost = {
   category: string;
   content: string;
@@ -30,61 +18,6 @@ type SeedPost = {
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const publicDir = path.resolve(dirname, "../public");
-
-const portfolioItems: SeedPortfolio[] = [
-  {
-    title: "Современный дом",
-    slug: "sovremennyj-dom",
-    itemKey: "modern",
-    category: "modern",
-    order: 10,
-    imageFile: "строительство.png",
-    summary:
-      "Проект с панорамным остеклением, четкой архитектурой и продуманной планировкой",
-    description:
-      "Спроектируем и построим современный загородный дом в Санкт-Петербурге и Ленинградской области под ключ и в срок. Начните с бесплатного расчета сметы за 1 день.",
-    tags: ["Современный", "Под ключ"],
-  },
-  {
-    title: "Дом с террасой",
-    slug: "dom-s-terrasoj",
-    itemKey: "terrace",
-    category: "classic",
-    order: 20,
-    imageFile: "дом из бруса.png",
-    summary:
-      "Загородный дом с открытой зоной отдыха и теплым семейным контуром",
-    description:
-      "Продуманный проект для жизни за городом: просторная гостиная, панорамное остекление и удобная зона отдыха. Начните с бесплатного расчета сметы за 1 день.",
-    tags: ["Терраса", "Отдых"],
-  },
-  {
-    title: "Одноэтажный дом",
-    slug: "odnoetazhnyj-dom",
-    itemKey: "onefloor",
-    category: "modern",
-    order: 30,
-    imageFile: "дом из газобетона.png",
-    summary:
-      "Комфортная одноуровневая планировка с инженерией и точной сметой",
-    description:
-      "Комфортный одноэтажный проект с понятной планировкой, инженерными решениями и точной сметой до начала работ. Подготовим расчет за 1 день.",
-    tags: ["1 этаж", "Семейный"],
-  },
-  {
-    title: "Классический дом",
-    slug: "klassicheskij-dom",
-    itemKey: "classic",
-    category: "classic",
-    order: 40,
-    imageFile: "каркасный дом.png",
-    summary:
-      "Сдержанная архитектура для постоянного проживания за городом",
-    description:
-      "Сдержанная архитектура, надежные материалы и функциональная планировка для постоянного проживания круглый год. Рассчитаем стоимость под ваш участок.",
-    tags: ["Классика", "Теплый контур"],
-  },
-];
 
 const posts: SeedPost[] = [
   {
@@ -153,57 +86,6 @@ async function getMediaId(
   });
 
   return created.id;
-}
-
-async function upsertPortfolio(payload: Awaited<ReturnType<typeof getPayload>>) {
-  for (const item of portfolioItems) {
-    const previewImage = await getMediaId(
-      payload,
-      item.imageFile,
-      item.title,
-      item.summary,
-    );
-
-    const existing = await payload.find({
-      collection: "portfolio",
-      limit: 1,
-      where: {
-        slug: {
-          equals: item.slug,
-        },
-      },
-    });
-
-    const data = {
-      _status: "published" as const,
-      category: item.category,
-      description: item.description,
-      order: item.order,
-      previewImage,
-      summary: item.summary,
-      tags: item.tags.map((label) => ({ label })),
-      title: item.title,
-    };
-
-    if (existing.docs[0]) {
-      await payload.update({
-        collection: "portfolio",
-        id: existing.docs[0].id,
-        data,
-        overrideAccess: true,
-      });
-      continue;
-    }
-
-    await payload.create({
-      collection: "portfolio",
-      data: {
-        ...data,
-        slug: item.slug,
-      },
-      overrideAccess: true,
-    });
-  }
 }
 
 async function upsertPosts(payload: Awaited<ReturnType<typeof getPayload>>) {
@@ -368,7 +250,6 @@ async function main() {
   const payload = await getPayload({ config });
 
   try {
-    await upsertPortfolio(payload);
     await upsertPosts(payload);
     await updateGlobals(payload);
     payload.logger.info("Content seed finished.");
