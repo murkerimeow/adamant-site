@@ -10,6 +10,10 @@ const legacyCatalogItemPaths: Record<string, string> = {
   timber: "/catalog/category/doma-iz-brusa",
 };
 
+const legacyServiceSlugs: Record<string, string> = {
+  "landshaftnij-dizayn": "landshaftnyy-dizayn",
+};
+
 export function getCatalogItemPath(item: {
   itemKey?: string | null;
   slug?: string | null;
@@ -45,5 +49,6 @@ export function getPortfolioItemPath(item: { slug?: string | null }) {
 }
 
 export function getServicePath(service: { slug?: string | null }) {
-  return service.slug ? `/services/${encodeURIComponent(service.slug)}` : "/services";
+  if (!service.slug) return "/services";
+  return `/services/${encodeURIComponent(legacyServiceSlugs[service.slug] ?? service.slug)}`;
 }

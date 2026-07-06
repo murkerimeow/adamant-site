@@ -4,7 +4,7 @@ export const SITE_URL = "https://adamant-stroy.com";
 export const SITE_NAME = "Адамант Строй";
 export const DEFAULT_DESCRIPTION =
   "Строительство загородных домов под ключ в Санкт-Петербурге и Ленинградской области.";
-export const DEFAULT_OG_IMAGE = "/home-main-2.png";
+export const DEFAULT_OG_IMAGE = "/og-preview.webp";
 
 type PageMetadataInput = {
   title: string;

@@ -4,6 +4,8 @@ import { DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/si
 
 import "./globals.css";
 
+const HOME_URL = `${SITE_URL}/`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -16,12 +18,12 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   alternates: {
-    canonical: SITE_URL,
+    canonical: HOME_URL,
   },
   openGraph: {
     title: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
-    url: SITE_URL,
+    url: HOME_URL,
     siteName: SITE_NAME,
     locale: "ru_RU",
     type: "website",
