@@ -90,8 +90,8 @@ function getSearchText(parts: Array<string | null | undefined>) {
   return parts.filter(Boolean).join(" ").toLowerCase();
 }
 
-function shouldShowCatalogItem(item: { landingCategory?: unknown; showInCatalog?: boolean | null }) {
-  return item.showInCatalog === true || Boolean(item.landingCategory);
+function shouldShowCatalogItem(item: { showInCatalog?: boolean | null }) {
+  return item.showInCatalog === true;
 }
 
 async function resolveCatalogContext(categorySlug?: string) {
