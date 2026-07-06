@@ -212,10 +212,6 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
           <figure className="catalog-category-hero">
             <img src={categoryImageUrl} alt={categoryImageAlt} loading="eager" decoding="async" />
           </figure>
-        ) : selectedCategory ? (
-          <div className="catalog-category-hero catalog-category-hero--placeholder">
-            Добавьте картинку посадочной страницы в Payload
-          </div>
         ) : null}
 
         <nav className="catalog-category-pills" aria-label="Категории проектов">
