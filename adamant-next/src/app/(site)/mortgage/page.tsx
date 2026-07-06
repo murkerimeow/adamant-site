@@ -210,8 +210,8 @@ export default async function MortgagePage() {
       <section className="section mortgage-redesign mortgage-redesign--compact" aria-labelledby="mortgage-title">
         <section className="mortgage-redesign__hero">
           <img
-            src="/mortgage-banner-new.png"
-            alt=""
+            src="/mortgage-banner-new.webp"
+            alt="Загородный дом для строительства в ипотеку"
             loading="eager"
             decoding="async"
             fetchPriority="high"
@@ -344,9 +344,8 @@ export default async function MortgagePage() {
             </label>
           </form>
           <img
-            src="/request-house.jpg"
-            alt=""
-            aria-hidden="true"
+            src="/request-house.webp"
+            alt="Современный загородный дом для ипотечной консультации"
             loading="lazy"
             decoding="async"
           />

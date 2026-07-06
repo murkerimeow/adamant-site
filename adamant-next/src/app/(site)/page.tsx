@@ -233,7 +233,7 @@ export default async function HomePage() {
   const homeHeroImageUrl =
     getMediaUrl(homePage.heroImage) ||
     getMediaUrl(homePage.heroImage, "card") ||
-    "/home-main-2.png";
+    "/home-main-2.webp";
   const videoReviews = reviews
     .map((review) => ({
       caption: review.caption?.trim() || review.text?.trim() || "",
@@ -293,7 +293,7 @@ export default async function HomePage() {
 
           <section className="home-about-stats" aria-labelledby="home-about-stats-title">
             <div className="home-about-stats__visual">
-              <img src="/main1.jpg" alt="Современный загородный дом компании АДАМАНТ Строй" />
+              <img src="/main1.webp" alt="Современный загородный дом компании АДАМАНТ Строй" />
               <div className="home-about-stats__socials">
                 <strong>Наши соцсети</strong>
                 <div aria-label="Социальные сети">
@@ -353,10 +353,10 @@ export default async function HomePage() {
                     <span>{stat.label}</span>
                     <img
                       src={stat.imageUrl || [
-                        "/500+.png",
-                        "/1 день.png",
-                        "/2000+.png",
-                        "/15 лет.png",
+                        "/stat-built-homes.webp",
+                        "/stat-estimate-day.webp",
+                        "/stat-happy-families.webp",
+                        "/stat-market-years.webp",
                       ][index]}
                       alt={stat.imageAlt || ""}
                       aria-hidden={stat.imageAlt ? undefined : "true"}
@@ -808,7 +808,7 @@ export default async function HomePage() {
 
             <div className="home-plot-lead__media">
               <img
-                src="/plot-selection.png"
+                src="/plot-selection.webp"
                 alt="Загородный участок для строительства дома"
                 loading="lazy"
                 decoding="async"

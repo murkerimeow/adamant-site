@@ -476,9 +476,8 @@ export default async function CatalogItemPage({
           </div>
           <img
             className="product-plot-lead__image"
-            src="/plot-selection.png"
-            alt=""
-            aria-hidden="true"
+            src="/plot-selection.webp"
+            alt="Модульный загородный дом на участке"
             loading="lazy"
             decoding="async"
           />
@@ -541,9 +540,8 @@ export default async function CatalogItemPage({
             </div>
           </div>
           <img
-            src="/mortgage-banner-new.png"
-            alt=""
-            aria-hidden="true"
+            src="/mortgage-banner-new.webp"
+            alt="Загородный дом для строительства в ипотеку"
             loading="lazy"
             decoding="async"
           />

@@ -8,7 +8,26 @@ import {
   REST_PUT,
 } from "@payloadcms/next/routes";
 
-export const GET = REST_GET(config);
+const payloadGet = REST_GET(config);
+
+export const GET = payloadGet;
+export const HEAD: typeof payloadGet = async (request, args) => {
+  const getResponse = await payloadGet(
+    new Request(request.url, {
+      headers: request.headers,
+      method: "GET",
+    }),
+    args,
+  );
+
+  await getResponse.body?.cancel().catch(() => undefined);
+
+  return new Response(null, {
+    headers: getResponse.headers,
+    status: getResponse.status,
+    statusText: getResponse.statusText,
+  });
+};
 export const POST = REST_POST(config);
 export const DELETE = REST_DELETE(config);
 export const PATCH = REST_PATCH(config);

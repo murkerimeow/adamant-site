@@ -205,7 +205,12 @@ export default async function AboutPage() {
               Подробнее о компании <span aria-hidden="true">→</span>
             </a>
           </div>
-          <img src="/дом из бруса.png" alt="" loading="lazy" decoding="async" />
+          <img
+            src="/dom-iz-brusa.webp"
+            alt="Загородный дом из бруса"
+            loading="lazy"
+            decoding="async"
+          />
         </section>
 
         <section className="about-redesign__approach" aria-labelledby="about-approach-title">
