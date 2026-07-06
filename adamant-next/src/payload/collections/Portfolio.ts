@@ -9,6 +9,10 @@ export const Portfolio: CollectionConfig = {
   admin: {
     defaultColumns: ["title", "catalogItem", "category", "order", "_status"],
     group: "Контент",
+    pagination: {
+      defaultLimit: 100,
+      limits: [10, 25, 50, 100],
+    },
     useAsTitle: "title",
   },
   access: {
