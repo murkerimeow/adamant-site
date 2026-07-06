@@ -17,8 +17,8 @@ export async function generateMetadata() {
   const aboutPage = await getAboutPage();
 
   return createPageMetadata({
-    title: aboutPage.seoTitle || "Заполните SEO Title в Payload",
-    description: aboutPage.seoDescription || "Заполните SEO Description в Payload",
+    title: aboutPage.seoTitle || aboutPage.title || "О компании Адамант Строй",
+    description: aboutPage.seoDescription || aboutPage.subtitle || undefined,
     path: "/about",
   });
 }
@@ -172,11 +172,11 @@ export default async function AboutPage() {
             <nav className="page-breadcrumbs" aria-label="Хлебные крошки">
               <Link href="/">Главная</Link>
               <span aria-hidden="true">/</span>
-              <span>{aboutPage.eyebrow || "Заполните плашку в Payload"}</span>
+              <span>{aboutPage.eyebrow || "О нас"}</span>
             </nav>
-            <span className="about-redesign__eyebrow">{aboutPage.eyebrow || "Заполните плашку в Payload"}</span>
-            <h1 id="about-title">{aboutPage.title || "Заполните заголовок в Payload"}</h1>
-            <p>{aboutPage.subtitle || "Заполните описание в Payload"}</p>
+            {aboutPage.eyebrow ? <span className="about-redesign__eyebrow">{aboutPage.eyebrow}</span> : null}
+            <h1 id="about-title">{aboutPage.title || "О компании Адамант Строй"}</h1>
+            {aboutPage.subtitle ? <p>{aboutPage.subtitle}</p> : null}
             <button className="js-open-message" type="button">
               Написать нам
             </button>
@@ -198,13 +198,9 @@ export default async function AboutPage() {
         <section className="about-redesign__story" aria-labelledby="about-story-title">
           <div>
             <h2 id="about-story-title">Наша история</h2>
-            {paragraphs.length ? (
-              paragraphs.slice(0, 3).map((paragraph, index) => (
-                <p key={`${index}-${paragraph.slice(0, 20)}`}>{paragraph}</p>
-              ))
-            ) : (
-              <p>Заполните историю компании в Payload.</p>
-            )}
+            {paragraphs.slice(0, 3).map((paragraph, index) => (
+              <p key={`${index}-${paragraph.slice(0, 20)}`}>{paragraph}</p>
+            ))}
             <a href="/contacts">
               Подробнее о компании <span aria-hidden="true">→</span>
             </a>
@@ -260,7 +256,7 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="about-redesign__team-track js-wheel-slider">
-            {team.length ? team.map((member) => {
+            {team.map((member) => {
               const avatarUrl =
                 "avatar" in member
                   ? getMediaUrl(member.avatar) || getMediaUrl(member.avatar, "thumb")
@@ -293,19 +289,7 @@ export default async function AboutPage() {
                 <p>{member.description}</p>
               </article>
               );
-            }) : (
-              <article className="about-redesign__team-empty">
-                <div className="about-redesign__avatar" aria-hidden="true">
-                  <span>?</span>
-                </div>
-                <h3>
-                  <span>Добавьте</span>
-                  <span>команду</span>
-                </h3>
-                <strong>Payload</strong>
-                <p>Создайте сотрудников в разделе команды.</p>
-              </article>
-            )}
+            })}
           </div>
         </section>
 

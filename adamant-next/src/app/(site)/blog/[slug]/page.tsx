@@ -32,7 +32,7 @@ export async function generateMetadata({
     description:
       post?.seoDescription ||
       post?.excerpt ||
-      "Заполните SEO Description в Payload",
+      undefined,
     index: post ? isIndexableLongFormText(post.content) : false,
     path: post ? `/blog/${post.slug}` : "/blog",
   });

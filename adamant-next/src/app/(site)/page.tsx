@@ -31,8 +31,8 @@ export async function generateMetadata() {
   const homePage = await getHomePage();
 
   return createPageMetadata({
-    title: homePage.seoTitle || "Заполните SEO Title в Payload",
-    description: homePage.seoDescription || "Заполните SEO Description в Payload",
+    title: homePage.seoTitle || homePage.heroTitle || "Строительство загородных домов под ключ | Адамант Строй",
+    description: homePage.seoDescription || homePage.heroDescription || undefined,
     path: "/",
   });
 }
@@ -874,19 +874,7 @@ export default async function HomePage() {
                       />
                     </article>
                   ))
-                : Array.from({ length: 4 }, (_, index) => (
-                    <article
-                      className="home-review-video-card home-review-video-card--placeholder"
-                      key={`review-placeholder-${index}`}
-                    >
-                      <div>
-                        <span className="home-review-video-card__play" aria-hidden="true">
-                          <span />
-                        </span>
-                        <small>Добавьте видеоотзыв в Payload</small>
-                      </div>
-                    </article>
-                  ))}
+                : null}
             </div>
             <Link
               className="home-mobile-section-link"

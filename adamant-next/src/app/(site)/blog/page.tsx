@@ -62,9 +62,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const blogPage = await getBlogPage();
 
   return createPageMetadata({
-    title: blogPage.seoTitle || blogPage.title || "Заполните SEO Title в Payload",
+    title: blogPage.seoTitle || blogPage.title || "Блог Адамант Строй",
     description:
-      blogPage.seoDescription || blogPage.subtitle || "Заполните SEO Description в Payload",
+      blogPage.seoDescription || blogPage.subtitle || "Материалы о строительстве, ремонте и загородных домах.",
     path: "/blog",
   });
 }
@@ -110,11 +110,9 @@ export default async function BlogPage() {
         <div className="blog-reviews">
           <div className="blog-reviews__copy">
             <div className="blog-reviews__headline">
-              <span className="section__kicker">
-                {blogPage.eyebrow || "Заполните плашку в Payload"}
-              </span>
-              <h1 id="blog-title">{blogPage.title || "Заполните заголовок в Payload"}</h1>
-              <p>{blogPage.subtitle || "Заполните описание в Payload"}</p>
+              {blogPage.eyebrow ? <span className="section__kicker">{blogPage.eyebrow}</span> : null}
+              <h1 id="blog-title">{blogPage.title || "Блог Адамант Строй"}</h1>
+              {blogPage.subtitle ? <p>{blogPage.subtitle}</p> : null}
             </div>
             <div className="blog-reviews__actions" aria-label="Навигация по видео">
               <button className="blog-reviews__all" type="button" data-video-stories-open>
@@ -149,9 +147,7 @@ export default async function BlogPage() {
                       />
                     ) : video.image ? (
                       <img src={video.image} alt={video.title} loading="lazy" decoding="async" />
-                    ) : (
-                      <span>Добавьте обложку видео в Payload</span>
-                    )}
+                    ) : null}
                     <span className="review-video-card__brand">
                       <span>Адамант Строй</span>
                       <strong>{video.label}</strong>
@@ -162,11 +158,7 @@ export default async function BlogPage() {
                   </button>
                 </article>
               ))
-            ) : (
-              <div className="review-video-card review-video-card--placeholder">
-                Добавьте видео в Payload
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>

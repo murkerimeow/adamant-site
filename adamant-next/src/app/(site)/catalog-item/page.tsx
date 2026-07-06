@@ -177,7 +177,7 @@ export async function generateMetadata({
       item.seoDescription ||
       item.cardSummary ||
       item.description ||
-      "Заполните SEO Description в Payload",
+      undefined,
     path: getCatalogItemCanonical(item),
   });
 }
@@ -331,11 +331,7 @@ export default async function CatalogItemPage({
             ) : null}
             {galleryImages.length ? (
               <ProductGallery images={galleryImages} title={item.title} />
-            ) : (
-              <div className="product-gallery product-gallery--placeholder">
-                Добавьте фотографии проекта в Payload
-              </div>
-            )}
+            ) : null}
           </div>
 
           <aside className="product-hero-info">
@@ -575,11 +571,7 @@ export default async function CatalogItemPage({
                         loading="lazy"
                         decoding="async"
                       />
-                    ) : (
-                      <span className="product-related-card__placeholder">
-                        Добавьте фото в Payload
-                      </span>
-                    )}
+                    ) : null}
                     <div>
                       <h3>{related.title}</h3>
                       {relatedDescription ? <p>{relatedDescription}</p> : null}
