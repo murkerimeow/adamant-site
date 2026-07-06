@@ -811,21 +811,33 @@ export async function getHeaderCatalogCategories() {
 
   try {
     const payload = (await getPayloadClient()) as unknown as CatalogCategoriesCollectionClient;
-    const result = await payload.find({
-      collection: "catalog-categories",
-      depth: 0,
-      draft: false,
-      limit: 100,
-      overrideAccess: true,
-      sort: "order",
-      where: {
-        showInHeader: {
-          equals: true,
+    const [categoryResult, catalogItems] = await Promise.all([
+      payload.find({
+        collection: "catalog-categories",
+        depth: 0,
+        draft: false,
+        limit: 100,
+        overrideAccess: true,
+        sort: "order",
+        where: {
+          showInHeader: {
+            equals: true,
+          },
         },
-      },
-    });
+      }),
+      getCatalogItems(),
+    ]);
 
-    return result.docs;
+    const populatedCategorySlugs = new Set(
+      catalogItems
+        .filter((item) => item.showInCatalog === true)
+        .map(getCatalogLandingCategorySlug)
+        .filter(Boolean),
+    );
+
+    return categoryResult.docs.filter((category) =>
+      populatedCategorySlugs.has(category.slug),
+    );
   } catch {
     return [];
   }
