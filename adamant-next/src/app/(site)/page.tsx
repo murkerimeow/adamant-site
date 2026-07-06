@@ -288,6 +288,7 @@ export default async function HomePage() {
                 className="visual-panel__image visual-panel__image--lit"
                 src={homeHeroImageUrl}
                 alt=""
+                aria-hidden="true"
                 loading="eager"
                 decoding="async"
               />
