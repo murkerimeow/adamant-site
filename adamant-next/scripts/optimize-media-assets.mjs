@@ -6,8 +6,10 @@ import sharp from "sharp";
 
 const databaseUrl = process.env.DATABASE_URI ?? "file:adamant.db";
 const mediaDir = path.resolve(process.cwd(), "media");
-const webpOptions = { effort: 6, quality: 82 };
 const dryRun = process.argv.includes("--dry-run");
+const webpQuality = Number(process.env.MEDIA_WEBP_QUALITY ?? 76);
+const optimizedMarker = `optimized-q${webpQuality}`;
+const webpOptions = { effort: 6, quality: webpQuality };
 const webpRecompressMinBytes = Number(
   process.env.MEDIA_WEBP_RECOMPRESS_MIN_BYTES ?? 300000,
 );
@@ -24,7 +26,7 @@ function isWebp(filename, mimeType) {
 }
 
 function isAlreadyOptimizedWebp(filename) {
-  return /(?:^|-)optimized(?:-|$)/i.test(path.parse(filename || "").name);
+  return path.parse(filename || "").name.includes(optimizedMarker);
 }
 
 function shouldOptimizeImage(filename, mimeType, filesize) {
@@ -67,7 +69,11 @@ async function makeUniqueOutputPath(baseName) {
 
 function outputBaseName(filename, id, label) {
   const parsed = path.parse(filename);
-  const safeStem = parsed.name
+  const cleanName = parsed.name.replace(
+    new RegExp(`-${id}(?:-${label})?-optimized(?:-q\\d+)?$`, "i"),
+    "",
+  );
+  const safeStem = cleanName
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
@@ -75,7 +81,7 @@ function outputBaseName(filename, id, label) {
   const stem = safeStem || "media";
   const suffix = label ? `-${label}` : "";
 
-  return `${stem}-${id}${suffix}-optimized.webp`;
+  return `${stem}-${id}${suffix}-${optimizedMarker}.webp`;
 }
 
 async function convertFile({ filename, id, label }) {
