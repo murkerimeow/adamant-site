@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
@@ -44,6 +45,12 @@ function textOrEmpty(value?: string | null) {
   return normalized || "";
 }
 
+function getPopulatedPortfolioCategorySlugs(
+  items: Awaited<ReturnType<typeof getPortfolioItems>>,
+) {
+  return new Set(items.map(getPortfolioCategorySlug).filter(Boolean));
+}
+
 async function resolvePortfolioContext(categorySlug?: string) {
   const [siteSettings, portfolioPage, portfolioItems, portfolioCategories, selectedCategory] =
     await Promise.all([
@@ -64,6 +71,7 @@ async function resolvePortfolioContext(categorySlug?: string) {
 
   return {
     items,
+    portfolioItems,
     portfolioCategories,
     portfolioPage,
     selectedCategory,
@@ -88,7 +96,10 @@ export async function generatePortfolioMetadata(): Promise<Metadata> {
 export async function generatePortfolioCategoryMetadata(
   categorySlug: string,
 ): Promise<Metadata> {
-  const category = await getPortfolioCategoryBySlug(categorySlug);
+  const [category, portfolioItems] = await Promise.all([
+    getPortfolioCategoryBySlug(categorySlug),
+    getPortfolioItems(),
+  ]);
 
   if (!category) {
     return createPageMetadata({
@@ -99,6 +110,8 @@ export async function generatePortfolioCategoryMetadata(
     });
   }
 
+  const populatedCategorySlugs = getPopulatedPortfolioCategorySlugs(portfolioItems);
+
   return createPageMetadata({
     title: pickSeoTitle(
       DEFAULT_META_TITLE,
@@ -107,6 +120,7 @@ export async function generatePortfolioCategoryMetadata(
       category.title,
     ),
     description: getCategoryMetaDescription(category),
+    index: populatedCategorySlugs.has(category.slug),
     path: getPortfolioCategoryPath(category),
   });
 }
@@ -116,7 +130,7 @@ type PortfolioListingPageProps = {
 };
 
 export async function PortfolioListingPage({ categorySlug }: PortfolioListingPageProps = {}) {
-  const { items, portfolioCategories, portfolioPage, selectedCategory, siteSettings } =
+  const { items, portfolioCategories, portfolioItems, portfolioPage, selectedCategory, siteSettings } =
     await resolvePortfolioContext(categorySlug);
 
   const pageEyebrow = selectedCategory?.title ?? portfolioPage.eyebrow;
@@ -130,6 +144,10 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
     getMediaUrl(selectedCategory?.heroImage, "card") ||
     getMediaUrl(selectedCategory?.heroImage);
   const categoryImageAlt = getMediaAlt(selectedCategory?.heroImage, pageTitle);
+  const populatedCategorySlugs = getPopulatedPortfolioCategorySlugs(portfolioItems);
+  const visiblePortfolioCategories = portfolioCategories.filter((category) =>
+    populatedCategorySlugs.has(category.slug),
+  );
 
   return (
     <main className="page inner-page portfolio-page" aria-label="Портфолио Адамант">
@@ -149,13 +167,13 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
         ) : null}
 
         <nav className="catalog-category-pills" aria-label="Категории портфолио">
-          <a
+          <Link
             className={`catalog-category-pill${!selectedCategory ? " is-active" : ""}`}
             href="/portfolio"
           >
             Все
-          </a>
-          {portfolioCategories.map((category) => (
+          </Link>
+          {visiblePortfolioCategories.map((category) => (
             <a
               key={category.id}
               className={`catalog-category-pill${

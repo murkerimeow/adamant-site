@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
@@ -94,6 +95,17 @@ function shouldShowCatalogItem(item: { showInCatalog?: boolean | null }) {
   return item.showInCatalog === true;
 }
 
+function getPopulatedCatalogCategorySlugs(
+  items: Awaited<ReturnType<typeof getCatalogItems>>,
+) {
+  return new Set(
+    items
+      .filter(shouldShowCatalogItem)
+      .map(getCatalogLandingCategorySlug)
+      .filter(Boolean),
+  );
+}
+
 async function resolveCatalogContext(categorySlug?: string) {
   const [siteSettings, catalogPage, catalogItems, catalogCategories, selectedCategory] =
     await Promise.all([
@@ -141,7 +153,10 @@ export async function generateCatalogMetadata(): Promise<Metadata> {
 export async function generateCatalogCategoryMetadata(
   categorySlug: string,
 ): Promise<Metadata> {
-  const category = await getCatalogCategoryBySlug(categorySlug);
+  const [category, catalogItems] = await Promise.all([
+    getCatalogCategoryBySlug(categorySlug),
+    getCatalogItems(),
+  ]);
 
   if (!category) {
     return createPageMetadata({
@@ -151,6 +166,8 @@ export async function generateCatalogCategoryMetadata(
       path: `/catalog/category/${categorySlug}`,
     });
   }
+
+  const populatedCategorySlugs = getPopulatedCatalogCategorySlugs(catalogItems);
 
   return createPageMetadata({
     title: pickSeoTitle(
@@ -164,6 +181,7 @@ export async function generateCatalogCategoryMetadata(
       category.seoDescription,
       category.description,
     ),
+    index: populatedCategorySlugs.has(category.slug),
     path: getCatalogCategoryPath(category),
   });
 }
@@ -173,7 +191,7 @@ type CatalogListingPageProps = {
 };
 
 export async function CatalogListingPage({ categorySlug }: CatalogListingPageProps = {}) {
-  const { catalogCategories, catalogPage, items, selectedCategory, siteSettings } =
+  const { catalogCategories, catalogItems, catalogPage, items, selectedCategory, siteSettings } =
     await resolveCatalogContext(categorySlug);
 
   const prices = items
@@ -193,12 +211,15 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
     getMediaUrl(selectedCategory?.heroImage, "card") ||
     getMediaUrl(selectedCategory?.heroImage);
   const categoryImageAlt = getMediaAlt(selectedCategory?.heroImage, pageTitle);
+  const populatedCategorySlugs = getPopulatedCatalogCategorySlugs(catalogItems);
   const projectCategoryLinks = catalogCategories.length
-    ? catalogCategories.map((category) => ({
-        href: getCatalogCategoryPath(category),
-        slug: category.slug,
-        title: category.title,
-      }))
+    ? catalogCategories
+        .filter((category) => populatedCategorySlugs.has(category.slug))
+        .map((category) => ({
+          href: getCatalogCategoryPath(category),
+          slug: category.slug,
+          title: category.title,
+        }))
     : PROJECT_CATEGORY_LINKS.map((category) => ({
         ...category,
         href: `/catalog/category/${encodeURIComponent(category.slug)}`,
@@ -228,13 +249,13 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
         ) : null}
 
         <nav className="catalog-category-pills" aria-label="Категории проектов">
-          <a
+          <Link
             className={`catalog-category-pill${!selectedCategory ? " is-active" : ""}`}
             href="/catalog"
             data-catalog-category-pill="all"
           >
             Все
-          </a>
+          </Link>
           {projectCategoryLinks.map((category) => (
             <a
               key={category.slug}
