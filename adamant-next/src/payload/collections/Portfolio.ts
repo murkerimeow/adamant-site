@@ -119,7 +119,7 @@ export const Portfolio: CollectionConfig = {
           required: true,
         },
       ],
-      maxRows: 40,
+      maxRows: 100,
     },
     {
       name: "summary",
