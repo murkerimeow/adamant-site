@@ -11,7 +11,7 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getServicePath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 
 type ServiceSlugPageProps = {
   params: Promise<{
@@ -58,6 +58,17 @@ const landscapeSteps = [
 
 export const dynamic = "force-dynamic";
 
+const SERVICE_META_DESCRIPTIONS: Record<string, string> = {
+  "dizajn-interjera":
+    "Разрабатываем дизайн интерьера для квартир и домов: планировка, визуализации, подбор материалов, мебели и сопровождение реализации.",
+  "ipoteka-na-stroitelstvo-doma":
+    "Помогаем оформить ипотеку на строительство дома: подбираем программу, консультируем по документам, смете и этапам строительства.",
+  "landshaftnyy-dizayn":
+    "Проектируем ландшафтный дизайн участка: дорожки, зоны отдыха, освещение, посадки, дренаж и решения, удобные для ежедневного ухода.",
+  "podbor-uchastka":
+    "Помогаем подобрать участок под строительство дома в Санкт-Петербурге и Ленинградской области: проверяем локацию, коммуникации и ограничения.",
+};
+
 function normalizeSlug(slug: string) {
   try {
     return decodeURIComponent(slug);
@@ -93,9 +104,17 @@ export async function generateMetadata({ params }: ServiceSlugPageProps) {
     });
   }
 
+  const fallbackDescription =
+    SERVICE_META_DESCRIPTIONS[service.slug] ||
+    `Услуга ${service.title} от АДАМАНТ Строй: консультация, подбор решений, расчет стоимости и сопровождение работ в Санкт-Петербурге и Ленинградской области.`;
+
   return createPageMetadata({
-    title: `${service.title} | АДАМАНТ Строй`,
-    description: service.description || service.shortDescription,
+    title: pickSeoTitle(`${service.title} | АДАМАНТ Строй`),
+    description: pickSeoDescription(
+      fallbackDescription,
+      service.shortDescription,
+      service.description,
+    ),
     path: getServicePath(service),
   });
 }

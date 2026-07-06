@@ -21,29 +21,29 @@ import { HomeProjectCategories } from "@/site/components/HomeProjectCategories";
 import { HomePortfolioCategories } from "@/site/components/HomePortfolioCategories";
 import { formatProjectPrice, getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogItemPath, getPortfolioItemPath, getServicePath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
+const HOME_META_TITLE = "Строительство домов под ключ в СПб | АДАМАНТ Строй";
+const HOME_META_DESCRIPTION =
+  "Строим загородные дома под ключ в Санкт-Петербурге и Ленинградской области: проекты, смета, контроль сроков и гарантия работ.";
+
 export async function generateMetadata() {
   const homePage = await getHomePage();
 
   return createPageMetadata({
-    title: homePage.seoTitle || homePage.heroTitle || "Строительство загородных домов под ключ | Адамант Строй",
-    description: homePage.seoDescription || homePage.heroDescription || undefined,
+    title: pickSeoTitle(HOME_META_TITLE, homePage.seoTitle, homePage.heroTitle),
+    description: pickSeoDescription(
+      HOME_META_DESCRIPTION,
+      homePage.seoDescription,
+      homePage.heroDescription,
+    ),
     path: "/",
   });
 }
-
-const servicePrices: Record<string, string> = {
-  "Дом из бруса": "от 5 000 000 ₽",
-  "Дом из газобетона": "от 6 500 000 ₽",
-  "Каркасный дом": "от 4 500 000 ₽",
-  "Отделка коммерческого помещения": "от 2 000 000 ₽",
-  "Ремонт квартир": "от 1 500 000 ₽",
-};
 
 const processSteps = [
   {
@@ -276,7 +276,10 @@ export default async function HomePage() {
               <img
                 className="visual-panel__image visual-panel__image--base"
                 src={homeHeroImageUrl}
-                alt=""
+                alt={getMediaAlt(
+                  homePage.heroImage,
+                  homePage.heroTitle || "Строительство домов под ключ",
+                )}
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
@@ -940,8 +943,8 @@ export default async function HomePage() {
             </div>
             <img
               className="home-social-banner__image"
-              src="/social-banner.webp?v=20260704-social"
-              alt=""
+              src="/social-banner.webp"
+              alt="Подписывайтесь на социальные сети АДАМАНТ Строй"
               loading="lazy"
               decoding="async"
             />

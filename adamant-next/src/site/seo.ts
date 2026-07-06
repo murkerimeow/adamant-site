@@ -6,6 +6,10 @@ export const DEFAULT_DESCRIPTION =
   "Строительство загородных домов под ключ в Санкт-Петербурге и Ленинградской области.";
 export const DEFAULT_OG_IMAGE = "/og-preview.webp";
 
+const SEO_TITLE_MAX_LENGTH = 70;
+const SEO_DESCRIPTION_MIN_LENGTH = 80;
+const SEO_DESCRIPTION_MAX_LENGTH = 170;
+
 type PageMetadataInput = {
   title: string;
   description?: string;
@@ -61,6 +65,43 @@ export function createPageMetadata({
       images: [DEFAULT_OG_IMAGE],
     },
   };
+}
+
+function normalizeSeoText(value?: string | null) {
+  return value?.replace(/\s+/g, " ").trim() || "";
+}
+
+export function pickSeoTitle(
+  fallback: string,
+  ...candidates: Array<string | null | undefined>
+) {
+  const values = [...candidates, fallback]
+    .map(normalizeSeoText)
+    .filter(Boolean);
+
+  return (
+    values.find((value) => value.length <= SEO_TITLE_MAX_LENGTH) ||
+    normalizeSeoText(fallback)
+  );
+}
+
+export function pickSeoDescription(
+  fallback: string,
+  ...candidates: Array<string | null | undefined>
+) {
+  const values = [...candidates, fallback]
+    .map(normalizeSeoText)
+    .filter(Boolean);
+
+  return (
+    values.find(
+      (value) =>
+        value.length >= SEO_DESCRIPTION_MIN_LENGTH &&
+        value.length <= SEO_DESCRIPTION_MAX_LENGTH,
+    ) ||
+    values.find((value) => value.length <= SEO_DESCRIPTION_MAX_LENGTH) ||
+    normalizeSeoText(fallback)
+  );
 }
 
 export function isIndexableLongFormText(text?: string | null) {

@@ -1,17 +1,29 @@
 import { getMediaAlt, getMediaUrl, getServices, getServicesPage, getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getServicePath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+const SERVICES_META_TITLE = "Услуги строительства и ремонта | АДАМАНТ Строй";
+const SERVICES_META_DESCRIPTION =
+  "Строительство загородных домов, ремонт, отделка, дизайн интерьера и подбор участка в Санкт-Петербурге и Ленинградской области.";
 
 export async function generateMetadata() {
   const servicesPage = await getServicesPage();
 
   return createPageMetadata({
-    title: servicesPage.seoTitle || servicesPage.title || "Услуги Адамант Строй",
-    description: servicesPage.seoDescription || servicesPage.subtitle || undefined,
+    title: pickSeoTitle(
+      SERVICES_META_TITLE,
+      servicesPage.seoTitle,
+      servicesPage.title,
+    ),
+    description: pickSeoDescription(
+      SERVICES_META_DESCRIPTION,
+      servicesPage.seoDescription,
+      servicesPage.subtitle,
+    ),
     path: "/services",
   });
 }

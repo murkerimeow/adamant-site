@@ -5,19 +5,24 @@ import {
   getWorkingHoursParts,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
 
 export const dynamic = "force-dynamic";
+
+const CONTACTS_META_TITLE = "Контакты | АДАМАНТ Строй";
+const CONTACTS_META_DESCRIPTION =
+  "Свяжитесь с АДАМАНТ Строй: телефон, email, адрес офиса и реквизиты компании для строительства загородных домов в Санкт-Петербурге и области.";
 
 export async function generateMetadata() {
   const contactsPage = await getContactsPage();
 
   return createPageMetadata({
-    title: contactsPage.seoTitle || "Контакты Адамант Строй",
-    description:
-      contactsPage.seoDescription ||
-      "Контакты строительной компании Адамант Строй в Санкт-Петербурге.",
+    title: pickSeoTitle(CONTACTS_META_TITLE, contactsPage.seoTitle),
+    description: pickSeoDescription(
+      CONTACTS_META_DESCRIPTION,
+      contactsPage.seoDescription,
+    ),
     path: "/contacts",
   });
 }

@@ -20,7 +20,7 @@ import {
 import { PortfolioGallery } from "@/site/components/PortfolioGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
-import { createPageMetadata, SITE_NAME } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -35,11 +35,22 @@ export async function generateMetadata({
   const item = await getPortfolioItemBySlug(slug);
 
   return createPageMetadata({
-    title: item ? item.seoTitle || `${item.title} | ${SITE_NAME}` : `Портфолио | ${SITE_NAME}`,
-    description:
-      item?.seoDescription ||
-      item?.summary ||
-      undefined,
+    title: item
+      ? pickSeoTitle(
+          `Портфолио | ${SITE_NAME}`,
+          item.seoTitle,
+          `${item.title} | ${SITE_NAME}`,
+          item.title,
+        )
+      : `Портфолио | ${SITE_NAME}`,
+    description: item
+      ? pickSeoDescription(
+          item.summary || `Проект из портфолио АДАМАНТ Строй: ${item.title}.`,
+          item.seoDescription,
+          item.summary,
+          item.description,
+        )
+      : undefined,
     index: Boolean(item),
     path: item ? getPortfolioItemPath(item) : "/portfolio",
   });

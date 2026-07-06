@@ -8,17 +8,25 @@ import {
   splitParagraphs,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+const ABOUT_META_TITLE = "О компании | АДАМАНТ Строй";
+const ABOUT_META_DESCRIPTION =
+  "АДАМАНТ Строй проектирует и строит частные дома под ключ в Санкт-Петербурге и Ленинградской области, контролируя сроки, смету и качество работ.";
 
 export async function generateMetadata() {
   const aboutPage = await getAboutPage();
 
   return createPageMetadata({
-    title: aboutPage.seoTitle || aboutPage.title || "О компании Адамант Строй",
-    description: aboutPage.seoDescription || aboutPage.subtitle || undefined,
+    title: pickSeoTitle(ABOUT_META_TITLE, aboutPage.seoTitle, aboutPage.title),
+    description: pickSeoDescription(
+      ABOUT_META_DESCRIPTION,
+      aboutPage.seoDescription,
+      aboutPage.subtitle,
+    ),
     path: "/about",
   });
 }
@@ -163,7 +171,7 @@ export default async function AboutPage() {
         <div className="about-redesign__hero">
           <img
             src={heroImageUrl}
-            alt=""
+            alt={getMediaAlt(aboutPage.heroImage, aboutPage.title || "О компании АДАМАНТ Строй")}
             loading="eager"
             decoding="async"
             fetchPriority="high"

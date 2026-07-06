@@ -16,7 +16,7 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogCategoryPath, getCatalogItemPath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -128,8 +128,12 @@ export async function generateCatalogMetadata(): Promise<Metadata> {
   const catalogPage = await getCatalogPage();
 
   return createPageMetadata({
-    title: catalogPage.seoTitle || catalogPage.title || DEFAULT_META_TITLE,
-    description: catalogPage.seoDescription || catalogPage.subtitle || DEFAULT_META_DESCRIPTION,
+    title: pickSeoTitle(DEFAULT_META_TITLE, catalogPage.seoTitle, catalogPage.title),
+    description: pickSeoDescription(
+      DEFAULT_META_DESCRIPTION,
+      catalogPage.seoDescription,
+      catalogPage.subtitle,
+    ),
     path: "/catalog",
   });
 }
@@ -149,8 +153,17 @@ export async function generateCatalogCategoryMetadata(
   }
 
   return createPageMetadata({
-    title: category.seoTitle || category.h1 || category.title || DEFAULT_META_TITLE,
-    description: category.seoDescription || category.description || DEFAULT_META_DESCRIPTION,
+    title: pickSeoTitle(
+      DEFAULT_META_TITLE,
+      category.seoTitle,
+      category.h1,
+      category.title,
+    ),
+    description: pickSeoDescription(
+      DEFAULT_META_DESCRIPTION,
+      category.seoDescription,
+      category.description,
+    ),
     path: getCatalogCategoryPath(category),
   });
 }
