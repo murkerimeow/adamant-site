@@ -497,14 +497,14 @@ export default async function CatalogItemPage({
             />
             <div className="product-tour-card">
               <div className="product-tour-card__copy">
-                <h2 id="product-tour-title">3D обзор каркасного дома</h2>
+                <h2 id="product-tour-title">3D-обзор каркасного дома</h2>
                 <p>
                   Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
                 </p>
               </div>
               <div className="product-tour-card__media">
                 {createElement("model-viewer", {
-                  alt: `3D модель проекта ${item.title}`,
+                  alt: `3D-модель проекта ${item.title}`,
                   "auto-rotate": true,
                   "camera-controls": true,
                   "camera-orbit": "35deg 64deg 105%",

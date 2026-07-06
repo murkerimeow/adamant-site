@@ -230,7 +230,7 @@ export default async function MortgagePage() {
         </section>
 
         <section className="mortgage-redesign__section mortgage-redesign__banks" aria-labelledby="mortgage-banks-title">
-          <h2 id="mortgage-banks-title">Банки партнеры</h2>
+          <h2 id="mortgage-banks-title">Банки-партнеры</h2>
           <div>
             <article className="mortgage-redesign__bank mortgage-redesign__bank--sber">
               <BankLogo bank="sber" />

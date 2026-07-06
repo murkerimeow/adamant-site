@@ -255,7 +255,7 @@ export const Catalog: CollectionConfig = {
       admin: {
         description: "Загрузите GLB/GLTF модель дома для интерактивного 3D-просмотра в карточке проекта.",
       },
-      label: "3D модель дома (GLB/GLTF)",
+      label: "3D-модель дома (GLB/GLTF)",
       relationTo: "media",
     },
     {
