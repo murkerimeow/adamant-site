@@ -20,9 +20,9 @@ import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_META_TITLE = "Заполните SEO Title в Payload";
-const DEFAULT_META_DESCRIPTION = "Заполните SEO Description в Payload";
-const PAGE_PLACEHOLDER = "Заполните этот блок в Payload";
+const DEFAULT_META_TITLE = "Проекты загородных домов | Адамант Строй";
+const DEFAULT_META_DESCRIPTION =
+  "Каталог проектов загородных домов для строительства под ключ в Санкт-Петербурге и Ленинградской области.";
 
 const PROJECT_CATEGORY_LINKS = [
   { title: "Каркасные дома", slug: "karkasnye-doma" },
@@ -33,9 +33,9 @@ const PROJECT_CATEGORY_LINKS = [
   { title: "Бани и сауны", slug: "bani" },
 ] as const;
 
-function textOrPlaceholder(value?: string | null, placeholder = PAGE_PLACEHOLDER) {
+function textOrEmpty(value?: string | null) {
   const normalized = value?.trim();
-  return normalized || placeholder;
+  return normalized || "";
 }
 
 function formatPrice(value: number) {
@@ -169,11 +169,11 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
   const minCatalogPrice = prices.length ? Math.min(...prices) : 0;
   const maxCatalogPrice = prices.length ? Math.max(...prices) : 0;
   const rangeMax = maxCatalogPrice > minCatalogPrice ? maxCatalogPrice : minCatalogPrice + 1;
-  const pageEyebrow = textOrPlaceholder(selectedCategory?.title ?? catalogPage.eyebrow);
-  const pageTitle = textOrPlaceholder(
+  const pageEyebrow = textOrEmpty(selectedCategory?.title ?? catalogPage.eyebrow);
+  const pageTitle = textOrEmpty(
     selectedCategory?.h1 ?? selectedCategory?.title ?? catalogPage.title,
-  );
-  const pageSubtitle = textOrPlaceholder(
+  ) || "Проекты компании “АДАМАНТ Строй”";
+  const pageSubtitle = textOrEmpty(
     selectedCategory?.description ?? catalogPage.subtitle,
   );
   const categoryImageUrl =
@@ -205,7 +205,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
           <h1 id="catalog-title">
             {selectedCategory ? pageTitle : "Проекты компании “АДАМАНТ Строй”"}
           </h1>
-          {selectedCategory ? <p>{pageSubtitle}</p> : null}
+          {selectedCategory && pageSubtitle ? <p>{pageSubtitle}</p> : null}
         </div>
 
         {categoryImageUrl ? (
@@ -415,11 +415,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                     loading="lazy"
                     decoding="async"
                   />
-                ) : (
-                  <div className="catalog-project-card__background-placeholder">
-                    Добавьте изображение в Payload
-                  </div>
-                )}
+                ) : null}
                 {nightSrc ? (
                   <img
                     className="catalog-project-card__background catalog-project-card__background--night"
@@ -433,9 +429,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
 
                 <div className="listing-card__body catalog-project-card__content-overlay">
                   <h2>{item.title}</h2>
-                  <p className="listing-card__description">
-                    {description || "Добавьте описание карточки в Payload"}
-                  </p>
+                  {description ? <p className="listing-card__description">{description}</p> : null}
                   <ul className="listing-card__specs" aria-label="Характеристики проекта">
                     <li className="listing-card__spec listing-card__spec--area">
                       <span className="listing-card__spec-icon" aria-hidden="true">

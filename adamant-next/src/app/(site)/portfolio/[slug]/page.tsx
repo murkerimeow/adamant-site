@@ -39,7 +39,7 @@ export async function generateMetadata({
     description:
       item?.seoDescription ||
       item?.summary ||
-      "Заполните SEO Description в Payload",
+      undefined,
     index: Boolean(item),
     path: item ? getPortfolioItemPath(item) : "/portfolio",
   });

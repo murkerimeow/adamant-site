@@ -17,14 +17,14 @@ import { createPageMetadata } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_META_TITLE = "Заполните SEO Title в Payload";
-const DEFAULT_META_DESCRIPTION = "Заполните SEO Description в Payload";
-const PAGE_PLACEHOLDER = "Заполните этот блок в Payload";
+const DEFAULT_META_TITLE = "Портфолио строительных работ | Адамант Строй";
+const DEFAULT_META_DESCRIPTION =
+  "Реализованные проекты Адамант Строй: построенные дома, коммерческие объекты, ремонт и отделка.";
 
-function textOrPlaceholder(value?: string | null, placeholder = PAGE_PLACEHOLDER) {
+function textOrEmpty(value?: string | null) {
   const normalized = value?.trim();
 
-  return normalized || placeholder;
+  return normalized || "";
 }
 
 async function resolvePortfolioContext(categorySlug?: string) {
@@ -94,10 +94,10 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
     await resolvePortfolioContext(categorySlug);
 
   const pageEyebrow = selectedCategory?.title ?? portfolioPage.eyebrow;
-  const pageTitle = textOrPlaceholder(
+  const pageTitle = textOrEmpty(
     selectedCategory?.h1 ?? selectedCategory?.title ?? portfolioPage.title,
-  );
-  const pageSubtitle = textOrPlaceholder(
+  ) || "Портфолио Адамант Строй";
+  const pageSubtitle = textOrEmpty(
     selectedCategory?.description ?? portfolioPage.subtitle,
   );
   const categoryImageUrl =
@@ -113,17 +113,13 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
         <div className="section__intro section__intro--page section__intro--projects">
           {selectedCategory ? <span className="section__kicker">{pageEyebrow}</span> : null}
           <h1 id="portfolio-title">{pageTitle}</h1>
-          <p>{pageSubtitle}</p>
+          {pageSubtitle ? <p>{pageSubtitle}</p> : null}
         </div>
 
         {categoryImageUrl ? (
           <figure className="catalog-category-hero">
             <img src={categoryImageUrl} alt={categoryImageAlt} loading="eager" decoding="async" />
           </figure>
-        ) : selectedCategory ? (
-          <div className="catalog-category-hero catalog-category-hero--placeholder">
-            Добавьте картинку посадочной страницы в Payload
-          </div>
         ) : null}
 
         <nav className="catalog-category-pills" aria-label="Категории портфолио">

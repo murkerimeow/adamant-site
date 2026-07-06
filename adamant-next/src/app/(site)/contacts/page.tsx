@@ -14,8 +14,10 @@ export async function generateMetadata() {
   const contactsPage = await getContactsPage();
 
   return createPageMetadata({
-    title: contactsPage.seoTitle || "Заполните SEO Title в Payload",
-    description: contactsPage.seoDescription || "Заполните SEO Description в Payload",
+    title: contactsPage.seoTitle || "Контакты Адамант Строй",
+    description:
+      contactsPage.seoDescription ||
+      "Контакты строительной компании Адамант Строй в Санкт-Петербурге.",
     path: "/contacts",
   });
 }

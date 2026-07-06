@@ -10,8 +10,8 @@ export async function generateMetadata() {
   const servicesPage = await getServicesPage();
 
   return createPageMetadata({
-    title: servicesPage.seoTitle || "Заполните SEO Title в Payload",
-    description: servicesPage.seoDescription || "Заполните SEO Description в Payload",
+    title: servicesPage.seoTitle || servicesPage.title || "Услуги Адамант Строй",
+    description: servicesPage.seoDescription || servicesPage.subtitle || undefined,
     path: "/services",
   });
 }
@@ -300,9 +300,7 @@ export default async function ServicesPage() {
                   >
                     {card.image ? (
                       <img src={card.image} alt={card.imageAlt} loading="lazy" decoding="async" />
-                    ) : (
-                      <span className="services-catalog-card__empty">Добавьте фото услуги в Payload</span>
-                    )}
+                    ) : null}
                   </Link>
                   <div className="services-catalog-card__content home-cycle-card__body">
                     <h3>{card.title}</h3>
@@ -318,9 +316,7 @@ export default async function ServicesPage() {
                   </div>
                 </article>
               );
-            }) : (
-              <div className="services-catalog-empty">Добавьте услуги в Payload</div>
-            )}
+            }) : null}
           </div>
         </section>
 
