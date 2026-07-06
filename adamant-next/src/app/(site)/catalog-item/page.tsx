@@ -561,7 +561,7 @@ export default async function CatalogItemPage({
                 const href = getCatalogItemPath(related);
                 const relatedMeta = getCatalogCardMeta(related);
                 const relatedCoverMedia = getCatalogCoverMedia(related);
-                const relatedTags = related.tags?.slice(0, 3).map((tag) => tag.label).join(" · ");
+                const relatedDescription = related.cardSummary || related.description || "";
                 const relatedImage =
                   getMediaUrl(relatedCoverMedia, "card") ||
                   getMediaUrl(relatedCoverMedia);
@@ -582,7 +582,7 @@ export default async function CatalogItemPage({
                     )}
                     <div>
                       <h3>{related.title}</h3>
-                      <p>{relatedTags || "Современный проект под ключ"}</p>
+                      {relatedDescription ? <p>{relatedDescription}</p> : null}
                       <strong>от {formatProjectPrice(relatedMeta.price)} ₽</strong>
                     </div>
                     <a href={href} aria-label={`Смотреть проект ${related.title}`}>Подробнее</a>
