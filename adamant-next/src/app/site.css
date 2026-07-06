@@ -31363,3 +31363,41 @@ body:has(.contacts-page),
     border-radius: 18px;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-motion-item {
+    animation: none;
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition:
+      opacity 680ms cubic-bezier(0.18, 0.78, 0.24, 1),
+      transform 680ms cubic-bezier(0.18, 0.78, 0.24, 1);
+    transition-delay: var(--site-motion-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .site-motion-item--media {
+    transform: translate3d(0, 26px, 0) scale(0.985);
+  }
+
+  .site-motion-item.is-site-motion-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .site-motion-item.is-site-motion-done {
+    will-change: auto;
+  }
+
+  .site-motion-item :is(img, svg) {
+    backface-visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-motion-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

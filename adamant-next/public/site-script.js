@@ -770,6 +770,113 @@
     });
   }
 
+
+  const initSiteMotion = () => {
+    if (typeof window.matchMedia !== "function") return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionSelectors = [
+      ".hero__content",
+      ".visual-panel",
+      ".home-about-stats__visual",
+      ".home-about-stats__copy",
+      ".home-about-stat",
+      ".home-section__head",
+      ".home-cycle-card",
+      ".home-portfolio-card",
+      ".home-faq__item",
+      ".review-video-card",
+      ".home-review-video-card",
+      ".section__intro",
+      ".listing-filters",
+      ".project-tabs",
+      ".blog-card",
+      ".services-catalog-head",
+      ".services-catalog-card",
+      ".services-redesign__reasons > article",
+      ".services-redesign__consult",
+      ".services-redesign__process > article",
+      ".contact-redesign__card",
+      ".contact-redesign__list > article",
+      ".contact-redesign__map",
+      ".contact-redesign__message",
+      ".product-hero-card",
+      ".product-info-card",
+      ".product-related-card",
+      ".portfolio-detail__section",
+      ".portfolio-detail__photo-grid > button",
+      ".service-detail__hero",
+      ".service-detail__section",
+      ".service-detail__cards > article",
+      ".service-detail__steps > article",
+      ".service-detail__cta",
+      ".faq-item",
+    ];
+    const skipSelector =
+      ".home-project-card, .catalog-project-card, [data-has-night-image='true'], .home-project-preview__grid, .listing-grid--catalog";
+    const mediaSelector =
+      ".visual-panel, .home-about-stats__visual, .contact-redesign__map, .services-redesign__consult, .product-hero-card, .service-detail__hero";
+
+    const targets = Array.from(
+      new Set(motionSelectors.flatMap((selector) => Array.from(document.querySelectorAll(selector))))
+    ).filter((element) => element instanceof HTMLElement && !element.closest(skipSelector));
+
+    if (!targets.length) return;
+
+    const reveal = (element) => {
+      element.classList.add("is-site-motion-visible");
+      window.setTimeout(() => {
+        element.classList.add("is-site-motion-done");
+      }, 900);
+    };
+
+    const isInView = (element) => {
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      return rect.top < viewportHeight * 0.94 && rect.bottom > 0;
+    };
+
+    targets.forEach((element, index) => {
+      element.classList.add("site-motion-item");
+      element.style.setProperty("--site-motion-delay", `${(index % 6) * 70}ms`);
+
+      if (element.matches(mediaSelector)) {
+        element.classList.add("site-motion-item--media");
+      }
+    });
+
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      targets.forEach(reveal);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          reveal(entry.target);
+          currentObserver.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.16,
+      }
+    );
+
+    targets.forEach((element) => {
+      if (isInView(element)) {
+        window.requestAnimationFrame(() => reveal(element));
+      } else {
+        observer.observe(element);
+      }
+    });
+  };
+
+  initSiteMotion();
+
   const chatRoot = document.querySelector("[data-site-chat]");
   const chatToggle = document.querySelector("[data-chat-toggle]");
   const chatClose = document.querySelector("[data-chat-close]");
