@@ -149,7 +149,6 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
         <div className="projects-grid">
           {items.map((item) => {
             const href = getPortfolioItemPath(item);
-            const visibleTags = item.tags?.slice(0, 2) || [];
             const imageUrl =
               getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage);
 
@@ -174,13 +173,6 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
                 <div className="blog-card__body">
                   <h2>{item.title}</h2>
                   <p>{item.summary}</p>
-                  {visibleTags.length ? (
-                    <div className="project-card-blog__tags">
-                      {visibleTags.map((tag) => (
-                        <span key={tag.id ?? tag.label}>{tag.label}</span>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
                 <span className="project-card-blog__more">
                   Подробнее <span aria-hidden="true">→</span>
