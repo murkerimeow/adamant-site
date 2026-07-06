@@ -19,6 +19,7 @@ import * as migration_20260626_140000_catalog_night_card_image from './20260626_
 import * as migration_20260702_010000_site_settings_company_stat_images from './20260702_010000_site_settings_company_stat_images.ts';
 import * as migration_20260706_020000_fix_public_text_typos from './20260706_020000_fix_public_text_typos.ts';
 import * as migration_20260706_030000_sync_catalog_versions from './20260706_030000_sync_catalog_versions.ts';
+import * as migration_20260706_050000_seed_portfolio_design_projects from './20260706_050000_seed_portfolio_design_projects.ts';
 
 export const migrations = [
   {
@@ -125,5 +126,10 @@ export const migrations = [
     up: migration_20260706_030000_sync_catalog_versions.up,
     down: migration_20260706_030000_sync_catalog_versions.down,
     name: '20260706_030000_sync_catalog_versions'
+  },
+  {
+    up: migration_20260706_050000_seed_portfolio_design_projects.up,
+    down: migration_20260706_050000_seed_portfolio_design_projects.down,
+    name: '20260706_050000_seed_portfolio_design_projects'
   },
 ];
