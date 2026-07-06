@@ -42,7 +42,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
+            <img src="/request-house.webp" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--consult"></span>
@@ -127,7 +127,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
+            <img src="/request-house.webp" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--clock"></span>
@@ -218,7 +218,7 @@
             </form>
           </section>
           <aside class="modal-lead__visual" aria-hidden="true">
-            <img src="/request-house.jpg" alt="" loading="lazy" decoding="async">
+            <img src="/request-house.webp" alt="" loading="lazy" decoding="async">
             <div class="modal-lead__benefits">
               <div class="modal-benefit">
                 <span class="modal-benefit__icon modal-benefit__icon--consult"></span>

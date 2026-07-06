@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 
 import {
+  getCatalogLandingCategorySlug,
   getCatalogItems,
   getCatalogSitemapCategories,
+  getPortfolioCategorySlug,
   getPortfolioSitemapCategories,
   getPortfolioItems,
   getPosts,
@@ -62,6 +64,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const portfolioCategories =
     portfolioCategoryResult.status === "fulfilled" ? portfolioCategoryResult.value : [];
   const services = serviceResult.status === "fulfilled" ? serviceResult.value : [];
+  const visibleCatalogCategorySlugs = new Set(
+    catalogItems
+      .filter((item) => item.showInCatalog === true)
+      .map(getCatalogLandingCategorySlug)
+      .filter(Boolean),
+  );
+  const visiblePortfolioCategorySlugs = new Set(
+    portfolioItems.map(getPortfolioCategorySlug).filter(Boolean),
+  );
 
   const staticEntries = staticPaths.map((path) => ({
     url: `${SITE_URL}${path}`,
@@ -77,12 +88,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: item.showInCatalog ? 0.7 : 0.6,
   }));
 
-  const catalogCategoryEntries = catalogCategories.map((category) => ({
-    url: `${SITE_URL}${getCatalogCategoryPath(category)}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.72,
-  }));
+  const catalogCategoryEntries = catalogCategories
+    .filter((category) => visibleCatalogCategorySlugs.has(category.slug))
+    .map((category) => ({
+      url: `${SITE_URL}${getCatalogCategoryPath(category)}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.72,
+    }));
 
   const postEntries = posts
     .filter((post) => isIndexableLongFormText(post.content))
@@ -100,12 +113,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }));
 
-  const portfolioCategoryEntries = portfolioCategories.map((category) => ({
-    url: `${SITE_URL}${getPortfolioCategoryPath(category)}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const portfolioCategoryEntries = portfolioCategories
+    .filter((category) => visiblePortfolioCategorySlugs.has(category.slug))
+    .map((category) => ({
+      url: `${SITE_URL}${getPortfolioCategoryPath(category)}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
 
   const serviceEntries = [
     ...services
