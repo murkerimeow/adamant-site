@@ -751,9 +751,6 @@ export default async function HomePage() {
                 );
               })}
             </div>
-            <p className="home-portfolio-empty" data-portfolio-empty hidden>
-              В этой категории пока нет опубликованных работ.
-            </p>
             <Link className="home-mobile-section-link" href="/portfolio">
               Перейти в проекты
             </Link>
