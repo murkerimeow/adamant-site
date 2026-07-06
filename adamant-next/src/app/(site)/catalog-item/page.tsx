@@ -23,7 +23,7 @@ import {
   getCatalogCardMeta,
 } from "@/site/catalog-meta";
 import { getCatalogItemPath } from "@/site/routes";
-import { createPageMetadata, SITE_NAME } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -172,12 +172,15 @@ export async function generateMetadata({
   }
 
   return createPageMetadata({
-    title: item.seoTitle || `${item.title} | ${SITE_NAME}`,
-    description:
-      item.seoDescription ||
+    title: pickSeoTitle(`${item.title} | ${SITE_NAME}`, item.seoTitle),
+    description: pickSeoDescription(
       item.cardSummary ||
-      item.description ||
-      undefined,
+        item.description ||
+        "Проект дома от АДАМАНТ Строй для строительства под ключ.",
+      item.seoDescription,
+      item.cardSummary,
+      item.description,
+    ),
     path: getCatalogItemCanonical(item),
   });
 }
@@ -439,7 +442,7 @@ export default async function CatalogItemPage({
                   <p>{plan.meta}</p>
                 </div>
                 {plan.image ? (
-                  <img src={plan.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                  <img src={plan.image} alt={plan.title} loading="lazy" decoding="async" />
                 ) : (
                   <div className={`product-plan-card__drawing product-plan-card__drawing--${index + 1}`} aria-hidden="true">
                     <span />

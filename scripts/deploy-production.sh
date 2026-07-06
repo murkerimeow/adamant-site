@@ -24,6 +24,7 @@ fi
 
 npm ci --no-audit --no-fund
 printf 'y\n' | NODE_ENV=production npx payload migrate
+npm run media:optimize
 npm run build
 
 pm2 restart adamant-site --update-env

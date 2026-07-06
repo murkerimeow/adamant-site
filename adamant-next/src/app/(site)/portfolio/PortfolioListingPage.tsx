@@ -13,13 +13,30 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getPortfolioCategoryPath, getPortfolioItemPath } from "@/site/routes";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
 const DEFAULT_META_TITLE = "Портфолио строительных работ | Адамант Строй";
 const DEFAULT_META_DESCRIPTION =
   "Реализованные проекты Адамант Строй: построенные дома, коммерческие объекты, ремонт и отделка.";
+
+function getCategoryMetaDescription(category: {
+  description?: string | null;
+  seoDescription?: string | null;
+  title?: string | null;
+}) {
+  const title = category.title?.trim();
+  const fallback = title
+    ? `Примеры работ АДАМАНТ Строй в категории ${title.toLocaleLowerCase("ru")}: реализованные объекты, фотографии проектов и описание выполненных работ.`
+    : DEFAULT_META_DESCRIPTION;
+
+  return pickSeoDescription(
+    fallback,
+    category.seoDescription,
+    category.description,
+  );
+}
 
 function textOrEmpty(value?: string | null) {
   const normalized = value?.trim();
@@ -58,8 +75,12 @@ export async function generatePortfolioMetadata(): Promise<Metadata> {
   const portfolioPage = await getPortfolioPage();
 
   return createPageMetadata({
-    title: portfolioPage.seoTitle || portfolioPage.title || DEFAULT_META_TITLE,
-    description: portfolioPage.seoDescription || portfolioPage.subtitle || DEFAULT_META_DESCRIPTION,
+    title: pickSeoTitle(DEFAULT_META_TITLE, portfolioPage.seoTitle, portfolioPage.title),
+    description: pickSeoDescription(
+      DEFAULT_META_DESCRIPTION,
+      portfolioPage.seoDescription,
+      portfolioPage.subtitle,
+    ),
     path: "/portfolio",
   });
 }
@@ -79,8 +100,13 @@ export async function generatePortfolioCategoryMetadata(
   }
 
   return createPageMetadata({
-    title: category.seoTitle || category.h1 || category.title || DEFAULT_META_TITLE,
-    description: category.seoDescription || category.description || DEFAULT_META_DESCRIPTION,
+    title: pickSeoTitle(
+      DEFAULT_META_TITLE,
+      category.seoTitle,
+      category.h1,
+      category.title,
+    ),
+    description: getCategoryMetaDescription(category),
     path: getPortfolioCategoryPath(category),
   });
 }

@@ -8,12 +8,35 @@ const databaseUrl = process.env.DATABASE_URI ?? "file:adamant.db";
 const mediaDir = path.resolve(process.cwd(), "media");
 const webpOptions = { effort: 6, quality: 82 };
 const dryRun = process.argv.includes("--dry-run");
+const webpRecompressMinBytes = Number(
+  process.env.MEDIA_WEBP_RECOMPRESS_MIN_BYTES ?? 300000,
+);
 
-function isRasterImage(filename, mimeType) {
+function isPngOrJpeg(filename, mimeType) {
   return (
     /^image\/(?:png|jpe?g)$/i.test(mimeType || "") ||
     /\.(?:png|jpe?g)$/i.test(filename || "")
   );
+}
+
+function isWebp(filename, mimeType) {
+  return /^image\/webp$/i.test(mimeType || "") || /\.webp$/i.test(filename || "");
+}
+
+function isAlreadyOptimizedWebp(filename) {
+  return /(?:^|-)optimized(?:-|$)/i.test(path.parse(filename || "").name);
+}
+
+function shouldOptimizeImage(filename, mimeType, filesize) {
+  if (isPngOrJpeg(filename, mimeType)) {
+    return true;
+  }
+
+  if (!isWebp(filename, mimeType) || isAlreadyOptimizedWebp(filename)) {
+    return false;
+  }
+
+  return Number(filesize || 0) >= webpRecompressMinBytes;
 }
 
 function makeUrl(filename) {
@@ -52,7 +75,7 @@ function outputBaseName(filename, id, label) {
   const stem = safeStem || "media";
   const suffix = label ? `-${label}` : "";
 
-  return `${stem}-${id}${suffix}.webp`;
+  return `${stem}-${id}${suffix}-optimized.webp`;
 }
 
 async function convertFile({ filename, id, label }) {
@@ -143,17 +166,25 @@ async function main() {
   let savedBytes = 0;
 
   for (const row of result.rows) {
-    const original = isRasterImage(row.filename, row.mime_type)
+    const original = shouldOptimizeImage(row.filename, row.mime_type, row.filesize)
       ? await convertFile({ filename: row.filename, id: row.id, label: "" })
       : null;
-    const card = isRasterImage(row.sizes_card_filename, row.sizes_card_mime_type)
+    const card = shouldOptimizeImage(
+      row.sizes_card_filename,
+      row.sizes_card_mime_type,
+      row.sizes_card_filesize,
+    )
       ? await convertFile({
           filename: row.sizes_card_filename,
           id: row.id,
           label: "card",
         })
       : null;
-    const thumb = isRasterImage(row.sizes_thumb_filename, row.sizes_thumb_mime_type)
+    const thumb = shouldOptimizeImage(
+      row.sizes_thumb_filename,
+      row.sizes_thumb_mime_type,
+      row.sizes_thumb_filesize,
+    )
       ? await convertFile({
           filename: row.sizes_thumb_filename,
           id: row.id,
