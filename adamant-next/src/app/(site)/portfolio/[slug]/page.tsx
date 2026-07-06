@@ -81,7 +81,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
       (image, index, images) =>
         images.findIndex((candidate) => candidate.src === image.src) === index,
     );
-  const galleryGridImages = galleryImages.slice(0, 6);
+  const galleryGridImages = galleryImages;
   const floorTag = item.tags?.find((tag) => /\d+\s*этаж/i.test(tag.label))?.label;
   const formatTag = item.tags?.find((tag) => /ключ|готов|отдел/i.test(tag.label))?.label;
   const categoryTitle =
