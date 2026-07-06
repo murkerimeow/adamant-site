@@ -17,6 +17,10 @@ export const Catalog: CollectionConfig = {
       "_status",
     ],
     group: "Контент",
+    pagination: {
+      defaultLimit: 100,
+      limits: [10, 25, 50, 100],
+    },
     useAsTitle: "title",
   },
   access: {
