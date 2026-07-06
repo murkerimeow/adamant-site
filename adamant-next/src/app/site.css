@@ -30832,8 +30832,8 @@ body:has(.contacts-page),
 }
 
 .page.inner-page.services-page .services-catalog-grid {
-  display: flex !important;
-  flex-wrap: wrap !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   gap: clamp(16px, 1.35vw, 24px) !important;
   width: 100% !important;
   margin: 0 !important;
@@ -30843,7 +30843,9 @@ body:has(.contacts-page),
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
-  flex: 0 0 clamp(250px, 20vw, 320px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  flex: none !important;
   min-width: 0 !important;
   min-height: 420px !important;
   aspect-ratio: 0.66 !important;
