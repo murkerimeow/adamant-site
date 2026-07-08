@@ -8,7 +8,7 @@ import {
   getSiteSettings,
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
-import { createPageMetadata } from "@/site/seo";
+import { createPageMetadata, isIndexableLongFormText } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -101,6 +101,7 @@ export default async function BlogPage() {
     month: "long",
     year: "numeric",
   });
+  const visiblePosts = posts.filter((post) => isIndexableLongFormText(post.content));
 
   return (
     <main className="page inner-page blog-page" aria-label="Блог Адамант">
@@ -215,7 +216,7 @@ export default async function BlogPage() {
           </div>
 
           <div className="blog-grid">
-            {posts.map((post) => {
+            {visiblePosts.map((post) => {
               const coverUrl =
                 getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage);
 

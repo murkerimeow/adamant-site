@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import {
@@ -17,7 +18,7 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogCategoryPath, getCatalogItemPath } from "@/site/routes";
-import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_URL } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -89,6 +90,14 @@ function getRoomsGroup(rooms: string) {
 
 function getSearchText(parts: Array<string | null | undefined>) {
   return parts.filter(Boolean).join(" ").toLowerCase();
+}
+
+function getAbsoluteUrl(pathOrUrl: string) {
+  return pathOrUrl.startsWith("http") ? pathOrUrl : `${SITE_URL}${pathOrUrl}`;
+}
+
+function stringifyStructuredData(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 function shouldShowCatalogItem(item: { showInCatalog?: boolean | null }) {
@@ -225,8 +234,58 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
         href: `/catalog/category/${encodeURIComponent(category.slug)}`,
       }));
 
+  const currentPath = selectedCategory ? getCatalogCategoryPath(selectedCategory) : "/catalog";
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            item: `${SITE_URL}/`,
+            name: "Главная",
+            position: 1,
+          },
+          {
+            "@type": "ListItem",
+            item: `${SITE_URL}/catalog`,
+            name: "Проекты",
+            position: 2,
+          },
+          ...(selectedCategory
+            ? [
+                {
+                  "@type": "ListItem",
+                  item: getAbsoluteUrl(currentPath),
+                  name: selectedCategory.title,
+                  position: 3,
+                },
+              ]
+            : []),
+        ],
+      },
+      {
+        "@type": "ItemList",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          item: getAbsoluteUrl(getCatalogItemPath(item)),
+          name: item.title,
+          position: index + 1,
+        })),
+        name: pageTitle,
+        url: getAbsoluteUrl(currentPath),
+      },
+    ],
+  };
+
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
+      <Script
+        id={`catalog-list-jsonld-${selectedCategory?.slug ?? "all"}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="catalog" phone={siteSettings.phonePrimary} />
 
       <section className="section section--projects" aria-labelledby="catalog-title">
@@ -419,9 +478,9 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
             const href = getCatalogItemPath(item);
             const meta = getCatalogCardMeta(item);
             const coverMedia = getCatalogCoverMedia(item);
-            const coverSrc = getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
+            const coverSrc = getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
             const nightSrc =
-              getMediaUrl(item.nightImage) || getMediaUrl(item.nightImage, "card");
+              getMediaUrl(item.nightImage, "card") || getMediaUrl(item.nightImage);
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description || "";
 
@@ -454,7 +513,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                   <img
                     className="catalog-project-card__background catalog-project-card__background--night"
                     src={nightSrc}
-                    alt=""
+                    alt={getMediaAlt(item.nightImage, `${item.title} - ночной вид`)}
                     aria-hidden="true"
                     loading="lazy"
                     decoding="async"

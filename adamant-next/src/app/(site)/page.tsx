@@ -287,7 +287,10 @@ export default async function HomePage() {
               <img
                 className="visual-panel__image visual-panel__image--lit"
                 src={homeHeroImageUrl}
-                alt=""
+                alt={getMediaAlt(
+                  homePage.heroImage,
+                  homePage.heroTitle || "Строительство домов под ключ",
+                )}
                 aria-hidden="true"
                 loading="eager"
                 decoding="async"
@@ -362,7 +365,7 @@ export default async function HomePage() {
                         "/stat-happy-families.webp",
                         "/stat-market-years.webp",
                       ][index]}
-                      alt={stat.imageAlt || ""}
+                      alt={stat.imageAlt || stat.label || "Показатель компании АДАМАНТ Строй"}
                       aria-hidden={stat.imageAlt ? undefined : "true"}
                       loading="lazy"
                       decoding="async"
@@ -414,10 +417,10 @@ export default async function HomePage() {
                 const href = getCatalogItemPath(project);
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
-                  getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
+                  getMediaUrl(coverMedia, "card") || getMediaUrl(coverMedia);
                 const nightImageUrl =
-                  getMediaUrl(project.nightImage) ||
-                  getMediaUrl(project.nightImage, "card");
+                  getMediaUrl(project.nightImage, "card") ||
+                  getMediaUrl(project.nightImage);
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
 
@@ -445,7 +448,7 @@ export default async function HomePage() {
                       <img
                         className="home-project-card__background home-project-card__background--night"
                         src={nightImageUrl}
-                        alt=""
+                        alt={getMediaAlt(project.nightImage, `${project.title} - ночной вид`)}
                         aria-hidden="true"
                         loading="lazy"
                         decoding="async"
@@ -582,7 +585,9 @@ export default async function HomePage() {
             <div className="home-cycle__grid js-wheel-slider">
               {cycleServices.map((service, index) => {
                 const serviceHref = getServicePath(service);
-                const imageUrl = getMediaUrl(service.previewImage);
+                const imageUrl =
+                  getMediaUrl(service.previewImage, "card") ||
+                  getMediaUrl(service.previewImage);
 
                 return (
                   <article

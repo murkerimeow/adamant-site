@@ -273,8 +273,8 @@ export default async function ServicesPage() {
         icon: getServiceIcon(service.icon),
         id,
         image:
-          getMediaUrl(service.previewImage) ||
-          getMediaUrl(service.previewImage, "card"),
+          getMediaUrl(service.previewImage, "card") ||
+          getMediaUrl(service.previewImage),
         imageAlt: getMediaAlt(service.previewImage, service.title),
         title: service.title,
       };
