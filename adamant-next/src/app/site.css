@@ -31538,7 +31538,7 @@ body:has(.contacts-page),
 
 .cabinet-link {
   position: absolute;
-  right: calc(var(--edge) + clamp(150px, 11.719vw, 225px) + clamp(8px, 0.625vw, 12px));
+  right: calc(var(--edge) + clamp(150px, 11.719vw, 225px) + clamp(14px, 1.1vw, 18px));
   top: var(--phone-top);
   z-index: 42;
   display: inline-flex;
@@ -31576,7 +31576,7 @@ body:has(.contacts-page),
 
 .home-page .cabinet-link,
 .page.inner-page .cabinet-link {
-  right: calc(clamp(24px, 2.083vw, 40px) + clamp(142px, 10.208vw, 196px) + clamp(8px, 0.625vw, 12px));
+  right: calc(clamp(24px, 2.083vw, 40px) + clamp(142px, 10.208vw, 196px) + clamp(14px, 1.1vw, 18px));
   top: 50%;
   width: clamp(38px, 2.5vw, 48px);
   height: clamp(38px, 2.5vw, 48px);
@@ -31592,7 +31592,7 @@ body:has(.contacts-page),
 @media (min-width: 768px) and (max-width: 1439px) {
   .home-page .nav,
   .page.inner-page .nav {
-    gap: clamp(10px, 0.85vw, 12px);
+    gap: clamp(8px, 0.65vw, 10px);
   }
 }
 
