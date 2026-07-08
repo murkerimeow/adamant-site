@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import {
@@ -191,7 +190,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
 
   return (
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
-      <Script
+      <script
         id={`portfolio-item-jsonld-${item.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
