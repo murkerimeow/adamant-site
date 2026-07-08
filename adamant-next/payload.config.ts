@@ -6,6 +6,7 @@ import { buildConfig } from "payload";
 import { ru } from "payload/i18n/ru";
 import sharp from "sharp";
 
+import { ClientAccess } from "./src/payload/collections/ClientAccess.ts";
 import { Catalog } from "./src/payload/collections/Catalog.ts";
 import { CatalogCategories } from "./src/payload/collections/CatalogCategories.ts";
 import { Media } from "./src/payload/collections/Media.ts";
@@ -54,6 +55,7 @@ export default buildConfig({
     TeamMembers,
     Vacancies,
     Requests,
+    ClientAccess,
   ],
   db: sqliteAdapter({
     client: {
