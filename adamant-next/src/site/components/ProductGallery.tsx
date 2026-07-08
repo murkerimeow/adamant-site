@@ -183,11 +183,8 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
             >
               <img
                 src={image.thumbSrc ?? image.src}
-                alt={
-                  image.alt
-                    ? `${image.alt} - миниатюра`
-                    : `${title} - миниатюра ${index + 1}`
-                }
+                alt=""
+                aria-hidden="true"
                 loading="lazy"
                 decoding="async"
               />

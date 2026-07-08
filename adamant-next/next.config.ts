@@ -8,13 +8,6 @@ const cacheableAssetHeaders = [
   },
 ];
 
-const cacheablePageHeaders = [
-  {
-    key: "Cache-Control",
-    value: "public, max-age=0, s-maxage=600, stale-while-revalidate=3600",
-  },
-];
-
 const noIndexHeaders = [
   {
     key: "X-Robots-Tag",
@@ -39,14 +32,9 @@ const nextConfig: NextConfig = {
       bodySizeLimit: uploadBodyLimit,
     },
   },
-  poweredByHeader: false,
   skipTrailingSlashRedirect: true,
   async headers() {
     return [
-      {
-        source: "/((?!admin|api|client|_next|.*\\..*).*)",
-        headers: cacheablePageHeaders,
-      },
       {
         source:
           "/:path*\\.(png|jpg|jpeg|gif|webp|avif|svg|ico|mp4|webm|woff|woff2)",

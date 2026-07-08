@@ -23,7 +23,7 @@ import {
   getCatalogCardMeta,
 } from "@/site/catalog-meta";
 import { getCatalogItemPath } from "@/site/routes";
-import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME, SITE_URL } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -37,14 +37,6 @@ type CatalogItemPageProps = {
 
 function getCatalogItemCanonical(item: { itemKey?: string | null; slug?: string | null }) {
   return getCatalogItemPath(item);
-}
-
-function getAbsoluteUrl(pathOrUrl: string) {
-  return pathOrUrl.startsWith("http") ? pathOrUrl : `${SITE_URL}${pathOrUrl}`;
-}
-
-function stringifyStructuredData(data: unknown) {
-  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 type DetailIcon =
@@ -223,7 +215,7 @@ export default async function CatalogItemPage({
   const arrayGalleryImages =
     item.gallery?.map((entry) => ({
       alt: getMediaAlt(entry.image, item.title),
-      src: getMediaUrl(entry.image, "card") || getMediaUrl(entry.image),
+      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
       thumbSrc:
         getMediaUrl(entry.image, "thumb") ||
         getMediaUrl(entry.image, "card") ||
@@ -233,10 +225,10 @@ export default async function CatalogItemPage({
     {
       alt: getMediaAlt(coverMedia, item.title),
       src:
-        getMediaUrl(coverMedia, "card") ||
         getMediaUrl(coverMedia) ||
-        getMediaUrl(item.detailImage, "card") ||
-        getMediaUrl(item.detailImage),
+        getMediaUrl(coverMedia, "card") ||
+        getMediaUrl(item.detailImage) ||
+        getMediaUrl(item.detailImage, "card"),
       thumbSrc:
         getMediaUrl(coverMedia, "thumb") ||
         getMediaUrl(coverMedia, "card") ||
@@ -245,10 +237,10 @@ export default async function CatalogItemPage({
     {
       alt: getMediaAlt(item.detailImage, item.title),
       src:
-        getMediaUrl(item.detailImage, "card") ||
         getMediaUrl(item.detailImage) ||
-        getMediaUrl(item.previewImage, "card") ||
-        getMediaUrl(item.previewImage),
+        getMediaUrl(item.detailImage, "card") ||
+        getMediaUrl(item.previewImage) ||
+        getMediaUrl(item.previewImage, "card"),
       thumbSrc:
         getMediaUrl(item.detailImage, "thumb") ||
         getMediaUrl(item.detailImage, "card") ||
@@ -314,70 +306,9 @@ export default async function CatalogItemPage({
     item.cardSummary ||
     descriptionParagraphs[0] ||
     "Современный проект загородного дома под ключ.";
-  const canonicalPath = getCatalogItemCanonical(item);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            item: `${SITE_URL}/`,
-            name: "Главная",
-            position: 1,
-          },
-          {
-            "@type": "ListItem",
-            item: `${SITE_URL}/catalog`,
-            name: "Проекты",
-            position: 2,
-          },
-          {
-            "@type": "ListItem",
-            item: getAbsoluteUrl(canonicalPath),
-            name: item.title,
-            position: 3,
-          },
-        ],
-      },
-      {
-        "@id": `${getAbsoluteUrl(canonicalPath)}#product`,
-        "@type": "Product",
-        additionalProperty: [
-          { "@type": "PropertyValue", name: "Площадь", value: area },
-          { "@type": "PropertyValue", name: "Этажность", value: floors },
-          { "@type": "PropertyValue", name: "Количество комнат", value: rooms },
-        ],
-        brand: {
-          "@id": `${SITE_URL}/#organization`,
-        },
-        category: "Проект загородного дома",
-        description: heroSummary,
-        image: galleryImages.map((image) => getAbsoluteUrl(image.src)).slice(0, 8),
-        name: item.title,
-        offers: meta.price
-          ? {
-              "@type": "Offer",
-              availability: "https://schema.org/InStock",
-              price: meta.price,
-              priceCurrency: "RUB",
-              url: getAbsoluteUrl(canonicalPath),
-            }
-          : undefined,
-        sku: item.slug || item.itemKey,
-        url: getAbsoluteUrl(canonicalPath),
-      },
-    ],
-  };
 
   return (
     <main className="page inner-page product-page product-page--catalog" aria-label="Карточка проекта Адамант">
-      <script
-        id={`catalog-item-jsonld-${item.slug || item.itemKey}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
-      />
       <SiteHeader active={backTarget.active} phone={siteSettings.phonePrimary} />
 
       <section
