@@ -9,7 +9,7 @@ import { formatSlug } from "../utilities/formatSlug.ts";
 const imageFormatOptions = {
   format: "webp" as const,
   options: {
-    quality: 82,
+    quality: 76,
   },
 };
 

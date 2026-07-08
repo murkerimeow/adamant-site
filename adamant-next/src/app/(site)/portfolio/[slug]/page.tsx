@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import {
@@ -20,13 +21,21 @@ import {
 import { PortfolioGallery } from "@/site/components/PortfolioGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
-import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
+import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME, SITE_URL } from "@/site/seo";
 
 export const dynamic = "force-dynamic";
 
 type PortfolioDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function getAbsoluteUrl(pathOrUrl: string) {
+  return pathOrUrl.startsWith("http") ? pathOrUrl : `${SITE_URL}${pathOrUrl}`;
+}
+
+function stringifyStructuredData(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
 
 export async function generateMetadata({
   params,
@@ -68,26 +77,30 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
     notFound();
   }
 
-  const imageUrl = getMediaUrl(item.previewImage) || getMediaUrl(item.previewImage, "card");
+  const imageUrl = getMediaUrl(item.previewImage, "card") || getMediaUrl(item.previewImage);
+  const fullImageUrl = getMediaUrl(item.previewImage) || imageUrl;
   const catalogItem = typeof item.catalogItem === "object" ? item.catalogItem : null;
   const galleryImages = [
     {
       alt: getMediaAlt(item.previewImage, item.title),
+      fullSrc: fullImageUrl,
       src: imageUrl,
     },
     ...(item.gallery?.map((entry) => ({
       alt: getMediaAlt(entry.image, item.title),
-      src: getMediaUrl(entry.image) || getMediaUrl(entry.image, "card"),
+      fullSrc: getMediaUrl(entry.image),
+      src: getMediaUrl(entry.image, "card") || getMediaUrl(entry.image),
     })) ?? []),
     ...(catalogItem
       ? [catalogItem.previewImage, catalogItem.detailImage, ...(catalogItem.gallery?.map((entry) => entry.image) ?? [])]
           .map((media) => ({
             alt: getMediaAlt(media, item.title),
-            src: getMediaUrl(media) || getMediaUrl(media, "card"),
+            fullSrc: getMediaUrl(media),
+            src: getMediaUrl(media, "card") || getMediaUrl(media),
           }))
       : []),
   ]
-    .filter((image): image is { alt: string; src: string } => Boolean(image.src))
+    .filter((image) => Boolean(image.src))
     .filter(
       (image, index, images) =>
         images.findIndex((candidate) => candidate.src === image.src) === index,
@@ -132,9 +145,57 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
         candidate.showInCatalog && candidate.id !== linkedCatalogItemId,
     )
     .slice(0, 4);
+  const canonicalPath = getPortfolioItemPath(item);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            item: `${SITE_URL}/`,
+            name: "Главная",
+            position: 1,
+          },
+          {
+            "@type": "ListItem",
+            item: `${SITE_URL}/portfolio`,
+            name: "Портфолио",
+            position: 2,
+          },
+          {
+            "@type": "ListItem",
+            item: getAbsoluteUrl(canonicalPath),
+            name: item.title,
+            position: 3,
+          },
+        ],
+      },
+      {
+        "@id": `${getAbsoluteUrl(canonicalPath)}#portfolio-project`,
+        "@type": "CreativeWork",
+        about: categoryTitle,
+        description: item.summary || paragraphs[0],
+        image: galleryImages
+          .map((image) => getAbsoluteUrl(image.fullSrc ?? image.src))
+          .slice(0, 12),
+        name: item.title,
+        provider: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+        url: getAbsoluteUrl(canonicalPath),
+      },
+    ],
+  };
 
   return (
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
+      <Script
+        id={`portfolio-item-jsonld-${item.slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
       <div className="portfolio-detail portfolio-detail--object">

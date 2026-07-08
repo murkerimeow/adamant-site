@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 
 type PortfolioGalleryImage = {
   alt: string;
+  fullSrc?: string;
   src: string;
 };
 
@@ -116,7 +117,7 @@ export function PortfolioGallery({ images }: PortfolioGalleryProps) {
               ) : null}
 
               <figure className="portfolio-lightbox__figure">
-                <img src={activeImage.src} alt={activeImage.alt} />
+                <img src={activeImage.fullSrc ?? activeImage.src} alt={activeImage.alt} />
                 <figcaption>
                   {activeIndex + 1} / {images.length}
                 </figcaption>

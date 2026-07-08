@@ -272,7 +272,7 @@ export default async function AboutPage() {
             {team.map((member) => {
               const avatarUrl =
                 "avatar" in member
-                  ? getMediaUrl(member.avatar) || getMediaUrl(member.avatar, "thumb")
+                  ? getMediaUrl(member.avatar, "thumb") || getMediaUrl(member.avatar)
                   : "";
               const nameParts = member.name.split(/\s+/).filter(Boolean);
 
