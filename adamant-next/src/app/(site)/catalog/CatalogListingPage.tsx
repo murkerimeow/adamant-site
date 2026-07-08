@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import {
@@ -281,7 +280,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
-      <Script
+      <script
         id={`catalog-list-jsonld-${selectedCategory?.slug ?? "all"}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}

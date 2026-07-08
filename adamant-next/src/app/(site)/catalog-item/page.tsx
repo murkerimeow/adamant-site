@@ -373,7 +373,7 @@ export default async function CatalogItemPage({
 
   return (
     <main className="page inner-page product-page product-page--catalog" aria-label="Карточка проекта Адамант">
-      <Script
+      <script
         id={`catalog-item-jsonld-${item.slug || item.itemKey}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
