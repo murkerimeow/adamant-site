@@ -31572,6 +31572,21 @@ body:has(.contacts-page),
   transform: translateY(-2px);
 }
 
+.home-page .cabinet-link,
+.page.inner-page .cabinet-link {
+  right: calc(clamp(24px, 2.083vw, 40px) + clamp(142px, 10.208vw, 196px) + clamp(8px, 0.625vw, 12px));
+  top: 50%;
+  width: clamp(38px, 2.5vw, 48px);
+  height: clamp(38px, 2.5vw, 48px);
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.home-page .cabinet-link:hover,
+.page.inner-page .cabinet-link:hover {
+  transform: translateY(calc(-50% - 2px));
+}
+
 .nav__mobile-cabinet {
   display: inline-flex;
   width: 100%;
