@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPayload } from "payload";
+import { createPayloadRequest } from "payload";
 
 import {
   generateClientPassword,
@@ -10,33 +10,29 @@ import config from "@payload-config";
 
 export const runtime = "nodejs";
 
+type AdminUser = {
+  id?: number | string;
+  role?: string | null;
+};
+
 type ClientAccessDocument = {
   id: number | string;
   login?: string | null;
 };
 
-async function isAdminRequest(request: NextRequest) {
-  const cookie = request.headers.get("cookie") ?? "";
-  const origin = new URL(request.url).origin;
-  const response = await fetch(`${origin}/api/users/me`, {
-    cache: "no-store",
-    headers: {
-      cookie,
-    },
+async function getAdminPayload(request: NextRequest) {
+  const payloadRequest = await createPayloadRequest({
+    canSetHeaders: false,
+    config,
+    request,
   });
+  const user = payloadRequest.user as AdminUser | null;
 
-  if (!response.ok) {
-    return false;
+  if (!user?.id || !["admin", "editor"].includes(user.role ?? "")) {
+    return null;
   }
 
-  const data = (await response.json()) as {
-    user?: {
-      id?: number | string;
-      role?: string;
-    } | null;
-  };
-
-  return Boolean(data.user?.id && ["admin", "editor"].includes(data.user.role ?? ""));
+  return payloadRequest.payload;
 }
 
 function generateLoginFromID(id: number | string) {
@@ -44,7 +40,7 @@ function generateLoginFromID(id: number | string) {
 }
 
 async function ensureUniqueLogin(
-  payload: Awaited<ReturnType<typeof getPayload>>,
+  payload: NonNullable<Awaited<ReturnType<typeof getAdminPayload>>>,
   preferredLogin: string,
   currentID: number | string,
 ) {
@@ -76,54 +72,64 @@ async function ensureUniqueLogin(
 }
 
 export async function POST(request: NextRequest) {
-  if (!(await isAdminRequest(request))) {
-    return NextResponse.json({ error: "Недостаточно прав" }, { status: 403 });
-  }
+  try {
+    const payload = await getAdminPayload(request);
 
-  const body = (await request.json().catch(() => null)) as { id?: number | string } | null;
+    if (!payload) {
+      return NextResponse.json({ error: "Недостаточно прав" }, { status: 403 });
+    }
 
-  if (!body?.id) {
-    return NextResponse.json({ error: "Не указан клиент" }, { status: 400 });
-  }
+    const body = (await request.json().catch(() => null)) as { id?: number | string } | null;
 
-  const payload = await getPayload({ config });
-  const doc = (await payload.findByID({
-    collection: "client-access",
-    depth: 0,
-    id: body.id,
-    overrideAccess: true,
-  })) as ClientAccessDocument;
+    if (!body?.id) {
+      return NextResponse.json({ error: "Не указан клиент" }, { status: 400 });
+    }
 
-  const login = await ensureUniqueLogin(
-    payload,
-    normalizeClientLogin(doc.login || generateLoginFromID(doc.id)),
-    doc.id,
-  );
-  const password = generateClientPassword();
-  const generatedAt = new Date().toISOString();
+    const doc = (await payload.findByID({
+      collection: "client-access",
+      depth: 0,
+      id: body.id,
+      overrideAccess: true,
+    })) as ClientAccessDocument;
 
-  await payload.update({
-    collection: "client-access",
-    data: {
-      accessEnabled: true,
-      accessGeneratedAt: generatedAt,
-      login,
-      passwordHash: await hashClientPassword(password),
-    },
-    id: doc.id,
-    overrideAccess: true,
-  });
+    const login = await ensureUniqueLogin(
+      payload,
+      normalizeClientLogin(doc.login || generateLoginFromID(doc.id)),
+      doc.id,
+    );
+    const password = generateClientPassword();
+    const generatedAt = new Date().toISOString();
 
-  return NextResponse.json(
-    {
-      generatedAt,
-      login,
-      password,
-    },
-    {
-      headers: {
-        "Cache-Control": "no-store",
+    await payload.update({
+      collection: "client-access",
+      data: {
+        accessEnabled: true,
+        accessGeneratedAt: generatedAt,
+        login,
+        passwordHash: await hashClientPassword(password),
       },
-    },
-  );
+      id: doc.id,
+      overrideAccess: true,
+    });
+
+    return NextResponse.json(
+      {
+        generatedAt,
+        login,
+        password,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      },
+    );
+  } catch (error) {
+    console.error("[client-access/generate]", error);
+
+    return NextResponse.json(
+      { error: "Не удалось сгенерировать доступ" },
+      { status: 500 },
+    );
+  }
 }

@@ -9,6 +9,24 @@ type GeneratedAccess = {
   password: string;
 };
 
+type GenerateAccessResponse = Partial<GeneratedAccess> & {
+  error?: string;
+};
+
+async function readGenerateAccessResponse(response: Response) {
+  const text = await response.text();
+
+  if (!text) {
+    return {} as GenerateAccessResponse;
+  }
+
+  try {
+    return JSON.parse(text) as GenerateAccessResponse;
+  } catch {
+    return {} as GenerateAccessResponse;
+  }
+}
+
 export function ClientAccessGenerator() {
   const { data, id, isEditing, setData } = useDocumentInfo();
   const [generatedAccess, setGeneratedAccess] = useState<GeneratedAccess | null>(null);
@@ -36,7 +54,7 @@ export function ClientAccessGenerator() {
         },
         method: "POST",
       });
-      const result = (await response.json()) as Partial<GeneratedAccess> & { error?: string };
+      const result = await readGenerateAccessResponse(response);
 
       if (!response.ok || !result.login || !result.password || !result.generatedAt) {
         throw new Error(result.error || "Не удалось сгенерировать доступ");
