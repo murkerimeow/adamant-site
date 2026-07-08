@@ -31547,12 +31547,12 @@ body:has(.contacts-page),
   align-items: center;
   justify-content: center;
   border-radius: clamp(12px, 0.938vw, 18px);
-  border: 1px solid rgba(217, 152, 104, 0.32);
-  background: rgba(217, 152, 104, 0.1);
-  color: #d99868;
+  border: 1px solid #d99868;
+  background: #d99868;
+  color: #ffffff;
   text-decoration: none;
-  box-shadow: none;
-  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  box-shadow: 0 12px 24px rgba(217, 152, 104, 0.24);
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .cabinet-link svg,
@@ -31568,9 +31568,9 @@ body:has(.contacts-page),
 }
 
 .cabinet-link:hover {
-  border-color: #d99868;
-  background: #d99868;
-  color: #ffffff;
+  border-color: #cf8954;
+  background: #cf8954;
+  box-shadow: 0 14px 30px rgba(217, 152, 104, 0.3);
   transform: translateY(-2px);
 }
 
@@ -31597,9 +31597,9 @@ body:has(.contacts-page),
   justify-content: center;
   gap: 8px;
   border-radius: 14px;
-  border: 1px solid rgba(217, 152, 104, 0.28);
-  background: rgba(217, 152, 104, 0.1);
-  color: #d99868;
+  border: 1px solid #d99868;
+  background: #d99868;
+  color: #ffffff;
   font-size: 15px;
   font-weight: 900;
   line-height: 1;
