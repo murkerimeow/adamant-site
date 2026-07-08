@@ -31547,28 +31547,30 @@ body:has(.contacts-page),
   align-items: center;
   justify-content: center;
   border-radius: clamp(12px, 0.938vw, 18px);
-  background: rgba(255, 255, 255, 0.92);
-  color: #111827;
+  border: 1px solid rgba(217, 152, 104, 0.32);
+  background: rgba(217, 152, 104, 0.1);
+  color: #d99868;
   text-decoration: none;
-  box-shadow: 0 12px 28px rgba(31, 62, 114, 0.1);
-  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  box-shadow: none;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .cabinet-link svg,
 .nav__mobile-cabinet svg {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.9;
+  stroke-width: 1.75;
 }
 
 .cabinet-link:hover {
-  background: #ffffff;
-  box-shadow: 0 14px 30px rgba(31, 62, 114, 0.16);
+  border-color: #d99868;
+  background: #d99868;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -31595,8 +31597,9 @@ body:has(.contacts-page),
   justify-content: center;
   gap: 8px;
   border-radius: 14px;
-  background: #f2f6fb;
-  color: #142033;
+  border: 1px solid rgba(217, 152, 104, 0.28);
+  background: rgba(217, 152, 104, 0.1);
+  color: #d99868;
   font-size: 15px;
   font-weight: 900;
   line-height: 1;

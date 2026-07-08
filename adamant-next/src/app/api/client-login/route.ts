@@ -8,6 +8,7 @@ import {
   normalizeClientLogin,
   verifyClientPassword,
 } from "@/client-access/session";
+import { SITE_URL } from "@/site/seo";
 import config from "@payload-config";
 
 export const runtime = "nodejs";
@@ -19,8 +20,12 @@ type ClientAccessDocument = {
   passwordHash?: string | null;
 };
 
+function getRedirectUrl(path: string, request: NextRequest) {
+  return new URL(path, process.env.NODE_ENV === "production" ? SITE_URL : request.url);
+}
+
 function redirectWithError(request: NextRequest) {
-  const url = new URL("/client/login", request.url);
+  const url = getRedirectUrl("/client/login", request);
   url.searchParams.set("error", "1");
 
   return NextResponse.redirect(url, { status: 303 });
@@ -74,7 +79,7 @@ export async function POST(request: NextRequest) {
     overrideAccess: true,
   });
 
-  const response = NextResponse.redirect(new URL("/client", request.url), { status: 303 });
+  const response = NextResponse.redirect(getRedirectUrl("/client", request), { status: 303 });
   response.cookies.set(
     CLIENT_ACCESS_COOKIE,
     createClientSessionValue({ id: client.id, login: clientLogin }),

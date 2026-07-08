@@ -105,8 +105,9 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
         <div className="nav__mobile-contact" aria-label="Контакты">
           <a className="nav__mobile-cabinet" href="/client/login">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 12.2a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Z" />
-              <path d="M4.8 20.6a7.2 7.2 0 0 1 14.4 0" />
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 12a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Z" />
+              <path d="M6.8 18.1a5.6 5.6 0 0 1 10.4 0" />
             </svg>
             <span>Личный кабинет</span>
           </a>
@@ -147,8 +148,9 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
       </button>
       <a className="cabinet-link" href="/client/login" aria-label="Личный кабинет" title="Личный кабинет">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 12.2a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Z" />
-          <path d="M4.8 20.6a7.2 7.2 0 0 1 14.4 0" />
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 12a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Z" />
+          <path d="M6.8 18.1a5.6 5.6 0 0 1 10.4 0" />
         </svg>
       </a>
       <button
