@@ -415,6 +415,9 @@ export default async function HomePage() {
                 const coverMedia = getCatalogCoverMedia(project);
                 const imageUrl =
                   getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
+                const nightImageUrl =
+                  getMediaUrl(project.nightImage) ||
+                  getMediaUrl(project.nightImage, "card");
                 const meta = getCatalogCardMeta(project);
                 const description = project.cardSummary || project.description;
 
@@ -425,23 +428,31 @@ export default async function HomePage() {
                     data-card-link={href}
                     data-home-project-default={defaultHomeProjectIds.has(project.id) ? "true" : "false"}
                     data-home-project-category={getCatalogLandingCategorySlug(project)}
+                    data-has-night-image={nightImageUrl ? "true" : "false"}
                     hidden={!defaultHomeProjectIds.has(project.id)}
                     tabIndex={0}
                   >
                     {imageUrl ? (
-                      <div className="listing-card__media">
-                        <a className="listing-card__media-link" href={href} aria-label={project.title}>
-                          <img
-                            src={imageUrl}
-                            alt={getMediaAlt(coverMedia, project.title)}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </a>
-                      </div>
+                      <img
+                        className="home-project-card__background home-project-card__background--day"
+                        src={imageUrl}
+                        alt={getMediaAlt(coverMedia, project.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                    {nightImageUrl ? (
+                      <img
+                        className="home-project-card__background home-project-card__background--night"
+                        src={nightImageUrl}
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     ) : null}
 
-                    <div className="listing-card__body">
+                    <div className="listing-card__body home-project-card__content-overlay">
                       <h2>{project.title}</h2>
                       <p className="listing-card__description">{description}</p>
                       <ul className="listing-card__specs" aria-label="Характеристики проекта">

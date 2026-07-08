@@ -20,7 +20,6 @@ import * as migration_20260702_010000_site_settings_company_stat_images from './
 import * as migration_20260706_020000_fix_public_text_typos from './20260706_020000_fix_public_text_typos.ts';
 import * as migration_20260706_030000_sync_catalog_versions from './20260706_030000_sync_catalog_versions.ts';
 import * as migration_20260706_050000_seed_portfolio_design_projects from './20260706_050000_seed_portfolio_design_projects.ts';
-import * as migration_20260708_170000_client_access from './20260708_170000_client_access.ts';
 
 export const migrations = [
   {
@@ -132,10 +131,5 @@ export const migrations = [
     up: migration_20260706_050000_seed_portfolio_design_projects.up,
     down: migration_20260706_050000_seed_portfolio_design_projects.down,
     name: '20260706_050000_seed_portfolio_design_projects'
-  },
-  {
-    up: migration_20260708_170000_client_access.up,
-    down: migration_20260708_170000_client_access.down,
-    name: '20260708_170000_client_access'
   },
 ];

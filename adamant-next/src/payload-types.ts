@@ -79,7 +79,6 @@ export interface Config {
     'team-members': TeamMember;
     vacancies: Vacancy;
     requests: Request;
-    'client-access': ClientAccess;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -99,7 +98,6 @@ export interface Config {
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     vacancies: VacanciesSelect<false> | VacanciesSelect<true>;
     requests: RequestsSelect<false> | RequestsSelect<true>;
-    'client-access': ClientAccessSelect<false> | ClientAccessSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -519,22 +517,6 @@ export interface Request {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "client-access".
- */
-export interface ClientAccess {
-  id: number;
-  name: string;
-  login?: string | null;
-  accessEnabled?: boolean | null;
-  accessGeneratedAt?: string | null;
-  lastLoginAt?: string | null;
-  passwordHash?: string | null;
-  notes?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -604,10 +586,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'requests';
         value: number | Request;
-      } | null)
-    | ({
-        relationTo: 'client-access';
-        value: number | ClientAccess;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -960,21 +938,6 @@ export interface RequestsSelect<T extends boolean = true> {
   message?: T;
   sourcePage?: T;
   status?: T;
-  notes?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "client-access_select".
- */
-export interface ClientAccessSelect<T extends boolean = true> {
-  name?: T;
-  login?: T;
-  accessEnabled?: T;
-  accessGeneratedAt?: T;
-  lastLoginAt?: T;
-  passwordHash?: T;
   notes?: T;
   updatedAt?: T;
   createdAt?: T;

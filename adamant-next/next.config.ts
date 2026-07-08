@@ -15,14 +15,6 @@ const noIndexHeaders = [
   },
 ];
 
-const privatePageHeaders = [
-  ...noIndexHeaders,
-  {
-    key: "Cache-Control",
-    value: "private, no-store, max-age=0",
-  },
-];
-
 const uploadBodyLimit = "250mb";
 
 const nextConfig: NextConfig = {
@@ -47,14 +39,6 @@ const nextConfig: NextConfig = {
       {
         source: "/api/:path*",
         headers: noIndexHeaders,
-      },
-      {
-        source: "/client",
-        headers: privatePageHeaders,
-      },
-      {
-        source: "/client/:path*",
-        headers: privatePageHeaders,
       },
     ];
   },
