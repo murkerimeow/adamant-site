@@ -31535,3 +31535,128 @@ body:has(.contacts-page),
     flex-direction: column;
   }
 }
+
+/* Emergency rollback: keep project and service images as real media, not cropped backgrounds. */
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card {
+  display: grid !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  overflow: hidden !important;
+  background: #f2f3f7 !important;
+}
+
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card .listing-card__media,
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card .listing-card__media {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1.26 / 1 !important;
+  align-self: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  background: #eef2f6 !important;
+}
+
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card .listing-card__media-link,
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card .listing-card__media img,
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card .listing-card__media-link,
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card .listing-card__media img {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  max-height: none !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card .listing-card__media img,
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card .listing-card__media img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card:hover .listing-card__media img,
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card:hover .listing-card__media img {
+  transform: none !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card {
+  display: grid !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  overflow: hidden !important;
+  background: #f2f3f7 !important;
+}
+
+.home-page .home-project-preview--catalog-style .home-project-card.listing-card .listing-card__body,
+.page.inner-page.catalog-page .listing-grid--catalog > .listing-card .listing-card__body {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.page.inner-page.services-page .services-catalog-card {
+  display: grid !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+
+.page.inner-page.services-page .services-catalog-card__media {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1.26 / 1 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  background: #eef2f6 !important;
+}
+
+.page.inner-page.services-page .services-catalog-card__media img {
+  position: static !important;
+  inset: auto !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+.page.inner-page.services-page .services-catalog-card:hover .services-catalog-card__media img {
+  transform: none !important;
+}
+
+.page.inner-page.services-page .services-catalog-card__content {
+  position: relative !important;
+  z-index: 1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 22px !important;
+  pointer-events: auto !important;
+}

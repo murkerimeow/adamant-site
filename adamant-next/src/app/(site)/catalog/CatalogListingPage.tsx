@@ -420,15 +420,13 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
             const meta = getCatalogCardMeta(item);
             const coverMedia = getCatalogCoverMedia(item);
             const coverSrc = getMediaUrl(coverMedia) || getMediaUrl(coverMedia, "card");
-            const nightSrc =
-              getMediaUrl(item.nightImage) || getMediaUrl(item.nightImage, "card");
             const tagLabels = item.tags?.map((tag) => tag.label).filter(Boolean).join(" ") ?? "";
             const description = item.cardSummary || item.description || "";
 
             return (
               <article
                 key={item.id}
-                className="listing-card catalog-project-card"
+                className="listing-card"
                 data-card-link={href}
                 data-area={getAreaGroup(meta.area)}
                 data-budget={getBudgetGroup(meta.price)}
@@ -438,30 +436,22 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                 data-floors={getFloorsGroup(meta.floors)}
                 data-rooms={getRoomsGroup(meta.rooms)}
                 data-search={getSearchText([item.title, description, tagLabels])}
-                data-has-night-image={nightSrc ? "true" : "false"}
                 tabIndex={0}
               >
                 {coverSrc ? (
-                  <img
-                    className="catalog-project-card__background catalog-project-card__background--day"
-                    src={coverSrc}
-                    alt={getMediaAlt(coverMedia, item.title)}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : null}
-                {nightSrc ? (
-                  <img
-                    className="catalog-project-card__background catalog-project-card__background--night"
-                    src={nightSrc}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <div className="listing-card__media">
+                    <a className="listing-card__media-link" href={href} aria-label={item.title}>
+                      <img
+                        src={coverSrc}
+                        alt={getMediaAlt(coverMedia, item.title)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                  </div>
                 ) : null}
 
-                <div className="listing-card__body catalog-project-card__content-overlay">
+                <div className="listing-card__body">
                   <h2>{item.title}</h2>
                   {description ? <p className="listing-card__description">{description}</p> : null}
                   <ul className="listing-card__specs" aria-label="Характеристики проекта">
