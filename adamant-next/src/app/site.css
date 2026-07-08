@@ -31589,6 +31589,13 @@ body:has(.contacts-page),
   transform: translateY(calc(-50% - 2px));
 }
 
+@media (min-width: 768px) and (max-width: 1439px) {
+  .home-page .nav,
+  .page.inner-page .nav {
+    gap: clamp(10px, 0.85vw, 12px);
+  }
+}
+
 .nav__mobile-cabinet {
   display: inline-flex;
   width: 100%;
