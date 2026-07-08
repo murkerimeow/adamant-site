@@ -103,6 +103,13 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
         })}
 
         <div className="nav__mobile-contact" aria-label="Контакты">
+          <a className="nav__mobile-cabinet" href="/client/login">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12.2a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Z" />
+              <path d="M4.8 20.6a7.2 7.2 0 0 1 14.4 0" />
+            </svg>
+            <span>Личный кабинет</span>
+          </a>
           <button className="nav__mobile-phone js-open-callback" type="button">
             {phone}
           </button>
@@ -138,6 +145,12 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
       <button className="phone js-open-callback" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
         {phone}
       </button>
+      <a className="cabinet-link" href="/client/login" aria-label="Личный кабинет" title="Личный кабинет">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12.2a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Z" />
+          <path d="M4.8 20.6a7.2 7.2 0 0 1 14.4 0" />
+        </svg>
+      </a>
       <button
         className="mobile-menu-toggle"
         type="button"
