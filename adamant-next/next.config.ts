@@ -22,6 +22,14 @@ const noIndexHeaders = [
   },
 ];
 
+const privatePageHeaders = [
+  ...noIndexHeaders,
+  {
+    key: "Cache-Control",
+    value: "private, no-store, max-age=0",
+  },
+];
+
 const uploadBodyLimit = "250mb";
 
 const nextConfig: NextConfig = {
@@ -36,7 +44,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/((?!admin|api|_next|.*\\..*).*)",
+        source: "/((?!admin|api|client|_next|.*\\..*).*)",
         headers: cacheablePageHeaders,
       },
       {
@@ -51,6 +59,14 @@ const nextConfig: NextConfig = {
       {
         source: "/api/:path*",
         headers: noIndexHeaders,
+      },
+      {
+        source: "/client",
+        headers: privatePageHeaders,
+      },
+      {
+        source: "/client/:path*",
+        headers: privatePageHeaders,
       },
     ];
   },
