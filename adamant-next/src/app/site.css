@@ -28986,7 +28986,8 @@ body:has(.page.inner-page),
     min-height: max(
       280px,
       calc(
-        100svh - var(--inner-page-content-top) -
+        100svh + clamp(18px, 2vh, 28px) -
+          var(--inner-page-content-top) -
           var(--mortgage-first-screen-hero-height) -
           var(--inner-page-section-gap)
       )
