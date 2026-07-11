@@ -34,6 +34,16 @@ export default async function ClientLoginPage({ searchParams }: ClientLoginPageP
     <div className="page inner-page client-auth-page">
       <SiteHeader phone={siteSettings.phonePrimary} />
       <main className="client-auth">
+        <div className="client-auth__media" aria-hidden="true">
+          <img
+            src="/plot-selection.webp"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </div>
+
         <section className="client-auth__panel" aria-labelledby="client-login-title">
           <div className="client-auth__intro">
             <p className="eyebrow">Личный кабинет</p>
