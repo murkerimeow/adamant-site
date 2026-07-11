@@ -28970,6 +28970,37 @@ body:has(.page.inner-page),
   margin-top: var(--inner-page-section-gap) !important;
 }
 
+@media (min-width: 981px) {
+  .page.inner-page.mortgage-page {
+    --mortgage-first-screen-hero-height: clamp(320px, 20vw, 360px);
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__hero {
+    height: var(--mortgage-first-screen-hero-height) !important;
+    min-height: var(--mortgage-first-screen-hero-height) !important;
+    max-height: var(--mortgage-first-screen-hero-height) !important;
+  }
+
+  .page.inner-page.mortgage-page .mortgage-redesign__banks {
+    box-sizing: border-box !important;
+    min-height: max(
+      280px,
+      calc(
+        100svh - var(--inner-page-content-top) -
+          var(--mortgage-first-screen-hero-height) -
+          var(--inner-page-section-gap)
+      )
+    ) !important;
+    padding-bottom: clamp(34px, 4vh, 56px) !important;
+  }
+
+  .page.inner-page.mortgage-page
+    .mortgage-redesign__banks
+    + .mortgage-redesign__process {
+    margin-top: 0 !important;
+  }
+}
+
 .page.inner-page :is(
   .section__intro--page > h1,
   .section__intro--page > h2,
