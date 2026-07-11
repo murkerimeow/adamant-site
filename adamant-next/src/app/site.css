@@ -30242,6 +30242,19 @@ body:has(.contacts-page),
   letter-spacing: 0 !important;
 }
 
+.page.inner-page.contacts-page
+  .contact-redesign--reference
+  :is(
+    .contact-redesign__info > h1,
+    .contact-redesign__requisites > h2,
+    .contact-redesign__social-card > h2,
+    .contact-redesign__form > h2
+  ) {
+  font-size: var(--contact-heading-size) !important;
+  font-weight: 760 !important;
+  line-height: 1.06 !important;
+}
+
 .contact-redesign--reference .contact-redesign__list {
   display: grid;
   gap: clamp(26px, 2.45vw, 44px);
