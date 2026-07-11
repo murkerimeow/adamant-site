@@ -12,8 +12,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: ["/", "/api/media/file/"],
       disallow: [
         "/admin",
-        "/client",
-        "/client/",
         "/api/",
         "/catalog-item",
         "/catalog-item/",

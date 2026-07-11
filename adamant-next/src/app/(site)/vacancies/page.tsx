@@ -46,8 +46,8 @@ export default async function VacanciesPage() {
           <span className="section__kicker">Карьера</span>
           <h1 id="vacancies-title">Вакансии в Адамант Строй</h1>
           <p>
-            Открытые позиции компании. Вакансии можно добавлять, скрывать и
-            редактировать через админку.
+            Открытые позиции компании. Расскажем о задачах, условиях и формате
+            работы в команде.
           </p>
         </div>
 
@@ -92,8 +92,8 @@ export default async function VacanciesPage() {
           <div className="vacancies-empty">
             <h2>Сейчас открытых вакансий нет</h2>
             <p>
-              Когда появятся новые позиции, они отобразятся здесь автоматически
-              после публикации в админке.
+              Когда появятся новые позиции, мы обновим страницу и расскажем о
+              задачах, условиях и формате работы.
             </p>
             <button className="vacancy-card__button js-open-estimate" type="button">
               Написать компании
