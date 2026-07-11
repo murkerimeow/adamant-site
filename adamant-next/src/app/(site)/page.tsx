@@ -908,7 +908,9 @@ export default async function HomePage() {
                     open={index === 0}
                   >
                     <summary>{item.question}</summary>
-                    <p>{item.answer}</p>
+                    <div className="faq-item__content">
+                      <p>{item.answer}</p>
+                    </div>
                   </details>
                 ))}
               </div>

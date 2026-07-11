@@ -875,6 +875,71 @@
     });
   };
 
+  const initFaqAccordions = () => {
+    const items = Array.from(document.querySelectorAll(".faq-item")).filter(
+      (item) => item instanceof HTMLDetailsElement
+    );
+
+    if (!items.length) return;
+
+    const reduceMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) return;
+
+    items.forEach((details) => {
+      if (details.dataset.faqAnimated === "true") return;
+
+      const summary = details.querySelector("summary");
+      if (!(summary instanceof HTMLElement)) return;
+
+      details.dataset.faqAnimated = "true";
+
+      const finishAnimation = () => {
+        const wasClosing = details.classList.contains("is-faq-closing");
+
+        if (wasClosing) {
+          details.open = false;
+        }
+
+        details.style.height = "";
+        details.style.overflow = "";
+        details.classList.remove("is-faq-opening", "is-faq-closing");
+      };
+
+      details.addEventListener("transitionend", (event) => {
+        if (event.target !== details || event.propertyName !== "height") return;
+
+        finishAnimation();
+      });
+
+      summary.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const shouldClose = details.open && !details.classList.contains("is-faq-closing");
+
+        details.classList.remove("is-faq-opening", "is-faq-closing");
+        details.style.overflow = "hidden";
+        details.style.height = `${details.offsetHeight}px`;
+
+        window.requestAnimationFrame(() => {
+          if (shouldClose) {
+            details.classList.add("is-faq-closing");
+            details.style.height = `${summary.offsetHeight}px`;
+            return;
+          }
+
+          details.open = true;
+          details.classList.add("is-faq-opening");
+          details.style.height = `${details.scrollHeight}px`;
+        });
+      });
+    });
+  };
+
+  initFaqAccordions();
+
   initSiteMotion();
 
   const chatRoot = document.querySelector("[data-site-chat]");
