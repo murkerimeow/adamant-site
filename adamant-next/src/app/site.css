@@ -31838,6 +31838,7 @@ body:has(.contacts-page),
   max-width: var(--site-frame-width) !important;
   margin: var(--inner-page-content-top) auto 0 !important;
   padding: 0 !important;
+  grid-template-columns: minmax(0, 1fr) !important;
   gap: var(--inner-page-section-gap) !important;
   border: 0 !important;
   background: transparent !important;
