@@ -31186,7 +31186,7 @@ body:has(.contacts-page),
     margin-left: calc(
       -1 * max(calc((100vw - 1560px) / 2), calc(clamp(96px, 10vw, 180px) / 2))
     ) !important;
-    border-radius: 0 !important;
+    border-radius: var(--inner-page-section-radius) !important;
   }
 }
 
