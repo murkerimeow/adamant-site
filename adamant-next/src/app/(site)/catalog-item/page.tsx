@@ -279,6 +279,7 @@ export default async function CatalogItemPage({
         title: plan.title || `План ${index + 1}`,
         meta: plan.meta || "",
         image: getMediaUrl(plan.image, "card") || getMediaUrl(plan.image),
+        fullImage: getMediaUrl(plan.image) || getMediaUrl(plan.image, "card"),
       }))
       .filter((plan) => plan.image) ?? [];
   const planCards = customPlanCards;
@@ -437,7 +438,15 @@ export default async function CatalogItemPage({
                     <h3>{plan.title}</h3>
                     <p>{plan.meta}</p>
                   </div>
-                  <img src={plan.image} alt={plan.title} loading="lazy" decoding="async" />
+                  <a
+                    className="product-plan-card__image-link"
+                    href={plan.fullImage || plan.image}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Открыть планировку ${plan.title}`}
+                  >
+                    <img src={plan.image} alt={plan.title} loading="lazy" decoding="async" />
+                  </a>
                   <span className="product-plan-card__zoom" aria-hidden="true">⌕</span>
                 </article>
               ))}
@@ -446,31 +455,49 @@ export default async function CatalogItemPage({
         ) : null}
 
         <section className="product-section product-plot-lead" aria-labelledby="product-plot-title">
-          <div className="product-plot-lead__form-card">
+          <div className="product-plot-lead__content">
             <h2 id="product-plot-title">Поможем подобрать участок</h2>
             <p>
-              Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома.
+              Расскажите, каким вы видите будущий участок — подберём подходящие
+              варианты под ваш дом и бюджет.
             </p>
-            <form className="product-plot-form contact-form">
+
+            <form className="contact-form product-plot-form" aria-label="Заявка на подбор участка">
+              <input name="name" type="text" placeholder="Имя" aria-label="Имя" />
+              <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+              <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
+              <textarea
+                name="message"
+                rows={4}
+                placeholder="Ваши пожелания по участку"
+                aria-label="Ваши пожелания по участку"
+              />
               <input name="service" type="hidden" value={`Подбор участка: ${item.title}`} />
-              <input name="name" type="text" placeholder="Имя" />
-              <input name="phone" type="tel" placeholder="Телефон *" required />
-              <input name="email" type="email" placeholder="E-mail" />
-              <textarea name="message" placeholder="Ваши пожелания по участку" />
-              <label>
+
+              <label className="product-plot-lead__consent">
                 <input name="privacy" type="checkbox" required />
-                <span>Согласен на обработку персональных данных</span>
+                <span>
+                  Согласен на{" "}
+                  <Link href="/privacy">обработку персональных данных</Link>
+                </span>
               </label>
-              <button type="submit">Отправить заявку</button>
+
+              <button type="submit" disabled>
+                Отправить заявку
+              </button>
+              <p className="contact-form__status" aria-live="polite" />
             </form>
           </div>
-          <img
-            className="product-plot-lead__image"
-            src="/plot-selection.webp"
-            alt="Модульный загородный дом на участке"
-            loading="lazy"
-            decoding="async"
-          />
+
+          <div className="product-plot-lead__media">
+            <img
+              className="product-plot-lead__image"
+              src="/plot-selection.webp"
+              alt="Загородный участок для строительства дома"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </section>
 
         {model3dUrl ? (

@@ -24,6 +24,7 @@ import * as migration_20260708_170000_client_access from './20260708_170000_clie
 import * as migration_20260711_230000_seed_landscape_portfolio from './20260711_230000_seed_landscape_portfolio.ts';
 import * as migration_20260713_190000_seed_pdf_catalog_projects from './20260713_190000_seed_pdf_catalog_projects.ts';
 import * as migration_20260713_210000_seed_vk_portfolio_projects from './20260713_210000_seed_vk_portfolio_projects.ts';
+import * as migration_20260713_230000_seed_about_faq_items from './20260713_230000_seed_about_faq_items.ts';
 
 export const migrations = [
   {
@@ -155,5 +156,10 @@ export const migrations = [
     up: migration_20260713_210000_seed_vk_portfolio_projects.up,
     down: migration_20260713_210000_seed_vk_portfolio_projects.down,
     name: '20260713_210000_seed_vk_portfolio_projects'
+  },
+  {
+    up: migration_20260713_230000_seed_about_faq_items.up,
+    down: migration_20260713_230000_seed_about_faq_items.down,
+    name: '20260713_230000_seed_about_faq_items'
   },
 ];
