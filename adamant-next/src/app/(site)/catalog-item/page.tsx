@@ -280,13 +280,8 @@ export default async function CatalogItemPage({
         meta: plan.meta || "",
         image: getMediaUrl(plan.image, "card") || getMediaUrl(plan.image),
       }))
-      .filter((plan) => plan.title || plan.meta || plan.image) ?? [];
-  const planCards = customPlanCards.length
-    ? customPlanCards
-    : [
-        { title: "1 этаж", meta: "", image: "" },
-        { title: "2 этаж", meta: "", image: "" },
-      ];
+      .filter((plan) => plan.image) ?? [];
+  const planCards = customPlanCards;
   const model3dUrl = getMediaUrl(item.model3d);
   const relatedCards = relatedItems.length
     ? relatedItems
@@ -429,34 +424,26 @@ export default async function CatalogItemPage({
           </div>
         </section>
 
-        <section className="product-section" aria-labelledby="product-plans-title">
-          <h2 id="product-plans-title">Планировка</h2>
-          <p className="product-section__lead">
-            Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома
-          </p>
-          <div className="product-plans">
-            {planCards.map((plan, index) => (
-              <article className="product-plan-card" key={plan.title}>
-                <div>
-                  <h3>{plan.title}</h3>
-                  <p>{plan.meta}</p>
-                </div>
-                {plan.image ? (
-                  <img src={plan.image} alt={plan.title} loading="lazy" decoding="async" />
-                ) : (
-                  <div className={`product-plan-card__drawing product-plan-card__drawing--${index + 1}`} aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
+        {planCards.length ? (
+          <section className="product-section" aria-labelledby="product-plans-title">
+            <h2 id="product-plans-title">Планировка</h2>
+            <p className="product-section__lead">
+              Посмотрите модель со всех сторон, приблизьте детали и оцените объем будущего дома
+            </p>
+            <div className="product-plans">
+              {planCards.map((plan) => (
+                <article className="product-plan-card" key={plan.title}>
+                  <div>
+                    <h3>{plan.title}</h3>
+                    <p>{plan.meta}</p>
                   </div>
-                )}
-                <span className="product-plan-card__zoom" aria-hidden="true">⌕</span>
-              </article>
-            ))}
-          </div>
-        </section>
+                  <img src={plan.image} alt={plan.title} loading="lazy" decoding="async" />
+                  <span className="product-plan-card__zoom" aria-hidden="true">⌕</span>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="product-section product-plot-lead" aria-labelledby="product-plot-title">
           <div className="product-plot-lead__form-card">
