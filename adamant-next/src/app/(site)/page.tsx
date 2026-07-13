@@ -228,7 +228,7 @@ export default async function HomePage() {
         value: category.slug,
       }))
     : homePortfolioCategories;
-  const faqItems = aboutPage.faqItems?.slice(0, 4) ?? [];
+  const faqItems = aboutPage.faqItems?.slice(0, 5) ?? [];
   const reviews = payloadReviews.length ? payloadReviews : [];
   const homeHeroImageUrl =
     getMediaUrl(homePage.heroImage) ||
