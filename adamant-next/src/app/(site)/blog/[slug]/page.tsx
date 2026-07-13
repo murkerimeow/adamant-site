@@ -12,6 +12,12 @@ import {
 } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata, isIndexableLongFormText, SITE_NAME } from "@/site/seo";
+import {
+  buildBlogPostingStructuredData,
+  buildBreadcrumbList,
+  buildStructuredDataGraph,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -49,9 +55,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const paragraphs = splitParagraphs(post.content);
   const coverImage =
     getMediaUrl(post.coverImage, "card") || getMediaUrl(post.coverImage);
+  const pagePath = `/blog/${post.slug}`;
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList([
+      { name: "Главная", path: "/" },
+      { name: "Блог", path: "/blog" },
+      { name: post.title, path: pagePath },
+    ]),
+    buildBlogPostingStructuredData({
+      dateModified: post.updatedAt,
+      datePublished: post.publishedAt,
+      description: post.seoDescription || post.excerpt,
+      imageUrl: coverImage,
+      path: pagePath,
+      title: post.title,
+    }),
+  );
 
   return (
     <main className="page inner-page blog-post-page" aria-label={`Пост блога ${post.title}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="blog" phone={siteSettings.phonePrimary} />
 
       <section className="section about-section" aria-labelledby="post-title">

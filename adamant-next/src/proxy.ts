@@ -58,6 +58,29 @@ const legacyGonePrefixes = [
 ];
 
 const legacyQueryParams = ["attachment_id", "p", "page_id", "preview", "s"];
+const publicHtmlCacheControl =
+  "public, max-age=0, s-maxage=600, stale-while-revalidate=3600";
+
+function isPublicHtmlRequest(request: NextRequest, pathname: string) {
+  const method = request.method.toUpperCase();
+
+  return (
+    (method === "GET" || method === "HEAD") &&
+    !pathname.startsWith("/admin") &&
+    !pathname.startsWith("/client") &&
+    !/\.[a-z0-9]{2,8}$/i.test(pathname)
+  );
+}
+
+function nextPublicResponse(request: NextRequest, pathname: string) {
+  const response = NextResponse.next();
+
+  if (isPublicHtmlRequest(request, pathname)) {
+    response.headers.set("Cache-Control", publicHtmlCacheControl);
+  }
+
+  return response;
+}
 
 function isLegacyDateArchive(pathname: string) {
   return /^\/20\d{2}\/\d{2}(?:\/\d{2})?(?:\/|$)/.test(pathname);
@@ -163,5 +186,5 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
-  return NextResponse.next();
+  return nextPublicResponse(request, normalizedPathname);
 }

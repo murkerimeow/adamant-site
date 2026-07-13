@@ -12,6 +12,12 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getServicePath } from "@/site/routes";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
+import {
+  buildBreadcrumbList,
+  buildServiceStructuredData,
+  buildStructuredDataGraph,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 type ServiceSlugPageProps = {
   params: Promise<{
@@ -140,9 +146,26 @@ export default async function ServiceSlugPage({ params }: ServiceSlugPageProps) 
     ? splitParagraphs(service.description)
     : [service.shortDescription];
   const tags = service.tags?.map((tag) => tag.label).filter(Boolean) ?? [];
+  const servicePath = getServicePath(service);
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList([
+      { name: "Главная", path: "/" },
+      { name: "Услуги", path: "/services" },
+      { name: service.title, path: servicePath },
+    ]),
+    buildServiceStructuredData({
+      description: service.shortDescription || paragraphs[0] || service.description,
+      path: servicePath,
+      title: service.title,
+    }),
+  );
 
   return (
     <main className="page inner-page service-detail-page" aria-label={service.title}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="services" phone={siteSettings.phonePrimary} />
 
       <div className="service-detail">

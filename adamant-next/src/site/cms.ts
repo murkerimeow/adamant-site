@@ -20,6 +20,7 @@ export type PageIntroGlobal = {
   seoTitle?: string | null;
   subtitle?: string | null;
   title: string;
+  updatedAt?: string | null;
 };
 
 export type BlogPageGlobal = PageIntroGlobal & {
@@ -96,6 +97,7 @@ export type CatalogItemDoc = {
   id: number;
   title: string;
   slug: string;
+  updatedAt?: string | null;
   seoDescription?: string | null;
   seoTitle?: string | null;
   itemKey: string;
@@ -136,6 +138,7 @@ export type CatalogCategoryDoc = {
   id: number | string;
   title: string;
   slug: string;
+  updatedAt?: string | null;
   description?: string | null;
   h1?: string | null;
   heroImage?: number | Media | null;
@@ -199,6 +202,7 @@ export type VacancyDoc = {
   id: number;
   title: string;
   slug: string;
+  updatedAt?: string | null;
   order: number;
   salary?: string | null;
   employment?: string | null;
