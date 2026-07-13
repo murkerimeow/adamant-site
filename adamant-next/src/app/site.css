@@ -28972,7 +28972,8 @@ body:has(.page.inner-page),
 
 @media (min-width: 981px) {
   .page.inner-page.mortgage-page {
-    --mortgage-first-screen-hero-height: clamp(320px, 20vw, 360px);
+    --mortgage-first-screen-hero-height: clamp(400px, 24.5vw, 450px);
+    --mortgage-first-screen-bottom-gap: clamp(18px, 2vh, 24px);
   }
 
   .page.inner-page.mortgage-page .mortgage-redesign__hero {
@@ -28984,15 +28985,15 @@ body:has(.page.inner-page),
   .page.inner-page.mortgage-page .mortgage-redesign__banks {
     box-sizing: border-box !important;
     min-height: max(
-      280px,
+      260px,
       calc(
-        100svh + clamp(18px, 2vh, 28px) -
+        100svh + var(--mortgage-first-screen-bottom-gap) -
           var(--inner-page-content-top) -
           var(--mortgage-first-screen-hero-height) -
           var(--inner-page-section-gap)
       )
     ) !important;
-    padding-bottom: clamp(34px, 4vh, 56px) !important;
+    padding-bottom: clamp(24px, 3vh, 38px) !important;
   }
 
   .page.inner-page.mortgage-page
