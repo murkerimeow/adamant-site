@@ -31852,9 +31852,15 @@ body:has(.contacts-page),
   .about-redesign__team,
   .about-redesign__cta
 ) {
+  box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
+}
+
+.page.inner-page.about-page--fresh > .about-redesign > .about-redesign__hero {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
 }
 
 .page.inner-page.about-page--fresh .about-redesign__hero-content {
