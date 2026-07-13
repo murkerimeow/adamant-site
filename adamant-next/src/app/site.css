@@ -31693,7 +31693,8 @@ body:has(.contacts-page),
     );
     grid-template-columns:
       minmax(0, min(44vw, var(--client-auth-available-height), 720px))
-      minmax(420px, 1fr);
+      minmax(0, min(44vw, var(--client-auth-available-height), 720px));
+    justify-content: center;
   }
 
   .client-auth__media {
