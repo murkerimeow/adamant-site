@@ -350,30 +350,45 @@ export default async function ServicesPage() {
         </section>
 
         <section className="services-redesign__consult" aria-labelledby="services-consult-title">
-          <img
-            src="/home-main-new.webp"
-            alt="Современный загородный дом для обсуждения проекта"
-            loading="lazy"
-            decoding="async"
-          />
-          <form className="contact-form services-redesign__form" aria-label="Обсудить проект">
+          <div className="services-redesign__consult-content">
             <h2 id="services-consult-title">Обсудим ваш проект</h2>
             <p>Оставьте заявку — мы свяжемся с вами и ответим на все вопросы.</p>
-            <div className="services-redesign__form-row">
-              <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+
+            <form className="contact-form services-redesign__form" aria-label="Обсудить проект">
+              <input name="name" type="text" placeholder="Имя" aria-label="Имя" />
               <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
-            </div>
-            <textarea name="message" rows={3} placeholder="Комментарий" aria-label="Комментарий" />
-            <input type="hidden" name="service" value="Услуги" />
-            <label className="services-redesign__consent">
-              <input type="checkbox" name="privacy" required />
-              <span>Я согласен на обработку персональных данных</span>
-            </label>
-            <button type="submit" disabled>
-              Отправить заявку <span aria-hidden="true">→</span>
-            </button>
-            <p className="contact-form__status" aria-live="polite" />
-          </form>
+              <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
+              <textarea
+                name="message"
+                rows={4}
+                placeholder="Комментарий"
+                aria-label="Комментарий"
+              />
+              <input type="hidden" name="service" value="Услуги" />
+
+              <label className="services-redesign__consent">
+                <input type="checkbox" name="privacy" required />
+                <span>
+                  Согласен на{" "}
+                  <Link href="/privacy">обработку персональных данных</Link>
+                </span>
+              </label>
+
+              <button type="submit" disabled>
+                Отправить заявку
+              </button>
+              <p className="contact-form__status" aria-live="polite" />
+            </form>
+          </div>
+
+          <div className="services-redesign__consult-media">
+            <img
+              src="/home-main-new.webp"
+              alt="Современный загородный дом для обсуждения проекта"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </section>
 
         <section className="services-redesign__section" aria-labelledby="services-process-title">

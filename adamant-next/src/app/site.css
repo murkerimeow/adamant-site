@@ -30830,6 +30830,158 @@ body:has(.contacts-page),
   box-shadow: none !important;
 }
 
+.page.inner-page.services-page .services-redesign__consult {
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr) !important;
+  gap: clamp(14px, 1.15vw, 22px) !important;
+  align-items: stretch !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-content,
+.page.inner-page.services-page .services-redesign__consult-media {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  border-radius: var(--inner-page-section-radius) !important;
+  background: #ffffff !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: clamp(34px, 3.6vw, 68px) !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-content h2 {
+  max-width: 620px !important;
+  margin: 0 !important;
+  color: #0d0f12 !important;
+  font-size: clamp(30px, 2.15vw, 42px) !important;
+  font-weight: 650 !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-content > p {
+  max-width: 620px !important;
+  margin: 12px 0 0 !important;
+  color: #68748a !important;
+  font-size: clamp(15px, 1vw, 19px) !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-media {
+  min-height: 620px !important;
+  background: #e9edf1 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult-media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center bottom !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult > img {
+  display: none !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form {
+  display: grid !important;
+  gap: 14px !important;
+  margin-top: clamp(24px, 2vw, 38px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form-row {
+  display: contents !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form input:not([type="checkbox"]),
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form textarea {
+  min-height: 54px !important;
+  margin: 0 !important;
+  padding: 15px 20px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #f2f3f7 !important;
+  color: #15223a !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form input:not([type="checkbox"]):focus,
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form textarea:focus {
+  border: 0 !important;
+  outline: 2px solid rgba(217, 152, 104, 0.3) !important;
+  outline-offset: 0 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form textarea {
+  min-height: 96px !important;
+  resize: vertical !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__consent {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  margin-top: 2px !important;
+  color: #68748a !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  cursor: pointer !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__consent input {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  flex: 0 0 18px !important;
+  margin: 0 !important;
+  accent-color: #d99868 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__consent a {
+  color: #68abe7 !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form button[type="submit"] {
+  width: fit-content !important;
+  min-width: 176px !important;
+  min-height: 48px !important;
+  margin: 4px 0 0 !important;
+  padding: 13px 24px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #d99868 !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.services-page .services-redesign__consult .services-redesign__form .contact-form__status {
+  min-height: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
 @media (max-width: 1180px) {
   .page.inner-page.services-page .services-page-service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -30846,6 +30998,51 @@ body:has(.contacts-page),
   .page.inner-page.services-page .services-redesign__consult {
     padding: 30px 20px !important;
     border-radius: 20px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult-content {
+    padding: 28px 20px 24px !important;
+    border-radius: 28px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult-content h2 {
+    font-size: 27px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult-content > p {
+    font-size: 14px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult-media {
+    display: none !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult .services-redesign__form {
+    gap: 11px !important;
+    margin-top: 22px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult .services-redesign__form input:not([type="checkbox"]),
+  .page.inner-page.services-page .services-redesign__consult .services-redesign__form textarea {
+    min-height: 50px !important;
+    padding: 13px 16px !important;
+    font-size: 14px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult .services-redesign__form textarea {
+    min-height: 86px !important;
+  }
+
+  .page.inner-page.services-page .services-redesign__consult .services-redesign__form button[type="submit"] {
+    width: 100% !important;
+    min-height: 48px !important;
   }
 
   .page.inner-page.services-page .services-redesign__section-head {
