@@ -31817,3 +31817,258 @@ body:has(.contacts-page),
     display: none;
   }
 }
+
+/* About page final alignment: inner pages stay clean, with no heading pills. */
+.page.inner-page :where(
+  .section__kicker,
+  .section__eyebrow,
+  .about-redesign__eyebrow,
+  .product-hero-info__eyebrow
+) {
+  display: none !important;
+}
+
+.page.inner-page.about-page--fresh {
+  background: #f2f3f7 !important;
+}
+
+.page.inner-page.about-page--fresh > .about-redesign {
+  display: grid !important;
+  width: var(--site-frame-width) !important;
+  max-width: var(--site-frame-width) !important;
+  margin: var(--inner-page-content-top) auto 0 !important;
+  padding: 0 !important;
+  gap: var(--inner-page-section-gap) !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.about-page--fresh > .about-redesign > :is(
+  .about-redesign__hero,
+  .about-redesign__stats,
+  .about-redesign__story,
+  .about-redesign__approach,
+  .about-redesign__team,
+  .about-redesign__cta
+) {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__hero-content {
+  display: grid !important;
+  align-content: center !important;
+  gap: clamp(16px, 1.35vw, 24px) !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__hero-content h1,
+.page.inner-page.about-page--fresh .about-redesign__hero-content p,
+.page.inner-page.about-page--fresh .about-redesign__hero-content button {
+  margin-top: 0 !important;
+}
+
+.page.inner-page.about-page--fresh :is(
+  .about-redesign__story,
+  .about-redesign__approach,
+  .about-redesign__team,
+  .about-redesign__cta
+) {
+  padding-top: clamp(42px, 4vw, 72px) !important;
+  padding-bottom: clamp(42px, 4vw, 72px) !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__story {
+  gap: clamp(26px, 3.2vw, 58px) !important;
+  align-items: center !important;
+}
+
+.page.inner-page.about-page--fresh .about-approach-intro {
+  gap: clamp(14px, 1.1vw, 20px) !important;
+}
+
+.page.inner-page.about-page--fresh .about-approach-intro > span {
+  display: none !important;
+}
+
+.page.inner-page.about-page--fresh :is(
+  .about-redesign__story h2,
+  .about-approach-intro > h2,
+  .about-redesign__section-head > h2,
+  .about-redesign__cta h2
+) {
+  margin: 0 !important;
+  color: #0d0f12 !important;
+  font-size: clamp(30px, 2.65vw, 50px) !important;
+  font-weight: 650 !important;
+  line-height: 1.06 !important;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+}
+
+.page.inner-page.about-page--fresh :is(
+  .about-redesign__story p,
+  .about-approach-intro p,
+  .about-redesign__cta p
+) {
+  max-width: 720px !important;
+  margin-top: clamp(14px, 1vw, 18px) !important;
+  color: #6f7683 !important;
+  font-size: clamp(16px, 1.05vw, 20px) !important;
+  font-weight: 500 !important;
+  line-height: 1.42 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__section-head {
+  gap: 16px !important;
+  margin-bottom: clamp(26px, 2.8vw, 44px) !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__cta--career {
+  grid-template-columns: minmax(0, 0.88fr) minmax(360px, 0.82fr) !important;
+  align-items: stretch !important;
+  gap: clamp(26px, 3vw, 56px) !important;
+  background: #ffffff !important;
+  color: #0d0f12 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__cta--career > div {
+  display: grid !important;
+  align-content: center !important;
+  gap: clamp(14px, 1.2vw, 22px) !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__cta--career > div > * {
+  margin: 0 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form {
+  display: grid !important;
+  align-content: start !important;
+  gap: 14px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(24px, 2.3vw, 36px) !important;
+  border: 1px solid #dfe5ee !important;
+  border-radius: 24px !important;
+  background: #f7f8fb !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form input:not([type="checkbox"]),
+.page.inner-page.about-page--fresh .about-redesign__career-form textarea {
+  width: 100% !important;
+  min-height: 54px !important;
+  border: 1px solid #d7dee9 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  color: #0d0f12 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  padding: 15px 18px !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form textarea {
+  min-height: 112px !important;
+  resize: vertical !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form input::placeholder,
+.page.inner-page.about-page--fresh .about-redesign__career-form textarea::placeholder {
+  color: #8a94a3 !important;
+  opacity: 1 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form input:focus,
+.page.inner-page.about-page--fresh .about-redesign__career-form textarea:focus {
+  border-color: #68abe7 !important;
+  outline: 3px solid rgba(104, 171, 231, 0.16) !important;
+  outline-offset: 0 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form label {
+  display: grid !important;
+  grid-template-columns: 20px minmax(0, 1fr) !important;
+  gap: 10px !important;
+  align-items: start !important;
+  margin: 0 !important;
+  color: #6f7683 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form label input[type="checkbox"] {
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  accent-color: #d99868 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form button {
+  width: max-content !important;
+  min-width: 190px !important;
+  min-height: 52px !important;
+  margin-top: 2px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #d99868 !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.72 !important;
+}
+
+@media (max-width: 980px) {
+  .page.inner-page.about-page--fresh .about-redesign__cta--career {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .page.inner-page.about-page--fresh > .about-redesign {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    gap: 18px !important;
+  }
+
+  .page.inner-page.about-page--fresh :is(
+    .about-redesign__story,
+    .about-redesign__approach,
+    .about-redesign__team,
+    .about-redesign__cta
+  ) {
+    padding-top: 30px !important;
+    padding-bottom: 34px !important;
+  }
+
+  .page.inner-page.about-page--fresh :is(
+    .about-redesign__story h2,
+    .about-approach-intro > h2,
+    .about-redesign__section-head > h2,
+    .about-redesign__cta h2
+  ) {
+    font-size: 30px !important;
+    line-height: 1.08 !important;
+  }
+
+  .page.inner-page.about-page--fresh .about-redesign__career-form {
+    padding: 20px !important;
+    border-radius: 20px !important;
+  }
+
+  .page.inner-page.about-page--fresh .about-redesign__career-form button {
+    width: 100% !important;
+  }
+}

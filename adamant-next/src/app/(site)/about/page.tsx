@@ -182,7 +182,6 @@ export default async function AboutPage() {
               <span aria-hidden="true">/</span>
               <span>{aboutPage.eyebrow || "О нас"}</span>
             </nav>
-            {aboutPage.eyebrow ? <span className="about-redesign__eyebrow">{aboutPage.eyebrow}</span> : null}
             <h1 id="about-title">{aboutPage.title || "О компании Адамант Строй"}</h1>
             {aboutPage.subtitle ? <p>{aboutPage.subtitle}</p> : null}
             <button className="js-open-message" type="button">
@@ -223,7 +222,6 @@ export default async function AboutPage() {
 
         <section className="about-redesign__approach" aria-labelledby="about-approach-title">
           <div className="about-approach-intro">
-            <span>Наш подход</span>
             <h2 id="about-approach-title">Почему нам доверяют</h2>
             <i aria-hidden="true" />
             <p>
@@ -324,7 +322,7 @@ export default async function AboutPage() {
               <input type="checkbox" name="privacy" required />
               <span>Я согласен на обработку персональных данных</span>
             </label>
-            <button type="submit" disabled>Отправить отклик</button>
+            <button type="submit">Отправить отклик</button>
             <p className="contact-form__status" aria-live="polite" />
           </form>
         </section>
