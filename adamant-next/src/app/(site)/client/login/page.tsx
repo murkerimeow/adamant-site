@@ -49,20 +49,42 @@ export default async function ClientLoginPage({ searchParams }: ClientLoginPageP
             <p className="eyebrow">Личный кабинет</p>
             <h1 id="client-login-title">Вход для клиентов</h1>
           </div>
-          <form className="client-auth__form" action="/api/client-login" method="post">
+          <form
+            autoComplete="off"
+            className="client-auth__form"
+            action="/api/client-login"
+            data-1p-ignore="true"
+            data-form-type="other"
+            data-lpignore="true"
+            method="post"
+          >
             <label>
               <span>Логин</span>
               <input
-                autoComplete="username"
-                name="login"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                data-1p-ignore="true"
+                data-form-type="other"
+                data-lpignore="true"
+                name="clientAccessLogin"
                 placeholder="client-123"
                 required
+                spellCheck={false}
                 type="text"
               />
             </label>
             <label>
               <span>Пароль</span>
-              <input autoComplete="current-password" name="password" required type="password" />
+              <input
+                autoComplete="new-password"
+                data-1p-ignore="true"
+                data-form-type="other"
+                data-lpignore="true"
+                name="clientAccessPassword"
+                required
+                type="password"
+              />
             </label>
             {hasError ? (
               <p className="client-auth__error">Неверный логин или пароль.</p>

@@ -40,8 +40,10 @@ function shouldUseSecureCookie(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
-  const login = normalizeClientLogin(formData.get("login"));
-  const password = String(formData.get("password") ?? "");
+  const login = normalizeClientLogin(formData.get("clientAccessLogin") ?? formData.get("login"));
+  const password = String(
+    formData.get("clientAccessPassword") ?? formData.get("password") ?? "",
+  );
 
   if (!login || !password) {
     return redirectWithError(request);
