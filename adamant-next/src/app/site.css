@@ -31667,6 +31667,27 @@ body:has(.contacts-page),
   font-weight: 700;
 }
 
+@media (min-width: 981px) {
+  .page.inner-page.client-auth-page {
+    min-height: 100svh !important;
+    padding-bottom: clamp(64px, 8vh, 96px) !important;
+  }
+
+  .client-auth {
+    --client-auth-available-height: calc(
+      100svh - var(--inner-page-content-top) - clamp(24px, 3vh, 36px)
+    );
+    grid-template-columns:
+      minmax(0, min(44vw, var(--client-auth-available-height), 720px))
+      minmax(420px, 1fr);
+  }
+
+  .client-auth__media {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+}
+
 .client-cabinet__panel {
   min-height: 420px;
 }
