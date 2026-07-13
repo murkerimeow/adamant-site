@@ -32079,3 +32079,76 @@ body:has(.contacts-page),
     width: 100% !important;
   }
 }
+
+/* Portfolio listing tabs mirror the homepage portfolio tabs. */
+.page.inner-page.portfolio-page .catalog-category-pills {
+  display: flex !important;
+  width: 100% !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: clamp(16px, 2.3vw, 40px) !important;
+  margin: 28px 0 30px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  scrollbar-width: none !important;
+}
+
+.page.inner-page.portfolio-page .catalog-category-pills::-webkit-scrollbar {
+  display: none !important;
+}
+
+.page.inner-page.portfolio-page .catalog-category-pill {
+  display: inline-flex !important;
+  min-height: 34px !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #17191d !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  padding: 0 2px !important;
+  transform: none !important;
+  transition: background 160ms ease, color 160ms ease !important;
+}
+
+.page.inner-page.portfolio-page .catalog-category-pill:hover {
+  color: #17191d !important;
+  transform: none !important;
+}
+
+.page.inner-page.portfolio-page .catalog-category-pill.is-active {
+  min-width: 66px !important;
+  background: #df9867 !important;
+  color: #ffffff !important;
+  padding: 0 22px !important;
+}
+
+@media (max-width: 767px) {
+  .page.inner-page.portfolio-page .catalog-category-pills {
+    gap: 10px !important;
+    margin: 22px 0 24px !important;
+  }
+
+  .page.inner-page.portfolio-page .catalog-category-pill {
+    min-height: 32px !important;
+    background: #f2f3f7 !important;
+    font-size: 12px !important;
+    padding: 0 14px !important;
+  }
+
+  .page.inner-page.portfolio-page .catalog-category-pill.is-active {
+    min-width: 60px !important;
+    background: #df9867 !important;
+    padding: 0 18px !important;
+  }
+}
