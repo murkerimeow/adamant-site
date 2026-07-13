@@ -29250,11 +29250,12 @@ body:has(.product-page--catalog),
   display: flex !important;
   min-width: 0 !important;
   flex-direction: column !important;
+  justify-content: center !important;
   border: 0 !important;
   border-radius: 25px !important;
   background: #ffffff !important;
   box-shadow: none !important;
-  padding: 30px 32px !important;
+  padding: clamp(30px, 2.35vw, 38px) clamp(30px, 2.5vw, 42px) !important;
 }
 
 .product-page--catalog .product-hero-info__eyebrow {
@@ -29264,19 +29265,19 @@ body:has(.product-page--catalog),
 .product-page--catalog .product-hero-info h1 {
   margin: 0 !important;
   color: #111318 !important;
-  font-size: clamp(25px, 2.05vw, 30px) !important;
+  font-size: clamp(27px, 2.1vw, 34px) !important;
   font-weight: 700 !important;
-  line-height: 1.08 !important;
+  line-height: 1.06 !important;
   letter-spacing: 0 !important;
 }
 
 .product-page--catalog .product-hero-info__location {
   display: flex !important;
-  gap: 6px !important;
+  gap: 7px !important;
   align-items: center !important;
-  margin: 8px 0 0 !important;
+  margin: 10px 0 0 !important;
   color: #737982 !important;
-  font-size: 9px !important;
+  font-size: 10px !important;
   font-weight: 500 !important;
   line-height: 1.2 !important;
 }
@@ -29289,40 +29290,41 @@ body:has(.product-page--catalog),
 }
 
 .product-page--catalog .product-hero-info__summary {
+  max-width: 96% !important;
   margin: 20px 0 0 !important;
   color: #777c84 !important;
-  font-size: 13px !important;
+  font-size: 13.5px !important;
   font-weight: 400 !important;
-  line-height: 1.35 !important;
+  line-height: 1.4 !important;
 }
 
 .product-page--catalog .product-hero-info__summary--secondary {
-  margin-top: 14px !important;
+  margin-top: 12px !important;
 }
 
 .product-page--catalog .product-hero-info__specs {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 8px !important;
-  margin-top: 20px !important;
+  gap: 10px !important;
+  margin-top: 22px !important;
 }
 
 .product-page--catalog .product-hero-info__specs article {
   display: grid !important;
-  min-height: 48px !important;
-  grid-template-columns: 34px minmax(0, 1fr) !important;
-  gap: 8px !important;
+  min-height: 52px !important;
+  grid-template-columns: 36px minmax(0, 1fr) !important;
+  gap: 10px !important;
   align-items: center !important;
   border: 0 !important;
   border-radius: 12px !important;
   background: #e8f2fc !important;
-  padding: 8px 10px !important;
+  padding: 8px 12px !important;
 }
 
 .product-page--catalog .product-hero-info__specs article > span {
   display: grid !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: 34px !important;
+  height: 34px !important;
   place-items: center !important;
   border-radius: 9px !important;
   background: #ffffff !important;
@@ -29354,7 +29356,7 @@ body:has(.product-page--catalog),
 .product-page--catalog .product-hero-info__price {
   display: grid !important;
   gap: 6px !important;
-  margin-top: 18px !important;
+  margin-top: 20px !important;
   border: 0 !important;
   padding: 0 !important;
 }
@@ -29396,19 +29398,19 @@ body:has(.product-page--catalog),
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 9px !important;
-  margin-top: 20px !important;
+  margin-top: 18px !important;
 }
 
 .product-page--catalog .product-hero-info__button,
 .product-page--catalog .product-hero-info__mortgage {
   display: inline-flex !important;
   width: 100% !important;
-  min-height: 42px !important;
+  min-height: 46px !important;
   align-items: center !important;
   justify-content: center !important;
   border-radius: 999px !important;
   font: inherit !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
   line-height: 1 !important;
   text-align: center !important;
@@ -29429,7 +29431,8 @@ body:has(.product-page--catalog),
 }
 
 .product-page--catalog .product-hero-info__notice {
-  margin: auto 0 0 !important;
+  max-width: 96% !important;
+  margin: clamp(20px, 1.7vw, 28px) 0 0 !important;
   color: #7d828a !important;
   font-size: 10px !important;
   font-weight: 400 !important;
