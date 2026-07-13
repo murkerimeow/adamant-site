@@ -31176,6 +31176,20 @@ body:has(.contacts-page),
   }
 }
 
+@media (min-width: 768px) {
+  .page.inner-page.services-page > .services-redesign > .services-catalog-section {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-right: calc(
+      -1 * max(calc((100vw - 1560px) / 2), calc(clamp(96px, 10vw, 180px) / 2))
+    ) !important;
+    margin-left: calc(
+      -1 * max(calc((100vw - 1560px) / 2), calc(clamp(96px, 10vw, 180px) / 2))
+    ) !important;
+    border-radius: 0 !important;
+  }
+}
+
 /* Service landing pages. */
 .page.inner-page.service-detail-page {
   padding-bottom: var(--inner-page-section-gap) !important;
