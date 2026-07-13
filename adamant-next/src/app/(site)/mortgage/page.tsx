@@ -293,9 +293,6 @@ export default async function MortgagePage() {
               </label>
             </div>
 
-            <button className="mortgage-calculator__consult js-open-estimate" type="button">
-              Получить консультацию
-            </button>
           </div>
 
           <div className="mortgage-calculator__middle" aria-live="polite">
