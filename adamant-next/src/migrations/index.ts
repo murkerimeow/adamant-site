@@ -22,6 +22,8 @@ import * as migration_20260706_030000_sync_catalog_versions from './20260706_030
 import * as migration_20260706_050000_seed_portfolio_design_projects from './20260706_050000_seed_portfolio_design_projects.ts';
 import * as migration_20260708_170000_client_access from './20260708_170000_client_access.ts';
 import * as migration_20260711_230000_seed_landscape_portfolio from './20260711_230000_seed_landscape_portfolio.ts';
+import * as migration_20260713_190000_seed_pdf_catalog_projects from './20260713_190000_seed_pdf_catalog_projects.ts';
+import * as migration_20260713_210000_seed_vk_portfolio_projects from './20260713_210000_seed_vk_portfolio_projects.ts';
 
 export const migrations = [
   {
@@ -143,5 +145,15 @@ export const migrations = [
     up: migration_20260711_230000_seed_landscape_portfolio.up,
     down: migration_20260711_230000_seed_landscape_portfolio.down,
     name: '20260711_230000_seed_landscape_portfolio'
+  },
+  {
+    up: migration_20260713_190000_seed_pdf_catalog_projects.up,
+    down: migration_20260713_190000_seed_pdf_catalog_projects.down,
+    name: '20260713_190000_seed_pdf_catalog_projects'
+  },
+  {
+    up: migration_20260713_210000_seed_vk_portfolio_projects.up,
+    down: migration_20260713_210000_seed_vk_portfolio_projects.down,
+    name: '20260713_210000_seed_vk_portfolio_projects'
   },
 ];
