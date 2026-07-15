@@ -304,27 +304,41 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <section className="about-redesign__cta about-redesign__cta--career" aria-label="Отклик на вакансию">
-          <div>
-            <h2>Хотите работать с нами?</h2>
+        <section className="about-redesign__cta about-redesign__cta--career" aria-labelledby="about-career-title">
+          <div className="about-redesign__career-content">
+            <h2 id="about-career-title">Хотите работать с нами?</h2>
             <p>Оставьте контакты и коротко расскажите о себе. Мы свяжемся, если найдем подходящую роль в команде.</p>
-            <div>
-              <a href="/vacancies">Смотреть вакансии <span aria-hidden="true">→</span></a>
+
+            <form className="contact-form about-redesign__career-form" aria-label="Отклик на вакансию">
+              <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
+              <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
+              <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
+              <textarea name="message" rows={4} placeholder="Расскажите о себе" aria-label="Сообщение" />
+              <input type="hidden" name="service" value="Отклик на вакансию" />
+              <label className="about-redesign__career-consent">
+                <input type="checkbox" name="privacy" required />
+                <span>
+                  Я согласен на{" "}
+                  <Link href="/privacy">обработку персональных данных</Link>
+                </span>
+              </label>
+              <button type="submit">Отправить отклик</button>
+              <p className="contact-form__status" aria-live="polite" />
+            </form>
+
+            <div className="about-redesign__career-actions">
+              <Link href="/vacancies">Смотреть вакансии <span aria-hidden="true">→</span></Link>
             </div>
           </div>
-          <form className="contact-form about-redesign__career-form" aria-label="Отклик на вакансию">
-            <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
-            <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
-            <input name="email" type="email" placeholder="E-mail" aria-label="E-mail" />
-            <textarea name="message" rows={3} placeholder="Расскажите о себе" aria-label="Сообщение" />
-            <input type="hidden" name="service" value="Отклик на вакансию" />
-            <label>
-              <input type="checkbox" name="privacy" required />
-              <span>Я согласен на обработку персональных данных</span>
-            </label>
-            <button type="submit">Отправить отклик</button>
-            <p className="contact-form__status" aria-live="polite" />
-          </form>
+
+          <div className="about-redesign__career-media">
+            <img
+              src="/home-main-new.webp"
+              alt="Современный загородный дом АДАМАНТ Строй"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </section>
       </section>
     </main>
