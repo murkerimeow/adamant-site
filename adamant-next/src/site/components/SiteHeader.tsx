@@ -1,24 +1,45 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { getHeaderCatalogCategories } from "@/site/cms";
+import { getHeaderCatalogCategories, getSiteSettings } from "@/site/cms";
 import { getCatalogCategoryPath } from "@/site/routes";
 import { SocialIcon, socialLinks } from "@/site/socials";
 
+type HeaderNavKey =
+  | "about"
+  | "blog"
+  | "catalog"
+  | "contacts"
+  | "home"
+  | "mortgage"
+  | "portfolio"
+  | "reviews"
+  | "services"
+  | "vacancies";
+
+type HeaderNavItem = {
+  badge?: string;
+  href: string;
+  key: HeaderNavKey;
+  label: string;
+};
+
+type HeaderNavSettingsItem = {
+  badge?: string | null;
+  href?: string | null;
+  label?: string | null;
+  navKey?: HeaderNavKey | null;
+  showInHeader?: boolean | null;
+};
+
+type SiteSettingsWithHeaderNav = {
+  headerNavItems?: HeaderNavSettingsItem[] | null;
+};
+
 type SiteHeaderProps = {
-  active?:
-    | "about"
-    | "blog"
-    | "catalog"
-    | "contacts"
-    | "home"
-    | "mortgage"
-    | "portfolio"
-    | "reviews"
-    | "services"
-    | "vacancies";
+  active?: HeaderNavKey;
   phone: string;
 };
 
-const navItems = [
+const defaultNavItems: HeaderNavItem[] = [
   { href: "/", key: "home", label: "Главная" },
   { href: "/services", key: "services", label: "Услуги" },
   { href: "/mortgage", key: "mortgage", label: "Ипотека", badge: "NEW" },
@@ -29,10 +50,60 @@ const navItems = [
   { href: "/vacancies", key: "vacancies", label: "Вакансии" },
   { href: "/contacts", key: "contacts", label: "Контакты" },
   { href: "/about", key: "about", label: "О нас" },
-] as const;
+];
+
+const defaultNavItemByKey = defaultNavItems.reduce(
+  (items, item) => ({
+    ...items,
+    [item.key]: item,
+  }),
+  {} as Record<HeaderNavKey, HeaderNavItem>,
+);
+
+function getHeaderNavItems(siteSettings: SiteSettingsWithHeaderNav): HeaderNavItem[] {
+  const configuredItems = siteSettings.headerNavItems;
+
+  if (!Array.isArray(configuredItems) || configuredItems.length === 0) {
+    return defaultNavItems;
+  }
+
+  const visibleItems: HeaderNavItem[] = [];
+
+  for (const item of configuredItems) {
+    if (item.showInHeader === false) {
+      continue;
+    }
+
+    const navKey = item.navKey;
+
+    if (!navKey) {
+      continue;
+    }
+
+    const defaultItem = defaultNavItemByKey[navKey];
+
+    if (!defaultItem) {
+      continue;
+    }
+
+    visibleItems.push({
+      ...defaultItem,
+      badge: item.badge?.trim() || undefined,
+      href: item.href?.trim() || defaultItem.href,
+      label: item.label?.trim() || defaultItem.label,
+    });
+  }
+
+  return visibleItems;
+}
 
 export async function SiteHeader({ active, phone }: SiteHeaderProps) {
-  const catalogCategories = await getHeaderCatalogCategories();
+  const [catalogCategories, siteSettings] = await Promise.all([
+    getHeaderCatalogCategories(),
+    getSiteSettings(),
+  ]);
+  const navItems = getHeaderNavItems(siteSettings as SiteSettingsWithHeaderNav);
+  const showCatalogDropdown = navItems.some((item) => item.key === "catalog");
 
   return (
     <header className="header">
@@ -52,7 +123,7 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
 
           return (
             <div
-              key={item.href}
+              key={`${item.key}-${item.href}`}
               className={`nav__item${isCatalog ? " nav__item--catalog" : ""}`}
             >
               <a
@@ -61,7 +132,7 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
                 href={item.href}
               >
                 <span className="nav__label">{item.label}</span>
-                {"badge" in item ? (
+                {item.badge ? (
                   <>
                     {" "}
                     <span className="nav__badge">{item.badge}</span>
@@ -132,16 +203,18 @@ export async function SiteHeader({ active, phone }: SiteHeaderProps) {
         </div>
       </nav>
 
-      <div className="header-projects-dropdown" aria-label="Категории проектов">
-        <a className="header-projects-dropdown__all" href="/catalog">
-          Все
-        </a>
-        {catalogCategories.map((category) => (
-          <a key={`header-${category.id}`} href={getCatalogCategoryPath(category)}>
-            {category.title}
+      {showCatalogDropdown ? (
+        <div className="header-projects-dropdown" aria-label="Категории проектов">
+          <a className="header-projects-dropdown__all" href="/catalog">
+            Все
           </a>
-        ))}
-      </div>
+          {catalogCategories.map((category) => (
+            <a key={`header-${category.id}`} href={getCatalogCategoryPath(category)}>
+              {category.title}
+            </a>
+          ))}
+        </div>
+      ) : null}
 
       <button className="phone js-open-callback" type="button" aria-label={`Заказать обратный звонок по номеру ${phone}`}>
         {phone}

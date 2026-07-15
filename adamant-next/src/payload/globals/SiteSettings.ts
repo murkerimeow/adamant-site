@@ -43,6 +43,69 @@ export const SiteSettings: GlobalConfig = {
       label: "Режим работы",
     },
     {
+      name: "headerNavItems",
+      type: "array",
+      label: "Пункты меню в хедере",
+      labels: {
+        plural: "Пункты меню в хедере",
+        singular: "Пункт меню",
+      },
+      admin: {
+        description:
+          "Выберите, какие вкладки показывать в верхнем меню сайта. Можно менять порядок, подпись и бейдж.",
+      },
+      fields: [
+        {
+          name: "navKey",
+          type: "select",
+          defaultValue: "home",
+          label: "Раздел",
+          options: [
+            { label: "Главная", value: "home" },
+            { label: "Услуги", value: "services" },
+            { label: "Ипотека", value: "mortgage" },
+            { label: "Портфолио", value: "portfolio" },
+            { label: "Проекты", value: "catalog" },
+            { label: "Блог", value: "blog" },
+            { label: "Отзывы", value: "reviews" },
+            { label: "Вакансии", value: "vacancies" },
+            { label: "Контакты", value: "contacts" },
+            { label: "О нас", value: "about" },
+          ],
+          required: true,
+        },
+        {
+          name: "label",
+          type: "text",
+          label: "Подпись",
+          required: true,
+        },
+        {
+          name: "href",
+          type: "text",
+          label: "Ссылка",
+          admin: {
+            description:
+              "Можно оставить стандартную ссылку для выбранного раздела или задать свою.",
+          },
+        },
+        {
+          name: "badge",
+          type: "text",
+          label: "Бейдж",
+          admin: {
+            description: "Например NEW. Если поле пустое, бейдж не показывается.",
+          },
+        },
+        {
+          name: "showInHeader",
+          type: "checkbox",
+          defaultValue: true,
+          label: "Показывать в хедере",
+        },
+      ],
+    },
+    {
       name: "companyStats",
       type: "array",
       label: "Показатели компании",

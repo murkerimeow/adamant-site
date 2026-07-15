@@ -1031,6 +1031,35 @@ export interface SiteSetting {
   email?: string | null;
   address?: string | null;
   workingHours?: string | null;
+  /**
+   * Выберите, какие вкладки показывать в верхнем меню сайта. Можно менять порядок, подпись и бейдж.
+   */
+  headerNavItems?:
+    | {
+        navKey:
+          | 'home'
+          | 'services'
+          | 'mortgage'
+          | 'portfolio'
+          | 'catalog'
+          | 'blog'
+          | 'reviews'
+          | 'vacancies'
+          | 'contacts'
+          | 'about';
+        label: string;
+        /**
+         * Можно оставить стандартную ссылку для выбранного раздела или задать свою.
+         */
+        href?: string | null;
+        /**
+         * Например NEW. Если поле пустое, бейдж не показывается.
+         */
+        badge?: string | null;
+        showInHeader?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   companyStats?:
     | {
         statKey?:
@@ -1235,6 +1264,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   email?: T;
   address?: T;
   workingHours?: T;
+  headerNavItems?:
+    | T
+    | {
+        navKey?: T;
+        label?: T;
+        href?: T;
+        badge?: T;
+        showInHeader?: T;
+        id?: T;
+      };
   companyStats?:
     | T
     | {
