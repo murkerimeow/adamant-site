@@ -287,7 +287,10 @@ export default async function HomePage() {
               <img
                 className="visual-panel__image visual-panel__image--lit"
                 src={homeHeroImageUrl}
-                alt=""
+                alt={getMediaAlt(
+                  homePage.heroImage,
+                  homePage.heroTitle || "Строительство домов под ключ",
+                )}
                 aria-hidden="true"
                 loading="eager"
                 decoding="async"
@@ -445,7 +448,10 @@ export default async function HomePage() {
                       <img
                         className="home-project-card__background home-project-card__background--night"
                         src={nightImageUrl}
-                        alt=""
+                        alt={getMediaAlt(
+                          project.nightImage,
+                          `Ночная визуализация проекта ${project.title}`,
+                        )}
                         aria-hidden="true"
                         loading="lazy"
                         decoding="async"

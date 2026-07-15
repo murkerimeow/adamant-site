@@ -491,7 +491,7 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
                   <img
                     className="catalog-project-card__background catalog-project-card__background--night"
                     src={nightSrc}
-                    alt=""
+                    alt={getMediaAlt(item.nightImage, `Ночная визуализация проекта ${item.title}`)}
                     aria-hidden="true"
                     loading="lazy"
                     decoding="async"

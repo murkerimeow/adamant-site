@@ -37,7 +37,7 @@ export default async function ClientLoginPage({ searchParams }: ClientLoginPageP
         <div className="client-auth__media" aria-hidden="true">
           <img
             src="/plot-selection.webp"
-            alt=""
+            alt="Загородный участок для строительства дома"
             loading="eager"
             decoding="async"
             fetchPriority="high"

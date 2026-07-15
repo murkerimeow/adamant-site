@@ -183,7 +183,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
             >
               <img
                 src={image.thumbSrc ?? image.src}
-                alt=""
+                alt={image.alt}
                 aria-hidden="true"
                 loading="lazy"
                 decoding="async"
