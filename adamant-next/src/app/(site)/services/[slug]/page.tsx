@@ -83,6 +83,10 @@ function normalizeSlug(slug: string) {
   }
 }
 
+const serviceSlugLookup: Record<string, string> = {
+  "stroitelstvo-zagorodnyh-domov": "dom-iz-gazobetona",
+};
+
 function getFallbackService(slug: string) {
   return slug === landscapeFallback.slug ? landscapeFallback : null;
 }
@@ -94,7 +98,13 @@ function isLandscapeService(service: ServiceLanding) {
 async function getServiceLanding(slug: string) {
   const normalizedSlug = normalizeSlug(slug);
 
-  return (await getServiceBySlug(normalizedSlug)) ?? getFallbackService(normalizedSlug);
+  return (
+    (await getServiceBySlug(normalizedSlug)) ??
+    (serviceSlugLookup[normalizedSlug]
+      ? await getServiceBySlug(serviceSlugLookup[normalizedSlug])
+      : null) ??
+    getFallbackService(normalizedSlug)
+  );
 }
 
 export async function generateMetadata({ params }: ServiceSlugPageProps) {

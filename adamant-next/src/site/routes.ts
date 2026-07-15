@@ -2,15 +2,17 @@ const legacyCatalogItemPaths: Record<string, string> = {
   classic: "/catalog/category/kamennye-doma",
   commercial: "/services/otdelka-kommercheskogo-pomeshcheniya",
   frame: "/catalog/category/karkasnye-doma",
-  gasbeton: "/services/dom-iz-gazobetona",
+  gasbeton: "/catalog/category/doma-iz-gazobetona",
   modern: "/catalog",
-  onefloor: "/catalog/category/dachnye-doma",
+  onefloor: "/catalog",
   renovation: "/services/remont-kvartir",
   terrace: "/catalog",
-  timber: "/catalog/category/doma-iz-brusa",
+  timber: "/catalog",
 };
 
 const legacyServiceSlugs: Record<string, string> = {
+  "dom-iz-gazobetona": "stroitelstvo-zagorodnyh-domov",
+  "ipoteka-na-stroitelstvo-doma": "mortgage",
   "landshaftnij-dizayn": "landshaftnyy-dizayn",
 };
 
@@ -50,5 +52,7 @@ export function getPortfolioItemPath(item: { slug?: string | null }) {
 
 export function getServicePath(service: { slug?: string | null }) {
   if (!service.slug) return "/services";
-  return `/services/${encodeURIComponent(legacyServiceSlugs[service.slug] ?? service.slug)}`;
+  const slug = legacyServiceSlugs[service.slug] ?? service.slug;
+
+  return slug === "mortgage" ? "/mortgage" : `/services/${encodeURIComponent(slug)}`;
 }

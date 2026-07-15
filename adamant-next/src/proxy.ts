@@ -4,19 +4,18 @@ import { getLegacyCatalogItemPath } from "@/site/routes";
 
 const legacyRedirects = new Map([
   ["/index.php", "/"],
-  ["/catalog/dom-iz-brusa-card", "/catalog/category/doma-iz-brusa"],
-  ["/catalog/dom-iz-gazobetona-card", "/services/dom-iz-gazobetona"],
+  ["/catalog/dom-iz-gazobetona-card", "/catalog/category/doma-iz-gazobetona"],
   ["/catalog/dom-iz-gazobetona-ohta", "/catalog/category/doma-iz-gazobetona"],
   ["/catalog/dom-s-terrasoj", "/catalog"],
   ["/catalog/karkasnyj-dom-card", "/catalog/category/karkasnye-doma"],
   ["/catalog/klassicheskij-dom", "/catalog/category/kamennye-doma"],
-  ["/catalog/modulnij-dom", "/catalog/category/modulnye-doma"],
-  ["/catalog/odnoetazhnyj-dom", "/catalog/category/dachnye-doma"],
   ["/catalog/otdelka-kommercheskogo-pomeshcheniya-card", "/services/otdelka-kommercheskogo-pomeshcheniya"],
   ["/catalog/remont-kvartir-card", "/services/remont-kvartir"],
   ["/catalog/sovremennyj-dom", "/catalog"],
   ["/privacy-policy", "/privacy"],
   ["/politika-konfidencialnosti", "/privacy"],
+  ["/services/dom-iz-gazobetona", "/services/stroitelstvo-zagorodnyh-domov"],
+  ["/services/ipoteka-na-stroitelstvo-doma", "/mortgage"],
   ["/services/landshaftnij-dizayn", "/services/landshaftnyy-dizayn"],
 ]);
 
@@ -28,6 +27,13 @@ const legacySitemapRedirects = new Set([
 ]);
 
 const legacyGoneExact = new Set([
+  "/catalog/category/bani-i-sauny",
+  "/catalog/category/dachnye-doma",
+  "/catalog/category/doma-iz-brusa",
+  "/catalog/category/modulnye-doma",
+  "/catalog/dom-iz-brusa-card",
+  "/catalog/modulnij-dom",
+  "/catalog/odnoetazhnyj-dom",
   "/comments",
   "/comments/feed",
   "/feed",

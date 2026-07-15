@@ -204,7 +204,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const serviceEntries = [
     ...services
-      .filter((service) => service.slug !== "landshaftnij-dizayn")
+      .filter(
+        (service) =>
+          service.slug !== "landshaftnij-dizayn" &&
+          service.slug !== "ipoteka-na-stroitelstvo-doma",
+      )
       .map((service) => ({
         url: `${SITE_URL}${getServicePath(service)}`,
         lastModified: getLastModified(service.updatedAt),
