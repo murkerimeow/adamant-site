@@ -191,57 +191,6 @@ type ServiceCardView = {
   title: string;
 };
 
-const fallbackServiceCards: ServiceCardView[] = [
-  {
-    icon: "home",
-    title: "Строительство домов",
-    description: "Строим загородные дома под ключ из надёжных материалов и в срок.",
-    href: "/catalog",
-    image: "/request-house.webp",
-    imageAlt: "Современный загородный дом под ключ",
-  },
-  {
-    icon: "plan",
-    title: "Проектирование",
-    description: "Индивидуальные и типовые проекты домов с учётом ваших пожеланий.",
-    href: "/contacts",
-    image: "/picture.webp",
-    imageAlt: "Проектирование загородного дома",
-  },
-  {
-    icon: "shield",
-    title: "Ипотека на строительство",
-    description: "Подберём выгодные условия и поможем оформить ипотеку.",
-    href: "/mortgage",
-    image: "/home-main-new.webp",
-    imageAlt: "Дом для строительства в ипотеку",
-  },
-  {
-    icon: "wrench",
-    title: "Ремонт и отделка",
-    description: "Выполняем внутреннюю и наружную отделку любой сложности.",
-    href: "/catalog/remont-kvartir-card",
-    image: "/remont-kvartir.webp",
-    imageAlt: "Ремонт и отделка квартиры",
-  },
-  {
-    icon: "box",
-    title: "Инженерные системы",
-    description: "Проектируем и монтируем все необходимые инженерные сети.",
-    href: "/contacts",
-    image: "/stroitelstvo.webp",
-    imageAlt: "Инженерные системы для загородного дома",
-  },
-  {
-    icon: "doc",
-    title: "Каталог проектов",
-    description: "Готовые проекты домов на любой вкус и бюджет.",
-    href: "/catalog",
-    image: "/main2.webp",
-    imageAlt: "Каталог проектов загородных домов",
-  },
-] as const;
-
 const reasons = [
   ["calendar", "Фиксированные этапы", "Чёткий план работ и контроль на каждом этапе строительства."],
   ["doc", "Прозрачная смета", "Подробная смета без скрытых платежей и переплат."],

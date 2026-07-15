@@ -10,15 +10,20 @@ import { SocialIcon, socialLinks } from "@/site/socials";
 
 export const dynamic = "force-dynamic";
 
-const CONTACTS_META_TITLE = "Контакты | АДАМАНТ Строй";
+const CONTACTS_META_TITLE =
+  "Контакты АДАМАНТ Строй в Санкт-Петербурге | телефон и адрес";
 const CONTACTS_META_DESCRIPTION =
   "Свяжитесь с АДАМАНТ Строй: телефон, email, адрес офиса и реквизиты компании для строительства загородных домов в Санкт-Петербурге и области.";
 
 export async function generateMetadata() {
   const contactsPage = await getContactsPage();
+  const payloadTitle = contactsPage.seoTitle?.trim();
 
   return createPageMetadata({
-    title: pickSeoTitle(CONTACTS_META_TITLE, contactsPage.seoTitle),
+    title: pickSeoTitle(
+      CONTACTS_META_TITLE,
+      payloadTitle && payloadTitle.length >= 35 ? payloadTitle : undefined,
+    ),
     description: pickSeoDescription(
       CONTACTS_META_DESCRIPTION,
       contactsPage.seoDescription,

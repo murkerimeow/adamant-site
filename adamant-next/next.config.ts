@@ -8,6 +8,36 @@ const cacheableAssetHeaders = [
   },
 ];
 
+const metadataRouteHeaders = [
+  {
+    key: "Cache-Control",
+    value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400",
+  },
+];
+
+const securityHeaders = [
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "SAMEORIGIN",
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
+  },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+  },
+];
+
 const noIndexHeaders = [
   {
     key: "X-Robots-Tag",
@@ -33,8 +63,21 @@ const nextConfig: NextConfig = {
     },
   },
   skipTrailingSlashRedirect: true,
+  poweredByHeader: false,
   async headers() {
     return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
+      {
+        source: "/robots.txt",
+        headers: metadataRouteHeaders,
+      },
+      {
+        source: "/sitemap.xml",
+        headers: metadataRouteHeaders,
+      },
       {
         source:
           "/:path*\\.(png|jpg|jpeg|gif|webp|avif|svg|ico|mp4|webm|woff|woff2)",
@@ -42,10 +85,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/admin/:path*",
-        headers: noIndexHeaders,
-      },
-      {
-        source: "/api/:path*",
         headers: noIndexHeaders,
       },
       {

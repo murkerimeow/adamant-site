@@ -47,14 +47,6 @@ type DetailIcon =
   | "location"
   | "rooms";
 
-const productPrices: Record<string, string> = {
-  timber: "от 5 000 000 ₽",
-  gasbeton: "от 6 500 000 ₽",
-  frame: "от 4 500 000 ₽",
-  commercial: "от 2 000 000 ₽",
-  renovation: "от 1 500 000 ₽",
-};
-
 const backTargets = {
   catalog: { active: "catalog", href: "/catalog", label: "Каталог" },
   portfolio: { active: "portfolio", href: "/portfolio", label: "Портфолио" },

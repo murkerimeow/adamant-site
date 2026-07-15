@@ -2048,7 +2048,7 @@
         try {
           slider.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
           return;
-        } catch (error) {
+        } catch {
           slider.scrollLeft = targetScrollLeft;
           return;
         }
@@ -2149,7 +2149,7 @@
       if (typeof slider.scrollTo === "function") {
         try {
           slider.scrollTo({ left: nextScrollLeft, behavior: "smooth" });
-        } catch (error) {
+        } catch {
           slider.scrollLeft = nextScrollLeft;
         }
       } else {

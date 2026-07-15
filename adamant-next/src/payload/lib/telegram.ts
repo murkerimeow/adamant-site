@@ -22,22 +22,6 @@ const requestTypeLabels: Record<NonNullable<RequestDoc["requestType"]>, string> 
   message: "Написать нам",
 };
 
-function formatCreatedAt(value?: string | null) {
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return value;
-  }
-
-  return new Intl.DateTimeFormat("ru-RU", {
-    dateStyle: "short",
-    timeStyle: "short",
-    timeZone: "Europe/Moscow",
-  }).format(date);
-}
-
 function getTelegramConfig() {
   const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
   const rawChatIds =

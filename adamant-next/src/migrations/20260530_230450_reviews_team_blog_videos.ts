@@ -92,7 +92,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX IF NOT EXISTS \`_blog_page_v_version_instagram_videos_poster_image_idx\` ON \`_blog_page_v_version_instagram_videos\` (\`poster_image_id\`);`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.run(sql`DROP TABLE \`reviews\`;`)
   await db.run(sql`DROP TABLE \`team_members\`;`)
   await db.run(sql`PRAGMA foreign_keys=OFF;`)
