@@ -7,7 +7,7 @@ type BreadcrumbItem = {
   path: string;
 };
 
-function absoluteUrl(path: string) {
+export function absoluteUrl(path: string) {
   if (path.startsWith("http://") || path.startsWith("https://")) {
     return path;
   }
@@ -31,6 +31,45 @@ export function buildStructuredDataGraph(
 export function buildBreadcrumbList(items: BreadcrumbItem[]) {
   return {
     "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      item: absoluteUrl(item.path),
+      name: item.name,
+      position: index + 1,
+    })),
+  };
+}
+
+export function buildWebPageStructuredData({
+  description,
+  path,
+  title,
+}: {
+  description?: string | null;
+  path: string;
+  title: string;
+}) {
+  return {
+    "@id": `${absoluteUrl(path)}#webpage`,
+    "@type": "WebPage",
+    description: cleanText(description),
+    inLanguage: "ru-RU",
+    isPartOf: {
+      "@id": `${SITE_URL}/#website`,
+    },
+    name: title,
+    url: absoluteUrl(path),
+  };
+}
+
+export function buildItemListStructuredData(
+  items: Array<{
+    name: string;
+    path: string;
+  }>,
+) {
+  return {
+    "@type": "ItemList",
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       item: absoluteUrl(item.path),
@@ -81,6 +120,68 @@ export function buildBlogPostingStructuredData({
       name: SITE_NAME,
       url: SITE_URL,
     },
+  };
+}
+
+export function buildPortfolioWorkStructuredData({
+  description,
+  path,
+  title,
+}: {
+  description?: string | null;
+  path: string;
+  title: string;
+}) {
+  return {
+    "@id": `${absoluteUrl(path)}#work`,
+    "@type": "CreativeWork",
+    about: cleanText(description),
+    creator: {
+      "@id": `${SITE_URL}/#organization`,
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    inLanguage: "ru-RU",
+    name: title,
+    url: absoluteUrl(path),
+  };
+}
+
+export function buildCatalogProjectStructuredData({
+  description,
+  path,
+  price,
+  title,
+}: {
+  description?: string | null;
+  path: string;
+  price?: number | null;
+  title: string;
+}) {
+  return {
+    "@id": `${absoluteUrl(path)}#project`,
+    "@type": "Product",
+    brand: {
+      "@id": `${SITE_URL}/#organization`,
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    category: "Проект загородного дома",
+    description: cleanText(description),
+    name: title,
+    offers:
+      typeof price === "number" && price > 0
+        ? {
+            "@type": "Offer",
+            availability: "https://schema.org/InStock",
+            price,
+            priceCurrency: "RUB",
+            url: absoluteUrl(path),
+          }
+        : undefined,
+    url: absoluteUrl(path),
   };
 }
 

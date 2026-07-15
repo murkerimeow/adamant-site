@@ -15,6 +15,13 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getPortfolioCategoryPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
+import {
+  buildBreadcrumbList,
+  buildItemListStructuredData,
+  buildStructuredDataGraph,
+  buildWebPageStructuredData,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -148,9 +155,39 @@ export async function PortfolioListingPage({ categorySlug }: PortfolioListingPag
   const visiblePortfolioCategories = portfolioCategories.filter((category) =>
     populatedCategorySlugs.has(category.slug),
   );
+  const pagePath = selectedCategory ? getPortfolioCategoryPath(selectedCategory) : "/portfolio";
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList(
+      selectedCategory
+        ? [
+            { name: "Главная", path: "/" },
+            { name: "Портфолио", path: "/portfolio" },
+            { name: selectedCategory.title, path: pagePath },
+          ]
+        : [
+            { name: "Главная", path: "/" },
+            { name: "Портфолио", path: "/portfolio" },
+          ],
+    ),
+    buildWebPageStructuredData({
+      description: pageSubtitle || portfolioPage.subtitle,
+      path: pagePath,
+      title: pageTitle,
+    }),
+    buildItemListStructuredData(
+      items.map((item) => ({
+        name: item.title,
+        path: getPortfolioItemPath(item),
+      })),
+    ),
+  );
 
   return (
     <main className="page inner-page portfolio-page" aria-label="Портфолио Адамант">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
       <section className="section section--projects" aria-labelledby="portfolio-title">

@@ -21,6 +21,12 @@ import { PortfolioGallery } from "@/site/components/PortfolioGallery";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogItemPath, getPortfolioItemPath } from "@/site/routes";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
+import {
+  buildBreadcrumbList,
+  buildPortfolioWorkStructuredData,
+  buildStructuredDataGraph,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -132,9 +138,26 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
         candidate.showInCatalog && candidate.id !== linkedCatalogItemId,
     )
     .slice(0, 4);
+  const pagePath = getPortfolioItemPath(item);
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList([
+      { name: "Главная", path: "/" },
+      { name: "Портфолио", path: "/portfolio" },
+      { name: item.title, path: pagePath },
+    ]),
+    buildPortfolioWorkStructuredData({
+      description: item.summary || item.description,
+      path: pagePath,
+      title: item.title,
+    }),
+  );
 
   return (
     <main className="page inner-page portfolio-detail-page" aria-label={`Проект ${item.title}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="portfolio" phone={siteSettings.phonePrimary} />
 
       <div className="portfolio-detail portfolio-detail--object">

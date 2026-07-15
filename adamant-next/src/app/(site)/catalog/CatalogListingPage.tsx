@@ -18,6 +18,13 @@ import { SiteHeader } from "@/site/components/SiteHeader";
 import { getCatalogCardMeta } from "@/site/catalog-meta";
 import { getCatalogCategoryPath, getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
+import {
+  buildBreadcrumbList,
+  buildItemListStructuredData,
+  buildStructuredDataGraph,
+  buildWebPageStructuredData,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -224,9 +231,39 @@ export async function CatalogListingPage({ categorySlug }: CatalogListingPagePro
         ...category,
         href: `/catalog/category/${encodeURIComponent(category.slug)}`,
       }));
+  const pagePath = selectedCategory ? getCatalogCategoryPath(selectedCategory) : "/catalog";
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList(
+      selectedCategory
+        ? [
+            { name: "Главная", path: "/" },
+            { name: "Проекты", path: "/catalog" },
+            { name: selectedCategory.title, path: pagePath },
+          ]
+        : [
+            { name: "Главная", path: "/" },
+            { name: "Проекты", path: "/catalog" },
+          ],
+    ),
+    buildWebPageStructuredData({
+      description: selectedCategory ? pageSubtitle : catalogPage.subtitle,
+      path: pagePath,
+      title: pageTitle,
+    }),
+    buildItemListStructuredData(
+      items.map((item) => ({
+        name: item.title,
+        path: getCatalogItemPath(item),
+      })),
+    ),
+  );
 
   return (
     <main className="page inner-page catalog-page" aria-label="Каталог Адамант">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active="catalog" phone={siteSettings.phonePrimary} />
 
       <section className="section section--projects" aria-labelledby="catalog-title">

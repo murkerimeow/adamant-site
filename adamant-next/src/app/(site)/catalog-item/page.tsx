@@ -22,8 +22,14 @@ import {
   formatRooms,
   getCatalogCardMeta,
 } from "@/site/catalog-meta";
-import { getCatalogItemPath } from "@/site/routes";
+import { getCatalogCategoryPath, getCatalogItemPath } from "@/site/routes";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle, SITE_NAME } from "@/site/seo";
+import {
+  buildBreadcrumbList,
+  buildCatalogProjectStructuredData,
+  buildStructuredDataGraph,
+  stringifyStructuredData,
+} from "@/site/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -294,9 +300,34 @@ export default async function CatalogItemPage({
     item.cardSummary ||
     descriptionParagraphs[0] ||
     "Современный проект загородного дома под ключ.";
+  const itemCategory =
+    item.landingCategory && typeof item.landingCategory === "object"
+      ? item.landingCategory
+      : null;
+  const pagePath = getCatalogItemPath(item);
+  const structuredData = buildStructuredDataGraph(
+    buildBreadcrumbList([
+      { name: "Главная", path: "/" },
+      { name: "Проекты", path: "/catalog" },
+      ...(itemCategory
+        ? [{ name: itemCategory.title, path: getCatalogCategoryPath(itemCategory) }]
+        : []),
+      { name: item.title, path: pagePath },
+    ]),
+    buildCatalogProjectStructuredData({
+      description: heroSummary,
+      path: pagePath,
+      price: meta.price,
+      title: item.title,
+    }),
+  );
 
   return (
     <main className="page inner-page product-page product-page--catalog" aria-label="Карточка проекта Адамант">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyStructuredData(structuredData) }}
+      />
       <SiteHeader active={backTarget.active} phone={siteSettings.phonePrimary} />
 
       <section
