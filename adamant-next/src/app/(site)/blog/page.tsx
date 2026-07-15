@@ -24,6 +24,167 @@ function getSocialPermalink(url?: string | null) {
   }
 }
 
+function getYouTubeId(url?: string | null) {
+  const permalink = getSocialPermalink(url);
+  if (!permalink) return null;
+
+  try {
+    const parsed = new URL(permalink);
+    const hostname = parsed.hostname.replace(/^www\./, "").replace(/^m\./, "");
+    const parts = parsed.pathname.split("/").filter(Boolean);
+    let id: string | null = null;
+
+    if (hostname === "youtube.com" || hostname === "youtube-nocookie.com") {
+      if (parts[0] === "shorts" || parts[0] === "embed" || parts[0] === "live") {
+        id = parts[1] ?? null;
+      } else {
+        id = parsed.searchParams.get("v");
+      }
+    }
+
+    if (hostname === "youtu.be") {
+      id = parts[0] ?? null;
+    }
+
+    return id && /^[a-zA-Z0-9_-]{6,}$/.test(id) ? id : null;
+  } catch {
+    return null;
+  }
+}
+
+function getYouTubeThumbnail(url?: string | null) {
+  const id = getYouTubeId(url);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : null;
+}
+
+function getOEmbedUrl(url?: string | null) {
+  const permalink = getSocialPermalink(url);
+  if (!permalink) return null;
+
+  try {
+    const parsed = new URL(permalink);
+    const hostname = parsed.hostname.replace(/^www\./, "").replace(/^m\./, "");
+    const encoded = encodeURIComponent(permalink);
+
+    if (hostname === "youtube.com" || hostname === "youtu.be" || hostname === "youtube-nocookie.com") {
+      return `https://www.youtube.com/oembed?url=${encoded}&format=json`;
+    }
+
+    if (hostname === "tiktok.com" || hostname.endsWith(".tiktok.com")) {
+      return `https://www.tiktok.com/oembed?url=${encoded}`;
+    }
+
+    if (hostname === "rutube.ru") {
+      return `https://rutube.ru/api/oembed/?url=${encoded}`;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function canReadOpenGraphImage(url?: string | null) {
+  const permalink = getSocialPermalink(url);
+  if (!permalink) return false;
+
+  try {
+    const hostname = new URL(permalink).hostname.replace(/^www\./, "").replace(/^m\./, "");
+    return (
+      hostname === "instagram.com" ||
+      hostname.endsWith(".instagram.com") ||
+      hostname === "tiktok.com" ||
+      hostname.endsWith(".tiktok.com") ||
+      hostname === "vk.com" ||
+      hostname.endsWith(".vk.com") ||
+      hostname === "vk.ru" ||
+      hostname.endsWith(".vk.ru") ||
+      hostname === "vkvideo.ru" ||
+      hostname.endsWith(".vkvideo.ru") ||
+      hostname === "rutube.ru"
+    );
+  } catch {
+    return false;
+  }
+}
+
+function decodeHtmlAttribute(value: string) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function getMetaContent(tag: string) {
+  const match = tag.match(/\scontent=(["'])(.*?)\1/i);
+  return match ? decodeHtmlAttribute(match[2]) : null;
+}
+
+function extractOpenGraphImage(html: string) {
+  const metaTags = html.match(/<meta\s+[^>]*>/gi) ?? [];
+
+  for (const tag of metaTags) {
+    if (/\s(?:property|name)=(["'])(?:og:image|twitter:image|twitter:image:src)\1/i.test(tag)) {
+      const content = getMetaContent(tag);
+      if (content) return content;
+    }
+  }
+
+  return null;
+}
+
+async function fetchRemoteThumbnail(url?: string | null) {
+  const directYoutubeThumbnail = getYouTubeThumbnail(url);
+  if (directYoutubeThumbnail) return directYoutubeThumbnail;
+
+  const oEmbedUrl = getOEmbedUrl(url);
+  if (oEmbedUrl) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2500);
+
+    try {
+      const response = await fetch(oEmbedUrl, {
+        headers: { Accept: "application/json", "User-Agent": "AdamantStroyBot/1.0" },
+        next: { revalidate: 60 * 60 * 12 },
+        signal: controller.signal,
+      });
+
+      if (response.ok) {
+        const data = (await response.json()) as { thumbnail_url?: string; thumbnailUrl?: string };
+        const thumbnail = data.thumbnail_url || data.thumbnailUrl;
+        if (thumbnail) return thumbnail;
+      }
+    } catch {
+      // Keep the blog page resilient if the social platform blocks metadata requests.
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  const permalink = getSocialPermalink(url);
+  if (!permalink || !canReadOpenGraphImage(permalink)) return null;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 2500);
+
+  try {
+    const response = await fetch(permalink, {
+      headers: { Accept: "text/html", "User-Agent": "Mozilla/5.0 AdamantStroyBot/1.0" },
+      next: { revalidate: 60 * 60 * 12 },
+      signal: controller.signal,
+    });
+
+    if (!response.ok) return null;
+    return extractOpenGraphImage(await response.text());
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function getVideoEmbed(url?: string | null) {
   const permalink = getSocialPermalink(url);
   if (!permalink) return null;
@@ -77,24 +238,27 @@ export default async function BlogPage() {
   ]);
 
   const videos =
-    blogPage.instagramVideos
-      ?.map((video) => {
-        const posterUrl =
-          getMediaUrl(video.posterImage, "card") || getMediaUrl(video.posterImage);
-        const socialUrl = getSocialPermalink(video.instagramUrl);
-        const videoUrl = video.videoUrl?.trim() || "";
-        const embedUrl = getVideoEmbed(socialUrl);
+    (
+      await Promise.all(
+        (blogPage.instagramVideos ?? []).map(async (video) => {
+          const posterUrl =
+            getMediaUrl(video.posterImage, "card") || getMediaUrl(video.posterImage);
+          const socialUrl = getSocialPermalink(video.instagramUrl);
+          const videoUrl = video.videoUrl?.trim() || "";
+          const embedUrl = getVideoEmbed(socialUrl);
+          const remotePosterUrl = await fetchRemoteThumbnail(socialUrl || videoUrl);
 
-        return {
-          embedUrl,
-          image: posterUrl,
-          label: video.label?.trim() || "Видео",
-          socialUrl,
-          title: video.title?.trim() || video.label?.trim() || "Видео Адамант Строй",
-          videoUrl,
-        };
-      })
-      .filter((video) => video.videoUrl || video.embedUrl || video.image || video.socialUrl) ?? [];
+          return {
+            embedUrl,
+            image: posterUrl || remotePosterUrl,
+            label: video.label?.trim() || "Видео",
+            socialUrl,
+            title: video.title?.trim() || video.label?.trim() || "Видео Адамант Строй",
+            videoUrl,
+          };
+        }),
+      )
+    ).filter((video) => video.videoUrl || video.embedUrl || video.image || video.socialUrl);
 
   const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
     day: "2-digit",

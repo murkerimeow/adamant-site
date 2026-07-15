@@ -32830,3 +32830,12 @@ body:has(.contacts-page),
     padding: 0 18px !important;
   }
 }
+
+/* Blog uses the same vertical rhythm as the other inner pages. */
+.page.inner-page.blog-page > .blog-reviews-section {
+  padding-bottom: var(--inner-page-section-gap) !important;
+}
+
+.page.inner-page.blog-page > .blog-articles-section {
+  margin-top: var(--inner-page-section-gap) !important;
+}
