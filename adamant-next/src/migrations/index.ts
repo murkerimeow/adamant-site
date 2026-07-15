@@ -26,6 +26,7 @@ import * as migration_20260713_190000_seed_pdf_catalog_projects from './20260713
 import * as migration_20260713_210000_seed_vk_portfolio_projects from './20260713_210000_seed_vk_portfolio_projects.ts';
 import * as migration_20260713_230000_seed_about_faq_items from './20260713_230000_seed_about_faq_items.ts';
 import * as migration_20260715_120000_site_settings_header_nav from './20260715_120000_site_settings_header_nav.ts';
+import * as migration_20260715_230000_enhance_media_alt_captions from './20260715_230000_enhance_media_alt_captions.ts';
 
 export const migrations = [
   {
@@ -167,5 +168,10 @@ export const migrations = [
     up: migration_20260715_120000_site_settings_header_nav.up,
     down: migration_20260715_120000_site_settings_header_nav.down,
     name: '20260715_120000_site_settings_header_nav'
+  },
+  {
+    up: migration_20260715_230000_enhance_media_alt_captions.up,
+    down: migration_20260715_230000_enhance_media_alt_captions.down,
+    name: '20260715_230000_enhance_media_alt_captions'
   },
 ];
