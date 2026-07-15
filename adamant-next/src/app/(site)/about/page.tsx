@@ -318,7 +318,7 @@ export default async function AboutPage() {
               <label className="about-redesign__career-consent">
                 <input type="checkbox" name="privacy" required />
                 <span>
-                  Я согласен на{" "}
+                  Согласен на{" "}
                   <Link href="/privacy">обработку персональных данных</Link>
                 </span>
               </label>
