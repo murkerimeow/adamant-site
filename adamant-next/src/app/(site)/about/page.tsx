@@ -326,9 +326,6 @@ export default async function AboutPage() {
               <p className="contact-form__status" aria-live="polite" />
             </form>
 
-            <div className="about-redesign__career-actions">
-              <Link href="/vacancies">Смотреть вакансии <span aria-hidden="true">→</span></Link>
-            </div>
           </div>
 
           <div className="about-redesign__career-media">

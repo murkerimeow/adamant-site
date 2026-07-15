@@ -32633,9 +32633,10 @@ body:has(.contacts-page),
   resize: vertical !important;
 }
 
-.page.inner-page.about-page--fresh .about-redesign__career-consent {
+.page.inner-page.about-page--fresh .about-redesign__career-form .about-redesign__career-consent {
   display: flex !important;
-  align-items: flex-start !important;
+  grid-template-columns: none !important;
+  align-items: center !important;
   gap: 10px !important;
   margin-top: 2px !important;
   color: #68748a !important;
@@ -32645,7 +32646,7 @@ body:has(.contacts-page),
   cursor: pointer !important;
 }
 
-.page.inner-page.about-page--fresh .about-redesign__career-consent input[type="checkbox"] {
+.page.inner-page.about-page--fresh .about-redesign__career-form .about-redesign__career-consent input[type="checkbox"] {
   width: 18px !important;
   min-width: 18px !important;
   height: 18px !important;
@@ -32656,7 +32657,13 @@ body:has(.contacts-page),
   accent-color: #d99868 !important;
 }
 
-.page.inner-page.about-page--fresh .about-redesign__career-consent a {
+.page.inner-page.about-page--fresh .about-redesign__career-form .about-redesign__career-consent span {
+  display: inline-block !important;
+  padding: 0 !important;
+  line-height: 1.35 !important;
+}
+
+.page.inner-page.about-page--fresh .about-redesign__career-form .about-redesign__career-consent a {
   color: #68abe7 !important;
 }
 
@@ -32684,21 +32691,6 @@ body:has(.contacts-page),
 
 .page.inner-page.about-page--fresh .about-redesign__career-form .contact-form__status:empty {
   display: none !important;
-}
-
-.page.inner-page.about-page--fresh .about-redesign__career-actions {
-  margin-top: clamp(18px, 1.55vw, 28px) !important;
-}
-
-.page.inner-page.about-page--fresh .about-redesign__career-actions a {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  color: #d99868 !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  text-decoration: none !important;
 }
 
 .page.inner-page.about-page--fresh .about-redesign__career-media {
