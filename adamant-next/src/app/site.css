@@ -1685,6 +1685,34 @@ body.is-chat-open::after {
   padding: 14px 24px 18px;
 }
 
+.site-chat__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.site-chat__consent input {
+  width: 14px;
+  min-width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  accent-color: #d99868;
+}
+
+.site-chat__consent a {
+  color: #d99868;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.site-chat__consent a:hover {
+  color: #bf7545;
+}
+
 .site-chat__files {
   min-width: 0;
   overflow: hidden;
@@ -2986,6 +3014,8 @@ body.is-chat-open::after {
 
 .home-footer__bottom {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 20px;
   margin-top: clamp(24px, 2.5vw, 48px);
@@ -2994,6 +3024,16 @@ body.is-chat-open::after {
   color: #9a9a9a;
   font-size: clamp(13px, 0.833vw, 16px);
   line-height: 1.25;
+}
+
+.home-footer__bottom a {
+  color: #6f7d90;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-footer__bottom a:hover {
+  color: var(--blue);
 }
 
 @media (max-width: 1400px) {
@@ -8950,6 +8990,11 @@ body.home-page {
 .modal-consent__link {
   color: #d99868;
   font-weight: 700;
+  text-decoration: none;
+}
+
+.modal-consent__link:hover {
+  color: #bf7545;
 }
 
 .modal-file {
@@ -11575,6 +11620,22 @@ body.home-page {
   color: var(--blue);
 }
 
+.contact-redesign__consent a,
+.mortgage-redesign__form label a,
+.product-consult-form a,
+.service-detail__form a {
+  color: var(--blue);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contact-redesign__consent a:hover,
+.mortgage-redesign__form label a:hover,
+.product-consult-form a:hover,
+.service-detail__form a:hover {
+  color: #d99868;
+}
+
 .contact-redesign__form button,
 .contact-redesign__consult button,
 .about-redesign__hero-content button,
@@ -13494,6 +13555,16 @@ body:has(.page.inner-page),
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   margin-top: 30px;
+}
+
+.mortgage-redesign__disclaimer {
+  max-width: 980px;
+  margin: 18px auto 0;
+  color: #667287;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 600;
+  text-align: center;
 }
 
 .mortgage-redesign--compact .mortgage-redesign__bank {
@@ -15731,6 +15802,14 @@ body:has(.page.inner-page),
   font-weight: 900;
 }
 
+.privacy-content h2 {
+  margin: clamp(14px, 1.35vw, 26px) 0 0;
+  color: #142033;
+  font-size: clamp(22px, 1.6vw, 32px);
+  line-height: 1.15;
+  font-weight: 850;
+}
+
 .privacy-content p {
   margin: 0;
   color: #53647e;
@@ -15742,6 +15821,10 @@ body:has(.page.inner-page),
 .privacy-content a {
   color: var(--blue);
   font-weight: 900;
+}
+
+.privacy-content a:hover {
+  color: #d99868;
 }
 
 .portfolio-detail {
@@ -24929,6 +25012,16 @@ body:has(.product-page--catalog),
   line-height: 1.2;
 }
 
+.mortgage-page .mortgage-calculator__disclaimer {
+  grid-column: 1 / -1;
+  max-width: 980px;
+  margin: 2px 0 0;
+  color: #747b87;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
 @media (max-width: 1050px) {
   .page.inner-page.mortgage-page .mortgage-calculator {
     width: calc(100% - 20px) !important;
@@ -31829,6 +31922,26 @@ body:has(.contacts-page),
   font-size: 15px;
 }
 
+.service-detail__form label {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 8px;
+  color: #53647e;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.service-detail__form input[type="checkbox"] {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
+  padding: 0;
+  accent-color: var(--blue);
+}
+
 .service-detail__form .contact-form__status {
   grid-column: 1 / -1;
   min-height: 0;
@@ -32077,6 +32190,25 @@ body:has(.contacts-page),
   min-width: 176px;
   margin-top: 4px;
   padding: 13px 24px;
+}
+
+.client-auth__privacy {
+  max-width: 420px;
+  margin: 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.client-auth__privacy a {
+  color: #68abe7;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.client-auth__privacy a:hover {
+  color: #d99868;
 }
 
 .client-cabinet__topline button {

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { getClientAccessFromCookies } from "@/client-access/server";
 import { getSiteSettings } from "@/site/cms";
@@ -90,6 +91,10 @@ export default async function ClientLoginPage({ searchParams }: ClientLoginPageP
               <p className="client-auth__error">Неверный логин или пароль.</p>
             ) : null}
             <button type="submit">Войти</button>
+            <p className="client-auth__privacy">
+              Данные для входа обрабатываются по{" "}
+              <Link href="/privacy">политике обработки персональных данных</Link>.
+            </p>
           </form>
         </section>
       </main>

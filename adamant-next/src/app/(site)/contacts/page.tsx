@@ -7,6 +7,7 @@ import {
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata, pickSeoDescription, pickSeoTitle } from "@/site/seo";
 import { SocialIcon, socialLinks } from "@/site/socials";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -204,7 +205,10 @@ export default async function ContactsPage() {
 
             <label className="contact-redesign__consent">
               <input type="checkbox" name="privacy" required />
-              <span>Согласен на <span>обработку персональных данных</span></span>
+              <span>
+                Согласен на{" "}
+                <Link href="/consent">обработку персональных данных</Link>
+              </span>
             </label>
 
             <button type="submit">Отправить</button>

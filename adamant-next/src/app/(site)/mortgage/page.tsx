@@ -1,6 +1,7 @@
 import { getSiteSettings } from "@/site/cms";
 import { SiteHeader } from "@/site/components/SiteHeader";
 import { createPageMetadata } from "@/site/seo";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -104,6 +105,10 @@ export default async function MortgagePage() {
               <a href="/contacts">Смотреть сертификат <span aria-hidden="true">→</span></a>
             </article>
           </div>
+          <p className="mortgage-redesign__disclaimer">
+            Информация о банках-партнерах и ипотечных программах носит справочный характер.
+            Окончательные условия, одобрение кредита и решение о выдаче ипотеки определяются банком.
+          </p>
         </section>
 
         <section className="mortgage-redesign__section mortgage-redesign__process" aria-labelledby="mortgage-process-title">
@@ -182,6 +187,10 @@ export default async function MortgagePage() {
               <span>Переплата по кредиту</span>
             </article>
           </div>
+          <p className="mortgage-calculator__disclaimer">
+            Расчет калькулятора является предварительным, не является публичной офертой,
+            индивидуальным кредитным предложением или гарантией одобрения ипотеки.
+          </p>
         </section>
 
         <section className="product-consult mortgage-product-consult" aria-labelledby="mortgage-consult-title">
@@ -196,7 +205,10 @@ export default async function MortgagePage() {
             <button type="submit">Получить консультацию</button>
             <label>
               <input name="privacy" type="checkbox" required />
-              <span>Я согласен на обработку персональных данных</span>
+              <span>
+                Согласен на{" "}
+                <Link href="/consent">обработку персональных данных</Link>
+              </span>
             </label>
           </form>
           <img

@@ -309,7 +309,7 @@ export default async function AboutPage() {
                 <input type="checkbox" name="privacy" required />
                 <span>
                   Согласен на{" "}
-                  <Link href="/privacy">обработку персональных данных</Link>
+                  <Link href="/consent">обработку персональных данных</Link>
                 </span>
               </label>
               <button type="submit">Отправить отклик</button>

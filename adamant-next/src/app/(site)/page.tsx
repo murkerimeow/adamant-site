@@ -805,7 +805,7 @@ export default async function HomePage() {
                   <input type="checkbox" name="privacy" required />
                   <span>
                     Согласен на{" "}
-                    <Link href="/privacy">обработку персональных данных</Link>
+                    <Link href="/consent">обработку персональных данных</Link>
                   </span>
                 </label>
 

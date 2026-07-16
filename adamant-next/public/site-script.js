@@ -35,7 +35,7 @@
               </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" required>
-                <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
+                <span>Согласен на <a class="modal-consent__link" href="/consent">обработку персональных данных</a></span>
               </label>
               <button class="modal-submit" type="submit">Отправить заявку</button>
               <p class="modal-form__status" aria-live="polite"></p>
@@ -65,7 +65,7 @@
                   <p>Свяжемся с вами в течение 15 минут</p>
                 </div>
               </div>
-              <span class="modal-lead__secure">Ваши данные защищены и не передаются третьим лицам</span>
+              <span class="modal-lead__secure">Данные используются только для обработки заявки</span>
             </div>
           </aside>
         </div>
@@ -120,7 +120,7 @@
               </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" required>
-                <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
+                <span>Согласен на <a class="modal-consent__link" href="/consent">обработку персональных данных</a></span>
               </label>
               <button class="modal-submit" type="submit">Жду звонка</button>
               <p class="modal-form__status" aria-live="polite"></p>
@@ -211,7 +211,7 @@
               </label>
               <label class="modal-consent">
                 <input type="checkbox" name="privacy" required>
-                <span>Согласен на <span class="modal-consent__link">обработку персональных данных</span></span>
+                <span>Согласен на <a class="modal-consent__link" href="/consent">обработку персональных данных</a></span>
               </label>
               <button class="modal-submit" type="submit">Отправить сообщение</button>
               <p class="modal-form__status" aria-live="polite"></p>
@@ -241,7 +241,7 @@
                   <p>Ответим на указанную почту или телефон</p>
                 </div>
               </div>
-              <span class="modal-lead__secure">Ваши данные защищены и не передаются третьим лицам</span>
+              <span class="modal-lead__secure">Данные используются только для обработки обращения</span>
             </div>
           </aside>
         </div>
@@ -299,6 +299,10 @@
       <div class="site-chat__messages" data-chat-messages></div>
       <form class="site-chat__form" data-chat-form enctype="multipart/form-data">
         <div class="site-chat__files" data-chat-files hidden></div>
+        <label class="site-chat__consent">
+          <input type="checkbox" name="privacy" required data-chat-privacy>
+          <span>Согласен на <a href="/consent">обработку персональных данных</a></span>
+        </label>
         <div class="site-chat__composer">
           <textarea name="message" rows="1" placeholder="Напишите сообщение"></textarea>
           <label class="site-chat__attach" aria-label="Прикрепить фото" title="Прикрепить фото">
@@ -951,6 +955,7 @@
   const chatBadge = document.querySelector("[data-chat-badge]");
   const chatTextarea = chatForm?.querySelector("textarea");
   const chatPhotoInput = chatForm?.querySelector("[data-chat-photos]");
+  const chatPrivacyInput = chatForm?.querySelector("[data-chat-privacy]");
   const chatFiles = chatForm?.querySelector("[data-chat-files]");
   const chatStorageKey = "adamant-site-chat-session";
   const chatLastSeenKey = "adamant-site-chat-last-seen";
@@ -1281,6 +1286,11 @@
     const photoError = photoFiles.length ? validateRequestPhotoFiles(photoFiles) : "";
 
     if (!text && !photoFiles.length) return;
+
+    if (chatPrivacyInput && !chatPrivacyInput.checked) {
+      setChatStatus("Подтвердите согласие на обработку персональных данных.", true);
+      return;
+    }
 
     if (photoError) {
       setChatStatus(photoError, true);

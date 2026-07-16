@@ -270,6 +270,13 @@ export default async function ServiceSlugPage({ params }: ServiceSlugPageProps) 
             <input name="name" type="text" placeholder="Ваше имя" aria-label="Ваше имя" />
             <input name="phone" type="tel" placeholder="Телефон *" aria-label="Телефон" required />
             <input type="hidden" name="service" value={service.title} />
+            <label>
+              <input name="privacy" type="checkbox" required />
+              <span>
+                Согласен на{" "}
+                <Link href="/consent">обработку персональных данных</Link>
+              </span>
+            </label>
             <button type="submit">Получить консультацию</button>
             <p className="contact-form__status" aria-live="polite" />
           </form>

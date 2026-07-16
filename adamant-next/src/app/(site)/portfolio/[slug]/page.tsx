@@ -215,7 +215,7 @@ export default async function PortfolioDetailPage({ params }: PortfolioDetailPag
             <label>
               <input name="privacy" type="checkbox" required />
               <span>
-                Согласен на <Link href="/privacy">обработку персональных данных</Link>
+                Согласен на <Link href="/consent">обработку персональных данных</Link>
               </span>
             </label>
             <p className="contact-form__status" aria-live="polite" />

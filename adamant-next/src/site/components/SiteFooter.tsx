@@ -96,6 +96,8 @@ export async function SiteFooter() {
       <div className="home-footer__bottom">
         <span>© {currentYear} Адамант Строй</span>
         <span>Проектирование и строительство частных домов под ключ</span>
+        <Link href="/privacy">Политика обработки данных</Link>
+        <Link href="/consent">Согласие на обработку данных</Link>
       </div>
     </footer>
   );

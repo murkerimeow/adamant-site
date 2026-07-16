@@ -501,7 +501,7 @@ export default async function CatalogItemPage({
                 <input name="privacy" type="checkbox" required />
                 <span>
                   Согласен на{" "}
-                  <Link href="/privacy">обработку персональных данных</Link>
+                  <Link href="/consent">обработку персональных данных</Link>
                 </span>
               </label>
 
